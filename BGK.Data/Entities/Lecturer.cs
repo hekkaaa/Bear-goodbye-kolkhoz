@@ -26,5 +26,7 @@ namespace BearGoodbyeKolkhozProject.Data.Entities
         public List<Training> Trainings { get; set; }
         public List<Event> Events { get; set; }
 
+        public List<LecturerReview> LecturerReviews { get; set; }
+
     }
 }
