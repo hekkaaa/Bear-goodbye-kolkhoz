@@ -16,7 +16,7 @@ namespace BearGoodbyeKolkhozProject.Data.Entities
 
         public string Name { get; set; }
 
-        public string SurName { get; set; }
+        public string LastName { get; set; }
 
         public Gender Gender { get; set; }
 
