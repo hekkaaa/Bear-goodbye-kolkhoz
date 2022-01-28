@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BGK.Data.Entities
+namespace BearGoodbyeKolkhozProject.Data.Entities
 {
+    [Table("Event")]
     public  class Event
     {
         public int Id { get; set; }

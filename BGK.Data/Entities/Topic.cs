@@ -1,16 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BGK.Data.Entities
+namespace BearGoodbyeKolkhozProject.Data.Entities
 {
+    [Table("Topic")]
     public class Topic
     {
         public int Id { get; set; }
 
         public string Name { get; set; }
 
+        //public Client Client { get; set; }
+
+        
     }
 }

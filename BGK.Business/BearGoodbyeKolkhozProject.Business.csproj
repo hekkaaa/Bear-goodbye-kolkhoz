@@ -7,9 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="EntityFramework" Version="6.4.4" />
-    <PackageReference Include="System.IO" Version="4.3.0" />
-    <PackageReference Include="System.Memory" Version="4.5.4" />
+    <ProjectReference Include="..\BGK.Data\BearGoodbyeKolkhozProject.Data.csproj" />
   </ItemGroup>
 
 </Project>
