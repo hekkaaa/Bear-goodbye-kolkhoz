@@ -21,5 +21,7 @@ namespace BearGoodbyeKolkhozProject.Data.Entities
 
         public string BirthDay { get; set; }
 
+        public bool IsDeleted { get; set; }
+
     }
 }
