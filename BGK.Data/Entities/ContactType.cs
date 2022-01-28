@@ -15,5 +15,7 @@ namespace BearGoodbyeKolkhozProject.Data.Entities
         public string Name { get; set; }
 
         public ContactLecturer ContactLecturer { get; set; }
+
+        public bool IsDeleted { get; set; }
     }
 }
