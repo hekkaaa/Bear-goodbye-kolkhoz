@@ -29,6 +29,8 @@ namespace BearGoodbyeKolkhozProject.Data.Entities
 
         public string Password { get; set; }
 
+        public bool IsDeleted { get; set; }
+
         //public List<Topic> topic { get; set; }
 
     }
