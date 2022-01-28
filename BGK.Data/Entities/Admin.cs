@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BearGoodbyeKolkhozProject.Data.Enums;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -16,7 +17,7 @@ namespace BearGoodbyeKolkhozProject.Data.Entities
 
         public string Surname { get; set; }
 
-        public bool Gender { get; set; }
+        public Gender Gender { get; set; }
 
         public string BirhtDay { get; set; }
 
