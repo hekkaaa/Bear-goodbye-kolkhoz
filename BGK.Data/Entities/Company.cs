@@ -17,9 +17,9 @@ namespace BearGoodbyeKolkhozProject.Data.Entities
 
         
         [StringLength(10)]
-        public int TIN { get; set; }
+        public int Tin { get; set; }
 
-        public string Emaill { get; set; }
+        public string Email { get; set; }
 
         [StringLength(20)]
         public string PhoneNumber { get; set; }

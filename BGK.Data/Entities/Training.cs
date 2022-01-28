@@ -18,5 +18,14 @@ namespace BearGoodbyeKolkhozProject.Data.Entities
 
         public bool IsDeleted { get; set; }
 
+        public int MembersCount { get; set; }
+
+        public int Duration { get; set; }
+
+        public int Price { get; set; }
+
+        public List<TrainingReview> TrainingReviews { get; set; }
+
+
     }
 }

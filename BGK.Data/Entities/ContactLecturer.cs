@@ -12,7 +12,7 @@ namespace BearGoodbyeKolkhozProject.Data.Entities
     {
         public int Id { get; set; }
 
-        public List<ContactType> ContactType { get; set; } 
+        public ContactType ContactType { get; set; } 
 
         public Lecturer Lecturer { get; set; }
 

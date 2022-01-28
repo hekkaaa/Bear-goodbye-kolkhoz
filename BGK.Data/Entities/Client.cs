@@ -16,7 +16,7 @@ namespace BearGoodbyeKolkhozProject.Data.Entities
 
         public string Name { get; set; }
 
-        public string SurnName { get; set; }
+        public string SurName { get; set; }
 
         public Gender Gender { get; set; }
 
@@ -31,7 +31,7 @@ namespace BearGoodbyeKolkhozProject.Data.Entities
 
         public bool IsDeleted { get; set; }
 
-        //public List<Topic> topic { get; set; }
-
+        public List<TrainingReview> TrainingReviews { get; set; }
+        public List<LecturerReview> LecturerReviews { get; set; }
     }
 }

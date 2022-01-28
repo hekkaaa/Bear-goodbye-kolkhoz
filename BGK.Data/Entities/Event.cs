@@ -12,18 +12,14 @@ namespace BearGoodbyeKolkhozProject.Data.Entities
     {
         public int Id { get; set; }
 
-        public Admin Admin { get; set; }
-
+        
         public Lecturer Lecturer { get; set; }
 
         public Classroom Classroom { get; set; }
 
-        public int Members { get; set; }
-
-        public int Duration { get; set; }
-
         public string StartDate { get; set; }
 
-        public int Price { get; set; }
+        public List<Client> Clients { get; set; }
+
     }
 }

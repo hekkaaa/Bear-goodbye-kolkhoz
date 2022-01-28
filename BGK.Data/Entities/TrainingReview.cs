@@ -15,11 +15,10 @@ namespace BearGoodbyeKolkhozProject.Data.Entities
 
         public Client Client { get; set; }
 
-        public Event Event { get; set; }
+        public Training Training { get; set; }
 
         public string Text { get; set; }
 
-        [StringLength(2)]
         public int Mark { get; set; }
     }
 }

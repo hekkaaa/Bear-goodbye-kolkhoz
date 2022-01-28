@@ -7,15 +7,12 @@ using System.Threading.Tasks;
 
 namespace BearGoodbyeKolkhozProject.Data.Entities
 {
-    [Table("Classroom")]
-    public class Classroom
+
+    public enum ContactType
     {
-        public int Id { get; set; }
+        Telegram = 1,
+        Instagram = 2,
+        Phone = 3,
 
-        public int Number { get; set; }
-
-        public string City { get; set; }
-
-        public string Adres { get; set; }
     }
 }
