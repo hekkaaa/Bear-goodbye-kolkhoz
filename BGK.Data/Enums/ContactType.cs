@@ -13,6 +13,9 @@ namespace BearGoodbyeKolkhozProject.Data.Entities
         Telegram = 1,
         Instagram = 2,
         Phone = 3,
-
+        Vk = 4,
+        Facebook = 5,
+        Whatsapp = 6,
+        Email = 7
     }
 }

@@ -19,6 +19,8 @@ namespace BearGoodbyeKolkhozProject.Data.Entities
 
         public string StartDate { get; set; }
 
+        public Training Training { get; set; }
+
         public List<Client> Clients { get; set; }
 
     }
