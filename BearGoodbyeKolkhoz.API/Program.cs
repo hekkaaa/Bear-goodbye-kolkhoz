@@ -16,6 +16,14 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+using (BearGoodbyeKolkhozProject.Data.ConnectDb.ApplicationContext db = new BearGoodbyeKolkhozProject.Data.ConnectDb.ApplicationContext()){
+
+    var qr = new BearGoodbyeKolkhozProject.Data.Entities.Classroom() { City = "Гена", Address = "переулог Мопса", ITSM = "Понасеков" };
+    db.Classroom.Add(qr);
+    db.SaveChanges();
+    db.Dispose();
+}
+
 app.UseHttpsRedirection();
 
 app.UseAuthorization();

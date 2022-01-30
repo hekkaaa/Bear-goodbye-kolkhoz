@@ -17,5 +17,6 @@ namespace BearGoodbyeKolkhozProject.Data.Entities
         public string City { get; set; }
 
         public string Address { get; set; }
+
     }
 }
