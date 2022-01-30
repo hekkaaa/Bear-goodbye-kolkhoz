@@ -23,10 +23,10 @@ namespace BearGoodbyeKolkhozProject.Data.Entities
 
         public bool IsDeleted { get; set; }
 
-        public List<Training> Trainings { get; set; }
-        public List<Event> Events { get; set; }
+        public virtual ICollection<Training> Trainings { get; set; }
+        public virtual ICollection<Event> Events { get; set; }
 
-        public List<LecturerReview> LecturerReviews { get; set; }
+        public virtual ICollection<LecturerReview> LecturerReviews { get; set; }
 
     }
 }

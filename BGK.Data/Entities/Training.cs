@@ -24,8 +24,8 @@ namespace BearGoodbyeKolkhozProject.Data.Entities
 
         public int Price { get; set; }
 
-        public List<TrainingReview> TrainingReviews { get; set; }
-        public List<Topic> Topics { get; set; }
+        public virtual ICollection<TrainingReview> TrainingReviews { get; set; }
+        public virtual ICollection<Topic> Topics { get; set; }
 
 
     }

@@ -17,7 +17,7 @@ namespace BearGoodbyeKolkhozProject.Data.Entities
 
         public Lecturer Lecturer { get; set; }
 
-        public string  Text { get; set; }
+        public string Text { get; set; }
 
         [StringLength(2)]
         public int Mark { get; set; }

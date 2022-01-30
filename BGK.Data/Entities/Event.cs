@@ -21,7 +21,7 @@ namespace BearGoodbyeKolkhozProject.Data.Entities
 
         public Training Training { get; set; }
 
-        public List<Client> Clients { get; set; }
+        public ICollection<Client> Clients { get; set; }
 
     }
 }
