@@ -6,6 +6,16 @@ namespace BearGoodbyeKolkhozProject.Data.ConnectDb
     {
         public DbSet<Entities.Admin> Admin { get; set; } = null!;
         public DbSet<Entities.Classroom> Classroom { get; set; }
+        public DbSet<Entities.Client> Client { get; set; } = null!;
+        public DbSet<Entities.Company> Company { get; set; }
+        public DbSet<Entities.ContactLecturer> ContactLecturer { get; set; }
+        public DbSet<Entities.Event> Event { get; set; }
+        public DbSet<Entities.Lecturer> Lecturer { get; set; }
+        public DbSet<Entities.LecturerReview> LecturerReview { get; set; }
+        public DbSet<Entities.Topic> Topic { get; set; }
+        public DbSet<Entities.Training> Training { get; set; }
+        public DbSet<Entities.TrainingClient> TrainingClient { get; set; }
+        public DbSet<Entities.TrainingReview> TrainingReview { get; set; }
 
         public ApplicationContext()
         {
