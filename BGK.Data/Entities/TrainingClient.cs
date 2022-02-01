@@ -12,9 +12,9 @@ namespace BearGoodbyeKolkhozProject.Data.Entities
     {
         public int Id { get; set; }
 
-        public Client Client { get; set; }
+        public virtual Client Client { get; set; }
 
-        public Event Event { get; set; }
+        public virtual Event Event { get; set; }
 
 
     }

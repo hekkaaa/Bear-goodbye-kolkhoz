@@ -15,17 +15,15 @@ namespace BearGoodbyeKolkhozProject.Data.Entities
 
         public string Name { get; set; }
 
-        
-        [StringLength(10)]
         public int Tin { get; set; }
 
         public string Email { get; set; }
 
-        [StringLength(20)]
-        public string PhoneNumber { get; set; }
+        public int PhoneNumber { get; set; }
 
         public string Password { get; set; }
 
-
+        public virtual ICollection<TrainingReview> TrainingReviews { get; set; }
+        public virtual ICollection<LecturerReview> LecturerReviews { get; set; }
     }
 }

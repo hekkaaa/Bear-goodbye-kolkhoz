@@ -1,21 +1,22 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using BearGoodbyeKolkhozProject.Data.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace BearGoodbyeKolkhozProject.Data.ConnectDb
 {
     public class ApplicationContext : DbContext
     {
-        public DbSet<Entities.Admin> Admin { get; set; } = null!;
-        public DbSet<Entities.Classroom> Classroom { get; set; }
-        public DbSet<Entities.Client> Client { get; set; } = null!;
-        public DbSet<Entities.Company> Company { get; set; }
-        public DbSet<Entities.ContactLecturer> ContactLecturer { get; set; }
-        public DbSet<Entities.Event> Event { get; set; }
-        public DbSet<Entities.Lecturer> Lecturer { get; set; }
-        public DbSet<Entities.LecturerReview> LecturerReview { get; set; }
-        public DbSet<Entities.Topic> Topic { get; set; }
-        public DbSet<Entities.Training> Training { get; set; }
-        public DbSet<Entities.TrainingClient> TrainingClient { get; set; }
-        public DbSet<Entities.TrainingReview> TrainingReview { get; set; }
+        public DbSet<Admin> Admin { get; set; } = null!;
+        public DbSet<Classroom> Classroom { get; set; }
+        public DbSet<Client> Client { get; set; } = null!;
+        public DbSet<Company> Company { get; set; }
+        public DbSet<ContactLecturer> ContactLecturer { get; set; }
+        public DbSet<Event> Event { get; set; }
+        public DbSet<Lecturer> Lecturer { get; set; }
+        public DbSet<LecturerReview> LecturerReview { get; set; }
+        public DbSet<Topic> Topic { get; set; }
+        public DbSet<Training> Training { get; set; }
+        public DbSet<TrainingClient> TrainingClient { get; set; }
+        public DbSet<TrainingReview> TrainingReview { get; set; }
 
         public ApplicationContext()
         {

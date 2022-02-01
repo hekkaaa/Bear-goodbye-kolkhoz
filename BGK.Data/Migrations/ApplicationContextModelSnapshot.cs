@@ -22,7 +22,7 @@ namespace BearGoodbyeKolkhozProject.Data.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("BearGoodbyeKolkhozProject.Data.Entities.Admin", b =>
+            modelBuilder.Entity("BearGoodbyeKolkhozProject.Data.Admin", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -61,7 +61,7 @@ namespace BearGoodbyeKolkhozProject.Data.Migrations
                     b.ToTable("Admin");
                 });
 
-            modelBuilder.Entity("BearGoodbyeKolkhozProject.Data.Entities.Classroom", b =>
+            modelBuilder.Entity("BearGoodbyeKolkhozProject.Data.Classroom", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -85,7 +85,7 @@ namespace BearGoodbyeKolkhozProject.Data.Migrations
                     b.ToTable("Classroom");
                 });
 
-            modelBuilder.Entity("BearGoodbyeKolkhozProject.Data.Entities.Client", b =>
+            modelBuilder.Entity("BearGoodbyeKolkhozProject.Data.Client", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -133,7 +133,7 @@ namespace BearGoodbyeKolkhozProject.Data.Migrations
                     b.ToTable("Client");
                 });
 
-            modelBuilder.Entity("BearGoodbyeKolkhozProject.Data.Entities.Company", b =>
+            modelBuilder.Entity("BearGoodbyeKolkhozProject.Data.Company", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -167,7 +167,7 @@ namespace BearGoodbyeKolkhozProject.Data.Migrations
                     b.ToTable("Company");
                 });
 
-            modelBuilder.Entity("BearGoodbyeKolkhozProject.Data.Entities.ContactLecturer", b =>
+            modelBuilder.Entity("BearGoodbyeKolkhozProject.Data.ContactLecturer", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -192,7 +192,7 @@ namespace BearGoodbyeKolkhozProject.Data.Migrations
                     b.ToTable("ContactLecturer");
                 });
 
-            modelBuilder.Entity("BearGoodbyeKolkhozProject.Data.Entities.Event", b =>
+            modelBuilder.Entity("BearGoodbyeKolkhozProject.Data.Event", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -219,7 +219,7 @@ namespace BearGoodbyeKolkhozProject.Data.Migrations
                     b.ToTable("Event");
                 });
 
-            modelBuilder.Entity("BearGoodbyeKolkhozProject.Data.Entities.Lecturer", b =>
+            modelBuilder.Entity("BearGoodbyeKolkhozProject.Data.Lecturer", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -250,7 +250,7 @@ namespace BearGoodbyeKolkhozProject.Data.Migrations
                     b.ToTable("Lecturer");
                 });
 
-            modelBuilder.Entity("BearGoodbyeKolkhozProject.Data.Entities.LecturerReview", b =>
+            modelBuilder.Entity("BearGoodbyeKolkhozProject.Data.LecturerReview", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -281,7 +281,7 @@ namespace BearGoodbyeKolkhozProject.Data.Migrations
                     b.ToTable("LecturerReview");
                 });
 
-            modelBuilder.Entity("BearGoodbyeKolkhozProject.Data.Entities.Topic", b =>
+            modelBuilder.Entity("BearGoodbyeKolkhozProject.Data.Topic", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -298,7 +298,7 @@ namespace BearGoodbyeKolkhozProject.Data.Migrations
                     b.ToTable("Topic");
                 });
 
-            modelBuilder.Entity("BearGoodbyeKolkhozProject.Data.Entities.Training", b =>
+            modelBuilder.Entity("BearGoodbyeKolkhozProject.Data.Training", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -334,7 +334,7 @@ namespace BearGoodbyeKolkhozProject.Data.Migrations
                     b.ToTable("Training");
                 });
 
-            modelBuilder.Entity("BearGoodbyeKolkhozProject.Data.Entities.TrainingClient", b =>
+            modelBuilder.Entity("BearGoodbyeKolkhozProject.Data.TrainingClient", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -357,7 +357,7 @@ namespace BearGoodbyeKolkhozProject.Data.Migrations
                     b.ToTable("TrainingClient");
                 });
 
-            modelBuilder.Entity("BearGoodbyeKolkhozProject.Data.Entities.TrainingReview", b =>
+            modelBuilder.Entity("BearGoodbyeKolkhozProject.Data.TrainingReview", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -387,16 +387,16 @@ namespace BearGoodbyeKolkhozProject.Data.Migrations
                     b.ToTable("TrainingReview");
                 });
 
-            modelBuilder.Entity("BearGoodbyeKolkhozProject.Data.Entities.Client", b =>
+            modelBuilder.Entity("BearGoodbyeKolkhozProject.Data.Client", b =>
                 {
-                    b.HasOne("BearGoodbyeKolkhozProject.Data.Entities.Event", null)
+                    b.HasOne("BearGoodbyeKolkhozProject.Data.Event", null)
                         .WithMany("Clients")
                         .HasForeignKey("EventId");
                 });
 
-            modelBuilder.Entity("BearGoodbyeKolkhozProject.Data.Entities.ContactLecturer", b =>
+            modelBuilder.Entity("BearGoodbyeKolkhozProject.Data.ContactLecturer", b =>
                 {
-                    b.HasOne("BearGoodbyeKolkhozProject.Data.Entities.Lecturer", "Lecturer")
+                    b.HasOne("BearGoodbyeKolkhozProject.Data.Lecturer", "Lecturer")
                         .WithMany()
                         .HasForeignKey("LecturerId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -405,15 +405,15 @@ namespace BearGoodbyeKolkhozProject.Data.Migrations
                     b.Navigation("Lecturer");
                 });
 
-            modelBuilder.Entity("BearGoodbyeKolkhozProject.Data.Entities.Event", b =>
+            modelBuilder.Entity("BearGoodbyeKolkhozProject.Data.Event", b =>
                 {
-                    b.HasOne("BearGoodbyeKolkhozProject.Data.Entities.Classroom", "Classroom")
+                    b.HasOne("BearGoodbyeKolkhozProject.Data.Classroom", "Classroom")
                         .WithMany()
                         .HasForeignKey("ClassroomId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("BearGoodbyeKolkhozProject.Data.Entities.Lecturer", "Lecturer")
+                    b.HasOne("BearGoodbyeKolkhozProject.Data.Lecturer", "Lecturer")
                         .WithMany("Events")
                         .HasForeignKey("LecturerId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -424,15 +424,15 @@ namespace BearGoodbyeKolkhozProject.Data.Migrations
                     b.Navigation("Lecturer");
                 });
 
-            modelBuilder.Entity("BearGoodbyeKolkhozProject.Data.Entities.LecturerReview", b =>
+            modelBuilder.Entity("BearGoodbyeKolkhozProject.Data.LecturerReview", b =>
                 {
-                    b.HasOne("BearGoodbyeKolkhozProject.Data.Entities.Client", "Client")
+                    b.HasOne("BearGoodbyeKolkhozProject.Data.Client", "Client")
                         .WithMany("LecturerReviews")
                         .HasForeignKey("ClientId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("BearGoodbyeKolkhozProject.Data.Entities.Lecturer", "Lecturer")
+                    b.HasOne("BearGoodbyeKolkhozProject.Data.Lecturer", "Lecturer")
                         .WithMany("LecturerReviews")
                         .HasForeignKey("LecturerId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -443,22 +443,22 @@ namespace BearGoodbyeKolkhozProject.Data.Migrations
                     b.Navigation("Lecturer");
                 });
 
-            modelBuilder.Entity("BearGoodbyeKolkhozProject.Data.Entities.Training", b =>
+            modelBuilder.Entity("BearGoodbyeKolkhozProject.Data.Training", b =>
                 {
-                    b.HasOne("BearGoodbyeKolkhozProject.Data.Entities.Lecturer", null)
+                    b.HasOne("BearGoodbyeKolkhozProject.Data.Lecturer", null)
                         .WithMany("Trainings")
                         .HasForeignKey("LecturerId");
                 });
 
-            modelBuilder.Entity("BearGoodbyeKolkhozProject.Data.Entities.TrainingClient", b =>
+            modelBuilder.Entity("BearGoodbyeKolkhozProject.Data.TrainingClient", b =>
                 {
-                    b.HasOne("BearGoodbyeKolkhozProject.Data.Entities.Client", "Client")
+                    b.HasOne("BearGoodbyeKolkhozProject.Data.Client", "Client")
                         .WithMany()
                         .HasForeignKey("ClientId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("BearGoodbyeKolkhozProject.Data.Entities.Event", "Event")
+                    b.HasOne("BearGoodbyeKolkhozProject.Data.Event", "Event")
                         .WithMany()
                         .HasForeignKey("EventId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -469,15 +469,15 @@ namespace BearGoodbyeKolkhozProject.Data.Migrations
                     b.Navigation("Event");
                 });
 
-            modelBuilder.Entity("BearGoodbyeKolkhozProject.Data.Entities.TrainingReview", b =>
+            modelBuilder.Entity("BearGoodbyeKolkhozProject.Data.TrainingReview", b =>
                 {
-                    b.HasOne("BearGoodbyeKolkhozProject.Data.Entities.Client", "Client")
+                    b.HasOne("BearGoodbyeKolkhozProject.Data.Client", "Client")
                         .WithMany("TrainingReviews")
                         .HasForeignKey("ClientId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("BearGoodbyeKolkhozProject.Data.Entities.Training", "Training")
+                    b.HasOne("BearGoodbyeKolkhozProject.Data.Training", "Training")
                         .WithMany("TrainingReviews")
                         .HasForeignKey("TrainingId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -488,19 +488,19 @@ namespace BearGoodbyeKolkhozProject.Data.Migrations
                     b.Navigation("Training");
                 });
 
-            modelBuilder.Entity("BearGoodbyeKolkhozProject.Data.Entities.Client", b =>
+            modelBuilder.Entity("BearGoodbyeKolkhozProject.Data.Client", b =>
                 {
                     b.Navigation("LecturerReviews");
 
                     b.Navigation("TrainingReviews");
                 });
 
-            modelBuilder.Entity("BearGoodbyeKolkhozProject.Data.Entities.Event", b =>
+            modelBuilder.Entity("BearGoodbyeKolkhozProject.Data.Event", b =>
                 {
                     b.Navigation("Clients");
                 });
 
-            modelBuilder.Entity("BearGoodbyeKolkhozProject.Data.Entities.Lecturer", b =>
+            modelBuilder.Entity("BearGoodbyeKolkhozProject.Data.Lecturer", b =>
                 {
                     b.Navigation("Events");
 
@@ -509,7 +509,7 @@ namespace BearGoodbyeKolkhozProject.Data.Migrations
                     b.Navigation("Trainings");
                 });
 
-            modelBuilder.Entity("BearGoodbyeKolkhozProject.Data.Entities.Training", b =>
+            modelBuilder.Entity("BearGoodbyeKolkhozProject.Data.Training", b =>
                 {
                     b.Navigation("TrainingReviews");
                 });

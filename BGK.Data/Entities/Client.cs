@@ -14,8 +14,10 @@ namespace BearGoodbyeKolkhozProject.Data.Entities
     {
         public int Id { get; set; }
 
+        [StringLength(40)]
         public string Name { get; set; }
 
+        [StringLength(40)]
         public string LastName { get; set; }
 
         public Gender Gender { get; set; }
@@ -24,14 +26,14 @@ namespace BearGoodbyeKolkhozProject.Data.Entities
 
         public string Email { get; set; }
 
-        [StringLength(20)]
         public int PhoneNumber { get; set; }
 
         public string Password { get; set; }
 
         public bool IsDeleted { get; set; }
 
-        public List<TrainingReview> TrainingReviews { get; set; }
-        public List<LecturerReview> LecturerReviews { get; set; }
+        public virtual ICollection<TrainingReview> TrainingReviews { get; set; }
+        public virtual ICollection<LecturerReview> LecturerReviews { get; set; }
+        public virtual ICollection<Topic> Topic { get; set; }
     }
 }
