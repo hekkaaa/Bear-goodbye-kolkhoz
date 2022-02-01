@@ -31,5 +31,6 @@ namespace BearGoodbyeKolkhozProject.Data.ConnectDb
             //"Data Source=(localdb)\mssqllocaldb;Initial Catalog=Newtest;Integrated Security=True";
             //optionsBuilder.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=Newtest;Trusted_Connection=True;");
         }
+       
     }
 }
