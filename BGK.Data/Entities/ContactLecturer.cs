@@ -14,7 +14,7 @@ namespace BearGoodbyeKolkhozProject.Data.Entities
 
         public ContactType ContactType { get; set; } 
 
-        public Lecturer Lecturer { get; set; }
+        public virtual Lecturer Lecturer { get; set; }
 
         public string Value { get; set; }
     }

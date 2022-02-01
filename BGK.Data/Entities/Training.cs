@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
@@ -12,8 +13,10 @@ namespace BearGoodbyeKolkhozProject.Data.Entities
     {
         public int Id { get; set; }
 
+        [StringLength(40)]
         public string? Name { get; set; }
 
+        [StringLength(500)]
         public string? Description { get; set; }
 
         public bool IsDeleted { get; set; }
@@ -24,9 +27,8 @@ namespace BearGoodbyeKolkhozProject.Data.Entities
 
         public int Price { get; set; }
 
-        public List<TrainingReview> TrainingReviews { get; set; }
-        public List<Topic> Topics { get; set; }
-
+        public virtual ICollection<TrainingReview> TrainingReviews { get; set; }
+        public virtual ICollection<Topic> Topic { get; set; }
 
     }
 }
