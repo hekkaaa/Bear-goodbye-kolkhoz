@@ -14,8 +14,8 @@ namespace BearGoodbyeKolkhozProject.Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false),
+                    LastName = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false),
                     Gender = table.Column<int>(type: "int", nullable: false),
                     BirthDay = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -33,9 +33,9 @@ namespace BearGoodbyeKolkhozProject.Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    MembersCount = table.Column<int>(type: "int", nullable: false),
                     City = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    MembersCount = table.Column<int>(type: "int", nullable: false)
+                    Address = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -49,9 +49,9 @@ namespace BearGoodbyeKolkhozProject.Data.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Tin = table.Column<int>(type: "int", maxLength: 10, nullable: false),
+                    Tin = table.Column<int>(type: "int", nullable: false),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PhoneNumber = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
+                    PhoneNumber = table.Column<int>(type: "int", nullable: false),
                     Password = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
@@ -65,8 +65,8 @@ namespace BearGoodbyeKolkhozProject.Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false),
+                    LastName = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false),
                     Gender = table.Column<int>(type: "int", nullable: false),
                     BirthDay = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false)
@@ -98,30 +98,6 @@ namespace BearGoodbyeKolkhozProject.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Training",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    MembersCount = table.Column<int>(type: "int", nullable: false),
-                    Duration = table.Column<int>(type: "int", nullable: false),
-                    Price = table.Column<int>(type: "int", nullable: false),
-                    LecturerId = table.Column<int>(type: "int", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Training", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Training_Lecturer_LecturerId",
-                        column: x => x.LecturerId,
-                        principalTable: "Lecturer",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Event",
                 columns: table => new
                 {
@@ -130,7 +106,6 @@ namespace BearGoodbyeKolkhozProject.Data.Migrations
                     LecturerId = table.Column<int>(type: "int", nullable: false),
                     ClassroomId = table.Column<int>(type: "int", nullable: false),
                     StartDate = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    TrainingId = table.Column<int>(type: "int", nullable: false),
                     CompanyId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
@@ -153,30 +128,29 @@ namespace BearGoodbyeKolkhozProject.Data.Migrations
                         principalTable: "Lecturer",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Event_Training_TrainingId",
-                        column: x => x.TrainingId,
-                        principalTable: "Training",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Topic",
+                name: "Training",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    TrainingId = table.Column<int>(type: "int", nullable: true)
+                    Name = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
+                    MembersCount = table.Column<int>(type: "int", nullable: false),
+                    Duration = table.Column<int>(type: "int", nullable: false),
+                    Price = table.Column<int>(type: "int", nullable: false),
+                    LecturerId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Topic", x => x.Id);
+                    table.PrimaryKey("PK_Training", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Topic_Training_TrainingId",
-                        column: x => x.TrainingId,
-                        principalTable: "Training",
+                        name: "FK_Training_Lecturer_LecturerId",
+                        column: x => x.LecturerId,
+                        principalTable: "Lecturer",
                         principalColumn: "Id");
                 });
 
@@ -186,12 +160,12 @@ namespace BearGoodbyeKolkhozProject.Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false),
+                    LastName = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false),
                     Gender = table.Column<int>(type: "int", nullable: false),
                     BirthDay = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PhoneNumber = table.Column<int>(type: "int", maxLength: 20, nullable: false),
+                    PhoneNumber = table.Column<int>(type: "int", nullable: false),
                     Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
                     EventId = table.Column<int>(type: "int", nullable: true)
@@ -215,7 +189,8 @@ namespace BearGoodbyeKolkhozProject.Data.Migrations
                     ClientId = table.Column<int>(type: "int", nullable: false),
                     LecturerId = table.Column<int>(type: "int", nullable: false),
                     Text = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Mark = table.Column<int>(type: "int", maxLength: 2, nullable: false)
+                    Mark = table.Column<int>(type: "int", nullable: false),
+                    CompanyId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -227,11 +202,41 @@ namespace BearGoodbyeKolkhozProject.Data.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
+                        name: "FK_LecturerReview_Company_CompanyId",
+                        column: x => x.CompanyId,
+                        principalTable: "Company",
+                        principalColumn: "Id");
+                    table.ForeignKey(
                         name: "FK_LecturerReview_Lecturer_LecturerId",
                         column: x => x.LecturerId,
                         principalTable: "Lecturer",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Topic",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    ClientId = table.Column<int>(type: "int", nullable: true),
+                    TrainingId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Topic", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Topic_Client_ClientId",
+                        column: x => x.ClientId,
+                        principalTable: "Client",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Topic_Training_TrainingId",
+                        column: x => x.TrainingId,
+                        principalTable: "Training",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -242,8 +247,9 @@ namespace BearGoodbyeKolkhozProject.Data.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ClientId = table.Column<int>(type: "int", nullable: false),
                     TrainingId = table.Column<int>(type: "int", nullable: false),
-                    Text = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Mark = table.Column<int>(type: "int", nullable: false)
+                    Text = table.Column<string>(type: "nvarchar(320)", maxLength: 320, nullable: false),
+                    Mark = table.Column<int>(type: "int", nullable: false),
+                    CompanyId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -254,6 +260,11 @@ namespace BearGoodbyeKolkhozProject.Data.Migrations
                         principalTable: "Client",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_TrainingReview_Company_CompanyId",
+                        column: x => x.CompanyId,
+                        principalTable: "Company",
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_TrainingReview_Training_TrainingId",
                         column: x => x.TrainingId,
@@ -318,19 +329,24 @@ namespace BearGoodbyeKolkhozProject.Data.Migrations
                 column: "LecturerId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Event_TrainingId",
-                table: "Event",
-                column: "TrainingId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_LecturerReview_ClientId",
                 table: "LecturerReview",
                 column: "ClientId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_LecturerReview_CompanyId",
+                table: "LecturerReview",
+                column: "CompanyId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_LecturerReview_LecturerId",
                 table: "LecturerReview",
                 column: "LecturerId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Topic_ClientId",
+                table: "Topic",
+                column: "ClientId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Topic_TrainingId",
@@ -346,6 +362,11 @@ namespace BearGoodbyeKolkhozProject.Data.Migrations
                 name: "IX_TrainingReview_ClientId",
                 table: "TrainingReview",
                 column: "ClientId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TrainingReview_CompanyId",
+                table: "TrainingReview",
+                column: "CompanyId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_TrainingReview_TrainingId",
@@ -374,6 +395,9 @@ namespace BearGoodbyeKolkhozProject.Data.Migrations
                 name: "Client");
 
             migrationBuilder.DropTable(
+                name: "Training");
+
+            migrationBuilder.DropTable(
                 name: "Event");
 
             migrationBuilder.DropTable(
@@ -381,9 +405,6 @@ namespace BearGoodbyeKolkhozProject.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "Company");
-
-            migrationBuilder.DropTable(
-                name: "Training");
 
             migrationBuilder.DropTable(
                 name: "Lecturer");
