@@ -15,7 +15,6 @@ namespace BearGoodbyeKolkhozProject.Data.ConnectDb
         public DbSet<LecturerReview> LecturerReview { get; set; }
         public DbSet<Topic> Topic { get; set; }
         public DbSet<Training> Training { get; set; }
-        public DbSet<TrainingClient> TrainingClient { get; set; }
         public DbSet<TrainingReview> TrainingReview { get; set; }
 
         public ApplicationContext()
