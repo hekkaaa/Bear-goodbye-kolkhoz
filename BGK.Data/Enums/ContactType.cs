@@ -11,11 +11,9 @@ namespace BearGoodbyeKolkhozProject.Data.Entities
     public enum ContactType
     {
         Telegram = 1,
-        Instagram = 2,
-        Phone = 3,
-        Vk = 4,
-        Facebook = 5,
-        Whatsapp = 6,
-        Email = 7
+        Instagram,
+        VK,
+        WhatsApp,
+        Facebook
     }
 }

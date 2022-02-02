@@ -1,6 +1,7 @@
 ﻿using BearGoodbyeKolkhozProject.Data.Enums;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
@@ -12,9 +13,9 @@ namespace BearGoodbyeKolkhozProject.Data.Entities
     public class Admin
     {
         public int Id { get; set; }
-
+        [StringLength(40)]
         public string Name { get; set; }
-
+        [StringLength(40)]
         public string LastName { get; set; }
 
         public Gender Gender { get; set; }
