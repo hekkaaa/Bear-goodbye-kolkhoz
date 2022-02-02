@@ -22,7 +22,7 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
            _applicationContext.Training.FirstOrDefault(t => t.Id == id);
 
         public List<Training> GetTrainingsAll() =>
-            _applicationContext.Training.ToList<Training>();
+            _applicationContext.Training.Where(t => t.IsDeleted).ToList<Training>();
 
         public List<Training> GetDeletedTrainings =>
             _applicationContext.Training.Where(t => !t.IsDeleted).ToList<Training>();
