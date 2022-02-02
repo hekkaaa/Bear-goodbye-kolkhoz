@@ -22,7 +22,6 @@ namespace BearGoodbyeKolkhozProject.Business.Configuration
 
         public static Mapper Custom { get; set; }
 
-
         private static void InitCustomMapper()
         {
             _instance = new Mapper(new MapperConfiguration(cfg =>

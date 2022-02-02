@@ -9,21 +9,11 @@ namespace BearGoodbyeKolkhozProject.Business.Models
 {
     public class TrainingReviewModel
     {
-        private TrainingReviewRepository _repository;
-        public TrainingReviewModel()
-        {
-
-        }
-
-        public void UpdateTrainingReview(int id, TrainingModel trainingModel)
-        {
-            var training = _repository.GetTrainingReviewById(id);
-            
-            if (training == null)
-                throw new Exception("Такого обзора на тренинг не найдено!");
-
-            
-        }
+        public int Id { get; set; }
+        public virtual ClientModel Client { get; set; }
+        public virtual TrainingModel Training { get; set; }
+        public string Text { get; set; }
+        public int Mark { get; set; }
 
     }
 }

@@ -21,7 +21,7 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
         public TrainingReview GetTrainingReviewById(int id) =>
             _applicationContext.TrainingReview.FirstOrDefault(tr => tr.Id == id);
 
-        public List<TrainingReview> GetTrainingReviewsAll =>
+        public List<TrainingReview> GetTrainingReviewsAll() =>
             _applicationContext.TrainingReview.ToList();
 
         public void UpdateTrainingReview(TrainingReview trainingReview)
@@ -32,7 +32,7 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
             _applicationContext.SaveChanges();
         }
 
-        public void AddTrainingReviw(TrainingReview trainingReview)
+        public void AddTrainingReview(TrainingReview trainingReview)
         {
             _applicationContext.TrainingReview.Add(trainingReview);
             _applicationContext.SaveChanges();
