@@ -46,5 +46,12 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
             entity.IsDeleted = true;
             _context.SaveChanges();
         }
+
+        public void RecoverLecturerById(int id)
+        {
+            var entity = _context.Lecturer.Find(id);
+            entity.IsDeleted = false;
+            _context.SaveChanges();
+        }
     }
 }
