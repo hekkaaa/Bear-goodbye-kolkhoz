@@ -5,7 +5,7 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
     public class ClassroomRepositories
     {
 
-        public Classroom GetAdminById(int id)
+        public Classroom GetClassroomById(int id)
         {
             var db = ConnectDb.Storage.GetStorage();
             var res = db.Classroom.FirstOrDefault(x => x.Id == id);
@@ -13,7 +13,7 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
             return res;
         }
 
-        public bool UpdateAdminInfo(Classroom newinfo)
+        public bool UpdateClassroomInfo(Classroom newinfo)
         {
             var db = ConnectDb.Storage.GetStorage();
             var res = db.Classroom.FirstOrDefault(x => x.Id == newinfo.Id);

@@ -4,7 +4,7 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
 {
     public class ClientRepositories
     {
-        public Client GetAdminById(int id)
+        public Client GetClientById(int id)
         {
             var db = ConnectDb.Storage.GetStorage();
             var res = db.Client.FirstOrDefault(x => x.Id == id);
@@ -12,7 +12,7 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
             return res;
         }
 
-        public bool UpdateAdminInfo(Client newinfo)
+        public bool UpdateClientInfo(Client newinfo)
         {
             var db = ConnectDb.Storage.GetStorage();
             var res = db.Client.FirstOrDefault(x => x.Id == newinfo.Id);
@@ -34,7 +34,7 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
             return true;
         }
 
-        public bool DeleteAdminById(int id)
+        public bool DeleteClientById(int id)
         {
             var db = ConnectDb.Storage.GetStorage();
             var res = db.Client.FirstOrDefault(x => x.Id == id);
