@@ -2,11 +2,6 @@
 using BearGoodbyeKolkhozProject.Business.Models;
 using BearGoodbyeKolkhozProject.Data.Entities;
 using BearGoodbyeKolkhozProject.Data.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BearGoodbyeKolkhozProject.Business.Services
 {
@@ -42,7 +37,7 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             return CustomMapper.GetInstance().Map<List<TrainingModel>>(trainingEntityList);
         }
 
-       
+
 
         public void AddTraining(TrainingModel trainingModel)
         {
