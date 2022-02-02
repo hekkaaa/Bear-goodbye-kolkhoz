@@ -16,13 +16,13 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-using (BearGoodbyeKolkhozProject.Data.ConnectDb.ApplicationContext db = new BearGoodbyeKolkhozProject.Data.ConnectDb.ApplicationContext()){
+//using (BearGoodbyeKolkhozProject.Data.ConnectDb.ApplicationContext db = new BearGoodbyeKolkhozProject.Data.ConnectDb.ApplicationContext()){
 
-    var qr = new BearGoodbyeKolkhozProject.Data.Entities.Classroom() { City = "Гена", Address = "переулог Мопса"};
-    db.Classroom.Add(qr);
-    db.SaveChanges();
-    db.Dispose();
-}
+//    var qr = new BearGoodbyeKolkhozProject.Data.Entities.Classroom() { City = "Гена", Address = "переулог Мопса"};
+//    db.Classroom.Add(qr);
+//    db.SaveChanges();
+//    db.Dispose();
+//}
 
 app.UseHttpsRedirection();
 

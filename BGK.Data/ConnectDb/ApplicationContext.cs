@@ -19,16 +19,12 @@ namespace BearGoodbyeKolkhozProject.Data.ConnectDb
 
         public ApplicationContext()
         {
-            //Database.EnsureDeleted();
             Database.EnsureCreated();
         }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            //optionsBuilder.UseSqlServer(@"Data Source=tcp:localhost,1434;Network Library=DBMSSOCN;Initial Catalog=Testmaster1;User ID=SA;Password=Qwerty123;");
-            optionsBuilder.UseSqlServer(@"Data Source=LAPTOP-6F8LE3JH\SQLEXPRESSDEV;Initial Catalog=Newtest;Integrated Security=True");
-
-            //"Data Source=(localdb)\mssqllocaldb;Initial Catalog=Newtest;Integrated Security=True";
-            //optionsBuilder.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=Newtest;Trusted_Connection=True;");
+            optionsBuilder.UseSqlServer(@"Data Source=laptop;Initial Catalog=test2;Integrated Security=True");
         }
     }
 }

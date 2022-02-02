@@ -14,7 +14,7 @@ namespace BearGoodbyeKolkhozProject.Data.ConnectDb
 
         }
 
-        public static ApplicationContext GetStorage()
+        public static ApplicationContext GetInstance()
         {
             if (_context == null)
             {
