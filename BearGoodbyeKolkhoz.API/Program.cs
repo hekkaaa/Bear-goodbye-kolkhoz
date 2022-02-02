@@ -1,4 +1,3 @@
-using BearGoodbyeKolkhozProject.Data;
 using BearGoodbyeKolkhozProject.Data.ConnectDb;
 
 var builder = WebApplication.CreateBuilder(args);
