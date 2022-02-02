@@ -12,14 +12,11 @@ namespace BearGoodbyeKolkhozProject.Data.Entities
     public  class LecturerReview
     {
         public int Id { get; set; }
-
-        public virtual Client Client { get; set; }
-
-        public virtual Lecturer Lecturer { get; set; }
-
+        [StringLength(320)]
         public string Text { get; set; }
-
         public int Mark { get; set; }
 
+        public virtual Client Client { get; set; }
+        public virtual Lecturer Lecturer { get; set; }
     }
 }
