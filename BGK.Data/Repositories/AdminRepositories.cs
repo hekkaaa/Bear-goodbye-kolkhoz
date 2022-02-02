@@ -39,5 +39,13 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
             db.SaveChanges();
             return true;
         }
+
+        public bool AddAdmin(Admin newitem)
+        {
+            var db = ConnectDb.Storage.GetStorage();
+            db.Admin.Add(newitem);
+            db.SaveChanges();
+            return true;
+        }
     }
 }
