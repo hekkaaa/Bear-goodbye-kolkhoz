@@ -16,7 +16,9 @@ namespace BearGoodbyeKolkhozProject.Data.Entities
         public virtual Company? Company { get; set; }
         public virtual Classroom Classroom { get; set; }
         public virtual Lecturer Lecturer { get; set; }
-        
+
+        public bool IsDeleted { get; set; }
+
         public virtual ICollection<Client>? Clients { get; set; }
     }
 }

@@ -8,13 +8,13 @@ namespace BearGoodbyeKolkhozProject.Data.ConnectDb
 {
     public class UnitOfWork
     {
-        private static ApplicationContext _context;
+        private static ApplicationContext? _context;
         private UnitOfWork()
         {
 
         }
 
-        public static ApplicationContext GetInstance()
+        public static  ApplicationContext GetInstance()
         {
             if (_context == null)
             {
@@ -22,5 +22,7 @@ namespace BearGoodbyeKolkhozProject.Data.ConnectDb
             }
             return _context;
         }
+
+       
     }
 }

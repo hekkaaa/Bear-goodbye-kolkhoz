@@ -6,9 +6,9 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
     [Route("api/[conroller]")]
     public class EventController : Controller
     {
-        public ActionResult Index()
+        public ActionResult AddEvent()
         {
-            return View();
+            return NoContent();
         }
 
 

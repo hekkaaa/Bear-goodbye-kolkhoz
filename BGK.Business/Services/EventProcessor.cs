@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BearGoodbyeKolkhozProject.Data.Repo
+namespace BearGoodbyeKolkhozProject.Business.Processor
 {
-    public class EventRepository
+    public class EventProcessor
     {
 
     }

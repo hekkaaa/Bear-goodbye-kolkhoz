@@ -16,10 +16,8 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
          [HttpPost]
          public ActionResult AddCompany()
          {
-            //var company = _companyService.Add();
-
-            //return StatusCode(StatusCodes.Status201Created, new Company());
-         }
+            return NoContent();
+        }
         
     }
 }
