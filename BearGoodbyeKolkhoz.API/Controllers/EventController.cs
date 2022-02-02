@@ -6,6 +6,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
     [Route("api/[conroller]")]
     public class EventController : Controller
     {
+        [HttpPost]
         public ActionResult AddEvent()
         {
             return NoContent();

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using BearGoodbyeKolkhozProject.Data.Entities;
+using Microsoft.AspNetCore.Mvc;
 
 namespace BearGoodbyeKolkhozProject.API.Controllers
 {
@@ -6,18 +7,23 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
     [Route("api/[conroller]")]
     public class CompanyController : Controller
     {       
-        
+        //api/Company/2
          [HttpGet("{id}")]
-         public ActionResult GetCompanyById(int id)
+         public ActionResult<Company> GetCompanyById(int id)
          {
-            return NoContent();
+            return Ok();
          }
 
          [HttpPost]
-         public ActionResult AddCompany()
+         public ActionResult<Company> AddCompany(int id)
          {
+            return StatusCode(StatusCodes.Status201Created, new Company());
+         }
+        
+        [HttpDelete]
+        public ActionResult DeleteCompany(int id)
+        {
             return NoContent();
         }
-        
     }
 }

@@ -14,14 +14,8 @@ namespace BearGoodbyeKolkhozProject.Data.Repo
         public void AddCompany(Company company)
         {
             var excistanCompany = GetCompanyById(company.Id);
-
-            if (excistanCompany != null)
-            {
-                throw new ArgumentException("Пользователь с таким именем уже зарегистрирован", nameof(company.Name));
-            }
-
+            
             _context.SaveChanges();
-
         }
         public Company GetCompanyById(int id) =>
             _context.Company.Find(id);
