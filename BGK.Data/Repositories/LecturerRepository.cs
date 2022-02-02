@@ -46,7 +46,5 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
             entity.IsDeleted = true;
             _context.SaveChanges();
         }
-
-
     }
 }
