@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BearGoodbyeKolkhozProject.Business.Processor
 {
-    public class EventProcessor
+    public class EventService
     {
 
     }

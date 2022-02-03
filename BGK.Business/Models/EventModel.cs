@@ -9,17 +9,13 @@ namespace BearGoodbyeKolkhozProject.Business.Models
 {
     public class EventModel
     {
-        int Id { get; set; }
-        string StartDate { get; set; }
-
-        Company? Company { get; set; }
-        Classroom Classroom { get; set; }
-
-        Lecturer Lecturer { get; set; }
-
-        bool IsDeleted { get; set; }
-
-        List<Client>? Clients { get; set; }
+        public int Id { get; set; }
+        public string StartDate { get; set; }
+        public Company? Company { get; set; }
+        public Classroom Classroom { get; set; }
+        public Lecturer Lecturer { get; set; }
+        public  bool IsDeleted { get; set; }
+        public List<Client>? Clients { get; set; }
 
     }
 }

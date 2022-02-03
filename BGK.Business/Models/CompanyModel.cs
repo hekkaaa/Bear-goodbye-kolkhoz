@@ -9,15 +9,14 @@ namespace BearGoodbyeKolkhozProject.Business.Models
 {
     public class CompanyModel
     {
-        int Id { get; set; }
-        string Name { get; set; }
-        int Tin { get; set; }
-        string Email { get; set; }
-        string PhoneNumber { get; set; }
-        string Password { get; set; }
-        bool IsDeleted { get; set; }
+        public int? Id { get; set; }
+        public string Name { get; set; }
+        public int Tin { get; set; }
+        public string Email { get; set; }
+        public string PhoneNumber { get; set; }
+        public string Password { get; set; }
+        public bool? IsDeleted { get; set; }
 
-        List<TrainingReview> TrainingReviews { get; set; }
-        List<LecturerReview> LecturerReviews { get; set; }
+       
     }
 }
