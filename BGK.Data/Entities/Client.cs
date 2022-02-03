@@ -1,16 +1,11 @@
 ﻿using BearGoodbyeKolkhozProject.Data.Enums;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BearGoodbyeKolkhozProject.Data.Entities
 {
     [Table("Client")]
-    public  class Client
+    public class Client
     {
         public int Id { get; set; }
         [StringLength(40)]
