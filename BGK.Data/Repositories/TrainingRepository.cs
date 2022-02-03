@@ -16,8 +16,8 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
         public Training GetTrainingById(int id) =>
            _applicationContext.Training.FirstOrDefault(t => t.Id == id);
 
-        public List<Training> GetTrainingsAll() =>
-            _applicationContext.Training.Where(t => t.IsDeleted).ToList<Training>();
+        public List<Training> GetTrainings() =>
+            _applicationContext.Training.Where(t => !t.IsDeleted).ToList<Training>();
 
 
         public void UpdateTraining(Training training)

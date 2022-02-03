@@ -16,7 +16,7 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
         public TrainingReview GetTrainingReviewById(int id) =>
             _applicationContext.TrainingReview.FirstOrDefault(tr => tr.Id == id);
 
-        public List<TrainingReview> GetTrainingReviewsAll() =>
+        public List<TrainingReview> GetTrainingReviews() =>
             _applicationContext.TrainingReview.ToList();
 
         public void UpdateTrainingReview(TrainingReview trainingReview)
