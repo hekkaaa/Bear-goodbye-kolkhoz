@@ -24,6 +24,5 @@ namespace BearGoodbyeKolkhozProject.Data.Entities
         public virtual ICollection<Training> Trainings { get; set; }
         public virtual ICollection<Event> Events { get; set; }
         public virtual ICollection<LecturerReview> LecturerReviews { get; set; }
-
     }
 }

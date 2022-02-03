@@ -27,13 +27,13 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
             return _context.LecturerReview.Where(lr => lr.Lecturer.Id == id).ToList();
         }
 
-        public void AddLecturerReviews(LecturerReview model)
+        public void AddLecturerReview(LecturerReview model)
         {
             _context.LecturerReview.Add(model);
             _context.SaveChanges();
         }
 
-        public void DeleteLecturerById(int id)
+        public void DeleteLecturerReviewById(int id)
         {
             _context.LecturerReview.Remove(GetLecturerReviewById(id));
         }

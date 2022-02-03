@@ -36,7 +36,8 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
             entity.LastName = model.LastName;
             entity.Gender = model.Gender;
             entity.IsDeleted = model.IsDeleted;
-            //
+            
+            entity.Trainings = model.Trainings; //??
             _context.SaveChanges();
         }
 
