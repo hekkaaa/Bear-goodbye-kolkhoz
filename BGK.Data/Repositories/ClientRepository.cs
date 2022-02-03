@@ -5,11 +5,8 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
 {
     public class ClientRepository
     {
-        private ApplicationContext _db;
-        private ClientRepository()
-        {
-            this._db = new ApplicationContext();
-        }
+        private ApplicationContext _db = ConnectDb.Storage.GetStorage();
+       
         public Client GetClientById(int id)
         {
             var res = _db.Client.FirstOrDefault(x => x.Id == id);
@@ -26,8 +23,6 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
             res.BirthDay = newInfo.BirthDay;
             res.Email = newInfo.Email;
             res.PhoneNumber = newInfo.PhoneNumber;
-            res.TrainingReviews = newInfo.TrainingReviews;
-            res.LecturerReviews = newInfo.LecturerReviews;
             res.Topic = newInfo.Topic;
 
             _db.SaveChanges();
