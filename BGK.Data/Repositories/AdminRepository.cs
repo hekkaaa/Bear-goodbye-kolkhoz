@@ -8,7 +8,7 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
         private ApplicationContext _db;
         private AdminRepository()
         {
-            this._db = new ApplicationContext();
+            this._db = Storage.GetStorage();
         }
         public Admin GetAdminById(int id)
         {
@@ -49,6 +49,15 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
         {
             Admin item = GetAdminById(newItem.Id);
             item.Password = newItem.Password;
+            _db.SaveChanges();
+            return true;
+        }
+
+        public bool RecoverAdminById(int id)
+        {
+            var res = _db.Admin.FirstOrDefault(x => x.Id == id);
+
+            res.IsDeleted = true;
             _db.SaveChanges();
             return true;
         }
