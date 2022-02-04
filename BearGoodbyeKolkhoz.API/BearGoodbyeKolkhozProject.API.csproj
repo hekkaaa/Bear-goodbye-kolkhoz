@@ -16,7 +16,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\BGK.Business\BearGoodbyeKolkhozProject.Business.csproj" />
     <ProjectReference Include="..\BGK.Data\BearGoodbyeKolkhozProject.Data.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="ConfigurationAPI\" />
   </ItemGroup>
 
 </Project>

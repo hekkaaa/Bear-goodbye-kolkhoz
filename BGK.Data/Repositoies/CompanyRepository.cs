@@ -13,10 +13,16 @@ namespace BearGoodbyeKolkhozProject.Data.Repo
         private ApplicationContext _context;
         public void AddCompany(Company company)
         {
-            var excistanCompany = GetCompanyById(company.Id);
-            
+
+            _context.Company.Add(company);
+
             _context.SaveChanges();
         }
+
+        public List<Company> GetCompanys() =>
+            _context.Company.Where(c => !c.IsDeleted).ToList();
+
+
         public Company GetCompanyById(int id) =>
             _context.Company.Find(id);
        
@@ -28,7 +34,6 @@ namespace BearGoodbyeKolkhozProject.Data.Repo
             entity.Password = company.Password;
             entity.PhoneNumber = company.PhoneNumber;
             entity.Tin = company.Tin;
-            entity.IsDeleted = company.IsDeleted;
 
             _context.SaveChanges();
         }

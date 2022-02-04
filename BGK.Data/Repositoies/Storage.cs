@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace BearGoodbyeKolkhozProject.Data.ConnectDb
 {
-    public class UnitOfWork
+    public class Storage
     {
-        private static ApplicationContext? _context;
-        private UnitOfWork()
+        private static ApplicationContext? _context = new ApplicationContext();
+        private Storage()
         {
 
         }

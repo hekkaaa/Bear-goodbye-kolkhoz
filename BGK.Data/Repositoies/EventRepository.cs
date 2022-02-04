@@ -15,10 +15,12 @@ namespace BearGoodbyeKolkhozProject.Data.Repo
         public Event GetEventById(int id) =>
             _context.Event.Find(id);
 
+        public List<Event> GetEvents() =>
+            _context.Event.Where(e => !e.IsDeleted).ToList();
 
         public void AddEvent(Event @event)
         {
-            var excistanEvent = GetEventById(@event.Id);
+            _context.Event.Add(@event);
 
             _context.SaveChanges();
 
@@ -31,7 +33,6 @@ namespace BearGoodbyeKolkhozProject.Data.Repo
             entity.Company = @event.Company;
             entity.Classroom = @event.Classroom;
             entity.Lecturer = @event.Lecturer;
-            entity.IsDeleted = @event.IsDeleted;
 
             _context.SaveChanges();
 
@@ -57,11 +58,6 @@ namespace BearGoodbyeKolkhozProject.Data.Repo
 
             _context.SaveChanges();
         }
-
-
-
-
-
 
 
     }

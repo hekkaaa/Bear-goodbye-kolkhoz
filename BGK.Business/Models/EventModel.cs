@@ -11,11 +11,11 @@ namespace BearGoodbyeKolkhozProject.Business.Models
     {
         public int Id { get; set; }
         public string StartDate { get; set; }
-        public Company? Company { get; set; }
+        public Company Company { get; set; }
         public Classroom Classroom { get; set; }
         public Lecturer Lecturer { get; set; }
         public  bool IsDeleted { get; set; }
-        public List<Client>? Clients { get; set; }
+        public List<Client> Clients { get; set; }
 
     }
 }

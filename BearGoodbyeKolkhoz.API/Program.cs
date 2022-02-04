@@ -1,28 +1,24 @@
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+//builder.Services.AddScoped<ICompanyService, CompanyService>();
+//builder.Services.AddScoped<ICompanyRepository, CompanyRepository>();
+//builder.Services.AddScoped<IEventService, EventService>();
+//builder.Services.AddScoped<IEventRepository, EventRepository>();
+//builder.Services.AddContext
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 
-//using (BearGoodbyeKolkhozProject.API.Controllers.CompanyController(){
-
-//    var qr = new BearGoodbyeKolkhozProject.Data.Entities.Classroom() { City = "Гена", Address = "переулог Мопса"};
-//    db.Classroom.Add(qr);
-//    db.SaveChanges();
-//    db.Dispose();
-//}
 
 app.UseHttpsRedirection();
 
