@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using BearGoodbyeKolkhozProject.API.Models;
+using BearGoodbyeKolkhozProject.Business.Services;
 
 namespace BearGoodbyeKolkhozProject.API.Controllers
 {
@@ -7,10 +8,19 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
     [Route("api/[controller]")]
     public class LecturerController : Controller
     {
-        [HttpGet]
-        public ActionResult RegistationLecturer()
+        private LecturerService _service = new LecturerService();
+
+        [HttpDelete("{id}")]
+        public ActionResult DeleteLecturerById(int id)
         {
-            return StatusCode(StatusCodes.Status201Created, new LecturerRegistrationInputModel { });
+            _service.DeleteLecturerById(id);
+            return NoContent();
+        }
+
+        [HttpGet("{id}")]
+        public ActionResult GetLecturerById(int id)
+        {
+            return Ok();
         }
     }
 }
