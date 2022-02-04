@@ -8,7 +8,7 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
         private ApplicationContext _db;
         private AdminRepository()
         {
-            this._db = new ApplicationContext();
+            this._db = Storage.GetStorage();
         }
         public Admin GetAdminById(int id)
         {
@@ -53,7 +53,7 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
             return true;
         }
 
-        public bool RecoveryAdminById(int id)
+        public bool RecoverAdminById(int id)
         {
             var res = _db.Admin.FirstOrDefault(x => x.Id == id);
 

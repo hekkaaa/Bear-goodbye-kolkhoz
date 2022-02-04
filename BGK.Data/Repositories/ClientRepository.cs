@@ -8,7 +8,7 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
         private ApplicationContext _db;
         public ClientRepository()
         {
-            this._db = new ApplicationContext();
+            this._db = Storage.GetStorage();
         }
         public Client GetClientById(int id)
         {
@@ -58,7 +58,7 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
             return true;
         }
 
-        public List<Client> GetClient()
+        public List<Client> GetClients()
         {
             return _db.Client.Where(x => !x.IsDeleted).ToList();
         }
