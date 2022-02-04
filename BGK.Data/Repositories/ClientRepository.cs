@@ -5,8 +5,11 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
 {
     public class ClientRepository
     {
-        private ApplicationContext _db = ConnectDb.Storage.GetStorage();
-       
+        private ApplicationContext _db;
+        public ClientRepository()
+        {
+            this._db = new ApplicationContext();
+        }
         public Client GetClientById(int id)
         {
             var res = _db.Client.FirstOrDefault(x => x.Id == id);
