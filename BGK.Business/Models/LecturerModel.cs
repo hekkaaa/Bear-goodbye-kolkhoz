@@ -17,6 +17,6 @@ namespace BearGoodbyeKolkhozProject.Business.Models
         public bool IsDeleted { get; set; }
         public Gender Gender { get; set; }
 
-        public virtual ICollection<Training> Trainings { get; set; }
+        public ICollection<Training> Trainings { get; set; }
     }
 }

@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using BearGoodbyeKolkhozProject.API.Models;
 using BearGoodbyeKolkhozProject.Business.Services;
+using BearGoodbyeKolkhozProject.API.Configuration;
+using BearGoodbyeKolkhozProject.Business.Models;
 
 namespace BearGoodbyeKolkhozProject.API.Controllers
 {
@@ -10,6 +12,22 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
     {
         private LecturerService _service = new LecturerService();
 
+        [HttpGet()]
+        public ActionResult<List<LecturerOutputModel>> GetLecturers()
+        {
+            var entity = _service.GetLecturers();
+            var result = CustomMapper.GetInstance().Map<List<LecturerOutputModel>>(entity);
+            return Ok(result);
+        }
+
+        [HttpGet("{id}")]
+        public ActionResult<LecturerOutputModel> GetLecturerById(int id)
+        {
+            var entity = _service.GetLecturerById(id);
+            var result = CustomMapper.GetInstance().Map<LecturerOutputModel>(entity);
+            return Ok(result);
+        }
+
         [HttpDelete("{id}")]
         public ActionResult DeleteLecturerById(int id)
         {
@@ -17,10 +35,12 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
             return NoContent();
         }
 
-        [HttpGet("{id}")]
-        public ActionResult GetLecturerById(int id)
+        [HttpPost]
+        public ActionResult LecturerRegistration(LecturerRegistrationInputModel model)
         {
-            return Ok();
+            LecturerModel entity = CustomMapper.GetInstance().Map<LecturerModel>(model);
+            _service.RegistrationLecturer(entity);
+            return Ok(entity);
         }
     }
 }

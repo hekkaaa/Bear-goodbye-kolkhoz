@@ -4,7 +4,7 @@
 
 namespace BearGoodbyeKolkhozProject.Data.Migrations
 {
-    public partial class qwerty : Migration
+    public partial class first : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -67,7 +67,8 @@ namespace BearGoodbyeKolkhozProject.Data.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false),
                     LastName = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false),
-                    BirthDay = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    BirthDay = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
                     Gender = table.Column<int>(type: "int", nullable: false)
                 },
@@ -221,6 +222,7 @@ namespace BearGoodbyeKolkhozProject.Data.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
                     ClientId = table.Column<int>(type: "int", nullable: true),
                     TrainingId = table.Column<int>(type: "int", nullable: true)
                 },
@@ -271,6 +273,36 @@ namespace BearGoodbyeKolkhozProject.Data.Migrations
                         principalTable: "Training",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.InsertData(
+                table: "Classroom",
+                columns: new[] { "Id", "Address", "City", "MembersCount" },
+                values: new object[,]
+                {
+                    { 1, "ул. Вавилова дом 5", "Санкт-Петербург", 25 },
+                    { 2, "пр. Ветеранов дом 8", "Санкт-Петербург", 25 },
+                    { 3, "ул. Пушкина дом 27", "Санкт-Петербург", 40 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Lecturer",
+                columns: new[] { "Id", "BirthDay", "Gender", "IsDeleted", "LastName", "Name", "Password" },
+                values: new object[,]
+                {
+                    { 1, "27 августа", 1, false, "Пототько", "Вячеслав Ибрагимович", "123" },
+                    { 2, "22 сентября", 2, false, "Цыплухина", "Евгения Владимировна", "234" },
+                    { 3, "15 октября", 1, false, "Вейпов", "Андрей Андреевич", "098" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Training",
+                columns: new[] { "Id", "Description", "Duration", "IsDeleted", "LecturerId", "MembersCount", "Name", "Price" },
+                values: new object[,]
+                {
+                    { 1, "Тренинг для развития ораторских способностей, лучшие приглашенные ораторы всех времён", 3, false, null, 15, "Развитие ораторских способностей", 1500 },
+                    { 2, "Тренинг для развития скиллов нетворкинга, знакомьтесь везде и всегда", 5, false, null, 18, "Нетворк-скиллы", 2000 },
+                    { 3, "Научитесь рассказывать истории, захватывайте всех своими презентациями", 2, false, null, 10, "Сторителлинг", 3500 }
                 });
 
             migrationBuilder.CreateIndex(

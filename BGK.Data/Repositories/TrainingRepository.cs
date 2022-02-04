@@ -10,7 +10,7 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
 
         public TrainingRepository()
         {
-            _applicationContext = Storage.GetStorage();
+            _applicationContext = Storage.GetInstance();
         }
 
         public Training GetTrainingById(int id) =>

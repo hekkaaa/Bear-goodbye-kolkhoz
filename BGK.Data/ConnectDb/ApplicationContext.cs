@@ -24,7 +24,7 @@ namespace BearGoodbyeKolkhozProject.Data.ConnectDb
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Data Source=laptop;Initial Catalog=test2;Integrated Security=True");
+            optionsBuilder.UseSqlServer(@"Data Source=laptop;Initial Catalog=test3;Integrated Security=True");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -60,9 +60,9 @@ namespace BearGoodbyeKolkhozProject.Data.ConnectDb
             );
 
             modelBuilder.Entity<Lecturer>().HasData(
-                new Lecturer() { Id = 1, Name = "Вячеслав Ибрагимович", LastName = "Пототько", BirthDay = "27 августа", Gender = Enums.Gender.Male },
-                new Lecturer() { Id = 2, Name = "Евгения Владимировна", LastName = "Цыплухина", BirthDay = "22 сентября", Gender = Enums.Gender.Female },
-                new Lecturer() { Id = 3, Name = "Андрей Андреевич", LastName = "Вейпов", BirthDay = "15 октября", Gender = Enums.Gender.Male }
+                new Lecturer() { Id = 1, Name = "Вячеслав Ибрагимович", LastName = "Пототько", BirthDay = "27 августа", Gender = Enums.Gender.Male, Password="123" },
+                new Lecturer() { Id = 2, Name = "Евгения Владимировна", LastName = "Цыплухина", BirthDay = "22 сентября", Gender = Enums.Gender.Female, Password = "234" },
+                new Lecturer() { Id = 3, Name = "Андрей Андреевич", LastName = "Вейпов", BirthDay = "15 октября", Gender = Enums.Gender.Male, Password = "098" }
             );
 
             modelBuilder.Entity<Classroom>().HasData(

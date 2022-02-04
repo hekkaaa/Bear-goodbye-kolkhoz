@@ -19,7 +19,7 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
 
         public List<Lecturer> GetLecturers()
         {
-            return _context.Lecturer.ToList();
+            return _context.Lecturer.Where(t => !t.IsDeleted).ToList();
         }
 
         public void AddLecturer(Lecturer model)
