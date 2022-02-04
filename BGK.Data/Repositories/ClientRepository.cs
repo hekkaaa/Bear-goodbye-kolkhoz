@@ -41,6 +41,15 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
             return true;
         }
 
+        public bool RecoveryClientById(int id)
+        {
+            var res = _db.Client.FirstOrDefault(x => x.Id == id);
+
+            res.IsDeleted = true;
+            _db.SaveChanges();
+            return true;
+        }
+
         public bool ChangePasswordClient(Client newItem)
         {
             Client item = GetClientById(newItem.Id);

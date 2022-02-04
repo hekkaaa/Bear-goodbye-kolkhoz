@@ -52,5 +52,14 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
             _db.SaveChanges();
             return true;
         }
+
+        public bool RecoveryAdminById(int id)
+        {
+            var res = _db.Admin.FirstOrDefault(x => x.Id == id);
+
+            res.IsDeleted = true;
+            _db.SaveChanges();
+            return true;
+        }
     }
 }
