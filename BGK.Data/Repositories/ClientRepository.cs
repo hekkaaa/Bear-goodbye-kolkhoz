@@ -57,5 +57,10 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
             _db.SaveChanges();
             return true;
         }
+
+        public List<Client> GetClient()
+        {
+            return _db.Client.Where(x => !x.IsDeleted).ToList();
+        }
     }
 }

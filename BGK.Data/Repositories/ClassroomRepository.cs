@@ -28,5 +28,10 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
             _db.SaveChanges();
             return true;
         }
+
+        public List<Classroom> GetClassroom()
+        {
+            return _db.Classroom.ToList();
+        }
     }
 }
