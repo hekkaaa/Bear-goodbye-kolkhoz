@@ -10,4 +10,8 @@
     <ProjectReference Include="..\BGK.Data\BearGoodbyeKolkhozProject.Data.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Models\" />
+  </ItemGroup>
+
 </Project>
