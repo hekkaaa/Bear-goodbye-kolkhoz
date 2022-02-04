@@ -21,10 +21,8 @@ namespace BearGoodbyeKolkhozProject.Business.Configuration
         {
             _instance = new Mapper(new MapperConfiguration(cfg =>
             {
-                cfg.CreateMap<Training, TrainingModel>();
-                cfg.CreateMap<TrainingModel, Training>();
-                cfg.CreateMap<TrainingReview, TrainingReviewModel>();
-                cfg.CreateMap<TrainingReviewModel, TrainingReview>();
+                cfg.CreateMap<Training, TrainingModel>().ReverseMap();
+                cfg.CreateMap<TrainingReview, TrainingReviewModel>().ReverseMap();
 
             }));
         }
