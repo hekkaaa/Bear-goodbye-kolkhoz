@@ -8,7 +8,7 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
         private ApplicationContext _db;
         public ClientRepository()
         {
-            this._db = new ApplicationContext();
+            this._db = Storage.GetStorage();
         }
         public Client GetClientById(int id)
         {
@@ -41,12 +41,26 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
             return true;
         }
 
+        public bool RecoveryClientById(int id)
+        {
+            var res = _db.Client.FirstOrDefault(x => x.Id == id);
+
+            res.IsDeleted = true;
+            _db.SaveChanges();
+            return true;
+        }
+
         public bool ChangePasswordClient(Client newItem)
         {
             Client item = GetClientById(newItem.Id);
             item.Password = newItem.Password;
             _db.SaveChanges();
             return true;
+        }
+
+        public List<Client> GetClients()
+        {
+            return _db.Client.Where(x => !x.IsDeleted).ToList();
         }
     }
 }
