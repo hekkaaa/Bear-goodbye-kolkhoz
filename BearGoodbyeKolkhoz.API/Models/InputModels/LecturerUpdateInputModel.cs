@@ -2,6 +2,6 @@
 {
     public class LecturerUpdateInputModel
     {
-
+        public string? BirthDay { get; set; }
     }
 }

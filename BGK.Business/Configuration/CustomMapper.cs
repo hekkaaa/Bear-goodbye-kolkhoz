@@ -27,6 +27,7 @@ namespace BearGoodbyeKolkhozProject.Business.Configuration
                 cfg.CreateMap<TrainingReviewModel, TrainingReview>();
 
                 cfg.CreateMap<Lecturer, LecturerModel>().ReverseMap();
+                cfg.CreateMap<Training, TrainingModel>().ReverseMap();
             }));
         }
     }

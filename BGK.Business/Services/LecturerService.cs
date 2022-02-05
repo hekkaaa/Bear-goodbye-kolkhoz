@@ -20,7 +20,6 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             _repo.AddLecturer(entity);
         }
         
-        // вот тута проверить нада на налл
         public void DeleteLecturerById(int id)
         {
             _repo.DeleteLecturerById(id);
@@ -29,6 +28,13 @@ namespace BearGoodbyeKolkhozProject.Business.Services
         public void RecoverLecturerById(int id)
         {
             _repo.RecoverLecturerById(id);
+        }
+
+        public void AddTraining(int id, int trainingId )
+        {
+            var entity = _repo.GetLecturerById(id);
+            //var training = CustomMapper.GetInstance().Map<Training>(model);
+            _repo.AddTraining(id, trainingId);
         }
 
         public void UpdateLecturer(int id, LecturerModel model)

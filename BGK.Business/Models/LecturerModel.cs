@@ -13,10 +13,13 @@ namespace BearGoodbyeKolkhozProject.Business.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public string LastName { get; set; }
+        public string Password { get; set; }
         public string BirthDay { get; set; }
         public bool IsDeleted { get; set; }
         public Gender Gender { get; set; }
 
-        public ICollection<Training> Trainings { get; set; }
+        public List<TrainingModel> Trainings { get; set; }
+        public virtual List<Event> Events { get; set; }
+        public virtual List<LecturerReview> LecturerReviews { get; set; }
     }
 }

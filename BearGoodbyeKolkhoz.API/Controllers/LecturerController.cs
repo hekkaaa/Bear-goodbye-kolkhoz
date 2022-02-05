@@ -40,7 +40,14 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         {
             LecturerModel entity = CustomMapper.GetInstance().Map<LecturerModel>(model);
             _service.RegistrationLecturer(entity);
-            return Ok(entity);
+            return StatusCode(StatusCodes.Status201Created, entity);
+        }
+
+        [HttpPost("{id}/training/{trainingId}")]
+        public ActionResult AddTraining(int id, int trainingId)
+        {
+            _service.AddTraining(id, trainingId);
+            return Ok();
         }
     }
 }
