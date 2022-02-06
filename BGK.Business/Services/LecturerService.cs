@@ -2,24 +2,24 @@
 using BearGoodbyeKolkhozProject.Business.Models;
 using BearGoodbyeKolkhozProject.Data.Entities;
 using BearGoodbyeKolkhozProject.Data.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BearGoodbyeKolkhozProject.Business.Services
 {
-    public class LecturerService
+    public class LecturerService : ILecturerService
     {
-        private LecturerRepository _repo = new LecturerRepository();
+        private readonly ILecturerRepository _repo;
+
+        public LecturerService(ILecturerRepository lecturerRepository)
+        {
+            _repo = lecturerRepository;
+        }
 
         public void RegistrationLecturer(LecturerModel model)
         {
             var entity = CustomMapper.GetInstance().Map<Lecturer>(model);
             _repo.AddLecturer(entity);
         }
-        
+
         public void DeleteLecturerById(int id)
         {
             _repo.DeleteLecturerById(id);
@@ -30,10 +30,9 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             _repo.RecoverLecturerById(id);
         }
 
-        public void AddTraining(int id, int trainingId )
+        public void AddTraining(int id, int trainingId)
         {
             var entity = _repo.GetLecturerById(id);
-            //var training = CustomMapper.GetInstance().Map<Training>(model);
             _repo.AddTraining(id, trainingId);
         }
 

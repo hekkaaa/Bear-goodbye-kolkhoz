@@ -1,4 +1,6 @@
+using BearGoodbyeKolkhozProject.Business.Services;
 using BearGoodbyeKolkhozProject.Data.ConnectDb;
+using BearGoodbyeKolkhozProject.Data.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +13,9 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<ApplicationContext>();
 var app = builder.Build();
 
+builder.Services.AddSingleton<ILecturerRepository, LecturerRepository>();
+builder.Services.AddSingleton<ILecturerService, LecturerService>();
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -18,13 +23,6 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-//using (BearGoodbyeKolkhozProject.Data.ConnectDb.ApplicationContext db = new BearGoodbyeKolkhozProject.Data.ConnectDb.ApplicationContext()){
-
-//    var qr = new BearGoodbyeKolkhozProject.Data.Entities.Classroom() { City = "Гена", Address = "переулог Мопса"};
-//    db.Classroom.Add(qr);
-//    db.SaveChanges();
-//    db.Dispose();
-//}
 
 app.UseHttpsRedirection();
 

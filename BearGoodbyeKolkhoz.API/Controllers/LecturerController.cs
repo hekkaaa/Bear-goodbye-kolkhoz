@@ -10,7 +10,12 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
     [Route("api/[controller]")]
     public class LecturerController : Controller
     {
-        private LecturerService _service = new LecturerService();
+        private readonly ILecturerService _service;
+
+        public LecturerController(ILecturerService lecturerService)
+        {
+            _service = lecturerService;
+        }
 
         [HttpGet()]
         public ActionResult<List<LecturerOutputModel>> GetLecturers()
@@ -43,7 +48,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
             return StatusCode(StatusCodes.Status201Created, entity);
         }
 
-        [HttpPost("{id}/training/{trainingId}")]
+        [HttpPost]
         public ActionResult AddTraining(int id, int trainingId)
         {
             _service.AddTraining(id, trainingId);

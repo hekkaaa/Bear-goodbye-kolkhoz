@@ -8,9 +8,14 @@ using BearGoodbyeKolkhozProject.Data.Entities;
 
 namespace BearGoodbyeKolkhozProject.Data.Repositories
 {
-    public class LecturerRepository
+    public class LecturerRepository : ILecturerRepository
     {
-        private ApplicationContext _context = Storage.GetInstance();
+        private ApplicationContext _context;
+
+        public LecturerRepository()
+        {
+            _context = Storage.GetInstance();
+        }
 
         public Lecturer GetLecturerById(int id)
         {
