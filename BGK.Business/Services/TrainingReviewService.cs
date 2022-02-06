@@ -5,13 +5,13 @@ using BearGoodbyeKolkhozProject.Data.Repositories;
 
 namespace BearGoodbyeKolkhozProject.Business.Services
 {
-    public class TrainingReviewService
+    public class TrainingReviewService : ITrainingReviewService
     {
-        private TrainingReviewRepository _repository;
+        private ITrainingReviewRepository _repository;
 
-        public TrainingReviewService()
+        public TrainingReviewService(ITrainingReviewRepository repository)
         {
-            _repository = new TrainingReviewRepository();
+            _repository = repository;
         }
 
         public void UpdateTrainingReview(int id, TrainingReviewModel trainingReviewModel)

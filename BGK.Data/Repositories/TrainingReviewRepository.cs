@@ -3,7 +3,7 @@ using BearGoodbyeKolkhozProject.Data.Entities;
 
 namespace BearGoodbyeKolkhozProject.Data.Repositories
 {
-    public class TrainingReviewRepository
+    public class TrainingReviewRepository : ITrainingReviewRepository
     {
         private ApplicationContext _applicationContext;
 

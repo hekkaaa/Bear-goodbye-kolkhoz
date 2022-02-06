@@ -1,4 +1,6 @@
+using BearGoodbyeKolkhozProject.Business.Services;
 using BearGoodbyeKolkhozProject.Data.ConnectDb;
+using BearGoodbyeKolkhozProject.Data.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +11,10 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<ApplicationContext>();
+
+builder.Services.AddScoped<ITrainingReviewRepository, TrainingReviewRepository>();
+builder.Services.AddScoped<ITrainingReviewService, TrainingReviewService>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

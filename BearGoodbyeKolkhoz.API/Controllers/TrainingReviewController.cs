@@ -1,19 +1,22 @@
 ﻿using BearGoodbyeKolkhozProject.API.Models;
-using BearGoodbyeKolkhozProject.Business.Models;
 using BearGoodbyeKolkhozProject.Business.Services;
-using BearGoodbyeKolkhozProject.Data.Entities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BearGoodbyeKolkhozProject.API.Controllers
 {
+    [ApiController]
+    [Route("api/training-review")]
     public class TrainingReviewController : Controller
     {
-        private TrainingReviewService _service = new TrainingReviewService();
 
-        public IActionResult Index()
+        private readonly ITrainingReviewService _service;
+
+        public TrainingReviewController(ITrainingReviewService trainingReviewService)
         {
-            return View();
+            _service = trainingReviewService;
         }
+
+       
 
         [HttpGet("{id}")]
         public ActionResult<TrainingReviewOutputModel> GetTrainingReviewById(int id)
@@ -21,21 +24,21 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
             var entity = _service.GetTrainingReviewModelById(id);
             var result = CustomMapper.GetInstance().Map<TrainingReviewOutputModel>(entity);
 
-            if (result == null)
-            {
-                return NotFound($"Лекция {id} не найдена!");
-            }
-            else
-            {
+            //if (result == null)
+            //{
+            //    return NotFound($"Лекция {id} не найдена!");
+            //}
+            //else
+            //{
                 return Ok(result);
-            }
+            //}
         }
 
-        [HttpGet]
-        public ActionResult<List<TrainingReviewOutputModel>> GetTrainingReviews()
-        {
-            return Ok(new List<TrainingReviewOutputModel>());
-        }
+        //[HttpGet]
+        //public ActionResult<List<TrainingReviewOutputModel>> GetTrainingReviews()
+        //{
+        //    return Ok(new List<TrainingReviewOutputModel>());
+        //}
 
 
 

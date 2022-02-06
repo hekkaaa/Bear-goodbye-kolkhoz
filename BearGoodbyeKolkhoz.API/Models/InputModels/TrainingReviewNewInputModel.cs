@@ -1,9 +1,8 @@
 ﻿using BearGoodbyeKolkhozProject.Business.Models;
-using Microsoft.AspNetCore.Mvc;
 
 namespace BearGoodbyeKolkhozProject.API.Models
 {
-    public class TrainingReviewInputModel 
+    public class TrainingReviewInputModel
     {
         public ClientModel Client { get; set; }
         public TrainingModel Training { get; set; }
