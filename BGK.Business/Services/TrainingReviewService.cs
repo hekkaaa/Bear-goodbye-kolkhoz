@@ -25,9 +25,9 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             _repository.UpdateTrainingReview(trainingReviewEntity);
         }
 
-        public TrainingReviewModel GetTrainingReviewModelById(TrainingReviewModel trainingReviewModel)
+        public TrainingReviewModel GetTrainingReviewModelById(int id)
         {
-            var trainingReviewEntity = _repository.GetTrainingReviewById(trainingReviewModel.Id);
+            var trainingReviewEntity = _repository.GetTrainingReviewById(id);
             return CustomMapper.GetInstance().Map<TrainingReviewModel>(trainingReviewEntity);
         }
 
