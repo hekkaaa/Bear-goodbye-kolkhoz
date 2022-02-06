@@ -20,5 +20,26 @@ namespace BearGoodbyeKolkhozProject.Data.Entities
         public virtual ICollection<Training> Trainings { get; set; }
         public virtual ICollection<Event> Events { get; set; }
         public virtual ICollection<LecturerReview> LecturerReviews { get; set; }
+
+        public override string ToString()
+        {
+            return $"{Id} {Name} {LastName}";
+        }
+
+        // не ручаюсь, потом починю
+        public override bool Equals(object? obj)
+        {
+            if (Id != ((Lecturer)obj).Id 
+                || Name != ((Lecturer)obj).Name
+                || LastName != ((Lecturer)obj).LastName
+                || BirthDay != ((Lecturer)obj).BirthDay
+                || Gender != ((Lecturer)obj).Gender
+                || Password != ((Lecturer)obj).Password)
+            {
+                return false;
+            }
+
+            return true;
+        }
     }
 }

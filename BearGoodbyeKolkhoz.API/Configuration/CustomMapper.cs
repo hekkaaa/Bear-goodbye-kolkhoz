@@ -5,20 +5,20 @@ using BearGoodbyeKolkhozProject.API.Models.InputModels;
 
 namespace BearGoodbyeKolkhozProject.API.Configuration
 {
-    public class CustomMapper
+    public class CustomMapper : ICustomMapper
     {
-        private static Mapper _instance;
+        private Mapper _instance;
 
-        public static Mapper GetInstance()
+        public Mapper GetInstance()
         {
             if (_instance == null)
                 InitCustomMapper();
             return _instance;
         }
 
-        public static Mapper Custom { get; set; }
+        //public Mapper Custom { get; set; }
 
-        private static void InitCustomMapper()
+        private void InitCustomMapper()
         {
             _instance = new Mapper(new MapperConfiguration(cfg =>
             {

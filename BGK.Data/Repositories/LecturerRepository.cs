@@ -20,7 +20,7 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
 
         public Lecturer GetLecturerById(int id)
         {
-            return _context.Lecturer.Find(id);
+            return _context.Lecturer.FirstOrDefault(L => L.Id == id);
         }
 
         public List<Lecturer> GetLecturers()
