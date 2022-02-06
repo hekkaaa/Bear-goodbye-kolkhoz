@@ -1,4 +1,4 @@
-﻿namespace BearGoodbyeKolkhozProject.API.Models
+﻿namespace BearGoodbyeKolkhozProject.API.Models.InputModels
 {
     public class LecturerRegistrationInputModel
     {

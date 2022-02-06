@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using BearGoodbyeKolkhozProject.Data.ConnectDb;
 using BearGoodbyeKolkhozProject.Data.Entities;
+using BearGoodbyeKolkhozProject.Data.Interfaces;
 
 namespace BearGoodbyeKolkhozProject.Data.Repositories
 {
@@ -12,9 +13,9 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
     {
         private ApplicationContext _context;
 
-        public LecturerRepository()
+        public LecturerRepository(ApplicationContext context)
         {
-            _context = Storage.GetInstance();
+            _context = context;
         }
 
         public Lecturer GetLecturerById(int id)

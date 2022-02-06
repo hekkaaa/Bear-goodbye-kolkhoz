@@ -1,6 +1,6 @@
 ﻿using BearGoodbyeKolkhozProject.Data.Enums;
 
-namespace BearGoodbyeKolkhozProject.API.Models
+namespace BearGoodbyeKolkhozProject.API.Models.OutputModels
 {
     public class LecturerOutputModel
     {

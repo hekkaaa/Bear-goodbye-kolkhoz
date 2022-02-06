@@ -1,5 +1,7 @@
+using BearGoodbyeKolkhozProject.Business.Interfaces;
 using BearGoodbyeKolkhozProject.Business.Services;
 using BearGoodbyeKolkhozProject.Data.ConnectDb;
+using BearGoodbyeKolkhozProject.Data.Interfaces;
 using BearGoodbyeKolkhozProject.Data.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,8 +15,8 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<ApplicationContext>();
 var app = builder.Build();
 
-builder.Services.AddSingleton<ILecturerRepository, LecturerRepository>();
-builder.Services.AddSingleton<ILecturerService, LecturerService>();
+builder.Services.AddScoped<ILecturerRepository, LecturerRepository>();
+builder.Services.AddScoped<ILecturerService, LecturerService>();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

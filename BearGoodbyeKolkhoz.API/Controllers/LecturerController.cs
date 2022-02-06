@@ -1,8 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using BearGoodbyeKolkhozProject.API.Models;
-using BearGoodbyeKolkhozProject.Business.Services;
 using BearGoodbyeKolkhozProject.API.Configuration;
 using BearGoodbyeKolkhozProject.Business.Models;
+using BearGoodbyeKolkhozProject.API.Models.OutputModels;
+using BearGoodbyeKolkhozProject.API.Models.InputModels;
+using BearGoodbyeKolkhozProject.Business.Interfaces;
 
 namespace BearGoodbyeKolkhozProject.API.Controllers
 {

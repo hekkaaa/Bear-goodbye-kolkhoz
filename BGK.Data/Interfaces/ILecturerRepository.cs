@@ -1,6 +1,6 @@
 ﻿using BearGoodbyeKolkhozProject.Data.Entities;
 
-namespace BearGoodbyeKolkhozProject.Data.Repositories
+namespace BearGoodbyeKolkhozProject.Data.Interfaces
 {
     public interface ILecturerRepository
     {
