@@ -26,7 +26,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
 
             if (result == null)
             {
-                return NotFound($"Лекция {id} не найдена!");
+                return NotFound($"Обзор {id} на лекцию не найден!");
             }
             else
             {
