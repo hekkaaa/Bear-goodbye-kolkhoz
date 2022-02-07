@@ -4,7 +4,6 @@ using BearGoodbyeKolkhozProject.Data.Repositories;
 using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
 using System.Text.Json;
-using System.Text.Json.Serialization;
 using Moq;
 
 namespace BearGoodbyeKolkhozProject.Data.Tests
@@ -44,56 +43,99 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
 
         }
 
-        [Test]
-        public void AddTrainingReviewById()
-        {
+        public TrainingReview GetTestData() { 
+        
             var trainingReview = new TrainingReview
             {
                 Text = "тренинг супер!!! там мегапопулярный препод Антон Негодяй!!! класно ведёт чотко)))",
                 Mark = 10,
             };
 
-            _mock.Setup(m => m.AddTrainingReview(It.IsAny<TrainingReview>()));
-
-            Assert.AreSame(expected, act);
+            return trainingReview;
         }
-        
+
+        [Test]
         public void DeleteTrainingReviewById()
         {
-            var trainingReview = new TrainingReview
-            {
-                Text = "тренинг супер!!! там мегапопулярный препод Антон Негодяй!!! класно ведёт чотко)))",
-                Mark = 10,
-            };
+            var trainingReview = GetTestData();
 
             _context.TrainingReview.Add(trainingReview);
+
             _context.SaveChanges();
 
-            Assert.AreSame(expected, act);
-        }
-         public void UpdateTrainingReviewById()
-        {
-            
+            var listBeforeDelete = _trainingReviewRepository.GetTrainingReviews();
 
-            Assert.AreSame(expected, act);
+            _trainingReviewRepository.DeleteTrainingReview(trainingReview.Id);
+
+            var listAfterDelete = _trainingReviewRepository.GetTrainingReviews();
+
+            Assert.IsTrue(listBeforeDelete.Count > listAfterDelete.Count);
+
+            
         }
-        
+
+
+        [Test]
+        public void AddTrainingReview()
+        {
+            var trainingReview = GetTestData();
+
+            _trainingReviewRepository.AddTrainingReview(trainingReview);
+
+            var testEntity = _trainingReviewRepository.GetTrainingReviewById(trainingReview.Id);
+
+            var testList = _trainingReviewRepository.GetTrainingReviews();
+
+            Assert.IsNotNull(testEntity);
+            Assert.IsTrue(testList.Count > 0);
+        }
+
+        [Test]
+        public void UpdateTrainingReviewById()
+        {
+
+
+            var trainingReview = GetTestData();
+            _context.Add(trainingReview);
+            _context.SaveChanges();
+
+            var updateTrainingReview = new TrainingReview
+            {
+                Id = 1,
+                Mark = 5,
+            };
+
+            _trainingReviewRepository.UpdateTrainingReview(updateTrainingReview);
+
+            Assert.IsTrue(trainingReview.Mark == 5);
+            
+        }
+
+
+        [Test]
         public void GetTrainingReviews()
         {
-            
 
-            Assert.AreSame(expected, act);
+            var a = GetTestData();
+
+            var b = GetTestData(); 
+
+            _context.TrainingReview.Add(a);
+            _context.TrainingReview.Add(b);
+            _context.SaveChanges();
+
+            var act = _trainingReviewRepository.GetTrainingReviews();
+
+            Assert.IsNotNull(act);
+            Assert.IsTrue(act.Count > 0);
+
         }
 
 
         [Test]
         public void GetTrainingReviewById()
         {
-            var trainingReview = new TrainingReview
-            {
-                Text = "тренинг супер!!! там мегапопулярный препод Антон Негодяй!!! класно ведёт чотко)))",
-                Mark = 10,
-            };
+            var trainingReview = GetTestData();
 
             _context.TrainingReview.Add(trainingReview);
             _context.SaveChanges();
