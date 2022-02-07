@@ -1,9 +1,4 @@
 ﻿using BearGoodbyeKolkhozProject.Data.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BearGoodbyeKolkhozProject.Business.Models
 {
@@ -11,11 +6,11 @@ namespace BearGoodbyeKolkhozProject.Business.Models
     {
         public int Id { get; set; }
         public string StartDate { get; set; }
-        public Company Company { get; set; }
-        public Classroom Classroom { get; set; }
-        public Lecturer Lecturer { get; set; }
+        public  CompanyModel Company { get; set; }
+        public  ClassroomModel Classroom { get; set; }
+        public  LecturerModel Lecturer { get; set; }
         public  bool IsDeleted { get; set; }
-        public List<Client> Clients { get; set; }
+        public  List<ClientModel> Clients { get; set; }
 
     }
 }

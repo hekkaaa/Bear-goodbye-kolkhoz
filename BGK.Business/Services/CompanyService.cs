@@ -1,30 +1,41 @@
-﻿using BearGoodbyeKolkhozProject.Business.Models;
+﻿using BearGoodbyeKolkhozProject.Business.Configuration;
+using BearGoodbyeKolkhozProject.Business.Models;
 using BearGoodbyeKolkhozProject.Data.Entities;
 using BearGoodbyeKolkhozProject.Data.Repo;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BearGoodbyeKolkhozProject.Business.Processor
 {
-    public class CompanyService
+    public class CompanyService : ICompanyService
     {
-        private readonly CompanyRepository? companyRepository;
+        private readonly ICompanyRepository? _companyRepository;
 
-        public void GetCompanyById(int id)
+        public CompanyService(ICompanyRepository companyRepository)
         {
-            var company = companyRepository.GetCompanyById(id);
-            if (company != null)
-                throw new Exception("Такой Компания не существует.");
+            _companyRepository = companyRepository;
+
         }
 
-        public void AddCompany(int id,CompanyModel companyModel)
+        public CompanyModel GetCompanyById(int id)
         {
-            var company = companyRepository.GetCompanyById(id);
+            var company = _companyRepository.GetCompanyById(id);
+
             if (company != null)
-                throw new Exception("Такая Компания уже существует.");
+                throw new Exception("Такой Компания не существует.");
+
+            return CustomMapper.GetInstance().Map<CompanyModel>(company);
+        }
+
+        public List<CompanyModel> GetCompanies()
+        {
+            List<Company> companies = _companyRepository.GetCompanies();
+
+            return CustomMapper.GetInstance().Map<List<CompanyModel>>(companies);
+
+        }
+
+        public void AddCompany(CompanyModel companyModel)
+        {
+
             var mappedCompany = new Company
             {
                 Email = companyModel.Email,
@@ -33,14 +44,18 @@ namespace BearGoodbyeKolkhozProject.Business.Processor
                 PhoneNumber = companyModel.PhoneNumber,
                 Tin = companyModel.Tin,
                 IsDeleted = companyModel.IsDeleted
-                
+
             };
 
-            companyRepository.AddCompany(mappedCompany);
+            _companyRepository.AddCompany(CustomMapper.Custom.Map<Company>(mappedCompany));
         }
-        public void UpdateCompany(int id, CompanyModel companyModel )
+
+
+
+        public void UpdateCompany(int id, CompanyModel companyModel)
         {
-            var company = companyRepository.GetCompanyById(id);
+            var company = _companyRepository.GetCompanyById(id);
+
             if (company == null)
                 throw new NullReferenceException("Такой Компании не существует.");
 
@@ -52,17 +67,21 @@ namespace BearGoodbyeKolkhozProject.Business.Processor
                 Password = companyModel.Password
             };
 
-            companyRepository.UpdateCompany(mappedCompany);
+
+            _companyRepository.UpdateCompany(CustomMapper.Custom.Map<Company>(mappedCompany));
 
         }
 
+
+
         public void DeleteCompany(int id, bool isDel)
         {
-            var company = companyRepository.GetCompanyById(id);
+            var company = _companyRepository.GetCompanyById(id);
+
             if (company == null)
                 throw new NullReferenceException("Такой Компании не существует.");
 
-            companyRepository.UpdateCompany(id, isDel);
+            _companyRepository.UpdateCompany(id, isDel);
 
         }
     }

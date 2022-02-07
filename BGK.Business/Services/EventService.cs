@@ -1,92 +1,78 @@
-﻿using BearGoodbyeKolkhozProject.Business.Models;
+﻿using BearGoodbyeKolkhozProject.Business.Configuration;
+using BearGoodbyeKolkhozProject.Business.Models;
 using BearGoodbyeKolkhozProject.Data.Entities;
 using BearGoodbyeKolkhozProject.Data.Repo;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BearGoodbyeKolkhozProject.Business.Processor
 {
-    public class EventService
+    public class EventService : IEventService
     {
-        private readonly EventRepository eventRepository;
+        private readonly IEventRepository _eventRepository;
 
-        public void AddEventFromCompany(int id, EventModel eventModel)
+        public EventService(IEventRepository eventRepository)
         {
-            var @event = eventRepository.GetEventById(id);
-            if (@event != null)
-                throw new Exception("Такой событие уже существует!");
-
-            var mappedEvent = new Event
-            {
-                StartDate = eventModel.StartDate,
-                Company = eventModel.Company,
-                Classroom = eventModel.Classroom,
-                Lecturer = eventModel.Lecturer
-            };
-
-            eventRepository.AddEvent(mappedEvent);
+            _eventRepository = eventRepository;
         }
-        public void AddEventFromClient(int id, EventModel eventModel)
+
+        public EventModel GetEventById(int id)
         {
-            var @event = eventRepository.GetEventById(id);
-            if (@event != null)
-                throw new Exception("Такой событие уже существует!");
+            var even = _eventRepository.GetEventById(id);
+            if (even != null)
+                throw new Exception("Такого события не существует.");
 
-            var mappedEvent = new Event
-            {
-                StartDate = eventModel.StartDate,
-                Clients = eventModel.Clients,
-                Classroom = eventModel.Classroom,
-                Lecturer = eventModel.Lecturer,
-                IsDeleted = eventModel.IsDeleted
-            };
+            return CustomMapper.GetInstance().Map<EventModel>(even);
+        }
 
-            eventRepository.AddEvent(mappedEvent);
+        public List<EventModel> GetEvents()
+        {
+            List<Event> events = _eventRepository.GetEvents();
+
+            return CustomMapper.GetInstance().Map<List<EventModel>>(events);
+        }
+
+
+        public void AddEventFromCompany(EventModel eventModel)
+        {
+
+            _eventRepository.AddEvent(CustomMapper.Custom.Map<Event>(eventModel));
+
+        }
+
+        public void AddEventFromClient(EventModel eventModel)
+        {
+
+            _eventRepository.AddEvent(CustomMapper.Custom.Map<Event>(eventModel));
         }
 
         public void UpdateEventFromClient(int id, EventModel eventModel)
         {
-            var @event = eventRepository.GetEventById(id);
-            if (@event == null)
+            var even = _eventRepository.GetEventById(id);
+            if (even == null)
                 throw new Exception("Такого события не существует!");
 
-            var mappedEvent = new Event
-            {
-                StartDate = eventModel.StartDate,
-                Clients = eventModel.Clients,
-                Classroom = eventModel.Classroom,
-                Lecturer = eventModel.Lecturer
-            };
 
-            eventRepository.UpdateEvent(mappedEvent);
+            _eventRepository.UpdateEvent(CustomMapper.Custom.Map<Event>(eventModel));
+
+
         }
+
         public void UpdateEventFromCompany(int id, EventModel eventModel)
         {
-            var @event = eventRepository.GetEventById(id);
-            if (@event == null)
+            var even = _eventRepository.GetEventById(id);
+            if (even == null)
                 throw new Exception("Такого события не существует!");
 
-            var mappedEvent = new Event
-            {
-                StartDate = eventModel.StartDate,
-                Company = eventModel.Company,
-                Classroom = eventModel.Classroom,
-                Lecturer = eventModel.Lecturer
-            };
 
-            eventRepository.UpdateEvent(mappedEvent);
+            _eventRepository.UpdateEvent(CustomMapper.Custom.Map<Event>(eventModel));
         }
 
         public void DeleteEvent(int id, bool isDel)
         {
-            var @event = eventRepository.GetEventById(id);
-            if (@event == null)
+            var even = _eventRepository.GetEventById(id);
+            if (even == null)
                 throw new Exception("Такого события не существует!");
 
-            eventRepository.UpdateEvent(id, isDel);
+            _eventRepository.UpdateEvent(id, isDel);
         }
     }
 }

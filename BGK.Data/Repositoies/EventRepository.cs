@@ -1,16 +1,17 @@
 ﻿using BearGoodbyeKolkhozProject.Data.ConnectDb;
 using BearGoodbyeKolkhozProject.Data.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BearGoodbyeKolkhozProject.Data.Repo
 {
-    public class EventRepository
+    public class EventRepository : IEventRepository
     {
-        private ApplicationContext _context;
+        private ApplicationContext _context = Storage.GetInstance();
+        private ApplicationContext context;
+
+        public EventRepository(ApplicationContext context)
+        {
+            this.context = context;
+        }
 
         public Event GetEventById(int id) =>
             _context.Event.Find(id);
@@ -18,21 +19,21 @@ namespace BearGoodbyeKolkhozProject.Data.Repo
         public List<Event> GetEvents() =>
             _context.Event.Where(e => !e.IsDeleted).ToList();
 
-        public void AddEvent(Event @event)
+        public void AddEvent(Event even)
         {
-            _context.Event.Add(@event);
+            _context.Event.Add(even);
 
             _context.SaveChanges();
 
         }
 
-        public void UpdateEvent(Event @event)
+        public void UpdateEvent(Event even)
         {
-            var entity = GetEventById(@event.Id);
-            entity.Clients = @event.Clients;
-            entity.Company = @event.Company;
-            entity.Classroom = @event.Classroom;
-            entity.Lecturer = @event.Lecturer;
+            var entity = GetEventById(even.Id);
+            entity.Clients = even.Clients;
+            entity.Company = even.Company;
+            entity.Classroom = even.Classroom;
+            entity.Lecturer = even.Lecturer;
 
             _context.SaveChanges();
 
