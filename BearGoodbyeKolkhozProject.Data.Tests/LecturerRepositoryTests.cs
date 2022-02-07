@@ -3,6 +3,7 @@ using BearGoodbyeKolkhozProject.Data.Repositories;
 using BearGoodbyeKolkhozProject.Data.Entities;
 using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
+using System.Collections.Generic;
 
 namespace BearGoodbyeKolkhozProject.Data.Tests
 {
@@ -56,6 +57,94 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
 
             //then
             Assert.AreEqual(expected, actual);
+        }
+
+        [Test]
+        public void GetLecturersTest()
+        {
+            //given
+            var fLecturer = new Lecturer
+            {
+                Name = "Roma",
+                LastName = "Azarov",
+                Password = "qwe",
+                BirthDay = "12.12.1999",
+                Gender = Enums.Gender.Male,
+            };
+            var sLecturer = new Lecturer
+            {
+                Name = "Slava",
+                LastName = "Azarov",
+                Password = "asd",
+                BirthDay = "12.12.2004",
+                Gender = Enums.Gender.Male
+            };
+            var tLecturer = new Lecturer
+            {
+                Name = "qwe",
+                LastName = "asd",
+                Password = "123",
+                BirthDay = "11.22.1234",
+                Gender = Enums.Gender.Other
+            };
+
+            _context.Lecturer.Add(fLecturer);
+            _context.Lecturer.Add(sLecturer);
+            _context.Lecturer.Add(tLecturer);
+
+            _context.SaveChanges();
+
+            List<Lecturer> expected = new List<Lecturer> { new Lecturer {
+                Id = fLecturer.Id,
+                Name = "Roma",
+                LastName = "Azarov",
+                Password = "qwe",
+                BirthDay = "12.12.1999",
+                Gender = Enums.Gender.Male}
+            , new Lecturer {
+                Id = sLecturer.Id,
+                Name = "Slava",
+                LastName = "Azarov",
+                Password = "asd",
+                BirthDay = "12.12.2004",
+                Gender = Enums.Gender.Male}
+            , new Lecturer {
+                Id = tLecturer.Id,
+                Name = "qwe",
+                LastName = "asd",
+                Password = "123",
+                BirthDay = "11.22.1234",
+                Gender = Enums.Gender.Other}};
+
+            var repo = new LecturerRepository(_context);
+
+            //when
+            var actual = repo.GetLecturers();
+
+            //then
+            CollectionAssert.AreEqual(expected, actual);
+        }
+
+        [Test]
+        public void AddLecturerTest()
+        {
+            //given
+            var lecturer = new Lecturer
+            {
+                Name = "Roma",
+                LastName = "Azarov",
+                Password = "qwe",
+                BirthDay = "12.12.1999",
+                Gender = Enums.Gender.Male,
+            };
+
+            var repo = new LecturerRepository(_context);
+
+            //when
+            repo.AddLecturer(lecturer);
+
+            //then
+            var a = _context.Lecturer;
         }
     }
 }
