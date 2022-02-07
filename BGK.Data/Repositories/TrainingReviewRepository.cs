@@ -7,9 +7,9 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
     {
         private ApplicationContext _applicationContext;
 
-        public TrainingReviewRepository()
+        public TrainingReviewRepository(ApplicationContext context)
         {
-            _applicationContext = Storage.GetStorage();
+            _applicationContext = context;
         }
 
 
