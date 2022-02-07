@@ -1,16 +1,42 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using BearGoodbyeKolkhozProject.API.Models;
+using BearGoodbyeKolkhozProject.Business.Services;
+using Microsoft.AspNetCore.Mvc;
 
 namespace BearGoodbyeKolkhozProject.API.Controllers
 {
+    [ApiController]
+    [Route("api/training")]
     public class TrainingController : Controller
     {
-        public IActionResult GetTrainingById()
+        private readonly ITrainingService _service;
+
+        public TrainingController(ITrainingService trainingService)
         {
-            return View();
+            _service = trainingService;
         }
+
+        [HttpGet("{id}")]
+        public IActionResult GetTrainingById(int id)
+        {
+
+            var entity = _service.GetTrainingModelById(id);
+            var result = CustomMapper.GetInstance().Map<TrainingOutputModel>(entity);
+
+            if (result == null)
+            {
+                return NotFound($"Лекция номер {id} не найдена");
+            }
+            else
+            {
+                return Ok(result);
+            }
+        }
+
+        [HttpGet]
         public IActionResult GetTrainings()
         {
-            return View();
+            var entities = _service.GetTrainingModelsAll();
+            return Ok(CustomMapper.GetInstance().Map<List<TrainingOutputModel>>(entities));
         }
     }
 }

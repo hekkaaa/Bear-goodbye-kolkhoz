@@ -5,13 +5,13 @@ using BearGoodbyeKolkhozProject.Data.Repositories;
 
 namespace BearGoodbyeKolkhozProject.Business.Services
 {
-    public class TrainingService
+    public class TrainingService : ITrainingService
     {
-        private TrainingRepository _repository;
+        private ITrainingRepository _repository;
 
-        public TrainingService()
+        public TrainingService(ITrainingRepository repository)
         {
-            _repository = new TrainingRepository();
+            _repository = repository;
         }
 
         public void UpdateTraining(int id, TrainingModel trainingModel)
@@ -25,9 +25,9 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             _repository.UpdateTraining(trainingEntity);
         }
 
-        public TrainingModel GetTrainingModelById(TrainingModel trainingModel)
+        public TrainingModel GetTrainingModelById(int id)
         {
-            var trainingEntity = _repository.GetTrainingById(trainingModel.Id);
+            var trainingEntity = _repository.GetTrainingById(id);
             return CustomMapper.GetInstance().Map<TrainingModel>(trainingEntity);
         }
 
