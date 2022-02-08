@@ -16,13 +16,21 @@ namespace BearGoodbyeKolkhozProject.Data.ConnectDb
         public DbSet<Topic> Topic { get; set; }
         public DbSet<Training> Training { get; set; }
         public DbSet<TrainingReview> TrainingReview { get; set; }
-     
+
+
+        public ApplicationContext()
+        {
+
+        }
 
         public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options)
         {
-            Database.EnsureDeleted();
+            //Database.EnsureDeleted();
             Database.EnsureCreated();
         }
+
+       
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             

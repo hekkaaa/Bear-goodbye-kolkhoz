@@ -12,14 +12,13 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
     [Route("api/[controller]")]
     public class CompaniesController : Controller
     {
-        private readonly CompanyService _service;
+        private readonly ICompanyService _service;
 
-        public CompaniesController(CompanyService  companyService)
+        public CompaniesController(ICompanyService  companyService)
         {
             _service = companyService;
         }
             
-
 
         private CustomMapperApi _mapperApi = new CustomMapperApi();
 
@@ -47,7 +46,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
 
         //api/companies/
         [HttpPost()]
-         public  ActionResult<CompanyOutputModel> AddCompany( [FromBody] CompanyInsertInputModel companyInsertInputModel)
+         public  ActionResult<CompanyInsertInputModel> AddCompany( [FromBody] CompanyInsertInputModel companyInsertInputModel)
          {
 
             CompanyModel entity = CustomMapperApi.GetInstance().Map<CompanyModel>(companyInsertInputModel);
@@ -60,7 +59,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
          }
         //api/companies/
         [HttpPut]
-        public ActionResult<CompanyOutputModel> UpdateCompany(int id, [FromBody] CompanyUpdateInputModel companyUpdateInputModel)
+        public ActionResult<CompanyUpdateInputModel> UpdateCompany(int id, [FromBody] CompanyUpdateInputModel companyUpdateInputModel)
         {
             CompanyModel entity = CustomMapperApi.GetInstance().Map<CompanyModel>(companyUpdateInputModel);
 

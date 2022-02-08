@@ -32,7 +32,6 @@ namespace BearGoodbyeKolkhozProject.API.ConfigurationAPI
 
                 cfg.CreateMap<CompanyOutputModel, CompanyModel>().ReverseMap();
                
-
             }));
 
 

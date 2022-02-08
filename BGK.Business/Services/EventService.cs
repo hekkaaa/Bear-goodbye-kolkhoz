@@ -34,14 +34,14 @@ namespace BearGoodbyeKolkhozProject.Business.Processor
         public void AddEventFromCompany(EventModel eventModel)
         {
 
-            _eventRepository.AddEvent(CustomMapper.Custom.Map<Event>(eventModel));
+            _eventRepository.AddEvent(CustomMapper.GetInstance().Map<Event>(eventModel));
 
         }
 
         public void AddEventFromClient(EventModel eventModel)
         {
 
-            _eventRepository.AddEvent(CustomMapper.Custom.Map<Event>(eventModel));
+            _eventRepository.AddEvent(CustomMapper.GetInstance().Map<Event>(eventModel));
         }
 
         public void UpdateEventFromClient(int id, EventModel eventModel)

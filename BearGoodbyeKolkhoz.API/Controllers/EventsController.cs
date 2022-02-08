@@ -13,9 +13,9 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
     [Route("api/[controller]")]
     public class EventsController : Controller
     {
-        private readonly EventService _service;
+        private readonly IEventService _service;
 
-        public EventsController(EventService eventService)
+        public EventsController(IEventService eventService)
         {
             _service = eventService;
         }
@@ -46,20 +46,20 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         }
 
         ////api/events/1
-        //[HttpPost("{id}")]   Нужно переименовать
-        //public ActionResult<EventOutputModel> AddEventFromClient([FromBody] EventOutputModel eventOutputModel)
-        //{
+        [HttpPost("{id}/event/client")]        
+        public ActionResult<EventOutputModel> AddEventFromClient([FromBody] EventOutputModel eventOutputModel)
+        {
 
-        //    EventModel entity = CustomMapperApi.GetInstance().Map<EventModel>(eventOutputModel);
+            EventModel entity = CustomMapperApi.GetInstance().Map<EventModel>(eventOutputModel);
 
-        //    _service.AddEventFromClient(entity);
+            _service.AddEventFromClient(entity);
 
-        //    return StatusCode(StatusCodes.Status201Created, entity);
+            return StatusCode(StatusCodes.Status201Created, entity);
 
-        //}
+        }
 
         //api/events/1
-        [HttpPost("{id}")]
+        [HttpPost("{id}/event/company")]
         public ActionResult<EventOutputModel> AddEventFromCompany([FromBody] EventOutputModel eventOutputModel)
         {
 
@@ -72,8 +72,8 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         }
 
         //api/events/1
-        [HttpPut("{id}")]
-        public ActionResult<EventOutputModel> UpdateEventFromClient(int id, [FromBody] EventUpdateInputModel eventUpdateInputModel)
+        [HttpPut("{id}/event/client")]
+        public ActionResult<EventUpdateInputModel> UpdateEventFromClient(int id, [FromBody] EventUpdateInputModel eventUpdateInputModel)
         {
             EventModel entity = CustomMapperApi.GetInstance().Map<EventModel>(eventUpdateInputModel);
 
@@ -83,15 +83,15 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         }
 
         ////api/events/1
-        //[HttpPut("{id}")]    Нужно переименовать
-        //public ActionResult<EventOutputModel> UpdateEventFromCompany(int id, [FromBody] EventUpdateInputModel eventUpdateInputModel)
-        //{
-        //    EventModel entity = CustomMapperApi.GetInstance().Map<EventModel>(eventUpdateInputModel);
+        [HttpPut("{id}/event/company")]
+        public ActionResult<EventUpdateInputModel> UpdateEventFromCompany(int id, [FromBody] EventUpdateInputModel eventUpdateInputModel)
+        {
+            EventModel entity = CustomMapperApi.GetInstance().Map<EventModel>(eventUpdateInputModel);
 
-        //    _service.UpdateEventFromCompany(id, entity);
+            _service.UpdateEventFromCompany(id, entity);
 
-        //    return Ok(entity);
-        //}
+            return Ok(entity);
+        }
 
 
         //api/events/1/Могущество/ True

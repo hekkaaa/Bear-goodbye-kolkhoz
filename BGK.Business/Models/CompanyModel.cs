@@ -12,8 +12,8 @@ namespace BearGoodbyeKolkhozProject.Business.Models
         public string Password { get; set; }
         public bool IsDeleted { get; set; }
 
-        public List<TrainingReview> TrainingReviews { get; set; }
-        public List<LecturerReview> LecturerReviews { get; set; }
+        public List<TrainingReview>? TrainingReviews { get; set; }
+        public List<LecturerReview>? LecturerReviews { get; set; }
 
 
     }

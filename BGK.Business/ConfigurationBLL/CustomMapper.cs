@@ -6,7 +6,7 @@ namespace BearGoodbyeKolkhozProject.Business.Configuration
 {
     public class CustomMapper
     {
-        private static Mapper _instance;
+        private static Mapper? _instance;
 
         public static Mapper GetInstance()
         {
@@ -17,7 +17,7 @@ namespace BearGoodbyeKolkhozProject.Business.Configuration
 
         }
 
-        public static Mapper Custom { get; set; }
+        public static Mapper? Custom { get; set; }
 
         private static void InitCustomMapper()
         {            
