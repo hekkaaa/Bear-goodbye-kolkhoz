@@ -6,9 +6,9 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
     public class AdminRepository
     {
         private ApplicationContext _db;
-        private AdminRepository()
+        private AdminRepository(ApplicationContext context)
         {
-            this._db = Storage.GetStorage();
+            this._db = context;
         }
         public Admin GetAdminById(int id)
         {
