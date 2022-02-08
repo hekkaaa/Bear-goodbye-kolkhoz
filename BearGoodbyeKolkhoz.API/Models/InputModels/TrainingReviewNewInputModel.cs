@@ -2,11 +2,9 @@
 
 namespace BearGoodbyeKolkhozProject.API.Models
 {
-    public class TrainingReviewInputModel
+    public class TrainingReviewInputModel:TrainingReviewUpdateInputModel
     {
-        public ClientModel Client { get; set; }
-        public TrainingModel Training { get; set; }
-        public string Text { get; set; }
-        public int Mark { get; set; }
+        public int ClientId { get; set; }
+        public int TrainingId { get; set; }
     }
 }

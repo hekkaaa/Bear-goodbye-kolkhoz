@@ -21,7 +21,9 @@ namespace BearGoodbyeKolkhozProject.API
         {
             _instance = new Mapper(new MapperConfiguration(cfg =>
             {
-                cfg.CreateMap<TrainingReviewOutputModel, TrainingReviewModel>().ReverseMap();
+                cfg.CreateMap<TrainingReviewOutputModel, TrainingReviewModel>();
+                cfg.CreateMap<TrainingOutputModel, TrainingModel>();
+
 
             }));
         }

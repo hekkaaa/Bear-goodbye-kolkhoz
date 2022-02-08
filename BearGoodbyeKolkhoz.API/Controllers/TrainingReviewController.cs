@@ -16,32 +16,6 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
             _service = trainingReviewService;
         }
 
-       
-
-        [HttpGet("{id}")]
-        public ActionResult<TrainingReviewOutputModel> GetTrainingReviewById(int id)
-        {
-            var entity = _service.GetTrainingReviewModelById(id);
-            var result = CustomMapper.GetInstance().Map<TrainingReviewOutputModel>(entity);
-
-            if (result == null)
-            {
-                return NotFound($"Обзор {id} на лекцию не найден!");
-            }
-            else
-            {
-                return Ok(result);
-            }
-        }
-
-        [HttpGet]
-        public ActionResult<List<TrainingReviewOutputModel>> GetTrainingReviews()
-        {
-            var entities = _service.GetTrainingReviewModelsAll();
-            return Ok(CustomMapper.GetInstance().Map<List<TrainingReviewOutputModel>>(entities));
-        }
-
-
 
     }
 }

@@ -7,7 +7,7 @@ namespace BearGoodbyeKolkhozProject.Business.Services
         void AddTrainingReview(TrainingReviewModel trainingReviewModel);
         void DeleteTrainingReview(TrainingReviewModel trainingReviewModel);
         TrainingReviewModel GetTrainingReviewModelById(int id);
-        List<TrainingReviewModel> GetTrainingReviewModelsAll();
+        List<TrainingReviewModel> GetTrainingReviewModels();
         void UpdateTrainingReview(int id, TrainingReviewModel trainingReviewModel);
     }
 }

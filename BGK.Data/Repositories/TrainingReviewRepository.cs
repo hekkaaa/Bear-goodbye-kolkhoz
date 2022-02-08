@@ -22,8 +22,10 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
         public void UpdateTrainingReview(TrainingReview trainingReview)
         {
             var oldTrainingReview = GetTrainingReviewById(trainingReview.Id);
+
             oldTrainingReview.Mark = trainingReview.Mark;
             oldTrainingReview.Text = trainingReview.Text;
+            
             _applicationContext.SaveChanges();
         }
 

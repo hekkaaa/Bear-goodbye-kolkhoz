@@ -18,6 +18,8 @@ var connString = builder.Configuration.GetValue<string>(_connString);
 
 builder.Services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(connString));
 
+builder.Services.AddScoped<ITrainingRepository, TrainingRepository>();
+builder.Services.AddScoped<ITrainingService, TrainingService>();
 builder.Services.AddScoped<ITrainingReviewRepository, TrainingReviewRepository>();
 builder.Services.AddScoped<ITrainingReviewService, TrainingReviewService>();
 

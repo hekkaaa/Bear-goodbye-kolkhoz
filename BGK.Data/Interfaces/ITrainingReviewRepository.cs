@@ -6,8 +6,8 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
     {
         void AddTrainingReview(TrainingReview trainingReview);
         void DeleteTrainingReview(int id);
-        TrainingReview GetTrainingReviewById(int id);
         List<TrainingReview> GetTrainingReviews();
+        TrainingReview GetTrainingReviewById(int id);
         void UpdateTrainingReview(TrainingReview trainingReview);
     }
 }
