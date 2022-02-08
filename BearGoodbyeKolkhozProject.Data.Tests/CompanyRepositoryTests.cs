@@ -1,7 +1,6 @@
 using BearGoodbyeKolkhozProject.Data.ConnectDb;
 using BearGoodbyeKolkhozProject.Data.Entities;
 using BearGoodbyeKolkhozProject.Data.Repo;
-using BearGoodbyeKolkhozProject.Data.Tests.Mock;
 using Microsoft.EntityFrameworkCore;
 using Moq;
 using NUnit.Framework;
@@ -30,14 +29,12 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
 
             
         }
-
+       
 
 
         [TestCaseSource(typeof(AddCompaniesTestCaseSource))]
         public void AddCompanyTest(Company expected )
-        {
-            MockCompany mockCompany = new MockCompany();
-
+        {            
             //given
             Mock<ICompanyRepository> mock = new Mock<ICompanyRepository>();
             mock.Setup((obj) => obj.AddCompany(expected));
