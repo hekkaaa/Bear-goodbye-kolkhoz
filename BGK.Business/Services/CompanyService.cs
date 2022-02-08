@@ -38,6 +38,7 @@ namespace BearGoodbyeKolkhozProject.Business.Processor
 
             var mappedCompany = new Company
             {
+                
                 Email = companyModel.Email,
                 Password = companyModel.Password,
                 Name = companyModel.Name,
@@ -47,7 +48,7 @@ namespace BearGoodbyeKolkhozProject.Business.Processor
 
             };
 
-            _companyRepository.AddCompany(CustomMapper.Custom.Map<Company>(mappedCompany));
+            _companyRepository.AddCompany(CustomMapper.GetInstance().Map<Company>(mappedCompany));
         }
 
 
