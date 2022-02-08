@@ -68,12 +68,17 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
         [Test]
         public void DeleteTrainingReviewByIdTests()
         {
+            //given
             var trainingReview = GetTestData();
+
+            //when
             _context.TrainingReview.Add(trainingReview);
             _context.SaveChanges();
             var listBeforeDelete = _trainingReviewRepository.GetTrainingReviews();
             _trainingReviewRepository.DeleteTrainingReview(trainingReview.Id);
             var listAfterDelete = _trainingReviewRepository.GetTrainingReviews();
+
+            //then
             Assert.IsTrue((listBeforeDelete.Count - listAfterDelete.Count) == 1);            
         }
 
@@ -81,16 +86,24 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
         [Test]
         public void AddTrainingReviewTests()
         {
+            //given
             var trainingReview = GetTestData();
+
+            //when
             _trainingReviewRepository.AddTrainingReview(trainingReview);
             var entity = _context.TrainingReview.FirstOrDefault(tr => tr.Id == trainingReview.Id);
+
+            //then
             Assert.IsNotNull(entity);
         }
 
         [Test]
         public void UpdateTrainingReviewByIdTests()
         {
+            //given
             var trainingReview = GetTestData();
+
+            //when
             _context.Add(trainingReview);
             _context.SaveChanges();
             var updateTrainingReview = new TrainingReview
@@ -98,9 +111,9 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
                 Id = 1,
                 Mark = 5,
             };
-
             _trainingReviewRepository.UpdateTrainingReview(updateTrainingReview);
 
+            //then
             Assert.IsTrue(trainingReview.Mark == 5);
             Assert.IsTrue(trainingReview.Text == null);
             Assert.IsTrue(trainingReview.Id == 1);
@@ -109,15 +122,17 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
         [Test]
         public void GetTrainingReviewsTests()
         {
+            //given
             var a = GetTestData();
             var b = GetTestData(); 
 
+            //when
             _context.TrainingReview.Add(a);
             _context.TrainingReview.Add(b);
             _context.SaveChanges();
-
             var act = _trainingReviewRepository.GetTrainingReviews();
 
+            //then
             Assert.IsNotNull(act);
             Assert.IsTrue(act.Count == 2);
         }
@@ -128,11 +143,12 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
             //given
             var trainingReview = GetTestDataWithClientTests();
 
+            //when
             _context.TrainingReview.Add(trainingReview);
             _context.SaveChanges();
-
             var act = _trainingReviewRepository.GetTrainingReviewById(trainingReview.Id);
 
+            //then
             Assert.IsNotNull(act);
             Assert.IsTrue(act.Id == 1);
             Assert.IsTrue(act.Client.Name == "Sacha");
