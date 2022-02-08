@@ -5,26 +5,12 @@ using BearGoodbyeKolkhozProject.API.Models.InputModels;
 
 namespace BearGoodbyeKolkhozProject.API.Configuration
 {
-    public class CustomMapper : ICustomMapper
+    public class CustomMapper : Profile
     {
-        private Mapper _instance;
-
-        public Mapper GetInstance()
+        public CustomMapper()
         {
-            if (_instance == null)
-                InitCustomMapper();
-            return _instance;
-        }
-
-        //public Mapper Custom { get; set; }
-
-        private void InitCustomMapper()
-        {
-            _instance = new Mapper(new MapperConfiguration(cfg =>
-            {
-                cfg.CreateMap<LecturerRegistrationInputModel, LecturerModel>().ReverseMap();
-                cfg.CreateMap<LecturerOutputModel, LecturerModel>().ReverseMap();
-            }));
+            CreateMap<LecturerRegistrationInputModel, LecturerModel>().ReverseMap();
+            CreateMap<LecturerOutputModel, LecturerModel>().ReverseMap();
         }
     }
 }

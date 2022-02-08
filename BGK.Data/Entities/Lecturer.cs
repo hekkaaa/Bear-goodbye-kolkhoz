@@ -26,10 +26,10 @@ namespace BearGoodbyeKolkhozProject.Data.Entities
             return $"{Id} {Name} {LastName}";
         }
 
-        // не ручаюсь, потом починю
         public override bool Equals(object? obj)
         {
-            if (Id != ((Lecturer)obj).Id 
+            if (obj is null
+                || Id != ((Lecturer)obj).Id 
                 || Name != ((Lecturer)obj).Name
                 || LastName != ((Lecturer)obj).LastName
                 || BirthDay != ((Lecturer)obj).BirthDay

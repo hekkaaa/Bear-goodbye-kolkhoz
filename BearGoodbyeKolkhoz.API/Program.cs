@@ -1,3 +1,4 @@
+using BearGoodbyeKolkhozProject.API.Configuration;
 using BearGoodbyeKolkhozProject.Business.Interfaces;
 using BearGoodbyeKolkhozProject.Business.Services;
 using BearGoodbyeKolkhozProject.Data.ConnectDb;
@@ -14,13 +15,16 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<ApplicationContext>();
-var app = builder.Build();
 
-builder.Services.AddDbContext<ApplicationContext>(options => 
-    options.UseSqlServer(@"Data Source=laptop;Initial Catalog=test3;Integrated Security=True"));
-
-builder.Services.AddScoped<ILecturerRepository, LecturerRepository>();
 builder.Services.AddScoped<ILecturerService, LecturerService>();
+builder.Services.AddScoped<ITrainingRepository, TrainingRepository>();
+builder.Services.AddScoped<ILecturerRepository, LecturerRepository>();
+builder.Services.AddAutoMapper(typeof(CustomMapper));
+
+builder.Services.AddDbContext<ApplicationContext>(options =>
+    options.UseSqlServer(@"Data Source = laptop; Initial Catalog = test3; Integrated Security = True"));
+
+var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

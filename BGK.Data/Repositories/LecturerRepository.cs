@@ -18,15 +18,11 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
             _context = context;
         }
 
-        public Lecturer GetLecturerById(int id)
-        {
-            return _context.Lecturer.FirstOrDefault(L => L.Id == id);
-        }
+        public Lecturer GetLecturerById(int id) =>
+            _context.Lecturer.FirstOrDefault(L => L.Id == id);
 
-        public List<Lecturer> GetLecturers()
-        {
-            return _context.Lecturer.Where(t => !t.IsDeleted).ToList();
-        }
+        public List<Lecturer> GetLecturers() =>
+            _context.Lecturer.Where(t => !t.IsDeleted).ToList();
 
         public void AddLecturer(Lecturer model)
         {
@@ -41,33 +37,23 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
             entity.Name = model.Name;
             entity.LastName = model.LastName;
             entity.Gender = model.Gender;
-            entity.IsDeleted = model.IsDeleted;
 
             _context.SaveChanges();
         }
 
-        public void AddTraining(int lecturerId, int trainingId)
+        public void AddTraining(int lecturerId, Training training)
         {
             var entity = GetLecturerById(lecturerId);
-            var trainings = _context.Training.FirstOrDefault(trainig => trainig.Id == trainingId);
-            if (trainings is not null)
-            {
-                entity.Trainings.Add(trainings);
-            }
+            entity.Trainings.Add(training);
 
             _context.SaveChanges();
         }
 
-        public void DeleteTraining(int lecturerId, Training model)
+        public void DeleteTraining(int lecturerId, Training training)
         {
             var entity = GetLecturerById(lecturerId);
-            Training res = entity.Trainings.FirstOrDefault(trainig => trainig.Id == model.Id);
-
-            if (res is not null)
-            {
-                entity.Trainings.Remove(res);
-                _context.SaveChanges();
-            }
+            entity.Trainings.Remove(training);
+            _context.SaveChanges();
         }
 
         public void DeleteLecturerById(int id)

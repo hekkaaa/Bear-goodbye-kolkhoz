@@ -3,13 +3,13 @@ using BearGoodbyeKolkhozProject.Data.Entities;
 
 namespace BearGoodbyeKolkhozProject.Data.Repositories
 {
-    public class TrainingReviewRepository
+    public class TrainingReviewRepository : ITrainingReviewRepository
     {
         private ApplicationContext _applicationContext;
 
-        public TrainingReviewRepository()
+        public TrainingReviewRepository(ApplicationContext context)
         {
-            _applicationContext = Storage.GetInstance();
+            _applicationContext = context;
         }
 
 

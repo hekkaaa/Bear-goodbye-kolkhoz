@@ -9,10 +9,12 @@ namespace BearGoodbyeKolkhozProject.Business.Services
     public class LecturerService : ILecturerService
     {
         private readonly ILecturerRepository _repo;
+        private readonly ITrainingRepository _trainingRepo;
 
-        public LecturerService(ILecturerRepository lecturerRepository)
+        public LecturerService(ILecturerRepository lecturerRepository, ITrainingRepository trainingRepository)
         {
             _repo = lecturerRepository;
+            _trainingRepo = trainingRepository;
         }
 
         public void RegistrationLecturer(LecturerModel model)
@@ -33,8 +35,24 @@ namespace BearGoodbyeKolkhozProject.Business.Services
 
         public void AddTraining(int id, int trainingId)
         {
-            var entity = _repo.GetLecturerById(id);
-            _repo.AddTraining(id, trainingId);
+            var training = _trainingRepo.GetTrainingById(trainingId);
+            if (training is null)
+            {
+                throw new Exception("Нет такого треннинга");
+            }
+
+            _repo.AddTraining(id, training);
+        }
+
+        public void DeleteTraining(int id, int trainingId)
+        {
+            var training = _trainingRepo.GetTrainingById(trainingId);
+            if (training is null)
+            {
+                throw new Exception("Нет такого треннинга");
+            }
+
+            _repo.DeleteTraining(id, training);
         }
 
         public void UpdateLecturer(int id, LecturerModel model)

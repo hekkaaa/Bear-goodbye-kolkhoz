@@ -17,21 +17,10 @@ namespace BearGoodbyeKolkhozProject.Data.ConnectDb
         public DbSet<Training> Training { get; set; }
         public DbSet<TrainingReview> TrainingReview { get; set; }
 
-        // это для стореджа, хер знает че там нада делать
-        public ApplicationContext()
-        {
-            Database.EnsureCreated();
-        }
-
         public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options)
         {
             Database.EnsureCreated();
         }
-
-        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        //{
-        //    optionsBuilder.UseSqlServer(@"Data Source=laptop;Initial Catalog=test3;Integrated Security=True");
-        //}
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

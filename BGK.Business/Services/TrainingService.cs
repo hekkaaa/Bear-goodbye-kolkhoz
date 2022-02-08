@@ -1,17 +1,18 @@
 ﻿using BearGoodbyeKolkhozProject.Business.Configuration;
 using BearGoodbyeKolkhozProject.Business.Models;
 using BearGoodbyeKolkhozProject.Data.Entities;
+using BearGoodbyeKolkhozProject.Data.Interfaces;
 using BearGoodbyeKolkhozProject.Data.Repositories;
 
 namespace BearGoodbyeKolkhozProject.Business.Services
 {
     public class TrainingService
     {
-        private TrainingRepository _repository;
+        private ITrainingRepository _repository;
 
-        public TrainingService()
+        public TrainingService(ITrainingRepository repository)
         {
-            _repository = new TrainingRepository();
+            _repository = repository;
         }
 
         public void UpdateTraining(int id, TrainingModel trainingModel)
@@ -36,8 +37,6 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             var trainingEntityList = _repository.GetTrainings();
             return CustomMapper.GetInstance().Map<List<TrainingModel>>(trainingEntityList);
         }
-
-
 
         public void AddTraining(TrainingModel trainingModel)
         {

@@ -19,7 +19,7 @@ namespace BearGoodbyeKolkhozProject.Business.Models
         public Gender Gender { get; set; }
 
         public List<TrainingModel> Trainings { get; set; }
-        public virtual List<Event> Events { get; set; }
-        public virtual List<LecturerReview> LecturerReviews { get; set; }
+        public List<Event> Events { get; set; }
+        public List<LecturerReview> LecturerReviews { get; set; }
     }
 }

@@ -10,17 +10,18 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
 {
     public class LecturerReviewRepository
     {
-        private ApplicationContext _context = Storage.GetInstance();
+        private ApplicationContext _context;
 
-        public LecturerReview GetLecturerReviewById(int id)
+        public LecturerReviewRepository(ApplicationContext context)
         {
-            return _context.LecturerReview.Find(id);
+            _context = context;
         }
 
-        public List<LecturerReview> GetLecturerReviews()
-        {
-            return _context.LecturerReview.ToList();
-        }
+        public LecturerReview GetLecturerReviewById(int id) =>
+            _context.LecturerReview.FirstOrDefault(lr => lr.Id == id);
+
+        public List<LecturerReview> GetLecturerReviews() =>
+            _context.LecturerReview.ToList();
 
         public List<LecturerReview> GetLecturerReviewsByLecturerId(int id)
         {

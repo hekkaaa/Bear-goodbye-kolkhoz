@@ -10,17 +10,18 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
 {
     public class TopicRepository
     {
-        private ApplicationContext _context = Storage.GetInstance();
+        private ApplicationContext _context;
 
-        public Topic GetTopicById(int id)
+        public TopicRepository(ApplicationContext context)
         {
-            return _context.Topic.Find(id);
+            _context = context;
         }
 
-        public List<Topic> GetTopic()
-        {
-            return _context.Topic.ToList();
-        }
+        public Topic GetTopicById(int id) => 
+            _context.Topic.FirstOrDefault(t => t.Id == id);
+
+        public List<Topic> GetTopic() => 
+            _context.Topic.Where(t => !t.IsDeleted).ToList();
 
         public void AddTopic(Topic model)
         {
@@ -35,17 +36,10 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
             _context.SaveChanges();
         }
 
-        public void DeleteTopicById(int id)
+        public void ChangeDeleteStatusById(int id, bool IsDelited)
         {
-            var entity = GetTopicById(id);
-            entity.IsDeleted = true;
-            _context.SaveChanges();
-        }
-
-        public void RecoverTopicById(int id)
-        {
-            var entity = _context.Topic.Find(id);
-            entity.IsDeleted = false;
+            var entity = _context.Topic.FirstOrDefault(t => t.Id == id);
+            entity.IsDeleted = IsDelited;
             _context.SaveChanges();
         }
     }

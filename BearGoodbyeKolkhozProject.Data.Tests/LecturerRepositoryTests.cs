@@ -4,6 +4,10 @@ using BearGoodbyeKolkhozProject.Data.Entities;
 using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
 using System.Collections.Generic;
+using Moq;
+using BearGoodbyeKolkhozProject.Data.Interfaces;
+using BearGoodbyeKolkhozProject.Data.Tests.TestCaseSources.LecturerTestCaseSource;
+using System.Linq;
 
 namespace BearGoodbyeKolkhozProject.Data.Tests
 {
@@ -24,127 +28,56 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
             _context.Database.EnsureCreated();
         }
 
-        [Test]
-        public void GetLecturerByIdTest()
+        [TestCaseSource(typeof(GetLecturerByIdTestCaseSource))]
+        public void GetLecturerByIdTest(Lecturer lecturer, Lecturer expected)
         {
             //given
-                var lecturer = new Lecturer
-                {
-                    Name = "Roma",
-                    LastName = "Azarov",
-                    Password = "qwe",
-                    BirthDay = "12.12.1999",
-                    Gender = Enums.Gender.Male,
-                };
-
             _context.Lecturer.Add(lecturer);
             _context.SaveChanges();
 
-            var expected = new Lecturer
-            {
-                Id = lecturer.Id,
-                Name = "Roma",
-                LastName = "Azarov",
-                Password = "qwe",
-                BirthDay = "12.12.1999",
-                Gender = Enums.Gender.Male,
-            };
-
-            var repo = new LecturerRepository(_context);
-
             //when
-            var actual = repo.GetLecturerById(lecturer.Id);
+            Mock<ILecturerRepository> mock = new Mock<ILecturerRepository>();
+            mock.Setup((obj) => obj.GetLecturerById(lecturer.Id)).Returns(expected);
+            LecturerRepository lecturerRepository = new LecturerRepository(_context);
+
+            var actual = lecturerRepository.GetLecturerById(lecturer.Id);
 
             //then
             Assert.AreEqual(expected, actual);
         }
 
-        [Test]
-        public void GetLecturersTest()
+        [TestCaseSource(typeof(GetLecturersTestCaseSource))]
+        public void GetLecturersTest(List<Lecturer> lecturers, List<Lecturer> expected)
         {
             //given
-            var fLecturer = new Lecturer
-            {
-                Name = "Roma",
-                LastName = "Azarov",
-                Password = "qwe",
-                BirthDay = "12.12.1999",
-                Gender = Enums.Gender.Male,
-            };
-            var sLecturer = new Lecturer
-            {
-                Name = "Slava",
-                LastName = "Azarov",
-                Password = "asd",
-                BirthDay = "12.12.2004",
-                Gender = Enums.Gender.Male
-            };
-            var tLecturer = new Lecturer
-            {
-                Name = "qwe",
-                LastName = "asd",
-                Password = "123",
-                BirthDay = "11.22.1234",
-                Gender = Enums.Gender.Other
-            };
-
-            _context.Lecturer.Add(fLecturer);
-            _context.Lecturer.Add(sLecturer);
-            _context.Lecturer.Add(tLecturer);
-
+            _context.AddRange(lecturers);
             _context.SaveChanges();
 
-            List<Lecturer> expected = new List<Lecturer> { new Lecturer {
-                Id = fLecturer.Id,
-                Name = "Roma",
-                LastName = "Azarov",
-                Password = "qwe",
-                BirthDay = "12.12.1999",
-                Gender = Enums.Gender.Male}
-            , new Lecturer {
-                Id = sLecturer.Id,
-                Name = "Slava",
-                LastName = "Azarov",
-                Password = "asd",
-                BirthDay = "12.12.2004",
-                Gender = Enums.Gender.Male}
-            , new Lecturer {
-                Id = tLecturer.Id,
-                Name = "qwe",
-                LastName = "asd",
-                Password = "123",
-                BirthDay = "11.22.1234",
-                Gender = Enums.Gender.Other}};
-
-            var repo = new LecturerRepository(_context);
-
             //when
-            var actual = repo.GetLecturers();
+            Mock<ILecturerRepository> mock = new Mock<ILecturerRepository>();
+            mock.Setup((obj) => obj.GetLecturers()).Returns(expected);
+            LecturerRepository lecturerRepository = new LecturerRepository(_context);
+            
+            var actual = lecturerRepository.GetLecturers();
 
             //then
             CollectionAssert.AreEqual(expected, actual);
         }
 
-        [Test]
-        public void AddLecturerTest()
+        [TestCaseSource(typeof(AddLecturerTestCaseSource))]
+        public void AddLecturerTest(Lecturer expected)
         {
             //given
-            var lecturer = new Lecturer
-            {
-                Name = "Roma",
-                LastName = "Azarov",
-                Password = "qwe",
-                BirthDay = "12.12.1999",
-                Gender = Enums.Gender.Male,
-            };
-
-            var repo = new LecturerRepository(_context);
+            Mock<ILecturerRepository> mock = new Mock<ILecturerRepository>();
+            mock.Setup((obj) => obj.AddLecturer(expected));
+            LecturerRepository lecturerRepository = new LecturerRepository(_context);
 
             //when
-            repo.AddLecturer(lecturer);
+            lecturerRepository.AddLecturer(expected);
+            var actual = _context.Lecturer.FirstOrDefault(l => l.Id == expected.Id);
 
             //then
-            var a = _context.Lecturer;
+            Assert.AreEqual(expected, actual);
         }
     }
 }

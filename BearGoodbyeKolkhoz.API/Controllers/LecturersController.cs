@@ -4,17 +4,18 @@ using BearGoodbyeKolkhozProject.Business.Models;
 using BearGoodbyeKolkhozProject.API.Models.OutputModels;
 using BearGoodbyeKolkhozProject.API.Models.InputModels;
 using BearGoodbyeKolkhozProject.Business.Interfaces;
+using AutoMapper;
 
 namespace BearGoodbyeKolkhozProject.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class LecturerController : Controller
+    public class LecturersController : Controller
     {
         private readonly ILecturerService _service;
-        private ICustomMapper _mapper;
+        private IMapper _mapper;
 
-        public LecturerController(ILecturerService lecturerService, ICustomMapper mapper)
+        public LecturersController(ILecturerService lecturerService, IMapper mapper)
         {
             _service = lecturerService;
             _mapper = mapper;
@@ -24,7 +25,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         public ActionResult<List<LecturerOutputModel>> GetLecturers()
         {
             var lecturers = _service.GetLecturers();
-            var result = _mapper.GetInstance().Map<List<LecturerOutputModel>>(lecturers);
+            var result = _mapper.Map<List<LecturerOutputModel>>(lecturers);
             return Ok(result);
         }
 
@@ -32,7 +33,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         public ActionResult<LecturerOutputModel> GetLecturerById(int id)
         {
             var entity = _service.GetLecturerById(id);
-            var result = _mapper.GetInstance().Map<LecturerOutputModel>(entity);
+            var result = _mapper.Map<LecturerOutputModel>(entity);
             return Ok(result);
         }
 
@@ -46,21 +47,20 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         [HttpPost]
         public ActionResult LecturerRegistration([FromBody] LecturerRegistrationInputModel model)
         {
-            LecturerModel entity = _mapper.GetInstance().Map<LecturerModel>(model);
+            LecturerModel entity = _mapper.Map<LecturerModel>(model);
             _service.RegistrationLecturer(entity);
             return StatusCode(StatusCodes.Status201Created, entity);
         }
 
         [HttpPut("{id}")]
-        public ActionResult UpdateLecturer([FromBody] LecturerUpdateInputModel model, int id)
+        public ActionResult UpdateLecturer(int id, [FromBody] LecturerUpdateInputModel model)
         {
-            var entity = _mapper.GetInstance().Map<LecturerModel>(model);
+            var entity = _mapper.Map<LecturerModel>(model);
             _service.UpdateLecturer(id, entity);
             return NoContent();
         }
 
-        // вот тута хзхз
-        [HttpPost("{id}")]
+        [HttpPost("{id}/training")]
         public ActionResult AddTraining(int id, int trainingId)
         {
             _service.AddTraining(id, trainingId);
