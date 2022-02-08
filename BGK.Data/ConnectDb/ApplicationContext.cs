@@ -1,4 +1,4 @@
-﻿using BearGoodbyeKolkhozProject.Data.Entities;
+using BearGoodbyeKolkhozProject.Data.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace BearGoodbyeKolkhozProject.Data.ConnectDb
