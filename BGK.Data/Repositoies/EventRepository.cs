@@ -5,12 +5,11 @@ namespace BearGoodbyeKolkhozProject.Data.Repo
 {
     public class EventRepository : IEventRepository
     {
-        private ApplicationContext _context = Storage.GetInstance();
-        private ApplicationContext context;
+        private ApplicationContext _context;
 
         public EventRepository(ApplicationContext context)
         {
-            this.context = context;
+            _context = context;
         }
 
         public Event GetEventById(int id) =>

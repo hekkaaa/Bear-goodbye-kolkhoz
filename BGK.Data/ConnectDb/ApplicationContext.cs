@@ -17,15 +17,10 @@ namespace BearGoodbyeKolkhozProject.Data.ConnectDb
         public DbSet<Training> Training { get; set; }
         public DbSet<TrainingReview> TrainingReview { get; set; }
 
-
-        public ApplicationContext()
-        {
-
-        }
+     
 
         public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options)
-        {
-            //Database.EnsureDeleted();
+        {           
             Database.EnsureCreated();
         }
 
@@ -33,8 +28,8 @@ namespace BearGoodbyeKolkhozProject.Data.ConnectDb
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            
-            optionsBuilder.UseSqlServer(@"Data Source=DESKTOP-5HF0J14\SQLEXPRESS;Initial Catalog=BGKdb;Integrated Security=True");
+            if (!optionsBuilder.IsConfigured)
+                optionsBuilder.UseSqlServer(@"Data Source=DESKTOP-5HF0J14\SQLEXPRESS;Initial Catalog=BGKdb;Integrated Security=True");
             
         }
     }

@@ -1,10 +1,13 @@
 using BearGoodbyeKolkhozProject.Data.ConnectDb;
 using BearGoodbyeKolkhozProject.Data.Entities;
 using BearGoodbyeKolkhozProject.Data.Repo;
+using BearGoodbyeKolkhozProject.Data.Tests.Mock;
 using Microsoft.EntityFrameworkCore;
 using Moq;
 using NUnit.Framework;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace BearGoodbyeKolkhozProject.Data.Tests
 {
@@ -12,16 +15,6 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
     {
         private ApplicationContext _context;
 
-        private CompanyRepository _companyRepository;
-        
-
-        private readonly Mock<ICompanyRepository> _mock;
-
-        public CompanyRepositoryTests()
-        {
-            _mock = new Mock<ICompanyRepository>();
-
-        }
 
         [SetUp]
         public void Setup()
@@ -32,68 +25,51 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
 
             _context = new ApplicationContext(options);
 
-            //_context.Database.EnsureDeleted();
+            _context.Database.EnsureDeleted();
             _context.Database.EnsureCreated();
 
-            _companyRepository = new CompanyRepository(_context);
+            
         }
 
-        [Test]
-        public void AddCompanyTest()
+
+
+        [TestCaseSource(typeof(AddCompaniesTestCaseSource))]
+        public void AddCompanyTest(Company expected )
         {
-            //given 
-            var company = new Company
-            {
-                Name = "ООО Трико",
-                Email = "Trico@mail.ru",
-                Tin = 881672145,
-                Password = "12345",
-                PhoneNumber = "89650436534"
+            MockCompany mockCompany = new MockCompany();
 
-            };
-       
+            //given
+            Mock<ICompanyRepository> mock = new Mock<ICompanyRepository>();
+            mock.Setup((obj) => obj.AddCompany(expected));
+            CompanyRepository _companyRepository = new CompanyRepository(_context);
 
-            var repo = new CompanyRepository(_context);
-            //when 
-            repo.AddCompany(company);
+            //when
+            _companyRepository.AddCompany(expected);
+            var actual = _context.Company.FirstOrDefault(c => c.Id == expected.Id);
+
             //then
-            var com = _context.Company;
+            Assert.AreEqual(expected, actual);
         }
 
-        [Test]
-        public void GetCompaniesTest()
+        public class AddCompaniesTestCaseSource : IEnumerable
         {
-            //given 
-            List<Company> expected = new List<Company> { new Company {
+            public IEnumerator GetEnumerator()
+            {
+                var company = new Company
+                {
+                    Id = 1,
+                    Name = "OOO Ivan",
+                    Email = "Test1@mail.ru",
+                    PhoneNumber = "123456789",
+                    Tin = 123234,
+                    Password = "1234"
 
-                Name = "ООО Трико",
-                Email = "Trico@mail.ru",
-                Tin = 881672145,
-                Password = "12345",
-                PhoneNumber = "89650436534"}
-            , new Company{
-                Name = "ООО Nica",
-                Email = "Nicao@gmail.com",
-                Tin = 88000000,
-                Password = "qwe",
-                PhoneNumber = "+79650436534"}
-            };
+                };
 
-
-            var repo = new CompanyRepository(_context);
-
-            //when 
-            var actual = repo.GetCompanies();
-
-            //then 
-            CollectionAssert.AreEqual(expected, actual);
-
-
-
-
-
-
+                yield return new object[] { company };
+            }
         }
+       
 
 
     }
