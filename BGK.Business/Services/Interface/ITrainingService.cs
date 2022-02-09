@@ -8,6 +8,7 @@ namespace BearGoodbyeKolkhozProject.Business.Services
         void DeleteTraining(TrainingModel trainingModel);
         TrainingModel GetTrainingModelById(int id);
         List<TrainingModel> GetTrainingModelsAll();
+        List<TrainingModel> GetTrainingModelByTopic(TopicModel topicModel);
         void UpdateTraining(int id, TrainingModel trainingModel);
     }
 }

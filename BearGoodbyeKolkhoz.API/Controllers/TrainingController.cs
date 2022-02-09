@@ -1,4 +1,5 @@
 ﻿using BearGoodbyeKolkhozProject.API.Models;
+using BearGoodbyeKolkhozProject.Business.Models;
 using BearGoodbyeKolkhozProject.Business.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -19,8 +20,8 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         public IActionResult GetTrainingById(int id)
         {
 
-            var entity = _service.GetTrainingModelById(id);
-            var result = CustomMapper.GetInstance().Map<TrainingOutputModel>(entity);
+            var model = _service.GetTrainingModelById(id);
+            var result = CustomMapper.GetInstance().Map<TrainingOutputModel>(model);
 
             if (result == null)
             {
@@ -35,8 +36,15 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         [HttpGet]
         public IActionResult GetTrainings()
         {
-            var entities = _service.GetTrainingModelsAll();
-            return Ok(CustomMapper.GetInstance().Map<List<TrainingOutputModel>>(entities));
+            var models = _service.GetTrainingModelsAll();
+            return Ok(CustomMapper.GetInstance().Map<List<TrainingOutputModel>>(models));
+        }
+
+        [HttpGet("{topic}")]
+        public IActionResult GetTrainingsByTopic(TopicInputModel topicInputModel)
+        {
+            var model = _service.GetTrainingModelByTopic(CustomMapper.GetInstance().Map<TopicModel>(topicInputModel));
+            return Ok(CustomMapper.GetInstance().Map<TrainingOutputModel>(model));
         }
     }
 }

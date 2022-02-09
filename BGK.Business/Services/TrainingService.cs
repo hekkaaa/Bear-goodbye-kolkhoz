@@ -37,7 +37,11 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             return CustomMapper.GetInstance().Map<List<TrainingModel>>(trainingEntityList);
         }
 
-
+        public List<TrainingModel> GetTrainingModelByTopic(TopicModel topicModel)
+        {
+            var trainingEntityList = _repository.GetTrainingsByTopic(CustomMapper.GetInstance().Map<Topic>(topicModel));
+            return CustomMapper.GetInstance().Map<List<TrainingModel>>(trainingEntityList);
+        }
 
         public void AddTraining(TrainingModel trainingModel)
         {
