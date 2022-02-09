@@ -1,4 +1,5 @@
-﻿using BearGoodbyeKolkhozProject.API.Models;
+﻿using AutoMapper;
+using BearGoodbyeKolkhozProject.API.Models;
 using BearGoodbyeKolkhozProject.Business.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,10 +11,13 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
     {
 
         private readonly ITrainingReviewService _service;
+        private readonly IMapper _mapper;
 
-        public TrainingReviewController(ITrainingReviewService trainingReviewService)
+
+        public TrainingReviewController(ITrainingReviewService trainingReviewService, IMapper mapper)
         {
             _service = trainingReviewService;
+            _mapper = mapper;
         }
 
 
