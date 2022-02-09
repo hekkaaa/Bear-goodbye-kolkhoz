@@ -19,7 +19,7 @@ namespace BearGoodbyeKolkhozProject.Business.Processor
         {
             var company = _companyRepository.GetCompanyById(id);
 
-            if (company != null)
+            if (company == null)
                 throw new Exception("Такой Компания не существует.");
 
             return CustomMapper.GetInstance().Map<CompanyModel>(company);
@@ -33,7 +33,7 @@ namespace BearGoodbyeKolkhozProject.Business.Processor
 
         }
 
-        public void AddCompany(CompanyModel companyModel)
+        public void RegistrCompany(CompanyModel companyModel)
         {
 
             var mappedCompany = new Company
@@ -48,34 +48,36 @@ namespace BearGoodbyeKolkhozProject.Business.Processor
 
             };
 
-            _companyRepository.AddCompany(CustomMapper.GetInstance().Map<Company>(mappedCompany));
+            _companyRepository.RegistrCompany(CustomMapper.GetInstance().Map<Company>(mappedCompany));
         }
 
 
 
-        public void UpdateCompany(int id, CompanyModel companyModel)
+        public void UpdateCompany(CompanyModel companyModel)
+        {
+            var company = _companyRepository.GetCompanyById(companyModel.Id);
+
+            if (company == null)
+                throw new NullReferenceException("Такой Компании не существует.");
+
+            _companyRepository.UpdateCompany(CustomMapper.GetInstance().Map<Company>(companyModel));
+
+        }
+
+
+
+        public void DeleteCompany(int id)
         {
             var company = _companyRepository.GetCompanyById(id);
 
             if (company == null)
                 throw new NullReferenceException("Такой Компании не существует.");
 
-            var mappedCompany = new Company
-            {
-                Name = companyModel.Name,
-                PhoneNumber = companyModel.PhoneNumber,
-                Tin = companyModel.Tin,
-                Password = companyModel.Password
-            };
-
-
-            _companyRepository.UpdateCompany(CustomMapper.Custom.Map<Company>(mappedCompany));
+            _companyRepository.DeleteCompany(company);
 
         }
 
-
-
-        public void DeleteCompany(int id, bool isDel)
+        public void UpdateCompany(int id, bool isDel)
         {
             var company = _companyRepository.GetCompanyById(id);
 
@@ -83,7 +85,6 @@ namespace BearGoodbyeKolkhozProject.Business.Processor
                 throw new NullReferenceException("Такой Компании не существует.");
 
             _companyRepository.UpdateCompany(id, isDel);
-
         }
     }
 }

@@ -11,7 +11,7 @@ namespace BearGoodbyeKolkhozProject.Data.Repo
         {
             _context = context;
         }
-        public void AddCompany(Company company)
+        public void RegistrCompany(Company company)
         {
 
             _context.Company.Add(company);
@@ -28,12 +28,12 @@ namespace BearGoodbyeKolkhozProject.Data.Repo
 
         public void UpdateCompany(Company company)
         {
-            var entity = GetCompanyById(company.Id);
 
-            entity.Name = company.Name;
-            entity.Password = company.Password;
-            entity.PhoneNumber = company.PhoneNumber;
-            entity.Tin = company.Tin;
+            var res = _context.Company.FirstOrDefault(с => с.Id == company.Id);
+
+            res.Name = company.Name;
+            res.Tin = company.Tin;
+            res.PhoneNumber = company.PhoneNumber;
 
             _context.SaveChanges();
         }
@@ -41,7 +41,7 @@ namespace BearGoodbyeKolkhozProject.Data.Repo
         public void UpdateCompany(int id, bool isDel)
         {
 
-            var entity = GetCompanyById(id);
+            var entity = _context.Company.FirstOrDefault(x => x.Id == id);
 
             entity.IsDeleted = isDel;
 
@@ -49,13 +49,12 @@ namespace BearGoodbyeKolkhozProject.Data.Repo
 
         }
 
-        public void DeleteCompany(int id)
+        public void DeleteCompany(Company company)
         {
-            var entity = GetCompanyById(id);
 
-            _context.Company.Remove(entity);
+            _context.Remove(company);
 
-            _context.SaveChanges();
+            _context.SaveChanges(); 
 
         }
 

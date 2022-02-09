@@ -1,8 +1,10 @@
 ﻿using BearGoodbyeKolkhozProject.Data.ConnectDb;
+using BearGoodbyeKolkhozProject.Data.Entities;
 using BearGoodbyeKolkhozProject.Data.Repo;
 using Microsoft.EntityFrameworkCore;
 using Moq;
 using NUnit.Framework;
+using System.Collections;
 
 namespace BearGoodbyeKolkhozProject.Data.Tests
 {
@@ -10,15 +12,6 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
     {
         private ApplicationContext _context;
 
-        private EventRepository _eventRepository;
-
-        private readonly Mock<IEventRepository> _mock;
-
-        public EventRepositoryTests()
-        {
-            _mock = new Mock<IEventRepository>();
-
-        }
 
         [SetUp]
         public void Setup()
@@ -29,13 +22,32 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
 
             _context = new ApplicationContext(options);
 
-            _context.Database.EnsureDeleted();
+            //_context.Database.EnsureDeleted();
             _context.Database.EnsureCreated();
-
-            _eventRepository = new EventRepository(_context);
+            ;
         }
 
-        
 
+
+        //public class AddEventTestCaseSource : IEnumerable
+        //{
+        //    public IEnumerator GetEnumerator()
+        //    {
+        //        var even = new Event
+        //        {
+        //            Id = 1,
+        //            StartDate = "03.03.2022",
+        //            Company = 1,
+        //            Classroom = 1,
+        //            Lecturer = 2,
+
+        //        };
+
+        //        yield return new object[] { even };
+
+
+        //        //}
+        //    }
+        //}
     }
 }

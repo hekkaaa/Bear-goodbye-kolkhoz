@@ -51,7 +51,7 @@ namespace BearGoodbyeKolkhozProject.Business.Processor
                 throw new Exception("Такого события не существует!");
 
 
-            _eventRepository.UpdateEvent(CustomMapper.Custom.Map<Event>(eventModel));
+            _eventRepository.UpdateEvent(CustomMapper.GetInstance().Map<Event>(eventModel));
 
 
         }
@@ -63,16 +63,29 @@ namespace BearGoodbyeKolkhozProject.Business.Processor
                 throw new Exception("Такого события не существует!");
 
 
-            _eventRepository.UpdateEvent(CustomMapper.Custom.Map<Event>(eventModel));
+            _eventRepository.UpdateEvent(CustomMapper.GetInstance().Map<Event>(eventModel));
         }
 
-        public void DeleteEvent(int id, bool isDel)
+        public void DeleteEvent(int id)
         {
             var even = _eventRepository.GetEventById(id);
             if (even == null)
                 throw new Exception("Такого события не существует!");
 
+            _eventRepository.DeleteEvent(even);
+        }
+
+        public void UpdateEvent(int id, bool isDel)
+        {
+            var even = _eventRepository.GetEventById(id);
+
+            if (even == null)
+                throw new NullReferenceException("Такого события не существует.");
+
             _eventRepository.UpdateEvent(id, isDel);
         }
+
+       
+        
     }
 }

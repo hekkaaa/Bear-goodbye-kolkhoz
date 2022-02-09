@@ -82,6 +82,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
             return Ok(entity);
         }
 
+
         ////api/events/1
         [HttpPut("{id}/event/company")]
         public ActionResult<EventUpdateInputModel> UpdateEventFromCompany(int id, [FromBody] EventUpdateInputModel eventUpdateInputModel)
@@ -93,15 +94,22 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
             return Ok(entity);
         }
 
-
-        //api/events/1/Могущество/ True
-        [HttpDelete("{id}/event/{isDelete}")]
-        public ActionResult DeleteEvent(int id,[FromQuery] bool isDelete)
+        [HttpPut("{id}/event/")]
+        public ActionResult<EventUpdateInputModel> UpdateEvent(int id, bool isDel)
         {
-            var entity = _service.GetEventById(id);
+            _service.UpdateEvent(id, isDel);
 
-            _service.DeleteEvent(id, isDelete);
+            return NoContent();
 
+        }
+
+
+        //api/events/1/
+        [HttpDelete("{id}/event/")]
+        public ActionResult<EventUpdateInputModel> DeleteEvent(int id)
+        {
+            _service.DeleteEvent(id);
+          
             return NoContent();
         }
 

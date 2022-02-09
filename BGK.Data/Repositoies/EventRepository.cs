@@ -42,7 +42,7 @@ namespace BearGoodbyeKolkhozProject.Data.Repo
         public void UpdateEvent(int id, bool isDel)
         {
 
-            var entity = GetEventById(id);
+            var entity = _context.Event.FirstOrDefault(x => x.Id == id);
 
             entity.IsDeleted = isDel;
 
@@ -50,11 +50,10 @@ namespace BearGoodbyeKolkhozProject.Data.Repo
 
         }
 
-        public void DeleteEvent(int id)
+        public void DeleteEvent(Event even)
         {
-            var entity = GetEventById(id);
-
-            _context.Event.Remove(entity);
+            
+            _context.Event.Remove(even);
 
             _context.SaveChanges();
         }

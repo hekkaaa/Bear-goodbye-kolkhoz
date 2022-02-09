@@ -26,29 +26,28 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
 
             //_context.Database.EnsureDeleted();
             _context.Database.EnsureCreated();
-
             
         }
        
 
 
-        [TestCaseSource(typeof(AddCompaniesTestCaseSource))]
-        public void AddCompanyTest(Company expected )
+        [TestCaseSource(typeof(RegistrCompaniesTestCaseSource))]
+        public void RegistrCompanyTest(Company expected )
         {            
             //given
             Mock<ICompanyRepository> mock = new Mock<ICompanyRepository>();
-            mock.Setup((obj) => obj.AddCompany(expected));
+            mock.Setup((obj) => obj.RegistrCompany(expected));
             CompanyRepository _companyRepository = new CompanyRepository(_context);
 
             //when
-            _companyRepository.AddCompany(expected);
+            _companyRepository.RegistrCompany(expected);
             var actual = _context.Company.FirstOrDefault(c => c.Id == expected.Id);
 
             //then
             Assert.AreEqual(expected, actual);
         }
 
-        public class AddCompaniesTestCaseSource : IEnumerable
+        public class RegistrCompaniesTestCaseSource : IEnumerable
         {
             public IEnumerator GetEnumerator()
             {

@@ -39,19 +39,19 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         {
             var entity = _service.GetCompanyById(id);
 
-            var result = CustomMapper.GetInstance().Map<CompanyOutputModel>(entity);
+            var result = CustomMapperApi.GetInstance().Map<CompanyOutputModel>(entity);
 
             return Ok(result);
         }
 
         //api/companies/
         [HttpPost()]
-         public  ActionResult<CompanyInsertInputModel> AddCompany( [FromBody] CompanyInsertInputModel companyInsertInputModel)
+         public  ActionResult<CompanyInsertInputModel> RegistrCompany( [FromBody] CompanyInsertInputModel companyInsertInputModel)
          {
 
             CompanyModel entity = CustomMapperApi.GetInstance().Map<CompanyModel>(companyInsertInputModel);
 
-            _service.AddCompany(entity);
+            _service.RegistrCompany(entity);
 
             return StatusCode(StatusCodes.Status201Created, entity);
 
@@ -59,22 +59,29 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
          }
         //api/companies/
         [HttpPut]
-        public ActionResult<CompanyUpdateInputModel> UpdateCompany(int id, [FromBody] CompanyUpdateInputModel companyUpdateInputModel)
+        public ActionResult<CompanyUpdateInputModel> UpdateCompany([FromBody] CompanyUpdateInputModel companyUpdateInputModel)
         {
-            CompanyModel entity = CustomMapperApi.GetInstance().Map<CompanyModel>(companyUpdateInputModel);
+            CompanyModel model = CustomMapperApi.GetInstance().Map<CompanyModel>(companyUpdateInputModel);
 
-            _service.UpdateCompany(id, entity);
+            _service.UpdateCompany(model);
 
-            return Ok(entity);
+            return Ok(model);
+
+        }
+        [HttpPut("{id}/company/")]
+        public ActionResult<CompanyUpdateInputModel> UpdateCompany(int id, bool isDel)
+        {
+            _service.UpdateCompany(id, isDel);
+
+            return NoContent();
 
         }
         //api/companies/2/ООО Восток./ True
-        [HttpDelete("{id}/company/{isDelete}")]
-        public ActionResult DeleteCompany(int id,[FromQuery] bool isDelete)
-        {
-            var entity = _service.GetCompanyById(id);
+        [HttpDelete("{id}/company/")]
+        public ActionResult<CompanyUpdateInputModel> DeleteCompany(int id)
+        {           
 
-            _service.DeleteCompany(id, isDelete);
+            _service.DeleteCompany(id);
             
             return NoContent();
         }

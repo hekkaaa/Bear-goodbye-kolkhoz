@@ -4,10 +4,12 @@ namespace BearGoodbyeKolkhozProject.Business.Processor
 {
     public interface ICompanyService
     {
-        void AddCompany(CompanyModel companyModel);
-        void DeleteCompany(int id, bool isDel);
+        void RegistrCompany(CompanyModel companyModel);
+        void DeleteCompany(int id);
         List<CompanyModel> GetCompanies();
         CompanyModel GetCompanyById(int id);
-        void UpdateCompany(int id, CompanyModel companyModel);
+        void UpdateCompany(CompanyModel companyModel);
+
+        void UpdateCompany(int id, bool isDel);
     }
 }
