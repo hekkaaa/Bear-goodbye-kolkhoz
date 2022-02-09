@@ -23,7 +23,7 @@ namespace BearGoodbyeKolkhozProject.Data.Entities
 
         public override string ToString()
         {
-            return $"{Id} {Name} {LastName}";
+            return $"{Id} {Name} {LastName} {BirthDay} {IsDeleted} {Gender} {Password}";
         }
 
         public override bool Equals(object? obj)

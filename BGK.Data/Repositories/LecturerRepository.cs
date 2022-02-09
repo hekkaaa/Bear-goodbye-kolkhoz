@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BearGoodbyeKolkhozProject.Data.ConnectDb;
+﻿using BearGoodbyeKolkhozProject.Data.ConnectDb;
 using BearGoodbyeKolkhozProject.Data.Entities;
 using BearGoodbyeKolkhozProject.Data.Interfaces;
 
@@ -44,6 +39,12 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
         public void AddTraining(int lecturerId, Training training)
         {
             var entity = GetLecturerById(lecturerId);
+
+            if (entity.Trainings is null)
+            {
+                entity.Trainings = new List<Training>();
+            }
+
             entity.Trainings.Add(training);
 
             _context.SaveChanges();
@@ -56,17 +57,10 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
             _context.SaveChanges();
         }
 
-        public void DeleteLecturerById(int id)
+        public void ChangeDeleteStatusById(int id, bool IsDeleted)
         {
-            var entity = GetLecturerById(id);
-            entity.IsDeleted = true;
-            _context.SaveChanges();
-        }
-
-        public void RecoverLecturerById(int id)
-        {
-            var entity = _context.Lecturer.Find(id);
-            entity.IsDeleted = false;
+            var entity = _context.Lecturer.FirstOrDefault(t => t.Id == id);
+            entity.IsDeleted = IsDeleted;
             _context.SaveChanges();
         }
     }

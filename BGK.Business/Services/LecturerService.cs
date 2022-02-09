@@ -23,14 +23,9 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             _repo.AddLecturer(entity);
         }
 
-        public void DeleteLecturerById(int id)
+        public void ChangeDeleteStatusById(int id, bool IsDeleted)
         {
-            _repo.DeleteLecturerById(id);
-        }
-
-        public void RecoverLecturerById(int id)
-        {
-            _repo.RecoverLecturerById(id);
+            _repo.ChangeDeleteStatusById(id, IsDeleted);
         }
 
         public void AddTraining(int id, int trainingId)

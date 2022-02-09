@@ -1,12 +1,10 @@
+using BearGoodbyeKolkhozProject.Data.Tests.TestCaseSources.LecturerTestCaseSource;
 using BearGoodbyeKolkhozProject.Data.ConnectDb;
 using BearGoodbyeKolkhozProject.Data.Repositories;
 using BearGoodbyeKolkhozProject.Data.Entities;
 using Microsoft.EntityFrameworkCore;
-using NUnit.Framework;
 using System.Collections.Generic;
-using Moq;
-using BearGoodbyeKolkhozProject.Data.Interfaces;
-using BearGoodbyeKolkhozProject.Data.Tests.TestCaseSources.LecturerTestCaseSource;
+using NUnit.Framework;
 using System.Linq;
 
 namespace BearGoodbyeKolkhozProject.Data.Tests
@@ -69,6 +67,70 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
             //when
             lecturerRepository.AddLecturer(expected);
             var actual = _context.Lecturer.FirstOrDefault(l => l.Id == expected.Id);
+
+            //then
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestCaseSource(typeof(DeleteTrainingTestCaseSource))]
+        public void DeleteTrainingTest(Lecturer lecturer, Lecturer expected, Training training)
+        {
+            //given
+            LecturerRepository lecturerRepository = new LecturerRepository(_context);
+            _context.Lecturer.Add(lecturer);
+            _context.SaveChanges();
+
+            //when
+            lecturerRepository.DeleteTraining(lecturer.Id, training);
+            var actual = _context.Lecturer.FirstOrDefault(l => l.Id == lecturer.Id);
+
+            //then
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestCaseSource(typeof(ChangeDeleteStatusByIdTestCaseSource))]
+        public void ChangeDeleteStatusByIdTest(Lecturer lecturer, Lecturer expected)
+        {
+            //given
+            LecturerRepository lecturerRepository = new LecturerRepository(_context);
+            _context.Lecturer.Add(lecturer);
+            _context.SaveChanges();
+
+            //when
+            lecturerRepository.ChangeDeleteStatusById(lecturer.Id, true);
+            var actual = _context.Lecturer.FirstOrDefault(l => l.Id == lecturer.Id);
+
+            //then
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestCaseSource(typeof(AddTrainingTestCaseSource))]
+        public void AddTrainingTest(Lecturer lecturer, Lecturer expected, Training training)
+        {
+            //given
+            LecturerRepository lecturerRepository = new LecturerRepository(_context);
+            _context.Lecturer.Add(lecturer);
+            _context.SaveChanges();
+
+            //when
+            lecturerRepository.AddTraining(lecturer.Id, training);
+            var actual = _context.Lecturer.FirstOrDefault(l => l.Id == lecturer.Id);
+
+            //then
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestCaseSource(typeof(UpdateLecturerTestCaseSource))]
+        public void UpdateLecturer(Lecturer lecturer, Lecturer updateLecturer, Lecturer expected)
+        {
+            //given
+            LecturerRepository lecturerRepository = new LecturerRepository(_context);
+            _context.Lecturer.Add(lecturer);
+            _context.SaveChanges();
+
+            //when
+            lecturerRepository.UpdateLecturer(updateLecturer);
+            var actual = _context.Lecturer.FirstOrDefault(l => l.Id == lecturer.Id);
 
             //then
             Assert.AreEqual(expected, actual);

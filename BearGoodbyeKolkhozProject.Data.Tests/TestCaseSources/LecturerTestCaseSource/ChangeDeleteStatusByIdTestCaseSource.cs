@@ -1,10 +1,9 @@
 ﻿using BearGoodbyeKolkhozProject.Data.Entities;
 using System.Collections;
-using System.Collections.Generic;
 
 namespace BearGoodbyeKolkhozProject.Data.Tests.TestCaseSources.LecturerTestCaseSource
 {
-    public class AddLecturerTestCaseSource : IEnumerable
+    internal class ChangeDeleteStatusByIdTestCaseSource : IEnumerable
     {
         public IEnumerator GetEnumerator()
         {
@@ -16,28 +15,21 @@ namespace BearGoodbyeKolkhozProject.Data.Tests.TestCaseSources.LecturerTestCaseS
                 Password = "qwe",
                 BirthDay = "12.12.1999",
                 Gender = Enums.Gender.Male,
+                IsDeleted = false
             };
 
-            var lecturerWithTraining = new Lecturer
+            var expected = new Lecturer
             {
-                Id = 2,
+                Id = lecturer.Id,
                 Name = "Roma",
                 LastName = "Azarov",
                 Password = "qwe",
                 BirthDay = "12.12.1999",
                 Gender = Enums.Gender.Male,
-                Trainings = new List<Training>{
-                    new Training {
-                        Description = "qwertui",
-                        Name = "name",
-                        MembersCount = 12,
-                        Price = 1234,
-                        Duration = 123,
-                        IsDeleted = false}}
+                IsDeleted = true
             };
 
-            yield return new object[] { lecturer };
-            yield return new object[] { lecturerWithTraining };
+            yield return new object[] { lecturer, expected };
         }
     }
 }

@@ -38,9 +38,9 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         }
 
         [HttpDelete("{id}")]
-        public ActionResult DeleteLecturerById(int id)
+        public ActionResult DeleteLecturerById(int id, bool IsDeleted)
         {
-            _service.DeleteLecturerById(id);
+            _service.ChangeDeleteStatusById(id, IsDeleted);
             return NoContent();
         }
 

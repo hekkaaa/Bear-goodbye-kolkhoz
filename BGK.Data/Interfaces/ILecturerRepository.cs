@@ -6,11 +6,10 @@ namespace BearGoodbyeKolkhozProject.Data.Interfaces
     {
         void AddLecturer(Lecturer model);
         void AddTraining(int lecturerId, Training training);
-        void DeleteLecturerById(int id);
         void DeleteTraining(int lecturerId, Training model);
         Lecturer GetLecturerById(int id);
         List<Lecturer> GetLecturers();
-        void RecoverLecturerById(int id);
         void UpdateLecturer(Lecturer model);
+        void ChangeDeleteStatusById(int id, bool IsDeleted);
     }
 }
