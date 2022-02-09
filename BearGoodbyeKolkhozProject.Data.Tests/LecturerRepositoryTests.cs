@@ -36,8 +36,6 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
             _context.SaveChanges();
 
             //when
-            Mock<ILecturerRepository> mock = new Mock<ILecturerRepository>();
-            mock.Setup((obj) => obj.GetLecturerById(lecturer.Id)).Returns(expected);
             LecturerRepository lecturerRepository = new LecturerRepository(_context);
 
             var actual = lecturerRepository.GetLecturerById(lecturer.Id);
@@ -54,8 +52,6 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
             _context.SaveChanges();
 
             //when
-            Mock<ILecturerRepository> mock = new Mock<ILecturerRepository>();
-            mock.Setup((obj) => obj.GetLecturers()).Returns(expected);
             LecturerRepository lecturerRepository = new LecturerRepository(_context);
             
             var actual = lecturerRepository.GetLecturers();
@@ -68,8 +64,6 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
         public void AddLecturerTest(Lecturer expected)
         {
             //given
-            Mock<ILecturerRepository> mock = new Mock<ILecturerRepository>();
-            mock.Setup((obj) => obj.AddLecturer(expected));
             LecturerRepository lecturerRepository = new LecturerRepository(_context);
 
             //when

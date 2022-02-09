@@ -33,7 +33,8 @@ namespace BearGoodbyeKolkhozProject.Data.Tests.TestCaseSources.LecturerTestCaseS
                 LastName = "asd",
                 Password = "123",
                 BirthDay = "11.22.1234",
-                Gender = Enums.Gender.Other}
+                Gender = Enums.Gender.Other,
+                IsDeleted = true}
             };
 
             List<Lecturer> expected = new List<Lecturer> { new Lecturer {
@@ -59,13 +60,7 @@ namespace BearGoodbyeKolkhozProject.Data.Tests.TestCaseSources.LecturerTestCaseS
                 Password = "asd",
                 BirthDay = "12.12.2004",
                 Gender = Enums.Gender.Male}
-            , new Lecturer {
-                Id = 3,
-                Name = "qwe",
-                LastName = "asd",
-                Password = "123",
-                BirthDay = "11.22.1234",
-                Gender = Enums.Gender.Other}};
+            };
 
             yield return new object[] { lecturers, expected };
         }

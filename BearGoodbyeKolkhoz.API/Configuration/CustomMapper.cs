@@ -1,7 +1,7 @@
-﻿using AutoMapper;
-using BearGoodbyeKolkhozProject.Business.Models;
+﻿using BearGoodbyeKolkhozProject.Business.Models;
 using BearGoodbyeKolkhozProject.API.Models.OutputModels;
 using BearGoodbyeKolkhozProject.API.Models.InputModels;
+using AutoMapper;
 
 namespace BearGoodbyeKolkhozProject.API.Configuration
 {

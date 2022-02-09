@@ -15,6 +15,11 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<ApplicationContext>();
+builder.Services.AddScoped<ILecturerService, LecturerService>();
+builder.Services.AddScoped<ITrainingRepository, TrainingRepository>();
+builder.Services.AddScoped<ILecturerRepository, LecturerRepository>();
+builder.Services.AddAutoMapper(typeof(CustomMapper));
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
