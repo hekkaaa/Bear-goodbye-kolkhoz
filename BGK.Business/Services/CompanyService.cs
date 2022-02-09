@@ -1,4 +1,5 @@
-﻿using BearGoodbyeKolkhozProject.Business.Configuration;
+﻿using AutoMapper;
+using BearGoodbyeKolkhozProject.Business.Configuration;
 using BearGoodbyeKolkhozProject.Business.Models;
 using BearGoodbyeKolkhozProject.Data.Entities;
 using BearGoodbyeKolkhozProject.Data.Repo;
@@ -9,11 +10,12 @@ namespace BearGoodbyeKolkhozProject.Business.Processor
     {
         private readonly ICompanyRepository? _companyRepository;
 
-        public CompanyService(ICompanyRepository companyRepository)
+        private IMapper _mapper;
+        public CompanyService(ICompanyRepository companyRepository, IMapper mapper)
         {
             _companyRepository = companyRepository;
-
-        }
+            _mapper = mapper;
+         }
 
         public CompanyModel GetCompanyById(int id)
         {
@@ -22,14 +24,14 @@ namespace BearGoodbyeKolkhozProject.Business.Processor
             if (company == null)
                 throw new Exception("Такой Компания не существует.");
 
-            return CustomMapper.GetInstance().Map<CompanyModel>(company);
+            return _mapper.Map<CompanyModel>(company);
         }
 
         public List<CompanyModel> GetCompanies()
         {
             List<Company> companies = _companyRepository.GetCompanies();
 
-            return CustomMapper.GetInstance().Map<List<CompanyModel>>(companies);
+            return _mapper.Map<List<CompanyModel>>(companies);
 
         }
 
@@ -48,7 +50,7 @@ namespace BearGoodbyeKolkhozProject.Business.Processor
 
             };
 
-            _companyRepository.RegistrCompany(CustomMapper.GetInstance().Map<Company>(mappedCompany));
+            _companyRepository.RegistrCompany(_mapper.Map<Company>(mappedCompany));
         }
 
 
@@ -60,7 +62,7 @@ namespace BearGoodbyeKolkhozProject.Business.Processor
             if (company == null)
                 throw new NullReferenceException("Такой Компании не существует.");
 
-            _companyRepository.UpdateCompany(CustomMapper.GetInstance().Map<Company>(companyModel));
+            _companyRepository.UpdateCompany(_mapper.Map<Company>(companyModel));
 
         }
 

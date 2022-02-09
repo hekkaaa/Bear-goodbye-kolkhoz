@@ -1,4 +1,5 @@
-﻿using BearGoodbyeKolkhozProject.API.ConfigurationAPI;
+﻿using AutoMapper;
+using BearGoodbyeKolkhozProject.API.ConfigurationAPI;
 using BearGoodbyeKolkhozProject.API.Models;
 using BearGoodbyeKolkhozProject.API.Models.InputModel;
 using BearGoodbyeKolkhozProject.API.Models.OutputModel;
@@ -15,12 +16,15 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
     {
         private readonly IEventService _service;
 
-        public EventsController(IEventService eventService)
+        private IMapper _mapperApi;
+
+        public EventsController(IEventService eventService, IMapper mapper)
         {
             _service = eventService;
-        }
 
-        private CustomMapperApi _mapperApi = new CustomMapperApi();
+            _mapperApi = mapper;
+         }
+
 
         //api/events/21
         [HttpGet("(id)")]
@@ -28,7 +32,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         {
             var entity = _service.GetEvents();
 
-            var result = CustomMapperApi.GetInstance().Map<List<EventOutputModel>>(entity);
+            var result = _mapperApi.Map<List<EventOutputModel>>(entity);
 
             return Ok(result);
         }
@@ -40,7 +44,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         {
             var entity = _service.GetEventById(id);
 
-            var result = CustomMapper.GetInstance().Map<EventOutputModel>(entity);
+            var result = _mapperApi.Map<EventOutputModel>(entity);
 
             return Ok(result);
         }
@@ -50,7 +54,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         public ActionResult<EventOutputModel> AddEventFromClient([FromBody] EventOutputModel eventOutputModel)
         {
 
-            EventModel entity = CustomMapperApi.GetInstance().Map<EventModel>(eventOutputModel);
+            EventModel entity = _mapperApi.Map<EventModel>(eventOutputModel);
 
             _service.AddEventFromClient(entity);
 
@@ -63,7 +67,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         public ActionResult<EventOutputModel> AddEventFromCompany([FromBody] EventOutputModel eventOutputModel)
         {
 
-            EventModel entity = CustomMapperApi.GetInstance().Map<EventModel>(eventOutputModel);
+            EventModel entity = _mapperApi.Map<EventModel>(eventOutputModel);
 
             _service.AddEventFromCompany(entity);
 
@@ -75,7 +79,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         [HttpPut("{id}/event/client")]
         public ActionResult<EventUpdateInputModel> UpdateEventFromClient(int id, [FromBody] EventUpdateInputModel eventUpdateInputModel)
         {
-            EventModel entity = CustomMapperApi.GetInstance().Map<EventModel>(eventUpdateInputModel);
+            EventModel entity = _mapperApi.Map<EventModel>(eventUpdateInputModel);
 
             _service.UpdateEventFromClient(id, entity);
 
@@ -87,7 +91,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         [HttpPut("{id}/event/company")]
         public ActionResult<EventUpdateInputModel> UpdateEventFromCompany(int id, [FromBody] EventUpdateInputModel eventUpdateInputModel)
         {
-            EventModel entity = CustomMapperApi.GetInstance().Map<EventModel>(eventUpdateInputModel);
+            EventModel entity = _mapperApi.Map<EventModel>(eventUpdateInputModel);
 
             _service.UpdateEventFromCompany(id, entity);
 

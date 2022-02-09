@@ -1,10 +1,13 @@
 ﻿using BearGoodbyeKolkhozProject.Data.ConnectDb;
 using BearGoodbyeKolkhozProject.Data.Entities;
 using BearGoodbyeKolkhozProject.Data.Repo;
+using BearGoodbyeKolkhozProject.Data.Tests.TestCase;
 using Microsoft.EntityFrameworkCore;
 using Moq;
 using NUnit.Framework;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace BearGoodbyeKolkhozProject.Data.Tests
 {
@@ -28,26 +31,21 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
         }
 
 
+        [TestCaseSource(typeof(AddEventTestCaseSource))]
+        public void AddEventTest(Event expected)
+        {
+            //given
+            Mock<IEventRepository> mock = new Mock<IEventRepository>();
+            mock.Setup((obj) => obj.AddEvent(expected));
+            EventRepository eventRepository = new EventRepository(_context);
 
-        //public class AddEventTestCaseSource : IEnumerable
-        //{
-        //    public IEnumerator GetEnumerator()
-        //    {
-        //        var even = new Event
-        //        {
-        //            Id = 1,
-        //            StartDate = "03.03.2022",
-        //            Company = 1,
-        //            Classroom = 1,
-        //            Lecturer = 2,
+            //when
+            eventRepository.AddEvent(expected);
+            var actual = _context.Event.FirstOrDefault(e => e.Id == expected.Id);
 
-        //        };
+            //then
+            Assert.AreEqual(expected, actual);
+        }
 
-        //        yield return new object[] { even };
-
-
-        //        //}
-        //    }
-        //}
     }
 }

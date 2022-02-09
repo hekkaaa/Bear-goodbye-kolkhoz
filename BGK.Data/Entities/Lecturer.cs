@@ -16,9 +16,9 @@ namespace BearGoodbyeKolkhozProject.Data.Entities
         public bool IsDeleted { get; set; }
         public Gender Gender { get; set; }
 
-        public virtual ICollection<Training> Trainings { get; set; }
-        public virtual ICollection<Event> Events { get; set; }
-        public virtual ICollection<LecturerReview> LecturerReviews { get; set; }
+        public virtual ICollection<Training>? Trainings { get; set; }
+        public virtual ICollection<Event>? Events { get; set; }
+        public virtual ICollection<LecturerReview>? LecturerReviews { get; set; }
 
     }
 }

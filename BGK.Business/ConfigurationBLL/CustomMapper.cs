@@ -4,41 +4,23 @@ using BearGoodbyeKolkhozProject.Data.Entities;
 
 namespace BearGoodbyeKolkhozProject.Business.Configuration
 {
-    public class CustomMapper
+    public class CustomMapper : Profile
     {
-        private static Mapper? _instance;
-
-        public static Mapper GetInstance()
+        public CustomMapper()
         {
 
-            if (_instance == null)
-                InitCustomMapper();
-            return _instance;
+            CreateMap<Company, CompanyModel>().ReverseMap();
+
+            CreateMap<Event, EventModel>().ReverseMap();
+
+            CreateMap<Training, TrainingModel>().ReverseMap();
+
+            CreateMap<TrainingReview, TrainingReviewModel>().ReverseMap();
+
+            CreateMap<Lecturer, LecturerModel>().ReverseMap();
 
         }
 
-        public static Mapper? Custom { get; set; }
-
-        private static void InitCustomMapper()
-        {            
-
-            _instance = new Mapper(new MapperConfiguration(cfg =>
-            {
-                cfg.CreateMap<Company, CompanyModel>().ReverseMap();
-
-                cfg.CreateMap<Event, EventModel>().ReverseMap();
-
-                cfg.CreateMap<Training, TrainingModel>().ReverseMap();
-                
-                cfg.CreateMap<TrainingReview, TrainingReviewModel>().ReverseMap();
-
-                cfg.CreateMap<Lecturer, LecturerModel>().ReverseMap();
-            }));
-
-
-
-
-        }
 
     }
 }

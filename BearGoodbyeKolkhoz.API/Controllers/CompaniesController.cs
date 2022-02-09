@@ -1,4 +1,5 @@
-﻿using BearGoodbyeKolkhozProject.API.ConfigurationAPI;
+﻿using AutoMapper;
+using BearGoodbyeKolkhozProject.API.ConfigurationAPI;
 using BearGoodbyeKolkhozProject.API.Models;
 using BearGoodbyeKolkhozProject.API.Models.OutputModel;
 using BearGoodbyeKolkhozProject.Business.Configuration;
@@ -14,13 +15,15 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
     {
         private readonly ICompanyService _service;
 
-        public CompaniesController(ICompanyService  companyService)
+        private IMapper _mapperApi;
+
+        public CompaniesController(ICompanyService  companyService, IMapper mapper)
         {
             _service = companyService;
+
+            _mapperApi = mapper;
         }
             
-
-        private CustomMapperApi _mapperApi = new CustomMapperApi();
 
         //api/companies/21
         [HttpGet("(id)")]
@@ -28,7 +31,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         {
             var entity = _service.GetCompanies();
 
-            var result = CustomMapperApi.GetInstance().Map<List<CompanyOutputModel>>(entity);
+            var result = _mapperApi.Map<List<CompanyOutputModel>>(entity);
             
             return Ok(result);
         }
@@ -39,7 +42,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         {
             var entity = _service.GetCompanyById(id);
 
-            var result = CustomMapperApi.GetInstance().Map<CompanyOutputModel>(entity);
+            var result = _mapperApi.Map<CompanyOutputModel>(entity);
 
             return Ok(result);
         }
@@ -49,7 +52,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
          public  ActionResult<CompanyInsertInputModel> RegistrCompany( [FromBody] CompanyInsertInputModel companyInsertInputModel)
          {
 
-            CompanyModel entity = CustomMapperApi.GetInstance().Map<CompanyModel>(companyInsertInputModel);
+            CompanyModel entity = _mapperApi.Map<CompanyModel>(companyInsertInputModel);
 
             _service.RegistrCompany(entity);
 
@@ -61,7 +64,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         [HttpPut]
         public ActionResult<CompanyUpdateInputModel> UpdateCompany([FromBody] CompanyUpdateInputModel companyUpdateInputModel)
         {
-            CompanyModel model = CustomMapperApi.GetInstance().Map<CompanyModel>(companyUpdateInputModel);
+            CompanyModel model = _mapperApi.Map<CompanyModel>(companyUpdateInputModel);
 
             _service.UpdateCompany(model);
 

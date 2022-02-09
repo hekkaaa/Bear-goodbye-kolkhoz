@@ -1,4 +1,5 @@
-﻿using BearGoodbyeKolkhozProject.Business.Configuration;
+﻿using AutoMapper;
+using BearGoodbyeKolkhozProject.Business.Configuration;
 using BearGoodbyeKolkhozProject.Business.Models;
 using BearGoodbyeKolkhozProject.Data.Entities;
 using BearGoodbyeKolkhozProject.Data.Repo;
@@ -9,9 +10,12 @@ namespace BearGoodbyeKolkhozProject.Business.Processor
     {
         private readonly IEventRepository _eventRepository;
 
-        public EventService(IEventRepository eventRepository)
+        private IMapper _mapper;
+
+        public EventService(IEventRepository eventRepository, IMapper mapper)
         {
             _eventRepository = eventRepository;
+            _mapper = mapper;
         }
 
         public EventModel GetEventById(int id)
@@ -20,28 +24,36 @@ namespace BearGoodbyeKolkhozProject.Business.Processor
             if (even != null)
                 throw new Exception("Такого события не существует.");
 
-            return CustomMapper.GetInstance().Map<EventModel>(even);
+            return _mapper.Map<EventModel>(even);
         }
 
         public List<EventModel> GetEvents()
         {
             List<Event> events = _eventRepository.GetEvents();
 
-            return CustomMapper.GetInstance().Map<List<EventModel>>(events);
+            return _mapper.Map<List<EventModel>>(events);
         }
 
 
         public void AddEventFromCompany(EventModel eventModel)
         {
+            //var mappedEvent = new Event
+            //{
+            //    StartDate = eventModel.StartDate,
+            //    Company = eventModel.Company,
+            //    Classroom = eventModel.Classroom,
+            //    Lecturer = eventModel.Lecturer,
+            //    IsDeleted = eventModel.IsDeleted
+            //};
 
-            _eventRepository.AddEvent(CustomMapper.GetInstance().Map<Event>(eventModel));
+            _eventRepository.AddEvent(_mapper.Map<Event>(eventModel));
 
         }
 
         public void AddEventFromClient(EventModel eventModel)
         {
 
-            _eventRepository.AddEvent(CustomMapper.GetInstance().Map<Event>(eventModel));
+            _eventRepository.AddEvent(_mapper.Map<Event>(eventModel));
         }
 
         public void UpdateEventFromClient(int id, EventModel eventModel)
@@ -51,7 +63,7 @@ namespace BearGoodbyeKolkhozProject.Business.Processor
                 throw new Exception("Такого события не существует!");
 
 
-            _eventRepository.UpdateEvent(CustomMapper.GetInstance().Map<Event>(eventModel));
+            _eventRepository.UpdateEvent(_mapper.Map<Event>(eventModel));
 
 
         }
@@ -63,7 +75,7 @@ namespace BearGoodbyeKolkhozProject.Business.Processor
                 throw new Exception("Такого события не существует!");
 
 
-            _eventRepository.UpdateEvent(CustomMapper.GetInstance().Map<Event>(eventModel));
+            _eventRepository.UpdateEvent(_mapper.Map<Event>(eventModel));
         }
 
         public void DeleteEvent(int id)

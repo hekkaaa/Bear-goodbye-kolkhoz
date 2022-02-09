@@ -1,6 +1,7 @@
 using BearGoodbyeKolkhozProject.Data.ConnectDb;
 using BearGoodbyeKolkhozProject.Data.Entities;
 using BearGoodbyeKolkhozProject.Data.Repo;
+using BearGoodbyeKolkhozProject.Data.Tests.TestCase;
 using Microsoft.EntityFrameworkCore;
 using Moq;
 using NUnit.Framework;
@@ -24,49 +25,67 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
 
             _context = new ApplicationContext(options);
 
-            //_context.Database.EnsureDeleted();
+            _context.Database.EnsureDeleted();
             _context.Database.EnsureCreated();
-            
+
         }
-       
+
 
 
         [TestCaseSource(typeof(RegistrCompaniesTestCaseSource))]
-        public void RegistrCompanyTest(Company expected )
-        {            
+        public void RegistrCompanyTest(Company expected)
+        {
             //given
-            Mock<ICompanyRepository> mock = new Mock<ICompanyRepository>();
-            mock.Setup((obj) => obj.RegistrCompany(expected));
-            CompanyRepository _companyRepository = new CompanyRepository(_context);
-
+            CompanyRepository companyRepository = new CompanyRepository(_context);
+            _context.Company.Add(expected);
             //when
-            _companyRepository.RegistrCompany(expected);
+            companyRepository.RegistrCompany(expected);
             var actual = _context.Company.FirstOrDefault(c => c.Id == expected.Id);
 
             //then
             Assert.AreEqual(expected, actual);
         }
 
-        public class RegistrCompaniesTestCaseSource : IEnumerable
+        [TestCaseSource(typeof(DeleteCompanyTestCaseSource))]
+        public void DeleteCompanyTest(Company expected)
         {
-            public IEnumerator GetEnumerator()
-            {
-                var company = new Company
-                {
-                    Id = 1,
-                    Name = "OOO Ivan",
-                    Email = "Test1@mail.ru",
-                    PhoneNumber = "123456789",
-                    Tin = 123234,
-                    Password = "1234"
+            //given
+            CompanyRepository companyRepository = new CompanyRepository(_context);
+            _context.Company.Add(expected);         
 
-                };
+            //when
+            companyRepository.DeleteCompany(expected);
+            var actual = _context.Company.FirstOrDefault(c => c.Id == expected.Id);
 
-                yield return new object[] { company };
-            }
+            //then
+            Assert.AreEqual(expected, actual);
+
+
         }
-       
+
+        [TestCaseSource(typeof(UpdateCompanyTestCaseSource))]
+        public void UpdateCompany(Company company, Company updateCompany, Company expected)
+        {
+            //given
+            CompanyRepository companyRepository = new CompanyRepository(_context);
+            _context.Company.Add(company);
+            _context.SaveChanges();
+           
+            //when
+            companyRepository.UpdateCompany(updateCompany);
+            var actual = _context.Company.FirstOrDefault(c => c.Id == company.Id);
+
+            //then
+            Assert.AreEqual(expected, actual);
+        }
+     
+        
+            
 
 
+
+
+
+        
     }
 }

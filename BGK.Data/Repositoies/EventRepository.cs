@@ -28,15 +28,15 @@ namespace BearGoodbyeKolkhozProject.Data.Repo
 
         public void UpdateEvent(Event even)
         {
-            var entity = GetEventById(even.Id);
+            
+            var entity = _context.Event.FirstOrDefault(e => e.Id == even.Id);
+
             entity.Clients = even.Clients;
             entity.Company = even.Company;
             entity.Classroom = even.Classroom;
             entity.Lecturer = even.Lecturer;
 
             _context.SaveChanges();
-
-
         }
 
         public void UpdateEvent(int id, bool isDel)
