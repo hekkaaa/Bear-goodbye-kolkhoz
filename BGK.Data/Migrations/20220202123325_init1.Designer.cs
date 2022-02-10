@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BearGoodbyeKolkhozProject.Data.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20220207110838_CreateData")]
-    partial class CreateData
+    [Migration("20220202123325_init1")]
+    partial class init1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -87,6 +87,29 @@ namespace BearGoodbyeKolkhozProject.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Classroom");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Address = "ул. Вавилова дом 5",
+                            City = "Санкт-Петербург",
+                            MembersCount = 25
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Address = "пр. Ветеранов дом 8",
+                            City = "Санкт-Петербург",
+                            MembersCount = 25
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Address = "ул. Пушкина дом 27",
+                            City = "Санкт-Петербург",
+                            MembersCount = 40
+                        });
                 });
 
             modelBuilder.Entity("BearGoodbyeKolkhozProject.Data.Entities.Client", b =>
@@ -128,9 +151,8 @@ namespace BearGoodbyeKolkhozProject.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("PhoneNumber")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("PhoneNumber")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -151,9 +173,6 @@ namespace BearGoodbyeKolkhozProject.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -162,9 +181,8 @@ namespace BearGoodbyeKolkhozProject.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("PhoneNumber")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("PhoneNumber")
+                        .HasColumnType("int");
 
                     b.Property<int>("Tin")
                         .HasColumnType("int");
@@ -212,9 +230,6 @@ namespace BearGoodbyeKolkhozProject.Data.Migrations
 
                     b.Property<int?>("CompanyId")
                         .HasColumnType("int");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
 
                     b.Property<int>("LecturerId")
                         .HasColumnType("int");
@@ -265,6 +280,35 @@ namespace BearGoodbyeKolkhozProject.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Lecturer");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            BirthDay = "27 августа",
+                            Gender = 1,
+                            IsDeleted = false,
+                            LastName = "Пототько",
+                            Name = "Вячеслав Ибрагимович"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            BirthDay = "22 сентября",
+                            Gender = 2,
+                            IsDeleted = false,
+                            LastName = "Цыплухина",
+                            Name = "Евгения Владимировна"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            BirthDay = "15 октября",
+                            Gender = 1,
+                            IsDeleted = false,
+                            LastName = "Вейпов",
+                            Name = "Андрей Андреевич"
+                        });
                 });
 
             modelBuilder.Entity("BearGoodbyeKolkhozProject.Data.Entities.LecturerReview", b =>
@@ -289,8 +333,7 @@ namespace BearGoodbyeKolkhozProject.Data.Migrations
 
                     b.Property<string>("Text")
                         .IsRequired()
-                        .HasMaxLength(320)
-                        .HasColumnType("nvarchar(320)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -367,6 +410,38 @@ namespace BearGoodbyeKolkhozProject.Data.Migrations
                     b.HasIndex("LecturerId");
 
                     b.ToTable("Training");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Description = "Тренинг для развития ораторских способностей, лучшие приглашенные ораторы всех времён",
+                            Duration = 3,
+                            IsDeleted = false,
+                            MembersCount = 15,
+                            Name = "Развитие ораторских способностей",
+                            Price = 1500
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Description = "Тренинг для развития скиллов нетворкинга, знакомьтесь везде и всегда",
+                            Duration = 5,
+                            IsDeleted = false,
+                            MembersCount = 18,
+                            Name = "Нетворк-скиллы",
+                            Price = 2000
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Description = "Научитесь рассказывать истории, захватывайте всех своими презентациями",
+                            Duration = 2,
+                            IsDeleted = false,
+                            MembersCount = 10,
+                            Name = "Сторителлинг",
+                            Price = 3500
+                        });
                 });
 
             modelBuilder.Entity("BearGoodbyeKolkhozProject.Data.Entities.TrainingReview", b =>

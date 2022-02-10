@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace BearGoodbyeKolkhozProject.Data.Entities
 {
     [Table("LecturerReview")]
-    public  class LecturerReview
+    public class LecturerReview
     {
         public int Id { get; set; }
         [StringLength(320)]

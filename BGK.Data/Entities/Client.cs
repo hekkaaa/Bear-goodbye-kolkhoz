@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace BearGoodbyeKolkhozProject.Data.Entities
 {
     [Table("Client")]
-    public  class Client
+    public class Client
     {
         public int Id { get; set; }
         [StringLength(40)]
