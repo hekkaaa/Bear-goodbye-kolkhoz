@@ -41,10 +41,10 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
         {
             //given
             var training = _testData.GetTestTraining();
-            //when
             _context.Training.Add(training);
             _context.SaveChanges();
-
+            
+            //when
             var listBeforeDelete = _trainingRepository.GetTrainings();
             _trainingRepository.DeleteTraining(training.Id);
             var listAfterDelete = _trainingRepository.GetTrainings();
@@ -66,6 +66,9 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
 
             //then
             Assert.IsNotNull(entity);
+            Assert.IsTrue(training.Name == entity.Name);
+            Assert.IsTrue(training.Price == entity.Price);
+            Assert.IsTrue(training.IsDeleted == entity.IsDeleted);
         }
 
         [Test]
@@ -73,12 +76,8 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
         {
             //given
             var oldTraining = _testData.GetTestTraining();
-            
-
-            //when
             _context.Add(oldTraining);
             _context.SaveChanges();
-
             var newTraining = new Training
             {
                 Id = oldTraining.Id,
@@ -87,15 +86,18 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
                 Duration = 30,
                 MembersCount = 30
             };
-
+            
+            //when
             _trainingRepository.UpdateTraining(newTraining);
+            var trainingAfterUpdate = _context.Training.FirstOrDefault(tr => tr.Id == oldTraining.Id);
+
 
             //then
-            Assert.IsTrue(oldTraining.Name == "kokoko");
-            Assert.IsTrue(oldTraining.Description == "chotko");
-            Assert.IsTrue(oldTraining.Duration == 30);
-            Assert.IsTrue(oldTraining.MembersCount == 30);
-            Assert.IsTrue(oldTraining.IsDeleted == false);
+            Assert.IsTrue(trainingAfterUpdate.Name == "kokoko");
+            Assert.IsTrue(trainingAfterUpdate.Description == "chotko");
+            Assert.IsTrue(trainingAfterUpdate.Duration == 30);
+            Assert.IsTrue(trainingAfterUpdate.MembersCount == 30);
+            Assert.IsTrue(trainingAfterUpdate.IsDeleted == false);
         }
 
         [Test]
@@ -116,10 +118,10 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
         {
             //given
             var training = _testData.GetTestTraining();
-
-            //when
             _context.Add(training);
             _context.SaveChanges();
+
+            //when
             var act = _trainingRepository.GetTrainingById(training.Id);
 
             //then
@@ -133,10 +135,10 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
         {   //given
             var training = _testData.GetTestTraining();
             var topic = _testData.GetTestTopic();
-
-            //when
             _context.Add(training);
             _context.SaveChanges();
+
+            //when
             var act = _trainingRepository.GetTrainingsByTopic(topic);
 
             //then

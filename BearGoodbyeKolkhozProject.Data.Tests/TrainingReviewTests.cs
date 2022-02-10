@@ -66,10 +66,10 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
         {
             //given
             var trainingReview = _testData.GetTestTrainingReview();
-
-            //when
             _context.TrainingReview.Add(trainingReview);
             _context.SaveChanges();
+
+            //when
             var listBeforeDelete = _trainingReviewRepository.GetTrainingReviews();
             _trainingReviewRepository.DeleteTrainingReview(trainingReview.Id);
             var listAfterDelete = _trainingReviewRepository.GetTrainingReviews();
@@ -91,6 +91,8 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
 
             //then
             Assert.IsNotNull(entity);
+            Assert.IsTrue(trainingReview.Mark == entity.Mark);
+            Assert.IsTrue(trainingReview.Text == entity.Text);
         }
 
         [Test]
@@ -98,10 +100,10 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
         {
             //given
             var trainingReview = _testData.GetTestTrainingReview();
-
-            //when
             _context.Add(trainingReview);
             _context.SaveChanges();
+
+            //when
             var updateTrainingReview = new TrainingReview
             {
                 Id = 1,
@@ -109,10 +111,11 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
             };
             _trainingReviewRepository.UpdateTrainingReview(updateTrainingReview);
 
+            var trainingReviewAfterUpdate = _context.TrainingReview.FirstOrDefault(tr => tr.Id == trainingReview.Id);
+
             //then
-            Assert.IsTrue(trainingReview.Mark == 5);
-            Assert.IsTrue(trainingReview.Text == null);
-            Assert.IsTrue(trainingReview.Id == 1);
+            Assert.IsTrue(trainingReviewAfterUpdate.Mark == 5);
+            Assert.IsTrue(trainingReviewAfterUpdate.Text == null);
         }
 
         [Test]
@@ -121,11 +124,11 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
             //given
             var a = _testData.GetTestTrainingReview();
             var b = _testData.GetTestTrainingReview(); 
-
-            //when
             _context.TrainingReview.Add(a);
             _context.TrainingReview.Add(b);
             _context.SaveChanges();
+
+            //when
             var act = _trainingReviewRepository.GetTrainingReviews();
 
             //then
@@ -138,10 +141,10 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
         {
             //given
             var trainingReview = GetTestDataWithClientTests();
-
-            //when
             _context.TrainingReview.Add(trainingReview);
             _context.SaveChanges();
+
+            //when
             var act = _trainingReviewRepository.GetTrainingReviewById(trainingReview.Id);
 
             //then
