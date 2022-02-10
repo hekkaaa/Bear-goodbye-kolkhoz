@@ -1,3 +1,4 @@
+using BearGoodbyeKolkhozProject.API.Infrastructure;
 using BearGoodbyeKolkhozProject.Business.Processor;
 using BearGoodbyeKolkhozProject.Data.ConnectDb;
 using BearGoodbyeKolkhozProject.Data.Repo;
@@ -34,6 +35,8 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+
+app.UseMiddleware<ErrorHandlerMiddleware>();
 
 app.MapControllers();
 

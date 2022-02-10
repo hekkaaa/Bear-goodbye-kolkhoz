@@ -1,4 +1,5 @@
-﻿using BearGoodbyeKolkhozProject.Business.Configuration;
+﻿using AutoMapper;
+using BearGoodbyeKolkhozProject.Business.Configuration;
 using BearGoodbyeKolkhozProject.Business.Models;
 using BearGoodbyeKolkhozProject.Data.Entities;
 using BearGoodbyeKolkhozProject.Data.Repositories;
@@ -9,10 +10,13 @@ namespace BearGoodbyeKolkhozProject.Business.Services
     {
         private TrainingReviewRepository _repository;
 
-        public TrainingReviewService()
+        private IMapper _mapper;
+
+        public TrainingReviewService(IMapper mapper)
         {
             _repository = new TrainingReviewRepository();
-        }
+            _mapper = mapper;
+         }
 
         public void UpdateTrainingReview(int id, TrainingReviewModel trainingReviewModel)
         {
@@ -21,25 +25,25 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             if (training == null)
                 throw new Exception("Такого обзора на тренинг не найдено!");
 
-            var trainingReviewEntity = CustomMapper.GetInstance().Map<TrainingReview>(trainingReviewModel);
-            _repository.UpdateTrainingReview(trainingReviewEntity);
+            
+            _repository.UpdateTrainingReview(_mapper.Map<TrainingReview>(trainingReviewModel));
         }
 
         public TrainingReviewModel GetTrainingReviewModelById(TrainingReviewModel trainingReviewModel)
         {
             var trainingReviewEntity = _repository.GetTrainingReviewById(trainingReviewModel.Id);
-            return CustomMapper.GetInstance().Map<TrainingReviewModel>(trainingReviewEntity);
+            return _mapper.Map<TrainingReviewModel>(trainingReviewEntity);
         }
 
         public List<TrainingReviewModel> GetTrainingReviewModelsAll()
         {
             var trainingReviewEntityList = _repository.GetTrainingReviews();
-            return CustomMapper.GetInstance().Map<List<TrainingReviewModel>>(trainingReviewEntityList);
+            return _mapper.Map<List<TrainingReviewModel>>(trainingReviewEntityList);
         }
 
         public void AddTrainingReview(TrainingReviewModel trainingReviewModel)
         {
-            var trainingReviewEntity = CustomMapper.GetInstance().Map<TrainingReview>(trainingReviewModel);
+            var trainingReviewEntity = _mapper.Map<TrainingReview>(trainingReviewModel);
             _repository.AddTrainingReview(trainingReviewEntity);
         }
 

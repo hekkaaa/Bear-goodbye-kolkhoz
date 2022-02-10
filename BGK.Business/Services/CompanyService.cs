@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using BearGoodbyeKolkhozProject.Business.Configuration;
+using BearGoodbyeKolkhozProject.Business.Exceptions;
 using BearGoodbyeKolkhozProject.Business.Models;
 using BearGoodbyeKolkhozProject.Data.Entities;
 using BearGoodbyeKolkhozProject.Data.Repo;
@@ -15,14 +16,14 @@ namespace BearGoodbyeKolkhozProject.Business.Processor
         {
             _companyRepository = companyRepository;
             _mapper = mapper;
-         }
+        }
 
         public CompanyModel GetCompanyById(int id)
         {
             var company = _companyRepository.GetCompanyById(id);
 
             if (company == null)
-                throw new Exception("Такой Компания не существует.");
+                throw new NotAuthorizedException($"Такой Компании {id} не существует.");
 
             return _mapper.Map<CompanyModel>(company);
         }
@@ -37,6 +38,10 @@ namespace BearGoodbyeKolkhozProject.Business.Processor
 
         public void RegistrCompany(CompanyModel companyModel)
         {
+            var company = _companyRepository.GetCompanyById(companyModel.Id);
+
+            if (company != null)
+                throw new NotAuthorizedException($"Такой Компании {company.Id} не существует.");
 
             var mappedCompany = new Company
             {
@@ -60,7 +65,7 @@ namespace BearGoodbyeKolkhozProject.Business.Processor
             var company = _companyRepository.GetCompanyById(companyModel.Id);
 
             if (company == null)
-                throw new NullReferenceException("Такой Компании не существует.");
+                throw new NotAuthorizedException($"Такой Компании {company.Id} не существует.");
 
             _companyRepository.UpdateCompany(_mapper.Map<Company>(companyModel));
 

@@ -3,7 +3,7 @@
 namespace BearGoodbyeKolkhozProject.Data.Repo
 {
     public interface ICompanyRepository
-    {
+    {      
         void RegistrCompany(Company company);
         void DeleteCompany(Company company);
         Company GetCompanyById(int id);

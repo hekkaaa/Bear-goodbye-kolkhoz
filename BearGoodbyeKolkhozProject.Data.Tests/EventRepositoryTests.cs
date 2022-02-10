@@ -25,7 +25,7 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
 
             _context = new ApplicationContext(options);
 
-            //_context.Database.EnsureDeleted();
+            _context.Database.EnsureDeleted();
             _context.Database.EnsureCreated();
             ;
         }

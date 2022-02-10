@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using BearGoodbyeKolkhozProject.Business.Configuration;
+using BearGoodbyeKolkhozProject.Business.Exceptions;
 using BearGoodbyeKolkhozProject.Business.Models;
 using BearGoodbyeKolkhozProject.Data.Entities;
 using BearGoodbyeKolkhozProject.Data.Repo;
@@ -22,7 +23,7 @@ namespace BearGoodbyeKolkhozProject.Business.Processor
         {
             var even = _eventRepository.GetEventById(id);
             if (even != null)
-                throw new Exception("Такого события не существует.");
+                throw new NotAuthorizedException($"Такого события {id} не существует.");
 
             return _mapper.Map<EventModel>(even);
         }
@@ -60,7 +61,7 @@ namespace BearGoodbyeKolkhozProject.Business.Processor
         {
             var even = _eventRepository.GetEventById(id);
             if (even == null)
-                throw new Exception("Такого события не существует!");
+                throw new NotAuthorizedException($"Такого события {id} не существует.");
 
 
             _eventRepository.UpdateEvent(_mapper.Map<Event>(eventModel));
@@ -72,7 +73,7 @@ namespace BearGoodbyeKolkhozProject.Business.Processor
         {
             var even = _eventRepository.GetEventById(id);
             if (even == null)
-                throw new Exception("Такого события не существует!");
+                throw new NotAuthorizedException($"Такого события {id} не существует.");
 
 
             _eventRepository.UpdateEvent(_mapper.Map<Event>(eventModel));
@@ -82,7 +83,7 @@ namespace BearGoodbyeKolkhozProject.Business.Processor
         {
             var even = _eventRepository.GetEventById(id);
             if (even == null)
-                throw new Exception("Такого события не существует!");
+                throw new NotAuthorizedException($"Такого события {id} не существует.");
 
             _eventRepository.DeleteEvent(even);
         }
@@ -92,7 +93,7 @@ namespace BearGoodbyeKolkhozProject.Business.Processor
             var even = _eventRepository.GetEventById(id);
 
             if (even == null)
-                throw new NullReferenceException("Такого события не существует.");
+                throw new NotAuthorizedException($"Такого события {id} не существует.");
 
             _eventRepository.UpdateEvent(id, isDel);
         }

@@ -17,9 +17,10 @@ namespace BearGoodbyeKolkhozProject.Data.ConnectDb
         public DbSet<Training> Training { get; set; }
         public DbSet<TrainingReview> TrainingReview { get; set; }
 
-        public ApplicationContext()
+        public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options)
         {
             Database.EnsureCreated();
+            Database.EnsureDeleted();
         }
 
        
