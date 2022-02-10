@@ -36,16 +36,9 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
             _context.SaveChanges();
         }
 
-        public void AddTraining(int lecturerId, Training training)
+        public void AddTraining(Lecturer lecturer, Training training)
         {
-            var entity = GetLecturerById(lecturerId);
-
-            if (entity.Trainings is null)
-            {
-                entity.Trainings = new List<Training>();
-            }
-
-            entity.Trainings.Add(training);
+            lecturer.Trainings.Add(training);
 
             _context.SaveChanges();
         }
@@ -57,10 +50,9 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
             _context.SaveChanges();
         }
 
-        public void ChangeDeleteStatusById(int id, bool IsDeleted)
+        public void ChangeDeleteStatusById(Lecturer lecturer, bool IsDeleted)
         {
-            var entity = _context.Lecturer.FirstOrDefault(t => t.Id == id);
-            entity.IsDeleted = IsDeleted;
+            lecturer.IsDeleted = IsDeleted;
             _context.SaveChanges();
         }
     }

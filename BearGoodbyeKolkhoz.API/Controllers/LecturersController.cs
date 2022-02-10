@@ -37,10 +37,17 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
             return Ok(result);
         }
 
-        [HttpDelete("{id}")]
-        public ActionResult DeleteLecturerById(int id, bool IsDeleted)
+        [HttpPatch("{id}/delete")]
+        public ActionResult DeleteLecturerById(int id)
         {
-            _service.ChangeDeleteStatusById(id, IsDeleted);
+            _service.DeleteLecturerById(id);
+            return NoContent();
+        }
+
+        [HttpPatch("{id}/recover")]
+        public ActionResult RecoverLecturerById(int id)
+        {
+            _service.RecoverLecturerById(id);
             return NoContent();
         }
 

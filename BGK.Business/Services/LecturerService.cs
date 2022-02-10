@@ -8,35 +8,57 @@ namespace BearGoodbyeKolkhozProject.Business.Services
 {
     public class LecturerService : ILecturerService
     {
-        private readonly ILecturerRepository _repo;
+        private readonly ILecturerRepository _lecturerRepo;
         private readonly ITrainingRepository _trainingRepo;
 
         public LecturerService(ILecturerRepository lecturerRepository, ITrainingRepository trainingRepository)
         {
-            _repo = lecturerRepository;
+            _lecturerRepo = lecturerRepository;
             _trainingRepo = trainingRepository;
         }
 
         public void RegistrationLecturer(LecturerModel model)
         {
             var entity = CustomMapper.GetInstance().Map<Lecturer>(model);
-            _repo.AddLecturer(entity);
+            _lecturerRepo.AddLecturer(entity);
         }
 
-        public void ChangeDeleteStatusById(int id, bool IsDeleted)
+        public void DeleteLecturerById(int id)
         {
-            _repo.ChangeDeleteStatusById(id, IsDeleted);
+            var lecturer = _lecturerRepo.GetLecturerById(id);
+            if (lecturer is null)
+            {
+                throw new Exception("Нет Такого треннинга");
+            }
+
+            _lecturerRepo.ChangeDeleteStatusById(lecturer, true);
+        }
+
+        public void RecoverLecturerById(int id)
+        {
+            var lecturer = _lecturerRepo.GetLecturerById(id);
+            if (lecturer is null)
+            {
+                throw new Exception("Нет Такого треннинга");
+            }
+
+            _lecturerRepo.ChangeDeleteStatusById(lecturer, false);
         }
 
         public void AddTraining(int id, int trainingId)
         {
             var training = _trainingRepo.GetTrainingById(trainingId);
+            var lecturer = _lecturerRepo.GetLecturerById(trainingId);
             if (training is null)
             {
                 throw new Exception("Нет такого треннинга");
             }
+            if (lecturer is null)
+            {
+                throw new Exception("Нет такого лектора");
+            }
 
-            _repo.AddTraining(id, training);
+            _lecturerRepo.AddTraining(lecturer, training);
         }
 
         public void DeleteTraining(int id, int trainingId)
@@ -47,25 +69,25 @@ namespace BearGoodbyeKolkhozProject.Business.Services
                 throw new Exception("Нет такого треннинга");
             }
 
-            _repo.DeleteTraining(id, training);
+            _lecturerRepo.DeleteTraining(id, training);
         }
 
         public void UpdateLecturer(int id, LecturerModel model)
         {
-            var training = _repo.GetLecturerById(id);
+            var lecturer = _lecturerRepo.GetLecturerById(id);
 
-            if (training == null)
+            if (lecturer is null)
             {
                 throw new Exception("Такого лектора нет");
             }
 
             var entity = CustomMapper.GetInstance().Map<Lecturer>(model);
-            _repo.UpdateLecturer(entity);
+            _lecturerRepo.UpdateLecturer(entity);
         }
 
         public LecturerModel GetLecturerById(int id)
         {
-            var entity = _repo.GetLecturerById(id);
+            var entity = _lecturerRepo.GetLecturerById(id);
             if (entity is null)
             {
                 throw new Exception("Такого лектора нет");
@@ -76,7 +98,7 @@ namespace BearGoodbyeKolkhozProject.Business.Services
 
         public List<LecturerModel> GetLecturers()
         {
-            List<Lecturer> lecturers = _repo.GetLecturers();
+            List<Lecturer> lecturers = _lecturerRepo.GetLecturers();
             return CustomMapper.GetInstance().Map<List<LecturerModel>>(lecturers);
         }
     }

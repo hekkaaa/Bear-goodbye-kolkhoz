@@ -97,7 +97,7 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
             _context.SaveChanges();
 
             //when
-            lecturerRepository.ChangeDeleteStatusById(lecturer.Id, true);
+            lecturerRepository.ChangeDeleteStatusById(lecturer, true);
             var actual = _context.Lecturer.FirstOrDefault(l => l.Id == lecturer.Id);
 
             //then
@@ -113,7 +113,7 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
             _context.SaveChanges();
 
             //when
-            lecturerRepository.AddTraining(lecturer.Id, training);
+            lecturerRepository.AddTraining(lecturer, training);
             var actual = _context.Lecturer.FirstOrDefault(l => l.Id == lecturer.Id);
 
             //then
