@@ -35,7 +35,7 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
         public bool DeleteClientById(int id)
         {
             var res = _db.Client.FirstOrDefault(x => x.Id == id);
-           
+
             res.IsDeleted = false;
             _db.SaveChanges();
             return true;

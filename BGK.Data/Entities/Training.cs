@@ -17,7 +17,7 @@ namespace BearGoodbyeKolkhozProject.Data.Entities
         public bool IsDeleted { get; set; }
 
         public virtual ICollection<TrainingReview> TrainingReviews { get; set; }
-        public virtual ICollection<Topic> Topic { get; set; }
+        public virtual ICollection<Topic> Topics { get; set; }
 
         public override bool Equals(object? obj)
         {
