@@ -37,6 +37,14 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
 
             _applicationContext.SaveChanges();
         }
+        public void UpdateTraining(Training training, bool IsDeleted)
+        {
+            var oldTraining = GetTrainingById(training.Id);
+
+            oldTraining.IsDeleted = IsDeleted;
+
+            _applicationContext.SaveChanges();
+        }
 
         public void AddTraining(Training training)
         {
@@ -44,12 +52,7 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
             _applicationContext.SaveChanges();
         }
 
-        public void DeleteTraining(int id)
-        {
-            var training = GetTrainingById(id);
-            training.IsDeleted = true;
-            _applicationContext.SaveChanges();
-        }
+       
 
     }
 }

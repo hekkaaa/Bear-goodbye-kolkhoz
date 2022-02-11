@@ -55,7 +55,11 @@ namespace BearGoodbyeKolkhozProject.Business.Services
 
         public void DeleteTraining(TrainingModel trainingModel)
         {
-            _repository.DeleteTraining(trainingModel.Id);
+            _repository.UpdateTraining(_mapper.Map<Training>(trainingModel), true);
+        }
+        public void RecoveryTraining(TrainingModel trainingModel)
+        {
+            _repository.UpdateTraining(_mapper.Map<Training>(trainingModel), false);
         }
     }
 }
