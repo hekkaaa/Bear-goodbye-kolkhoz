@@ -36,7 +36,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
             }
         }
 
-        [HttpGet]
+        [HttpGet("all")]
         public IActionResult GetTrainings()
         {
             var models = _service.GetTrainingModelsAll();

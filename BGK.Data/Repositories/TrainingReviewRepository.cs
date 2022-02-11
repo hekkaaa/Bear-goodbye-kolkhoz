@@ -25,7 +25,7 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
 
             oldTrainingReview.Mark = trainingReview.Mark;
             oldTrainingReview.Text = trainingReview.Text;
-            
+
             _applicationContext.SaveChanges();
         }
 

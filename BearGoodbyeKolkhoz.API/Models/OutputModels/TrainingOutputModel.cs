@@ -1,6 +1,4 @@
-﻿using BearGoodbyeKolkhozProject.Business.Models;
-
-namespace BearGoodbyeKolkhozProject.API.Models
+﻿namespace BearGoodbyeKolkhozProject.API.Models
 {
     public class TrainingOutputModel
     {

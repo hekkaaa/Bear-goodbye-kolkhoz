@@ -25,7 +25,7 @@ namespace BearGoodbyeKolkhozProject.Data.ConnectDb
         {
         }
 
-     
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -87,7 +87,7 @@ namespace BearGoodbyeKolkhozProject.Data.ConnectDb
             };
 
             modelBuilder.Entity<Client>().HasData(client);
-               ;
+            ;
 
 
         }

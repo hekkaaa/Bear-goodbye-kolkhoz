@@ -21,7 +21,7 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
 
         public List<Training> GetTrainingsByTopic(Topic topic) =>
             _applicationContext.Training.Where(t => t.Topics.Any(t => t.Name == topic.Name)).ToList();
-            
+
         //_applicationContext.Training.Where(t => t.Topic == topic && !t.IsDeleted).ToList();
 
         public void UpdateTraining(Training training)
@@ -47,6 +47,9 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
         public void DeleteTraining(int id)
         {
             var training = GetTrainingById(id);
+
+
+
             training.IsDeleted = true;
             _applicationContext.SaveChanges();
         }

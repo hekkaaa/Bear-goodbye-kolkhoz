@@ -14,8 +14,4 @@
     <ProjectReference Include="..\BGK.Data\BearGoodbyeKolkhozProject.Data.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Exceptions\" />
-  </ItemGroup>
-
 </Project>

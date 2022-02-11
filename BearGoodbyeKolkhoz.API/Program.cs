@@ -1,10 +1,10 @@
+using BearGoodbyeKolkhozProject.API;
+using BearGoodbyeKolkhozProject.API.Infrastructure;
+using BearGoodbyeKolkhozProject.Business.Configuration;
 using BearGoodbyeKolkhozProject.Business.Services;
 using BearGoodbyeKolkhozProject.Data.ConnectDb;
 using BearGoodbyeKolkhozProject.Data.Repositories;
 using Microsoft.EntityFrameworkCore;
-using AutoMapper;
-using BearGoodbyeKolkhozProject.API;
-using BearGoodbyeKolkhozProject.Business.Configuration;
 
 const string _connString = "CONNECTION_STRING";
 
@@ -27,6 +27,7 @@ builder.Services.AddScoped<ITrainingReviewRepository, TrainingReviewRepository>(
 builder.Services.AddScoped<ITrainingReviewService, TrainingReviewService>();
 builder.Services.AddAutoMapper(typeof(APIMapperProfile), typeof(BusinessMapperProfile));
 
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -39,6 +40,8 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+
+app.UseMiddleware<ErrorHandlerMiddleware>();
 
 app.MapControllers();
 

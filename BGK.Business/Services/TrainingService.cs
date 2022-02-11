@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using BearGoodbyeKolkhozProject.Business.Configuration;
+using BearGoodbyeKolkhozProject.Business.Exceptions;
 using BearGoodbyeKolkhozProject.Business.Models;
 using BearGoodbyeKolkhozProject.Data.Entities;
 using BearGoodbyeKolkhozProject.Data.Repositories;
@@ -50,11 +50,15 @@ namespace BearGoodbyeKolkhozProject.Business.Services
         public void AddTraining(TrainingModel trainingModel)
         {
             var trainingEntity = _mapper.Map<Training>(trainingModel);
+
             _repository.AddTraining(trainingEntity);
         }
 
         public void DeleteTraining(TrainingModel trainingModel)
         {
+            if (_repository.GetTrainingById(trainingModel.Id) == null)
+                throw new RepositoryException("Такого тренинга не найдено. Удаление невозможно.");
+
             _repository.DeleteTraining(trainingModel.Id);
         }
     }
