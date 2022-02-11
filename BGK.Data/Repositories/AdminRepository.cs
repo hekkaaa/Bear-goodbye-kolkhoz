@@ -3,7 +3,7 @@ using BearGoodbyeKolkhozProject.Data.Entities;
 
 namespace BearGoodbyeKolkhozProject.Data.Repositories
 {
-    public class AdminRepository
+    public class AdminRepository : IAdminRepository
     {
         private ApplicationContext _db;
         private AdminRepository()
