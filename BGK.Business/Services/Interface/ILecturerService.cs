@@ -1,6 +1,6 @@
 ﻿using BearGoodbyeKolkhozProject.Business.Models;
 
-namespace BearGoodbyeKolkhozProject.Business.Interfaces
+namespace BearGoodbyeKolkhozProject.Business.Interface
 {
     public interface ILecturerService
     {

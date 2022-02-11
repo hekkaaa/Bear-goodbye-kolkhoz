@@ -7,7 +7,7 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
     public class TrainingRepository : ITrainingRepository
     {
 
-        private ApplicationContext _context;
+        private ApplicationContext _applicationContext;
 
         public TrainingRepository(ApplicationContext applicationContext)
         {
@@ -15,10 +15,10 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
         }
 
         public Training GetTrainingById(int id) =>
-           _context.Training.FirstOrDefault(t => t.Id == id);
+           _applicationContext.Training.FirstOrDefault(t => t.Id == id);
 
         public List<Training> GetTrainings() =>
-            _context.Training.Where(t => !t.IsDeleted).ToList();
+            _applicationContext.Training.Where(t => !t.IsDeleted).ToList();
 
         public List<Training> GetTrainingsByTopic(Topic topic) =>
             _applicationContext.Training.Where(t => t.Topics.Any(t => t.Name == topic.Name)).ToList();
@@ -41,8 +41,8 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
 
         public void AddTraining(Training training)
         {
-            _context.Training.Add(training);
-            _context.SaveChanges();
+            _applicationContext.Training.Add(training);
+            _applicationContext.SaveChanges();
         }
 
         public void DeleteTraining(int id)

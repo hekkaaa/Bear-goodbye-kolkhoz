@@ -5,6 +5,8 @@ using Microsoft.EntityFrameworkCore;
 using AutoMapper;
 using BearGoodbyeKolkhozProject.API;
 using BearGoodbyeKolkhozProject.Business.Configuration;
+using BearGoodbyeKolkhozProject.Business.Interface;
+using BearGoodbyeKolkhozProject.Data.Interfaces;
 
 const string _connString = "CONNECTION_STRING";
 

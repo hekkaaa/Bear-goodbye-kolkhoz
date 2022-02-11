@@ -1,8 +1,10 @@
-﻿using BearGoodbyeKolkhozProject.Business.Configuration;
-using BearGoodbyeKolkhozProject.Business.Interfaces;
+﻿using AutoMapper;
+using BearGoodbyeKolkhozProject.Business.Configuration;
+using BearGoodbyeKolkhozProject.Business.Interface;
 using BearGoodbyeKolkhozProject.Business.Models;
 using BearGoodbyeKolkhozProject.Data.Entities;
 using BearGoodbyeKolkhozProject.Data.Interfaces;
+using BearGoodbyeKolkhozProject.Data.Repositories;
 
 namespace BearGoodbyeKolkhozProject.Business.Services
 {
@@ -10,16 +12,18 @@ namespace BearGoodbyeKolkhozProject.Business.Services
     {
         private readonly ILecturerRepository _lecturerRepo;
         private readonly ITrainingRepository _trainingRepo;
+        private readonly IMapper _mapper;
 
-        public LecturerService(ILecturerRepository lecturerRepository, ITrainingRepository trainingRepository)
+        public LecturerService(ILecturerRepository lecturerRepository, ITrainingRepository trainingRepository, IMapper mapper)
         {
             _lecturerRepo = lecturerRepository;
             _trainingRepo = trainingRepository;
+            _mapper =  mapper;
         }
 
         public void RegistrationLecturer(LecturerModel model)
         {
-            var entity = CustomMapper.GetInstance().Map<Lecturer>(model);
+            var entity = _mapper.Map<Lecturer>(model);
             _lecturerRepo.AddLecturer(entity);
         }
 
@@ -81,7 +85,7 @@ namespace BearGoodbyeKolkhozProject.Business.Services
                 throw new Exception("Такого лектора нет");
             }
 
-            var entity = CustomMapper.GetInstance().Map<Lecturer>(model);
+            var entity = _mapper.Map<Lecturer>(model);
             _lecturerRepo.UpdateLecturer(entity);
         }
 
@@ -93,13 +97,13 @@ namespace BearGoodbyeKolkhozProject.Business.Services
                 throw new Exception("Такого лектора нет");
             }
 
-            return CustomMapper.GetInstance().Map<LecturerModel>(entity);
+            return _mapper.Map<LecturerModel>(entity);
         }
 
         public List<LecturerModel> GetLecturers()
         {
             List<Lecturer> lecturers = _lecturerRepo.GetLecturers();
-            return CustomMapper.GetInstance().Map<List<LecturerModel>>(lecturers);
+            return _mapper.Map<List<LecturerModel>>(lecturers);
         }
     }
 }
