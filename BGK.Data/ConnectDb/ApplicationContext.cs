@@ -19,12 +19,13 @@ namespace BearGoodbyeKolkhozProject.Data.ConnectDb
 
         public ApplicationContext()
         {
-            Database.EnsureCreated();
         }
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+
+        public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options)
         {
-            optionsBuilder.UseSqlServer(@"Data Source=WIN-4PTG0MGAJ62\SQLEXPRESS;Database=testSS;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
         }
+
+     
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -58,6 +59,8 @@ namespace BearGoodbyeKolkhozProject.Data.ConnectDb
             }
             );
 
+
+
             modelBuilder.Entity<Lecturer>().HasData(
                 new Lecturer() { Id = 1, Name = "Вячеслав Ибрагимович", LastName = "Пототько", BirthDay = "27 августа", Gender = Enums.Gender.Male },
                 new Lecturer() { Id = 2, Name = "Евгения Владимировна", LastName = "Цыплухина", BirthDay = "22 сентября", Gender = Enums.Gender.Female },
@@ -69,6 +72,23 @@ namespace BearGoodbyeKolkhozProject.Data.ConnectDb
             new Classroom() { Id = 2, Address = "пр. Ветеранов дом 8", City = "Санкт-Петербург", MembersCount = 25 },
             new Classroom() { Id = 3, Address = "ул. Пушкина дом 27", City = "Санкт-Петербург", MembersCount = 40 }
             );
+
+            var client = new Client
+            {
+                Id = 1,
+                Name = "ggg",
+                LastName = "zzz",
+                BirthDay = "25.01.2007",
+                Email = "чоооо",
+                Gender = Enums.Gender.Male,
+                Password = "444",
+                PhoneNumber = "555",
+
+            };
+
+            modelBuilder.Entity<Client>().HasData(client);
+               ;
+
 
         }
 

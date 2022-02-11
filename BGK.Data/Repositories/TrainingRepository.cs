@@ -3,14 +3,14 @@ using BearGoodbyeKolkhozProject.Data.Entities;
 
 namespace BearGoodbyeKolkhozProject.Data.Repositories
 {
-    public class TrainingRepository
+    public class TrainingRepository : ITrainingRepository
     {
 
         private ApplicationContext _applicationContext;
 
-        public TrainingRepository()
+        public TrainingRepository(ApplicationContext applicationContext)
         {
-            _applicationContext = Storage.GetStorage();
+            _applicationContext = applicationContext;
         }
 
         public Training GetTrainingById(int id) =>
@@ -19,16 +19,22 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
         public List<Training> GetTrainings() =>
             _applicationContext.Training.Where(t => !t.IsDeleted).ToList();
 
+        public List<Training> GetTrainingsByTopic(Topic topic) =>
+            _applicationContext.Training.Where(t => t.Topics.Any(t => t.Name == topic.Name)).ToList();
+            
+        //_applicationContext.Training.Where(t => t.Topic == topic && !t.IsDeleted).ToList();
 
         public void UpdateTraining(Training training)
         {
             var oldTraining = GetTrainingById(training.Id);
+
             oldTraining.MembersCount = training.MembersCount;
             oldTraining.Name = training.Name;
             oldTraining.Price = training.Price;
-            oldTraining.Topic = training.Topic;
+            oldTraining.Topics = training.Topics;
             oldTraining.Duration = training.Duration;
             oldTraining.Description = training.Description;
+
             _applicationContext.SaveChanges();
         }
 
@@ -41,7 +47,7 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
         public void DeleteTraining(int id)
         {
             var training = GetTrainingById(id);
-            training.IsDeleted = false;
+            training.IsDeleted = true;
             _applicationContext.SaveChanges();
         }
 
