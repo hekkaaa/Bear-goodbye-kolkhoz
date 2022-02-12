@@ -11,7 +11,6 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
     public class TrainingTests
     {
 
-
         private ApplicationContext _context;
         private TrainingRepository _trainingRepository;
         private TestData _testData;
@@ -139,5 +138,10 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
             //then
             Assert.AreEqual(act[0], training);
         }
+
+        
+        
+        
+
     }
 }

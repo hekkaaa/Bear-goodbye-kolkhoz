@@ -19,11 +19,6 @@ namespace BearGoodbyeKolkhozProject.Business.Services
 
         public void UpdateTrainingReview(int id, TrainingReviewModel trainingReviewModel)
         {
-            var training = _repository.GetTrainingReviewById(id);
-
-            if (training == null)
-                throw new Exception("Такого обзора на тренинг не найдено!");
-
             var trainingReviewEntity = _mapper.Map<TrainingReview>(trainingReviewModel);
             _repository.UpdateTrainingReview(trainingReviewEntity);
         }
