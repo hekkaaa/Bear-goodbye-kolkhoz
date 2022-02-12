@@ -5,6 +5,8 @@ using Microsoft.EntityFrameworkCore;
 using AutoMapper;
 using BearGoodbyeKolkhozProject.API;
 using BearGoodbyeKolkhozProject.Business.Configuration;
+using BearGoodbyeKolkhozProject.Business.Interface;
+using BearGoodbyeKolkhozProject.Data.Interfaces;
 
 const string _connString = "CONNECTION_STRING";
 
@@ -25,6 +27,9 @@ builder.Services.AddScoped<ITrainingRepository, TrainingRepository>();
 builder.Services.AddScoped<ITrainingService, TrainingService>();
 builder.Services.AddScoped<ITrainingReviewRepository, TrainingReviewRepository>();
 builder.Services.AddScoped<ITrainingReviewService, TrainingReviewService>();
+builder.Services.AddScoped<ILecturerService, LecturerService>();
+builder.Services.AddScoped<ITrainingRepository, TrainingRepository>();
+builder.Services.AddScoped<ILecturerRepository, LecturerRepository>();
 builder.Services.AddAutoMapper(typeof(APIMapperProfile), typeof(BusinessMapperProfile));
 
 var app = builder.Build();
