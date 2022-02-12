@@ -30,6 +30,8 @@ builder.Services.AddAutoMapper(typeof(APIMapperProfile), typeof(BusinessMapperPr
 
 var app = builder.Build();
 
+app.UseMiddleware<ErrorHandlerMiddleware>();
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -40,8 +42,6 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
-
-app.UseMiddleware<ErrorHandlerMiddleware>();
 
 app.MapControllers();
 

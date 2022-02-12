@@ -23,7 +23,7 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             var training = _repository.GetTrainingById(id);
 
             if (training == null)
-                throw new Exception("Такого тренинга не найдено!");
+                throw new RepositoryException("Такого тренинга не найдено!");
 
             var trainingEntity = _mapper.Map<Training>(trainingModel);
             _repository.UpdateTraining(trainingEntity);
@@ -32,18 +32,29 @@ namespace BearGoodbyeKolkhozProject.Business.Services
         public TrainingModel GetTrainingModelById(int id)
         {
             var trainingEntity = _repository.GetTrainingById(id);
+            if (trainingEntity == null)
+                throw new RepositoryException("Такого тренинга не найдено!");
+
             return _mapper.Map<TrainingModel>(trainingEntity);
         }
 
         public List<TrainingModel> GetTrainingModelsAll()
         {
             var trainingEntityList = _repository.GetTrainings();
+
+            if (trainingEntityList == null)
+                throw new RepositoryException("Ни одного тренинга не добавлено");
+
             return _mapper.Map<List<TrainingModel>>(trainingEntityList);
         }
 
         public List<TrainingModel> GetTrainingModelByTopic(TopicModel topicModel)
         {
             var trainingEntityList = _repository.GetTrainingsByTopic(_mapper.Map<Topic>(topicModel));
+
+            if (trainingEntityList == null)
+                throw new Exception("Тренингов с этой темой не найдено");
+            
             return _mapper.Map<List<TrainingModel>>(trainingEntityList);
         }
 
@@ -61,5 +72,7 @@ namespace BearGoodbyeKolkhozProject.Business.Services
 
             _repository.DeleteTraining(trainingModel.Id);
         }
+
+
     }
 }

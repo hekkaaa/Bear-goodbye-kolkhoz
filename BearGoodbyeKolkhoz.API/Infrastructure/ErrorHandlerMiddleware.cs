@@ -19,13 +19,13 @@ namespace BearGoodbyeKolkhozProject.API.Infrastructure
             {
                 await _next(context);
             }
-            catch (Microsoft.Data.SqlClient.SqlException)
-            {
-                await ConstructResponse(context, HttpStatusCode.ServiceUnavailable, message: "База данных недоступна");
-            }
             catch (RepositoryException ex)
             {
                 await ConstructResponse(context, HttpStatusCode.BadRequest, ex.Message);
+            }
+            catch (Microsoft.Data.SqlClient.SqlException)
+            {
+                await ConstructResponse(context, HttpStatusCode.ServiceUnavailable, message: "База данных недоступна");
             }
             catch (Exception ex)
             {
