@@ -27,6 +27,7 @@ builder.Services.AddScoped<ITrainingReviewRepository, TrainingReviewRepository>(
 builder.Services.AddScoped<ITrainingReviewService, TrainingReviewService>();
 builder.Services.AddScoped<IAdminRepository, AdminRepository>();
 builder.Services.AddScoped<IAdminService, AdminService>();
+
 builder.Services.AddAutoMapper(typeof(APIMapperProfile), typeof(BusinessMapperProfile));
 
 var app = builder.Build();

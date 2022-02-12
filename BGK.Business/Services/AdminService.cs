@@ -1,4 +1,5 @@
-﻿using BearGoodbyeKolkhozProject.Business.Models;
+﻿using AutoMapper;
+using BearGoodbyeKolkhozProject.Business.Models;
 using BearGoodbyeKolkhozProject.Data.Repositories;
 using System;
 using System.Collections.Generic;
@@ -11,16 +12,17 @@ namespace BearGoodbyeKolkhozProject.Business.Services
     public class AdminService : IAdminService
     {
         private readonly IAdminRepository _repository;
+        private IMapper _mapper;
 
-        public AdminService(IAdminRepository repository)
+        public AdminService(IAdminRepository repository, IMapper mapper)
         {
             _repository = repository;
+            _mapper = mapper;
         }
 
         public AdminModel GetAdminById(int id)
         {
-            var res = _repository.GetAdminById(id);
-            return res; // нихера не понятно че тут возвращать.
+            return _mapper.Map<AdminModel>(_repository.GetAdminById(id)); 
         }
     }
 }
