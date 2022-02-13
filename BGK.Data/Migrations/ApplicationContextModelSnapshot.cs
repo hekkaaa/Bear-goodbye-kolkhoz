@@ -264,7 +264,6 @@ namespace BearGoodbyeKolkhozProject.Data.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("BirthDay")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Gender")
@@ -283,6 +282,10 @@ namespace BearGoodbyeKolkhozProject.Data.Migrations
                         .HasMaxLength(40)
                         .HasColumnType("nvarchar(40)");
 
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.ToTable("Lecturer");
@@ -295,7 +298,8 @@ namespace BearGoodbyeKolkhozProject.Data.Migrations
                             Gender = 1,
                             IsDeleted = false,
                             LastName = "Пототько",
-                            Name = "Вячеслав Ибрагимович"
+                            Name = "Вячеслав Ибрагимович",
+                            Password = "123"
                         },
                         new
                         {
@@ -304,7 +308,8 @@ namespace BearGoodbyeKolkhozProject.Data.Migrations
                             Gender = 2,
                             IsDeleted = false,
                             LastName = "Цыплухина",
-                            Name = "Евгения Владимировна"
+                            Name = "Евгения Владимировна",
+                            Password = "234"
                         },
                         new
                         {
@@ -313,7 +318,8 @@ namespace BearGoodbyeKolkhozProject.Data.Migrations
                             Gender = 1,
                             IsDeleted = false,
                             LastName = "Вейпов",
-                            Name = "Андрей Андреевич"
+                            Name = "Андрей Андреевич",
+                            Password = "098"
                         });
                 });
 
@@ -363,6 +369,9 @@ namespace BearGoodbyeKolkhozProject.Data.Migrations
 
                     b.Property<int?>("ClientId")
                         .HasColumnType("int");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .IsRequired()

@@ -3,13 +3,13 @@ using BearGoodbyeKolkhozProject.Data.Entities;
 
 namespace BearGoodbyeKolkhozProject.Data.Repositories
 {
-    public class TrainingReviewRepository
+    public class TrainingReviewRepository : ITrainingReviewRepository
     {
         private ApplicationContext _applicationContext;
 
-        public TrainingReviewRepository()
+        public TrainingReviewRepository(ApplicationContext context)
         {
-            _applicationContext = Storage.GetStorage();
+            _applicationContext = context;
         }
 
 
@@ -22,8 +22,10 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
         public void UpdateTrainingReview(TrainingReview trainingReview)
         {
             var oldTrainingReview = GetTrainingReviewById(trainingReview.Id);
+
             oldTrainingReview.Mark = trainingReview.Mark;
             oldTrainingReview.Text = trainingReview.Text;
+            
             _applicationContext.SaveChanges();
         }
 

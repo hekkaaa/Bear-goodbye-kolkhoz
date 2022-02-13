@@ -6,17 +6,17 @@ using BearGoodbyeKolkhozProject.Data.Repositories;
 
 namespace BearGoodbyeKolkhozProject.Business.Services
 {
-    public class TrainingReviewService
+    public class TrainingReviewService : ITrainingReviewService
     {
-        private TrainingReviewRepository _repository;
-
+        private ITrainingReviewRepository _repository;
         private IMapper _mapper;
 
-        public TrainingReviewService(IMapper mapper)
+
+        public TrainingReviewService(ITrainingReviewRepository repository, IMapper mapper)
         {
-            _repository = new TrainingReviewRepository();
+            _repository = repository;
             _mapper = mapper;
-         }
+        }
 
         public void UpdateTrainingReview(int id, TrainingReviewModel trainingReviewModel)
         {
@@ -25,17 +25,17 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             if (training == null)
                 throw new Exception("Такого обзора на тренинг не найдено!");
 
-            
-            _repository.UpdateTrainingReview(_mapper.Map<TrainingReview>(trainingReviewModel));
+            var trainingReviewEntity = _mapper.Map<TrainingReview>(trainingReviewModel);
+            _repository.UpdateTrainingReview(trainingReviewEntity);
         }
 
-        public TrainingReviewModel GetTrainingReviewModelById(TrainingReviewModel trainingReviewModel)
+        public TrainingReviewModel GetTrainingReviewModelById(int trainingReviewId)
         {
-            var trainingReviewEntity = _repository.GetTrainingReviewById(trainingReviewModel.Id);
+            var trainingReviewEntity = _repository.GetTrainingReviewById(trainingReviewId);
             return _mapper.Map<TrainingReviewModel>(trainingReviewEntity);
         }
 
-        public List<TrainingReviewModel> GetTrainingReviewModelsAll()
+        public List<TrainingReviewModel> GetTrainingReviewModels()
         {
             var trainingReviewEntityList = _repository.GetTrainingReviews();
             return _mapper.Map<List<TrainingReviewModel>>(trainingReviewEntityList);

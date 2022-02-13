@@ -19,15 +19,6 @@ namespace BearGoodbyeKolkhozProject.Data.ConnectDb
 
         public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options)
         {
-            Database.EnsureCreated();
-            Database.EnsureDeleted();
-        }
-
-       
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlServer(@"Data Source=DESKTOP-5HF0J14\SQLEXPRESS;Database=testSS;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -62,17 +53,34 @@ namespace BearGoodbyeKolkhozProject.Data.ConnectDb
             }
             );
 
-            modelBuilder.Entity<Lecturer>().HasData(
-                new Lecturer() { Id = 1, Name = "Вячеслав Ибрагимович", LastName = "Пототько", BirthDay = "27 августа", Gender = Enums.Gender.Male },
-                new Lecturer() { Id = 2, Name = "Евгения Владимировна", LastName = "Цыплухина", BirthDay = "22 сентября", Gender = Enums.Gender.Female },
-                new Lecturer() { Id = 3, Name = "Андрей Андреевич", LastName = "Вейпов", BirthDay = "15 октября", Gender = Enums.Gender.Male }
-            );
+            //modelBuilder.Entity<Lecturer>().HasData(
+            //    new Lecturer() { Id = 1, Name = "Вячеслав Ибрагимович", LastName = "Пототько", BirthDay = "27 августа", Gender = Enums.Gender.Male, Password = "qwe" },
+            //    new Lecturer() { Id = 2, Name = "Евгения Владимировна", LastName = "Цыплухина", BirthDay = "22 сентября", Gender = Enums.Gender.Female, Password = "asd" },
+            //    new Lecturer() { Id = 3, Name = "Андрей Андреевич", LastName = "Вейпов", BirthDay = "15 октября", Gender = Enums.Gender.Male, Password = "zxc" }
+            //);
 
             modelBuilder.Entity<Classroom>().HasData(
             new Classroom() { Id = 1, Address = "ул. Вавилова дом 5", City = "Санкт-Петербург", MembersCount = 25 },
             new Classroom() { Id = 2, Address = "пр. Ветеранов дом 8", City = "Санкт-Петербург", MembersCount = 25 },
             new Classroom() { Id = 3, Address = "ул. Пушкина дом 27", City = "Санкт-Петербург", MembersCount = 40 }
             );
+
+            var client = new Client
+            {
+                Id = 1,
+                Name = "ggg",
+                LastName = "zzz",
+                BirthDay = "25.01.2007",
+                Email = "чоооо",
+                Gender = Enums.Gender.Male,
+                Password = "444",
+                PhoneNumber = "555",
+
+            };
+
+            modelBuilder.Entity<Client>().HasData(client);
+               ;
+
 
         }
 

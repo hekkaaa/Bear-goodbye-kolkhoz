@@ -17,7 +17,22 @@ namespace BearGoodbyeKolkhozProject.Data.Entities
         public bool IsDeleted { get; set; }
 
         public virtual ICollection<TrainingReview> TrainingReviews { get; set; }
-        public virtual ICollection<Topic> Topic { get; set; }
+        public virtual ICollection<Topic> Topics { get; set; }
 
+        public override bool Equals(object? obj)
+        {
+            if (obj is null
+                || Id != ((Training)obj).Id
+                || Name != ((Training)obj).Name
+                || Description != ((Training)obj).Description
+                || MembersCount != ((Training)obj).MembersCount
+                || Duration != ((Training)obj).Duration
+                || Price != ((Training)obj).Price
+                || IsDeleted != ((Training)obj).IsDeleted)
+            {
+                return false;
+            }
+            return true;
+        }
     }
 }

@@ -6,9 +6,9 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
     public class ClientRepository
     {
         private ApplicationContext _db;
-        public ClientRepository()
+        public ClientRepository(ApplicationContext context)
         {
-            this._db = Storage.GetStorage();
+            this._db = context;
         }
         public Client GetClientById(int id)
         {
@@ -35,7 +35,7 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
         public bool DeleteClientById(int id)
         {
             var res = _db.Client.FirstOrDefault(x => x.Id == id);
-           
+
             res.IsDeleted = false;
             _db.SaveChanges();
             return true;
