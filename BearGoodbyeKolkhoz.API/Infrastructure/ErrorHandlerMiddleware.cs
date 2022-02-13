@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using BearGoodbyeKolkhozProject.Business.Exceptions;
+using System.Net;
 using System.Text.Json;
 
 namespace BearGoodbyeKolkhozProject.API.Infrastructure
@@ -17,6 +18,14 @@ namespace BearGoodbyeKolkhozProject.API.Infrastructure
             try
             {
                 await _next(context);
+            }
+            catch (RepositoryException ex)
+            {
+                await ConstructResponse(context, HttpStatusCode.BadRequest, ex.Message);
+            }
+            catch (Microsoft.Data.SqlClient.SqlException)
+            {
+                await ConstructResponse(context, HttpStatusCode.ServiceUnavailable, message: "База данных недоступна");
             }
             catch (Exception ex)
             {
