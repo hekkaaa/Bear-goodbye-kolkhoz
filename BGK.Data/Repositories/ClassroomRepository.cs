@@ -6,9 +6,9 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
     public class ClassroomRepository
     {
         private ApplicationContext _db;
-        private ClassroomRepository()
+        private ClassroomRepository(ApplicationContext context)
         {
-            this._db = new ApplicationContext();
+            this._db = context;
         }
 
         public Classroom GetClassroomById(int id)

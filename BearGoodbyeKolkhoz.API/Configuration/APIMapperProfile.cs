@@ -8,11 +8,10 @@ namespace BearGoodbyeKolkhozProject.API
     {
         public APIMapperProfile()
         {
-
-            CreateMap<TrainingReviewModel, TrainingReviewOutputModel>();
-            CreateMap<TrainingModel, TrainingOutputModel>();
-            CreateMap<TopicModel, TopicOutputModel>();
-            CreateMap<TopicInputModel, TopicModel>();
+            CreateMap<LecturerRegistrationInputModel, LecturerModel>().ReverseMap();
+            CreateMap<LecturerOutputModel, LecturerModel>().ReverseMap();
+            CreateMap<TrainingReviewOutputModel, TrainingReviewModel>();
+            CreateMap<TrainingOutputModel, TrainingModel>();
         }
     }
 

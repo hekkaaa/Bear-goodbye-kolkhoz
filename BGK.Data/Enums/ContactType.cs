@@ -1,4 +1,4 @@
-﻿namespace BearGoodbyeKolkhozProject.Data.Entities
+﻿namespace BearGoodbyeKolkhozProject.Data.Enums
 {
 
     public enum ContactType
