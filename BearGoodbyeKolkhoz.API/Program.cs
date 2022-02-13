@@ -7,6 +7,7 @@ using BearGoodbyeKolkhozProject.API;
 using BearGoodbyeKolkhozProject.Business.Configuration;
 using BearGoodbyeKolkhozProject.Business.Interface;
 using BearGoodbyeKolkhozProject.Data.Interfaces;
+using BearGoodbyeKolkhozProject.API.Extensions;
 
 const string _connString = "CONNECTION_STRING";
 
@@ -23,13 +24,10 @@ var connString = builder.Configuration.GetValue<string>(_connString);
 
 builder.Services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(connString));
 
-builder.Services.AddScoped<ITrainingRepository, TrainingRepository>();
-builder.Services.AddScoped<ITrainingService, TrainingService>();
-builder.Services.AddScoped<ITrainingReviewRepository, TrainingReviewRepository>();
-builder.Services.AddScoped<ITrainingReviewService, TrainingReviewService>();
-builder.Services.AddScoped<ILecturerService, LecturerService>();
-builder.Services.AddScoped<ITrainingRepository, TrainingRepository>();
-builder.Services.AddScoped<ILecturerRepository, LecturerRepository>();
+// add service and provider connections here
+builder.Services.RegisterProjectService();
+builder.Services.RegisterProjectRepository();
+
 builder.Services.AddAutoMapper(typeof(APIMapperProfile), typeof(BusinessMapperProfile));
 
 var app = builder.Build();
