@@ -25,7 +25,7 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             var training = _repository.GetTrainingById(id);
 
             if (training == null)
-                throw new RepositoryException("Такого тренинга не найдено!");
+                throw new BusinessException("Такого тренинга не найдено!");
 
             var trainingEntity = _mapper.Map<Training>(trainingModel);
             _repository.UpdateTraining(trainingEntity);
@@ -35,7 +35,7 @@ namespace BearGoodbyeKolkhozProject.Business.Services
         {
             var trainingEntity = _repository.GetTrainingById(id);
             if (trainingEntity == null)
-                throw new RepositoryException("Такого тренинга не найдено!");
+                throw new BusinessException("Такого тренинга не найдено!");
 
             return _mapper.Map<TrainingModel>(trainingEntity);
         }
@@ -45,7 +45,7 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             var trainingEntityList = _repository.GetTrainings();
 
             if (trainingEntityList.Count == 0)
-                throw new RepositoryException("Ни одного тренинга не добавлено");
+                throw new BusinessException("Ни одного тренинга не добавлено");
 
             return _mapper.Map<List<TrainingModel>>(trainingEntityList);
         }
@@ -55,7 +55,7 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             var trainingEntityList = _repository.GetTrainingsByTopic(_mapper.Map<Topic>(topicModel));
 
             if (trainingEntityList.Count == 0)
-                throw new RepositoryException("Тренингов с этой темой не найдено");
+                throw new BusinessException("Тренингов с этой темой не найдено");
 
             return _mapper.Map<List<TrainingModel>>(trainingEntityList);
         }
@@ -70,7 +70,7 @@ namespace BearGoodbyeKolkhozProject.Business.Services
         {
             var trainingEntity = _repository.GetTrainingById(trainingModel.Id);
             if (trainingEntity == null)
-                throw new RepositoryException("Такого тренинга не найдено!");
+                throw new BusinessException("Такого тренинга не найдено!");
 
             _repository.UpdateTraining(_mapper.Map<Training>(trainingModel), true);
         }
@@ -78,7 +78,7 @@ namespace BearGoodbyeKolkhozProject.Business.Services
         {
             var trainingEntity = _repository.GetTrainingById(trainingModel.Id);
             if (trainingEntity == null)
-                throw new RepositoryException("Такого тренинга не найдено!");
+                throw new BusinessException("Такого тренинга не найдено!");
 
             _repository.UpdateTraining(_mapper.Map<Training>(trainingModel), false);
         }
