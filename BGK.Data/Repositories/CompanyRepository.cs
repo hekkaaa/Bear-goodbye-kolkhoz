@@ -52,9 +52,9 @@ namespace BearGoodbyeKolkhozProject.Data.Repo
         public void DeleteCompany(Company company)
         {
 
-            _context.Remove(company);
+            _context.Company.Remove(company);
 
-            _context.SaveChanges(); 
+            _context.SaveChanges();
 
         }
 

@@ -37,6 +37,7 @@ namespace BearGoodbyeKolkhozProject.Data.Tests.TestCase
                     LastName = "Семенов",
                     BirthDay = "03.03.1993",
                     Gender = Enums.Gender.Male,
+                    Password = "12345"
 
                 },
 

@@ -35,10 +35,10 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
         public void AddEventTest(Event expected)
         {
             //given
-            Mock<IEventRepository> mock = new Mock<IEventRepository>();
-            mock.Setup((obj) => obj.AddEvent(expected));
             EventRepository eventRepository = new EventRepository(_context);
+            _context.Event.Add(expected);
 
+           
             //when
             eventRepository.AddEvent(expected);
             var actual = _context.Event.FirstOrDefault(e => e.Id == expected.Id);

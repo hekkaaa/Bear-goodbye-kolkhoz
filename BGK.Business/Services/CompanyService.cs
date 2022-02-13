@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using BearGoodbyeKolkhozProject.Business.Configuration;
 using BearGoodbyeKolkhozProject.Business.Exceptions;
 using BearGoodbyeKolkhozProject.Business.Models;
 using BearGoodbyeKolkhozProject.Data.Entities;
@@ -9,7 +8,7 @@ namespace BearGoodbyeKolkhozProject.Business.Processor
 {
     public class CompanyService : ICompanyService
     {
-        private readonly ICompanyRepository? _companyRepository;
+        private ICompanyRepository? _companyRepository;
 
         private IMapper _mapper;
         public CompanyService(ICompanyRepository companyRepository, IMapper mapper)

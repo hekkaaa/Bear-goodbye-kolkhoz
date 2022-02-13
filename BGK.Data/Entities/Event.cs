@@ -13,6 +13,8 @@ namespace BearGoodbyeKolkhozProject.Data.Entities
         public virtual Lecturer Lecturer { get; set; }
 
         public virtual ICollection<Client>? Clients { get; set; }
+
+        public bool IsDeleted { get; set; }
        
     }
 }

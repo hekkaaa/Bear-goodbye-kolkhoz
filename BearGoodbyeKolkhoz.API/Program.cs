@@ -1,7 +1,9 @@
 using BearGoodbyeKolkhozProject.API.Infrastructure;
 using BearGoodbyeKolkhozProject.Business.Processor;
 using BearGoodbyeKolkhozProject.Data.ConnectDb;
+using BearGoodbyeKolkhozProject.Data.Interfaces;
 using BearGoodbyeKolkhozProject.Data.Repo;
+using BearGoodbyeKolkhozProject.Data.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 const string? _connStringVariableName = "CONNECTION_STRING";
@@ -19,6 +21,10 @@ builder.Services.AddScoped<ICompanyService, CompanyService>();
 builder.Services.AddScoped<ICompanyRepository, CompanyRepository>();
 builder.Services.AddScoped<IEventService, EventService>();
 builder.Services.AddScoped<IEventRepository, EventRepository>();
+builder.Services.AddScoped<IContactLecturerRepository, ContactLecturerRepository>();
+builder.Services.AddScoped<ILecturerRepository, LecturerRepository>();
+builder.Services.AddScoped<ITrainingRepository, TrainingRepository>();
+builder.Services.AddScoped<ITrainingReviewRepository, TrainingReviewRepository>();
 
 var connString = builder.Configuration.GetValue<string>(_connStringVariableName);
 builder.Services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(connString));

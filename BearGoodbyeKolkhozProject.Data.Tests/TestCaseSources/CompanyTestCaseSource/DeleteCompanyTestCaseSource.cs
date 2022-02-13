@@ -14,7 +14,7 @@ namespace BearGoodbyeKolkhozProject.Data.Tests.TestCase
         {
         
 
-            var expected = new Company
+            var company = new Company
             {
                 Id = 2,
                 Name = "OOO Ivan",
@@ -24,8 +24,9 @@ namespace BearGoodbyeKolkhozProject.Data.Tests.TestCase
                 Password = "1234"
             };
 
+            Company expected = null;
 
-            yield return new object[] { expected };
+            yield return new object[] {company, expected };
 
 
         }
