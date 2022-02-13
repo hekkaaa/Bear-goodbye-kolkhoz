@@ -19,7 +19,7 @@ namespace BearGoodbyeKolkhozProject.API.Infrastructure
             {
                 await _next(context);
             }
-            catch (RepositoryException ex)
+            catch (BusinessException ex)
             {
                 await ConstructResponse(context, HttpStatusCode.BadRequest, ex.Message);
             }

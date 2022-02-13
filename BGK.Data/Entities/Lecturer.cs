@@ -29,7 +29,7 @@ namespace BearGoodbyeKolkhozProject.Data.Entities
         public override bool Equals(object? obj)
         {
             if (obj is null
-                || Id != ((Lecturer)obj).Id 
+                || Id != ((Lecturer)obj).Id
                 || Name != ((Lecturer)obj).Name
                 || LastName != ((Lecturer)obj).LastName
                 || BirthDay != ((Lecturer)obj).BirthDay

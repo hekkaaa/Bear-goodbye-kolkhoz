@@ -1,12 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace BearGoodbyeKolkhozProject.Business.Exceptions
+﻿namespace BearGoodbyeKolkhozProject.Business.Exceptions
 {
-    internal class BusinessException
+    public class BusinessException : Exception
     {
+
+
+
+        public BusinessException(string message) : base(message)
+        {
+
+        }
+
     }
 }

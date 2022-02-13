@@ -1,6 +1,6 @@
 ﻿using BearGoodbyeKolkhozProject.Data.Entities;
-using System.Collections.Generic;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace BearGoodbyeKolkhozProject.Data.Tests.TestCaseSources.LecturerTestCaseSource
 {

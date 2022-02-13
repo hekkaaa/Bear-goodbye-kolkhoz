@@ -3,12 +3,7 @@ using BearGoodbyeKolkhozProject.Data.Entities;
 using BearGoodbyeKolkhozProject.Data.Repositories;
 using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Text.Json;
 
 
 namespace BearGoodbyeKolkhozProject.Data.Tests
@@ -43,7 +38,7 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
             var training = _testData.GetTestTraining();
             _context.Training.Add(training);
             _context.SaveChanges();
-            
+
             //when
             var listBeforeDelete = _trainingRepository.GetTrainings();
             _trainingRepository.DeleteTraining(training.Id);
@@ -86,7 +81,7 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
                 Duration = 30,
                 MembersCount = 30
             };
-            
+
             //when
             _trainingRepository.UpdateTraining(newTraining);
             var trainingAfterUpdate = _context.Training.FirstOrDefault(tr => tr.Id == oldTraining.Id);
@@ -104,7 +99,7 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
         public void GetTrainingsTests()
         {
             //given
-            
+
             //when
             var act = _trainingRepository.GetTrainings();
 

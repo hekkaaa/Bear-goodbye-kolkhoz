@@ -1,12 +1,11 @@
-using BearGoodbyeKolkhozProject.Business.Services;
-using BearGoodbyeKolkhozProject.Data.ConnectDb;
-using BearGoodbyeKolkhozProject.Data.Repositories;
-using Microsoft.EntityFrameworkCore;
-using AutoMapper;
 using BearGoodbyeKolkhozProject.API;
 using BearGoodbyeKolkhozProject.Business.Configuration;
 using BearGoodbyeKolkhozProject.Business.Interface;
+using BearGoodbyeKolkhozProject.Business.Services;
+using BearGoodbyeKolkhozProject.Data.ConnectDb;
 using BearGoodbyeKolkhozProject.Data.Interfaces;
+using BearGoodbyeKolkhozProject.Data.Repositories;
+using Microsoft.EntityFrameworkCore;
 
 const string _connString = "CONNECTION_STRING";
 

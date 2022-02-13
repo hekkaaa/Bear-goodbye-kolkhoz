@@ -1,10 +1,10 @@
-using BearGoodbyeKolkhozProject.Data.Tests.TestCaseSources.LecturerTestCaseSource;
 using BearGoodbyeKolkhozProject.Data.ConnectDb;
-using BearGoodbyeKolkhozProject.Data.Repositories;
 using BearGoodbyeKolkhozProject.Data.Entities;
+using BearGoodbyeKolkhozProject.Data.Repositories;
+using BearGoodbyeKolkhozProject.Data.Tests.TestCaseSources.LecturerTestCaseSource;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
 using NUnit.Framework;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace BearGoodbyeKolkhozProject.Data.Tests
@@ -51,7 +51,7 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
 
             //when
             LecturerRepository lecturerRepository = new LecturerRepository(_context);
-            
+
             var actual = lecturerRepository.GetLecturers();
 
             //then

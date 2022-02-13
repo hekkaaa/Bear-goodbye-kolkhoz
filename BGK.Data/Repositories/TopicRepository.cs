@@ -1,10 +1,5 @@
 ﻿using BearGoodbyeKolkhozProject.Data.ConnectDb;
 using BearGoodbyeKolkhozProject.Data.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BearGoodbyeKolkhozProject.Data.Repositories
 {
@@ -17,10 +12,10 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
             _context = context;
         }
 
-        public Topic GetTopicById(int id) => 
+        public Topic GetTopicById(int id) =>
             _context.Topic.FirstOrDefault(t => t.Id == id);
 
-        public List<Topic> GetTopic() => 
+        public List<Topic> GetTopic() =>
             _context.Topic.Where(t => !t.IsDeleted).ToList();
 
         public void AddTopic(Topic model)

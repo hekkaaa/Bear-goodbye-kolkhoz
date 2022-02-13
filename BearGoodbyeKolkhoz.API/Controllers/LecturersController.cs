@@ -1,8 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using BearGoodbyeKolkhozProject.Business.Models;
+﻿using AutoMapper;
 using BearGoodbyeKolkhozProject.API.Models;
 using BearGoodbyeKolkhozProject.Business.Interface;
-using AutoMapper;
+using BearGoodbyeKolkhozProject.Business.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace BearGoodbyeKolkhozProject.API.Controllers
 {
