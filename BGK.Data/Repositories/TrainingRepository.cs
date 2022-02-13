@@ -50,7 +50,7 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
             _applicationContext.SaveChanges();
         }
 
-       
+
 
     }
 }

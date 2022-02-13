@@ -152,7 +152,7 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
             Assert.IsNotNull(act.Client);
         }
 
-       
+
 
     }
 }

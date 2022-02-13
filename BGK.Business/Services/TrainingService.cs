@@ -16,8 +16,8 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             _repository = repository;
             _mapper = mapper;
         }
-        
-       
+
+
 
         public void UpdateTraining(int id, TrainingModel trainingModel)
         {
@@ -55,7 +55,7 @@ namespace BearGoodbyeKolkhozProject.Business.Services
 
             if (trainingEntityList.Count == 0)
                 throw new RepositoryException("Тренингов с этой темой не найдено");
-            
+
             return _mapper.Map<List<TrainingModel>>(trainingEntityList);
         }
 

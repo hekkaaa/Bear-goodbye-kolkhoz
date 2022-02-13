@@ -1,12 +1,10 @@
 ﻿using AutoMapper;
 using BearGoodbyeKolkhozProject.Business.Configuration;
 using BearGoodbyeKolkhozProject.Business.Exceptions;
-using BearGoodbyeKolkhozProject.Business.Models;
 using BearGoodbyeKolkhozProject.Business.Services;
 using BearGoodbyeKolkhozProject.Data.ConnectDb;
 using BearGoodbyeKolkhozProject.Data.Repositories;
 using Microsoft.EntityFrameworkCore;
-using Moq;
 using NUnit.Framework;
 
 
@@ -50,7 +48,8 @@ namespace BearGoodbyeKolkhozProject.Business.Tests
             //when
             //then
             Assert.Throws<RepositoryException>(() => _service.GetTrainingModelById(5));
-        } 
+        }
+
         [Test]
         public void GetTrainingByTopicNegativeTests()
         {
@@ -105,6 +104,7 @@ namespace BearGoodbyeKolkhozProject.Business.Tests
             //then
             Assert.Throws<RepositoryException>(() => _service.DeleteTraining(trainingModel));
         }
+
         [Test]
         public void RecoveryTrainingNegativeTests()
         {
@@ -116,9 +116,5 @@ namespace BearGoodbyeKolkhozProject.Business.Tests
             //then
             Assert.Throws<RepositoryException>(() => _service.RecoveryTraining(trainingModel));
         }
-
-
-
-
     }
 }
