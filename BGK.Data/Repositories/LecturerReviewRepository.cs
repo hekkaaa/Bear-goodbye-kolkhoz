@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BearGoodbyeKolkhozProject.Data.Repositories
 {
-    public class LecturerReviewRepository
+    public class LecturerReviewRepository : ILecturerReviewRepository
     {
         private ApplicationContext _context;
 
@@ -37,6 +37,7 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
         public void DeleteLecturerReviewById(int id)
         {
             _context.LecturerReview.Remove(GetLecturerReviewById(id));
+            _context.SaveChanges();
         }
     }
 }

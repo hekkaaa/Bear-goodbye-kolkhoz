@@ -22,5 +22,6 @@ namespace BearGoodbyeKolkhozProject.Data.Entities
         public virtual ICollection<TrainingReview> TrainingReviews { get; set; }
         public virtual ICollection<LecturerReview> LecturerReviews { get; set; }
         public virtual ICollection<Topic> Topic { get; set; }
+
     }
 }
