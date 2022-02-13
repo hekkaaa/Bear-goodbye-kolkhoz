@@ -4,7 +4,7 @@ using System.Collections;
 
 namespace BearGoodbyeKolkhozProject.Data.Tests.TestCaseSources.LecturerReviewTestCaseSource
 {
-    internal class AddLecturerReviewTestCaseSource : IEnumerable
+    public class AddLecturerReviewTestCaseSource : IEnumerable
     {
         public IEnumerator GetEnumerator()
         {
