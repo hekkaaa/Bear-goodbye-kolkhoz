@@ -1,0 +1,66 @@
+﻿using BearGoodbyeKolkhozProject.Data.Entities;
+using System.Collections.Generic;
+using System.Collections;
+
+namespace BearGoodbyeKolkhozProject.Data.Tests.TestCaseSources.TopicRepositoryTestCaseSource
+{
+    public class GetTopicsByTrainingIdTestCaseSource : IEnumerable
+    {
+        public IEnumerator GetEnumerator()
+        {
+            var trining = new Training()
+            {
+                Id = 100,
+                MembersCount = 8,
+                Duration = 18,
+                Price = 1200,
+                IsDeleted = false
+            };
+
+            var topics = new List<Topic>
+            {
+                new Topic()
+                {
+                    Id = 100,
+                    Name = "name",
+                    IsDeleted = false,
+                    Training = trining
+                },
+                new Topic()
+                {
+                    Id = 101,
+                    Name = "eman",
+                    IsDeleted = true,
+                    Training = trining
+                },
+                new Topic()
+                {
+                    Id = 102,
+                    Name = "qwertyui",
+                    IsDeleted = false,
+                    Training = new Training()
+                    {
+                        Id = 101,
+                        MembersCount = 10,
+                        Duration = 20,
+                        Price = 1000,
+                        IsDeleted = false
+                    }
+                }
+            };
+
+            var expected = new List<Topic>
+            {
+                new Topic()
+                {
+                    Id = 100,
+                    Name = "name",
+                    IsDeleted = false,
+                    Training = trining
+                },
+            };
+
+            yield return new object[] { topics, expected, 100 };
+        }
+    }
+}
