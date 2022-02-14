@@ -12,6 +12,8 @@ namespace BearGoodbyeKolkhozProject.Data.Entities
         public string PhoneNumber { get; set; }
         public string Password { get; set; }
 
+        public bool IsDeleted { get; set; }
+
         public virtual ICollection<TrainingReview> TrainingReviews { get; set; }
         public virtual ICollection<LecturerReview> LecturerReviews { get; set; }
     }
