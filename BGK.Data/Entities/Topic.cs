@@ -9,6 +9,7 @@ namespace BearGoodbyeKolkhozProject.Data.Entities
         public int Id { get; set; }
         [StringLength(50)]
         public string Name { get; set; }
+        public bool IsDeleted { get; set; }
         public virtual Training Training { get; set; }
     }
 }

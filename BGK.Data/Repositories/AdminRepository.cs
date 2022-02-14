@@ -3,13 +3,15 @@ using BearGoodbyeKolkhozProject.Data.Entities;
 
 namespace BearGoodbyeKolkhozProject.Data.Repositories
 {
-    public class AdminRepository
+    public class AdminRepository : IAdminRepository
     {
         private ApplicationContext _db;
-        private AdminRepository()
+
+        public AdminRepository(ApplicationContext applicationContext)
         {
-            this._db = Storage.GetStorage();
+            _db = applicationContext;
         }
+        
         public Admin GetAdminById(int id)
         {
             var res = _db.Admin.FirstOrDefault(x => x.Id == id);
