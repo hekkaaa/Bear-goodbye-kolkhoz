@@ -6,9 +6,9 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
     public class ClientRepository
     {
         private ApplicationContext _db;
-        public ClientRepository()
+        public ClientRepository(ApplicationContext context)
         {
-            this._db = Storage.GetStorage();
+            this._db = context;
         }
         public Client GetClientById(int id)
         {

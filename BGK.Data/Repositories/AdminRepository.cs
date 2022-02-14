@@ -6,10 +6,12 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
     public class AdminRepository : IAdminRepository
     {
         private ApplicationContext _db;
+
         public AdminRepository(ApplicationContext applicationContext)
         {
             _db = applicationContext;
         }
+        
         public Admin GetAdminById(int id)
         {
             var res = _db.Admin.FirstOrDefault(x => x.Id == id);
