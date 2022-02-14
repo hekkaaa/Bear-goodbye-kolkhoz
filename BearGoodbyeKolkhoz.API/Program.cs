@@ -1,10 +1,11 @@
 using BearGoodbyeKolkhozProject.API;
 using BearGoodbyeKolkhozProject.API.Extensions;
+using BearGoodbyeKolkhozProject.API.Infrastructure;
 using BearGoodbyeKolkhozProject.Business.Configuration;
 using BearGoodbyeKolkhozProject.Data.ConnectDb;
 using Microsoft.EntityFrameworkCore;
 
-const string _connString = "CONNECTION_STRING";
+const string? _connString = "CONNECTION_STRING";
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -37,7 +38,7 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
-
+app.UseMiddleware<ErrorHandlerMiddleware>();
 app.MapControllers();
 
 app.Run();
