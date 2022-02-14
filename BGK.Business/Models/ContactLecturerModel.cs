@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace BearGoodbyeKolkhozProject.Business.Models
 {
-    public class ClientModel
+    public class ContactLecturerModel
     {
+        public int Id { get; set; }
+        public string Value { get; set; }
     }
 }
