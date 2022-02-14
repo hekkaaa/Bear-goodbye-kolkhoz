@@ -13,7 +13,8 @@ namespace BearGoodbyeKolkhozProject.API.Extensions
             services.AddScoped<ITrainingService, TrainingService>();
             services.AddScoped<ITrainingReviewService, TrainingReviewService>();
             services.AddScoped<ILecturerService, LecturerService>();
-      
+            services.AddScoped<IAdminService, AdminService>();
+
         }
 
         public static void RegisterProjectRepository(this IServiceCollection repository)
@@ -22,6 +23,7 @@ namespace BearGoodbyeKolkhozProject.API.Extensions
             repository.AddScoped<ITrainingReviewRepository, TrainingReviewRepository>();
             repository.AddScoped<ITrainingRepository, TrainingRepository>();
             repository.AddScoped<ILecturerRepository, LecturerRepository>();
+            repository.AddScoped<IAdminRepository, AdminRepository>();
         }
     }
 }
