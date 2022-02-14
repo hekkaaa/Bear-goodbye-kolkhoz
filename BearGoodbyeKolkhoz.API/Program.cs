@@ -5,6 +5,13 @@ using BearGoodbyeKolkhozProject.Data.Interfaces;
 using BearGoodbyeKolkhozProject.Data.Repo;
 using BearGoodbyeKolkhozProject.Data.Repositories;
 using Microsoft.EntityFrameworkCore;
+using AutoMapper;
+using BearGoodbyeKolkhozProject.API;
+using BearGoodbyeKolkhozProject.Business.Configuration;
+using BearGoodbyeKolkhozProject.Business.Interface;
+using BearGoodbyeKolkhozProject.Data.Interfaces;
+using BearGoodbyeKolkhozProject.API.Extensions;
+
 
 const string? _connStringVariableName = "CONNECTION_STRING";
 
@@ -17,6 +24,15 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<ApplicationContext>();
 
+var connString = builder.Configuration.GetValue<string>(_connString);
+
+builder.Services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(connString));
+
+// add service and provider connections here
+builder.Services.RegisterProjectService();
+builder.Services.RegisterProjectRepository();
+
+builder.Services.AddAutoMapper(typeof(APIMapperProfile), typeof(BusinessMapperProfile));
 builder.Services.AddScoped<ICompanyService, CompanyService>();
 builder.Services.AddScoped<ICompanyRepository, CompanyRepository>();
 builder.Services.AddScoped<IEventService, EventService>();

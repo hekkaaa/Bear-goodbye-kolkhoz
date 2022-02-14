@@ -71,5 +71,20 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
             return training;
         }
 
+        public Admin GetTestAdmin()
+        {
+            Admin adminItem = new Admin
+            {
+                Id = 34,
+                Name = "Генадий",
+                LastName = "Тряпкин",
+                Gender = Enums.Gender.Male,
+                BirthDay = "1988-04-29",
+                Email = "ILoveBeer@ya.ru",
+                Password = "228_nanosim",
+                IsDeleted = true
+            };
+            return adminItem;
+        }
     }
 }
