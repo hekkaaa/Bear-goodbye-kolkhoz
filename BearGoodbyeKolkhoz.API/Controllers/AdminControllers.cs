@@ -8,12 +8,12 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AdminController : ControllerBase
+    public class AdminControllers : Controller
     {
         private readonly IAdminService _service;
         private readonly IMapper _mapper;
 
-        public AdminController(IAdminService adminService, IMapper mapper)
+        public AdminControllers(IAdminService adminService, IMapper mapper)
         {
             _service = adminService;
             _mapper = mapper;

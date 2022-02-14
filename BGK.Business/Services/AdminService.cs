@@ -12,7 +12,7 @@ namespace BearGoodbyeKolkhozProject.Business.Services
     public class AdminService : IAdminService
     {
         private readonly IAdminRepository _repository;
-        private IMapper _mapper;
+        private readonly IMapper _mapper;
 
         public AdminService(IAdminRepository repository, IMapper mapper)
         {

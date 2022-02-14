@@ -30,20 +30,20 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
         public void GetAdminByIdTests()
         {
             //given
-            var training = _testData.GetTestAdmin();
-            _context.Add(training);
+            var virtualData = _testData.GetTestAdmin();
+            _context.Add(virtualData);
             _context.SaveChanges();
 
             //when
-            var act = _adminRepository.GetAdminById(training.Id);
+            var act = _adminRepository.GetAdminById(virtualData.Id);
 
             //then
-            Assert.IsTrue(training.Id == act.Id);
-            Assert.IsNotNull(training);
-            Assert.IsNotNull(act.LastName);
-            Assert.IsNotNull(act.Gender);
-            Assert.IsNotNull(act.BirthDay);
-            Assert.IsNotNull(act.Email);
+            Assert.IsTrue(virtualData.Id == act.Id);
+            Assert.IsNotNull(virtualData);
+            Assert.AreEqual(virtualData.LastName, act.LastName);
+            Assert.AreEqual(virtualData.Gender, act.Gender);
+            Assert.AreEqual(virtualData.BirthDay,act.BirthDay);
+            Assert.AreEqual(virtualData.Email, act.Email);
 
         }
 
