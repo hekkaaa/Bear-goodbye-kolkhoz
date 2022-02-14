@@ -1,4 +1,6 @@
-﻿namespace BearGoodbyeKolkhozProject.API.Models.OutputModels
+﻿using BearGoodbyeKolkhozProject.Business.Models;
+
+namespace BearGoodbyeKolkhozProject.API.Models.OutputModels
 {
     public class EventOutputModel
     {

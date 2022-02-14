@@ -1,4 +1,6 @@
-﻿namespace BearGoodbyeKolkhozProject.Business.Services
+﻿using BearGoodbyeKolkhozProject.Business.Models;
+
+namespace BearGoodbyeKolkhozProject.Business.Services
 {
     public interface ICompanyService
     {

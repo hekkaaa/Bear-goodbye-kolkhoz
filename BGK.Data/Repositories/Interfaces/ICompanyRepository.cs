@@ -4,7 +4,7 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
 {
     public interface ICompanyRepository
     {
-        void AddCompany(Company company);
+        void RegistrCompany(Company company);
         void DeleteCompany(int id);
         List<Company> GetCompanies();
         Company GetCompanyById(int id);

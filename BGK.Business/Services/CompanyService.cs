@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using BearGoodbyeKolkhozProject.Business.Models;
 using BearGoodbyeKolkhozProject.Data.Entities;
+using BearGoodbyeKolkhozProject.Data.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -79,7 +80,7 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             if (company == null)
                 throw new NullReferenceException("Такой Компании не существует.");
 
-            _companyRepository.DeleteCompany(company);
+            _companyRepository.DeleteCompany(id);
 
         }
 

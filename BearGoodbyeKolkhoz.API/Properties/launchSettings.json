@@ -59,6 +59,15 @@
         "ASPNETCORE_ENVIRONMENT": "Development",
         "CONNECTION_STRING": "Data Source=LAPTOP-6F8LE3JH\\SQLEXPRESSDEV;Initial Catalog=Newtest;Integrated Security=True"
       }
+    },
+    "Debug Config Shokhin": {
+      "commandName": "Project",
+      "dotnetRunMessages": true,
+      "launchBrowser": true,
+      "launchUrl": "swagger",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "CONNECTION_STRING": "Data Source=DESKTOP-5HF0J14\\SQLEXPRESS;Initial Catalog=BGKProjectDB;Integrated Security=True"
+      }
     }
   }
-}

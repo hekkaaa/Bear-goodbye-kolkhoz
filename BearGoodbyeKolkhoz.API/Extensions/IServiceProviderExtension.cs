@@ -16,9 +16,11 @@ namespace BearGoodbyeKolkhozProject.API.Extensions
             services.AddScoped<IAdminService, AdminService>();
             services.AddScoped<ICompanyService, CompanyService>();
             services.AddScoped<IEventService, EventService>();
-
+            services.AddScoped<IContactLecturerService, ContactLecturerService>();
             
-       
+
+
+
         }
 
         public static void RegisterProjectRepository(this IServiceCollection repository)

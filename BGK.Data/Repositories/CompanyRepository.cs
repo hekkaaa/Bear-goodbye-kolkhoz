@@ -16,7 +16,7 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
         {
             _context = context;
         }
-        public void AddCompany(Company company)
+        public void RegistrCompany(Company company)
         {
 
             _context.Company.Add(company);

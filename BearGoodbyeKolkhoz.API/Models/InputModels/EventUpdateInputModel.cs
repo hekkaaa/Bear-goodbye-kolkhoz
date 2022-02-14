@@ -1,4 +1,6 @@
-﻿namespace BearGoodbyeKolkhozProject.API.Models.InputModels
+﻿using BearGoodbyeKolkhozProject.Business.Models;
+
+namespace BearGoodbyeKolkhozProject.API.Models.InputModels
 {
     public class EventUpdateInputModel
     {

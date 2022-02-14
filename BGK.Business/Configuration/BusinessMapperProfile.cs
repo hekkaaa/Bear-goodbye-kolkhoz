@@ -14,7 +14,7 @@ namespace BearGoodbyeKolkhozProject.Business.Configuration
             CreateMap<Admin, AdminModel>().ReverseMap();
             CreateMap<LecturerModel, Lecturer>().ReverseMap();
 
-            CreateMap<Company, CompanyModel>().ReverseMap();=
+            CreateMap<Company, CompanyModel>().ReverseMap();
             CreateMap<Event, EventModel>().ReverseMap();
             CreateMap<Training, TrainingModel>().ReverseMap();
             CreateMap<TrainingReview, TrainingReviewModel>().ReverseMap();

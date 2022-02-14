@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
+using BearGoodbyeKolkhozProject.Business.Exceptions;
 using BearGoodbyeKolkhozProject.Business.Models;
 using BearGoodbyeKolkhozProject.Data.Entities;
+using BearGoodbyeKolkhozProject.Data.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -76,11 +78,21 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             _eventRepository.UpdateEvent(_mapper.Map<Event>(eventModel));
         }
 
-        public void DeleteEvent(int id, bool isDel)
+        public void DeleteEvent(int id)
         {
             var even = _eventRepository.GetEventById(id);
             if (even == null)
-                throw new Exception("Такого события не существует!");
+                throw new NotAuthorizedException($"Такого события {id} не существует.");
+
+            _eventRepository.DeleteEvent(id);
+        }
+
+        public void UpdateEvent(int id, bool isDel)
+        {
+            var even = _eventRepository.GetEventById(id);
+
+            if (even == null)
+                throw new NotAuthorizedException($"Такого события {id} не существует.");
 
             _eventRepository.UpdateEvent(id, isDel);
         }

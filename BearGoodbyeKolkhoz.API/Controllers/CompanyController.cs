@@ -1,4 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using BearGoodbyeKolkhozProject.API.Models.InputModels;
+using BearGoodbyeKolkhozProject.API.Models.OutputModels;
+using BearGoodbyeKolkhozProject.Business.Models;
+using BearGoodbyeKolkhozProject.Business.Services;
+using Microsoft.AspNetCore.Mvc;
 
 namespace BearGoodbyeKolkhozProject.API.Controllers
 {
@@ -11,7 +16,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
 
         private IMapper _mapperApi;
 
-        public CompaniesController(ICompanyService companyService, IMapper mapper)
+        public CompanyController(ICompanyService companyService, IMapper mapper)
         {
             _service = companyService;
 
