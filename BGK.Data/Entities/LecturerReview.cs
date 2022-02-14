@@ -13,5 +13,20 @@ namespace BearGoodbyeKolkhozProject.Data.Entities
 
         public virtual Client Client { get; set; }
         public virtual Lecturer Lecturer { get; set; }
+
+        public override bool Equals(object? obj)
+        {
+            if (obj is null
+                || Id != ((LecturerReview)obj).Id
+                || Text != ((LecturerReview)obj).Text
+                || Mark != ((LecturerReview)obj).Mark
+                || Client != ((LecturerReview)obj).Client
+                || Lecturer != ((LecturerReview)obj).Lecturer)
+            {
+                return false;
+            }
+
+            return true;
+        }
     }
 }

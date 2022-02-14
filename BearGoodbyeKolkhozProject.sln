@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BearGoodbyeKolkhozProject.D
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BearGoodbyeKolkhozProject.Business", "BGK.Business\BearGoodbyeKolkhozProject.Business.csproj", "{D1021AC2-CF80-4179-B64A-C3A077046AFD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BearGoodbyeKolkhozProject.Data.Tests", "BearGoodbyeKolkhozProject.Data.Tests\BearGoodbyeKolkhozProject.Data.Tests.csproj", "{984CBCEE-14AB-4C3B-84ED-3DC3C5287229}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BearGoodbyeKolkhozProject.Data.Tests", "BearGoodbyeKolkhozProject.Data.Tests\BearGoodbyeKolkhozProject.Data.Tests.csproj", "{984CBCEE-14AB-4C3B-84ED-3DC3C5287229}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BearGoodbyeKolkhozProject.Business.Tests", "BearGoodbyeKolkhozProject.Business.Tests\BearGoodbyeKolkhozProject.Business.Tests.csproj", "{B038B77B-9E22-4BE0-BA34-47B679158EFD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{984CBCEE-14AB-4C3B-84ED-3DC3C5287229}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{984CBCEE-14AB-4C3B-84ED-3DC3C5287229}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{984CBCEE-14AB-4C3B-84ED-3DC3C5287229}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B038B77B-9E22-4BE0-BA34-47B679158EFD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B038B77B-9E22-4BE0-BA34-47B679158EFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B038B77B-9E22-4BE0-BA34-47B679158EFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B038B77B-9E22-4BE0-BA34-47B679158EFD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
