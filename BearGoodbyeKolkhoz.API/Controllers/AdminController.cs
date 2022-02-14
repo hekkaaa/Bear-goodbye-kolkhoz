@@ -6,14 +6,14 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BearGoodbyeKolkhozProject.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/admins")]
     [ApiController]
-    public class AdminControllers : Controller
+    public class AdminController : Controller
     {
         private readonly IAdminService _service;
         private readonly IMapper _mapper;
 
-        public AdminControllers(IAdminService adminService, IMapper mapper)
+        public AdminController(IAdminService adminService, IMapper mapper)
         {
             _service = adminService;
             _mapper = mapper;
