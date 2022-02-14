@@ -7,6 +7,7 @@ using BearGoodbyeKolkhozProject.Data.Entities;
 using BearGoodbyeKolkhozProject.Data.Repositories;
 using Moq;
 using NUnit.Framework;
+using System.Collections.Generic;
 
 namespace BearGoodbyeKolkhozProject.Business.Tests
 {
@@ -42,6 +43,29 @@ namespace BearGoodbyeKolkhozProject.Business.Tests
 
             // эта штука проверяет что метод внутри сервиса внутри репозитория вызываеться один раз?
             _lecturerReviewRepositoryMock.Verify(x => x.GetLecturerReviewById(id), Times.Once);
+        }
+
+        [TestCaseSource(typeof(GetLecturerReviewsTestCaseSource))]
+        public void GetLecturerReviewsTest(List<LecturerReview> reviews, List<LecturerReviewModel> expected )
+        {
+            //given
+            _lecturerReviewRepositoryMock.Setup(lr => lr.GetLecturerReviews()).Returns(reviews);
+
+            //when
+            var actual = _service.GetLecturerReviews();
+
+            //then
+            Assert.AreEqual(expected.Count, actual.Count);
+
+            for (int i = 0; i < expected.Count; i++)
+            {
+                Assert.AreEqual(expected[i].Id, actual[i].Id);
+                Assert.AreEqual(expected[i].Text, actual[i].Text);
+                Assert.AreEqual(expected[i].Mark, actual[i].Mark);
+                Assert.AreEqual(expected[i].Client, actual[i].Client);
+            }
+
+            _lecturerReviewRepositoryMock.Verify(x => x.GetLecturerReviews(), Times.Once);
         }
     }
 }

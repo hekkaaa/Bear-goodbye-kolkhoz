@@ -29,5 +29,11 @@ namespace BearGoodbyeKolkhozProject.Business.Services
 
             return _mapper.Map<LecturerReviewModel>(entity);
         }
+
+        public List<LecturerReviewModel> GetLecturerReviews()
+        {
+            var reviews = _lecturerReviewRepo.GetLecturerReviews();
+            return _mapper.Map<List<LecturerReviewModel>>(reviews);
+        }
     }
 }
