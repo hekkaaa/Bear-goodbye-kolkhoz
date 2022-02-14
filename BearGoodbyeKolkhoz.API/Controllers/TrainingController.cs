@@ -19,7 +19,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet("id/{id}")]
+        [HttpGet("{id}")]
         public IActionResult GetTrainingById(int id)
         {
 
@@ -29,14 +29,14 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
 
         }
 
-        [HttpGet("all")]
+        [HttpGet]
         public IActionResult GetTrainings()
         {
             var models = _service.GetTrainingModels();
             return Ok(_mapper.Map<List<TrainingOutputModel>>(models));
         }
 
-        [HttpGet("topic/{topic}")]
+        [HttpGet("{topic}")]
         public IActionResult GetTrainingsByTopic(TopicInputModel topicInputModel)
         {
             var model = _service.GetTrainingModelByTopic(_mapper.Map<TopicModel>(topicInputModel));

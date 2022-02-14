@@ -36,27 +36,18 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             var trainingEntity = _repository.GetTrainingById(id);
             if (trainingEntity == null)
                 throw new BusinessException("Такого тренинга не найдено!");
-
             return _mapper.Map<TrainingModel>(trainingEntity);
         }
 
         public List<TrainingModel> GetTrainingModels()
         {
             var trainingEntityList = _repository.GetTrainings();
-
-            if (trainingEntityList.Count == 0)
-                throw new BusinessException("Ни одного тренинга не добавлено");
-
             return _mapper.Map<List<TrainingModel>>(trainingEntityList);
         }
 
         public List<TrainingModel> GetTrainingModelByTopic(TopicModel topicModel)
         {
-            var trainingEntityList = _repository.GetTrainingsByTopic(_mapper.Map<Topic>(topicModel));
-
-            if (trainingEntityList.Count == 0)
-                throw new BusinessException("Тренингов с этой темой не найдено");
-
+            var trainingEntityList = _repository.GetTrainingsByTopic(topicModel.Id);
             return _mapper.Map<List<TrainingModel>>(trainingEntityList);
         }
 
@@ -71,7 +62,6 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             var trainingEntity = _repository.GetTrainingById(trainingModel.Id);
             if (trainingEntity == null)
                 throw new BusinessException("Такого тренинга не найдено!");
-
             _repository.UpdateTraining(_mapper.Map<Training>(trainingModel), true);
         }
         public void RecoveryTraining(TrainingModel trainingModel)
@@ -79,7 +69,6 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             var trainingEntity = _repository.GetTrainingById(trainingModel.Id);
             if (trainingEntity == null)
                 throw new BusinessException("Такого тренинга не найдено!");
-
             _repository.UpdateTraining(_mapper.Map<Training>(trainingModel), false);
         }
     }
