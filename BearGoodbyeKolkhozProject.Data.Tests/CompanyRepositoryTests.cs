@@ -56,7 +56,7 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
             _context.SaveChanges();
 
             //when
-            companyRepository.DeleteCompany(company);
+            companyRepository.DeleteCompany(company.Id);
             var actual = _context.Company.FirstOrDefault(c => c.Id == company.Id);
 
             //then

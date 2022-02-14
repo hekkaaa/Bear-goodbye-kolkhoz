@@ -17,7 +17,9 @@ namespace BearGoodbyeKolkhozProject.Data.Tests.TestCaseSources.CompanyTestCaseSo
                 Id = 1,
                 Name = "OOO Ivan",
                 PhoneNumber = "1234567",
-                Tin = 123234
+                Tin = 123234,
+                Email = "qwe@mail",
+                Password = "1234"
 
             };
 
@@ -26,7 +28,9 @@ namespace BearGoodbyeKolkhozProject.Data.Tests.TestCaseSources.CompanyTestCaseSo
                 Id = 1,
                 Name = "OOO Ivan",
                 PhoneNumber = "1234567",
-                Tin = 123234
+                Tin = 123234,
+                Email = "qwe@mail",
+                Password = "1234"
             };
 
             var expected = new Company
@@ -34,7 +38,9 @@ namespace BearGoodbyeKolkhozProject.Data.Tests.TestCaseSources.CompanyTestCaseSo
                 Id = 1,
                 Name = "OOO Ivan",
                 PhoneNumber = "1234567",
-                Tin = 123234
+                Tin = 123234,
+                Email = "qwe@mail",
+                Password = "1234"
 
             };
 
