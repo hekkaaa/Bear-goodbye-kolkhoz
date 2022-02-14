@@ -24,7 +24,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<ApplicationContext>();
 
-var connString = builder.Configuration.GetValue<string>(_connString);
+var connString = builder.Configuration.GetValue<string>(_connStringVariableName);
 
 builder.Services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(connString));
 
@@ -42,7 +42,6 @@ builder.Services.AddScoped<ILecturerRepository, LecturerRepository>();
 builder.Services.AddScoped<ITrainingRepository, TrainingRepository>();
 builder.Services.AddScoped<ITrainingReviewRepository, TrainingReviewRepository>();
 
-var connString = builder.Configuration.GetValue<string>(_connStringVariableName);
 builder.Services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(connString));
 
 var app = builder.Build();
