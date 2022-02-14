@@ -48,8 +48,5 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
             _applicationContext.Training.Add(training);
             _applicationContext.SaveChanges();
         }
-
-
-
     }
 }

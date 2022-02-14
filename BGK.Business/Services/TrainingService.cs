@@ -64,7 +64,7 @@ namespace BearGoodbyeKolkhozProject.Business.Services
                 throw new BusinessException("Такого тренинга не найдено!");
             _repository.UpdateTraining(_mapper.Map<Training>(trainingModel), true);
         }
-        public void RecoveryTraining(TrainingModel trainingModel)
+        public void RestoreTraining(TrainingModel trainingModel)
         {
             var trainingEntity = _repository.GetTrainingById(trainingModel.Id);
             if (trainingEntity == null)
