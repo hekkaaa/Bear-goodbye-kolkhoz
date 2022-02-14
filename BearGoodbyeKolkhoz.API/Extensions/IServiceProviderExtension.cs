@@ -14,11 +14,18 @@ namespace BearGoodbyeKolkhozProject.API.Extensions
             services.AddScoped<ITrainingReviewService, TrainingReviewService>();
             services.AddScoped<ILecturerService, LecturerService>();
             services.AddScoped<IAdminService, AdminService>();
+            services.AddScoped<ICompanyService, CompanyService>();
+            services.AddScoped<IEventService, EventService>();
 
+            
+       
         }
 
         public static void RegisterProjectRepository(this IServiceCollection repository)
         {
+            repository.AddScoped<IEventRepository, EventRepository>();
+            repository.AddScoped<IContactLecturerRepository, ContactLecturerRepository>();
+            repository.AddScoped<ICompanyRepository, CompanyRepository>();
             repository.AddScoped<ITrainingRepository, TrainingRepository>();
             repository.AddScoped<ITrainingReviewRepository, TrainingReviewRepository>();
             repository.AddScoped<ITrainingRepository, TrainingRepository>();
