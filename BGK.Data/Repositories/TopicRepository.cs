@@ -34,10 +34,10 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
             _context.SaveChanges();
         }
 
-        public void ChangeDeleteStatusById(Topic topic, bool IsDeleted)
+        public void ChangeDeleteStatusById(Topic topic, bool isDeleted)
         {
             var entity = _context.Topic.FirstOrDefault(t => t.Id == topic.Id);
-            entity.IsDeleted = IsDeleted;
+            entity.IsDeleted = isDeleted;
             _context.SaveChanges();
         }
     }

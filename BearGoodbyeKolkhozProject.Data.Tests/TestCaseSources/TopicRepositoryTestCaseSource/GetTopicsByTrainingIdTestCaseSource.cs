@@ -8,7 +8,7 @@ namespace BearGoodbyeKolkhozProject.Data.Tests.TestCaseSources.TopicRepositoryTe
     {
         public IEnumerator GetEnumerator()
         {
-            var trining = new Training()
+            var training = new Training()
             {
                 Id = 100,
                 MembersCount = 8,
@@ -24,14 +24,14 @@ namespace BearGoodbyeKolkhozProject.Data.Tests.TestCaseSources.TopicRepositoryTe
                     Id = 100,
                     Name = "name",
                     IsDeleted = false,
-                    Training = trining
+                    Training = training
                 },
                 new Topic()
                 {
                     Id = 101,
                     Name = "eman",
                     IsDeleted = true,
-                    Training = trining
+                    Training = training
                 },
                 new Topic()
                 {
@@ -56,7 +56,7 @@ namespace BearGoodbyeKolkhozProject.Data.Tests.TestCaseSources.TopicRepositoryTe
                     Id = 100,
                     Name = "name",
                     IsDeleted = false,
-                    Training = trining
+                    Training = training
                 },
             };
 
