@@ -21,8 +21,12 @@ namespace BearGoodbyeKolkhozProject.Data.ConnectDb
         {
         }
 
+
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+
+
             modelBuilder.Entity<Training>().HasData(
             new Training()
             {
@@ -40,7 +44,7 @@ namespace BearGoodbyeKolkhozProject.Data.ConnectDb
                 Description = "Тренинг для развития скиллов нетворкинга, знакомьтесь везде и всегда",
                 Duration = 5,
                 MembersCount = 18,
-                Price = 2000
+                Price = 2000,
             },
             new Training()
             {
@@ -51,7 +55,7 @@ namespace BearGoodbyeKolkhozProject.Data.ConnectDb
                 MembersCount = 10,
                 Price = 3500
             }
-            );
+            ) ;
 
             //modelBuilder.Entity<Lecturer>().HasData(
             //    new Lecturer() { Id = 1, Name = "Вячеслав Ибрагимович", LastName = "Пототько", BirthDay = "27 августа", Gender = Enums.Gender.Male, Password = "qwe" },

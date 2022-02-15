@@ -1,7 +1,4 @@
-﻿using BearGoodbyeKolkhozProject.Business.Models;
-using Microsoft.AspNetCore.Mvc;
-
-namespace BearGoodbyeKolkhozProject.API.Models
+﻿namespace BearGoodbyeKolkhozProject.API.Models
 {
     public class TrainingReviewOutputModel
     {
