@@ -1,8 +1,6 @@
 ﻿using AutoMapper;
-using BearGoodbyeKolkhozProject.API.Models;
 using BearGoodbyeKolkhozProject.API.Models.InputModel;
 using BearGoodbyeKolkhozProject.API.Models.OutputModel;
-using BearGoodbyeKolkhozProject.Business.Configuration;
 using BearGoodbyeKolkhozProject.Business.Models;
 using BearGoodbyeKolkhozProject.Business.Processor;
 using Microsoft.AspNetCore.Mvc;
@@ -22,7 +20,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
             _service = eventService;
 
             _mapperApi = mapper;
-         }
+        }
 
 
         //api/events/21
@@ -49,7 +47,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         }
 
         ////api/events/1
-        [HttpPost("{id}/event/client")]        
+        [HttpPost("{id}/event/client")]
         public ActionResult<EventOutputModel> AddEventFromClient([FromBody] EventOutputModel eventOutputModel)
         {
 
@@ -112,7 +110,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         public ActionResult<EventUpdateInputModel> DeleteEvent(int id)
         {
             _service.DeleteEvent(id);
-          
+
             return NoContent();
         }
 

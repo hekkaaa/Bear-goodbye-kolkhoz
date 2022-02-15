@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using BearGoodbyeKolkhozProject.API.Models.OutputModels;
-using BearGoodbyeKolkhozProject.Business.Models;
 using BearGoodbyeKolkhozProject.Business.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -23,7 +22,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         [HttpGet("{id}")]
 
         public ActionResult<AdminOutputModel> GetAdminById(int id)
-        {   
+        {
             var model = _service.GetAdminById(id);
             var res = _mapper.Map<AdminOutputModel>(model);
 

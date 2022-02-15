@@ -42,7 +42,7 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
             Assert.IsNotNull(virtualData);
             Assert.AreEqual(virtualData.LastName, act.LastName);
             Assert.AreEqual(virtualData.Gender, act.Gender);
-            Assert.AreEqual(virtualData.BirthDay,act.BirthDay);
+            Assert.AreEqual(virtualData.BirthDay, act.BirthDay);
             Assert.AreEqual(virtualData.Email, act.Email);
 
         }

@@ -48,7 +48,7 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
             Assert.IsTrue(listBeforeDelete.Count - listAfterDelete.Count == 1);
             Assert.IsTrue(training.IsDeleted);
         }
-        
+
         [Test]
         public void AddTrainingTests()
         {

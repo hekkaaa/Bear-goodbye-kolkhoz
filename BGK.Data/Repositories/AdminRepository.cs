@@ -11,7 +11,7 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
         {
             _db = applicationContext;
         }
-        
+
         public Admin GetAdminById(int id)
         {
             var res = _db.Admin.FirstOrDefault(x => x.Id == id);

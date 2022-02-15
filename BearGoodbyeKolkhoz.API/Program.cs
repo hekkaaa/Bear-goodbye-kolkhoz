@@ -1,16 +1,13 @@
+using BearGoodbyeKolkhozProject.API;
+using BearGoodbyeKolkhozProject.API.Extensions;
 using BearGoodbyeKolkhozProject.API.Infrastructure;
+using BearGoodbyeKolkhozProject.Business.Configuration;
 using BearGoodbyeKolkhozProject.Business.Processor;
 using BearGoodbyeKolkhozProject.Data.ConnectDb;
 using BearGoodbyeKolkhozProject.Data.Interfaces;
 using BearGoodbyeKolkhozProject.Data.Repo;
 using BearGoodbyeKolkhozProject.Data.Repositories;
 using Microsoft.EntityFrameworkCore;
-using AutoMapper;
-using BearGoodbyeKolkhozProject.API;
-using BearGoodbyeKolkhozProject.Business.Configuration;
-using BearGoodbyeKolkhozProject.Business.Interface;
-using BearGoodbyeKolkhozProject.Data.Interfaces;
-using BearGoodbyeKolkhozProject.API.Extensions;
 
 
 const string? _connStringVariableName = "CONNECTION_STRING";
@@ -19,7 +16,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 
 builder.Services.AddControllers();
-/*Learn more about configuring Swagger/OpenAPI at*/ https://aka.ms/aspnetcore/swashbuckle
+/*Learn more about configuring Swagger/OpenAPI at*/
+https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<ApplicationContext>();
