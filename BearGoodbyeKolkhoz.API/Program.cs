@@ -22,7 +22,6 @@ builder.Services.AddControllers();
 /*Learn more about configuring Swagger/OpenAPI at*/ https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddDbContext<ApplicationContext>();
 
 var connString = builder.Configuration.GetValue<string>(_connStringVariableName);
 
@@ -33,16 +32,7 @@ builder.Services.RegisterProjectService();
 builder.Services.RegisterProjectRepository();
 
 builder.Services.AddAutoMapper(typeof(APIMapperProfile), typeof(BusinessMapperProfile));
-builder.Services.AddScoped<ICompanyService, CompanyService>();
-builder.Services.AddScoped<ICompanyRepository, CompanyRepository>();
-builder.Services.AddScoped<IEventService, EventService>();
-builder.Services.AddScoped<IEventRepository, EventRepository>();
-builder.Services.AddScoped<IContactLecturerRepository, ContactLecturerRepository>();
-builder.Services.AddScoped<ILecturerRepository, LecturerRepository>();
-builder.Services.AddScoped<ITrainingRepository, TrainingRepository>();
-builder.Services.AddScoped<ITrainingReviewRepository, TrainingReviewRepository>();
 
-builder.Services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(connString));
 
 var app = builder.Build();
 

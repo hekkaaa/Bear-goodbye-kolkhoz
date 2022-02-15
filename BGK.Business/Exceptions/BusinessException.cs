@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace BearGoodbyeKolkhozProject.Business.Exceptions
 {
-    public class ServiceException :Exception       
+    public class BusinessException :Exception       
     {
 
-        public ServiceException(string message) :base(message)
+        public BusinessException(string message) :base(message)
         {
 
         }

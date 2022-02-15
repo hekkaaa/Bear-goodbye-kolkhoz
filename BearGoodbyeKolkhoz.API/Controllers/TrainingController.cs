@@ -22,18 +22,9 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         [HttpGet("{id}")]
         public IActionResult GetTrainingById(int id)
         {
-
             var model = _service.GetTrainingModelById(id);
             var result = _mapper.Map<TrainingOutputModel>(model);
-
-            if (result == null)
-            {
-                return NotFound($"Лекция номер {id} не найдена");
-            }
-            else
-            {
-                return Ok(result);
-            }
+            return Ok(result);
         }
 
         [HttpGet]
@@ -43,11 +34,37 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
             return Ok(_mapper.Map<List<TrainingOutputModel>>(models));
         }
 
-        [HttpGet("{topic}")]
+        [HttpGet("by-topic/{topic}")]
         public IActionResult GetTrainingsByTopic(TopicInputModel topicInputModel)
         {
             var model = _service.GetTrainingModelByTopic(_mapper.Map<TopicModel>(topicInputModel));
             return Ok(_mapper.Map<TrainingOutputModel>(model));
+        }
+
+        [HttpPatch("{trainingNewTopicInputModel.id}/new-topic")]
+        public IActionResult AddTopicToTraning(TopicInputModel topicInputModel, TrainingNewTopicInputModel trainingNewTopicInputModel)
+        {
+            trainingNewTopicInputModel.Topics.Add(topicInputModel);
+            var training = _mapper.Map<TrainingModel>(trainingNewTopicInputModel);
+            _service.UpdateTraining(trainingNewTopicInputModel.Id, training);
+            return Ok("Новый интерес у лекции успешно добавлен");
+        }
+
+        [HttpPatch("{trainingNewTopicInputModel.id}/new-topic")]
+        public IActionResult AddReviewToTraining(TrainingReviewInputModel trainingReviewInputModel, TrainingNewReviewInputModel trainingNewReviewInputModel)
+        {
+            trainingNewReviewInputModel.TrainingReviews.Add(trainingReviewInputModel);
+            var training = _mapper.Map<TrainingModel>(trainingNewReviewInputModel);
+            _service.UpdateTraining(trainingNewReviewInputModel.Id, training);
+            return Ok("Новый обзор на лекцию успешно добавлен");
+        }
+
+        [HttpPatch("{trainingUpdateInputModel.id}/edit")]
+        public IActionResult UpdateTopic(TrainingUpdateInputModel trainingUpdateInputModel)
+        {
+            var training = _mapper.Map<TrainingModel>(trainingUpdateInputModel);
+            _service.UpdateTraining(trainingUpdateInputModel.Id, training);
+            return Ok("Лекция успешно обновлена");
         }
     }
 }

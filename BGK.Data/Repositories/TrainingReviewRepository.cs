@@ -25,14 +25,15 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
 
             oldTrainingReview.Mark = trainingReview.Mark;
             oldTrainingReview.Text = trainingReview.Text;
-            
+
             _applicationContext.SaveChanges();
         }
 
-        public void AddTrainingReview(TrainingReview trainingReview)
+        public int AddTrainingReview(TrainingReview trainingReview)
         {
             _applicationContext.TrainingReview.Add(trainingReview);
             _applicationContext.SaveChanges();
+            return trainingReview.Id;
         }
 
         public void DeleteTrainingReview(int id)
