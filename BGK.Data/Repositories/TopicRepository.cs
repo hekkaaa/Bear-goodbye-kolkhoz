@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BearGoodbyeKolkhozProject.Data.Repositories
 {
-    public class TopicRepository
+    public class TopicRepository : ITopicRepository
     {
         private ApplicationContext _context;
 
@@ -17,10 +17,10 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
             _context = context;
         }
 
-        public Topic GetTopicById(int id) => 
+        public Topic GetTopicById(int id) =>
             _context.Topic.FirstOrDefault(t => t.Id == id);
 
-        public List<Topic> GetTopic() => 
+        public List<Topic> GetTopics() =>
             _context.Topic.Where(t => !t.IsDeleted).ToList();
 
         public void AddTopic(Topic model)
