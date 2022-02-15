@@ -11,13 +11,17 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
         {
             _db = applicationContext;
         }
-        
+
         public Admin GetAdminById(int id)
         {
             var res = _db.Admin.FirstOrDefault(x => x.Id == id);
             return res;
         }
+        public List<Admin> GetAdminAll()
+        {   
 
+            return _db.Admin.Where(a => a.IsDeleted != true ).ToList();
+        }
         public bool UpdateAdminInfo(Admin newInfo)
         {
             var res = _db.Admin.FirstOrDefault(x => x.Id == newInfo.Id);
@@ -40,11 +44,12 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
             return true;
         }
 
-        public bool AddAdmin(Admin newItem)
+        public int AddNewAdmin(Admin newItem)
         {
+            newItem.IsDeleted = false; // делам при создании нового админа статус НЕзаблокирован по умолчанию.
             _db.Admin.Add(newItem);
             _db.SaveChanges();
-            return true;
+            return newItem.Id;
         }
 
         public bool ChangePasswordAdmin(Admin newItem)
