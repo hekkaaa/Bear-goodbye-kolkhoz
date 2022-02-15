@@ -43,10 +43,11 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
             _applicationContext.SaveChanges();
         }
 
-        public void AddTraining(Training training)
+        public int AddTraining(Training training)
         {
             _applicationContext.Training.Add(training);
             _applicationContext.SaveChanges();
+            return training.Id;
         }
     }
 }

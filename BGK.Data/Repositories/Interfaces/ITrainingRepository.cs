@@ -4,7 +4,7 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
 {
     public interface ITrainingRepository
     {
-        void AddTraining(Training training);
+        int AddTraining(Training training);
         Training GetTrainingById(int id);
         List<Training> GetTrainings();
         List<Training> GetTrainingsByTopic(int id);

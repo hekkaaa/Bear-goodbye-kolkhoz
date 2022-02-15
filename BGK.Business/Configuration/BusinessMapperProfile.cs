@@ -8,9 +8,22 @@ namespace BearGoodbyeKolkhozProject.Business.Configuration
     {
         public BusinessMapperProfile()
         {
+            CreateMap<Company, CompanyModel>().ReverseMap();
+
+            CreateMap<Event, EventModel>().ReverseMap();
+
+            CreateMap<Training, TrainingModel>().ReverseMap();
+
+            CreateMap<TrainingReview, TrainingReviewModel>().ReverseMap();
+
+            CreateMap<Lecturer, LecturerModel>().ReverseMap();
+
+            CreateMap<ContactLecturer, ContactLecturerModel>().ReverseMap();
+
             CreateMap<Training, TrainingModel>().ReverseMap();
             CreateMap<TrainingReview, TrainingReviewModel>().ReverseMap();
             CreateMap<Topic, TopicModel>().ReverseMap();
+            CreateMap<Admin, AdminModel>().ReverseMap();
             CreateMap<LecturerModel, Lecturer>().ReverseMap();
         }
     }
