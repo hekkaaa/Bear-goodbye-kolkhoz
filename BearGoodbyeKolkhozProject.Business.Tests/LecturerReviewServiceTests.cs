@@ -1,13 +1,13 @@
-using AutoMapper;
-using BearGoodbyeKolkhozProject.Business.Configuration;
-using BearGoodbyeKolkhozProject.Business.Models;
-using BearGoodbyeKolkhozProject.Business.Services;
 using BearGoodbyeKolkhozProject.Business.Tests.TestCaseSource.LecturerReviewTestCaseSource;
-using BearGoodbyeKolkhozProject.Data.Entities;
+using BearGoodbyeKolkhozProject.Business.Configuration;
+using BearGoodbyeKolkhozProject.Business.Services;
 using BearGoodbyeKolkhozProject.Data.Repositories;
-using Moq;
-using NUnit.Framework;
+using BearGoodbyeKolkhozProject.Business.Models;
+using BearGoodbyeKolkhozProject.Data.Entities;
 using System.Collections.Generic;
+using NUnit.Framework;
+using AutoMapper;
+using Moq;
 
 namespace BearGoodbyeKolkhozProject.Business.Tests
 {

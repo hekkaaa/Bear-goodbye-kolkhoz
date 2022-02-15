@@ -1,10 +1,5 @@
 ﻿using BearGoodbyeKolkhozProject.Data.ConnectDb;
 using BearGoodbyeKolkhozProject.Data.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BearGoodbyeKolkhozProject.Data.Repositories
 {
@@ -18,7 +13,7 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
         }
 
         public Topic GetTopicById(int id) =>
-            _context.Topic.FirstOrDefault(t => t.Id == id);
+            _context.Topic.Where(t => !t.IsDeleted).FirstOrDefault(t => t.Id == id);
 
         public List<Topic> GetTopics() =>
             _context.Topic.Where(t => !t.IsDeleted).ToList();
@@ -36,10 +31,9 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
             _context.SaveChanges();
         }
 
-        public void ChangeDeleteStatusById(int id, bool IsDeleted)
+        public void ChangeDeleteStatus(Topic topic, bool IsDeleted)
         {
-            var entity = _context.Topic.FirstOrDefault(t => t.Id == id);
-            entity.IsDeleted = IsDeleted;
+            topic.IsDeleted = IsDeleted;
             _context.SaveChanges();
         }
     }

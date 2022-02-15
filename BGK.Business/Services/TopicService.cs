@@ -5,7 +5,7 @@ using AutoMapper;
 
 namespace BearGoodbyeKolkhozProject.Business.Services
 {
-    public class TopicService
+    public class TopicService : ITopicService
     {
         private readonly IMapper _mapper;
         private readonly ITopicRepository _topicRepo;
@@ -19,7 +19,7 @@ namespace BearGoodbyeKolkhozProject.Business.Services
         public TopicModel GetTopicById(int id)
         {
             var topic = _topicRepo.GetTopicById(id);
-            
+
             if (topic is null)
             {
                 throw new Exception("Нет такой темы");
@@ -51,24 +51,26 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             _topicRepo.UpdateTopic(topic);
         }
 
-        public void DeleteTopicById(int id)
+        public void DeleteTopic(TopicModel model)
         {
-            if (_topicRepo.GetTopicById(id) is null)
+            var topic = _topicRepo.GetTopicById(model.Id);
+            if (topic is null)
             {
                 throw new Exception("Нет такой темы");
             }
 
-            _topicRepo.ChangeDeleteStatusById(id, true);
+            _topicRepo.ChangeDeleteStatus(topic, true);
         }
 
-        public void RecoverTopicById(int id)
+        public void RecoverTopic(TopicModel model)
         {
-            if (_topicRepo.GetTopicById(id) is null)
+            var topic = _topicRepo.GetTopicById(model.Id);
+            if (topic is null)
             {
                 throw new Exception("Нет такой темы");
             }
 
-            _topicRepo.ChangeDeleteStatusById(id, false);
+            _topicRepo.ChangeDeleteStatus(topic, false);
         }
     }
 }
