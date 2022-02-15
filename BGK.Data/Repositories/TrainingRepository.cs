@@ -39,18 +39,23 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
             _applicationContext.SaveChanges();
         }
 
-        public void AddTraining(Training training)
+        public void UpdateTraining(Training training, bool IsDeleted)
         {
-            _applicationContext.Training.Add(training);
+            var oldTraining = GetTrainingById(training.Id);
+
+            oldTraining.IsDeleted = IsDeleted;
+
             _applicationContext.SaveChanges();
         }
 
-        public void DeleteTraining(int id)
+        public int AddTraining(Training training)
         {
-            var training = GetTrainingById(id);
-            training.IsDeleted = true;
+            _applicationContext.Training.Add(training);
             _applicationContext.SaveChanges();
+            return training.Id;
         }
+
+       
 
     }
 }

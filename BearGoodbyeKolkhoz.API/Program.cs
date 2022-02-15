@@ -1,5 +1,8 @@
-using BearGoodbyeKolkhozProject.Business.Services;
+using BearGoodbyeKolkhozProject.API.Infrastructure;
+using BearGoodbyeKolkhozProject.Business.Processor;
 using BearGoodbyeKolkhozProject.Data.ConnectDb;
+using BearGoodbyeKolkhozProject.Data.Interfaces;
+using BearGoodbyeKolkhozProject.Data.Repo;
 using BearGoodbyeKolkhozProject.Data.Repositories;
 using Microsoft.EntityFrameworkCore;
 using AutoMapper;
@@ -7,43 +10,54 @@ using BearGoodbyeKolkhozProject.API;
 using BearGoodbyeKolkhozProject.Business.Configuration;
 using BearGoodbyeKolkhozProject.Business.Interface;
 using BearGoodbyeKolkhozProject.Data.Interfaces;
+using BearGoodbyeKolkhozProject.API.Extensions;
 
-const string _connString = "CONNECTION_STRING";
+
+const string? _connStringVariableName = "CONNECTION_STRING";
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+/*Learn more about configuring Swagger/OpenAPI at*/ https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddDbContext<ApplicationContext>();
 
-var connString = builder.Configuration.GetValue<string>(_connString);
+var connString = builder.Configuration.GetValue<string>(_connStringVariableName);
 
 builder.Services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(connString));
 
-builder.Services.AddScoped<ITrainingRepository, TrainingRepository>();
-builder.Services.AddScoped<ITrainingService, TrainingService>();
-builder.Services.AddScoped<ITrainingReviewRepository, TrainingReviewRepository>();
-builder.Services.AddScoped<ITrainingReviewService, TrainingReviewService>();
-builder.Services.AddScoped<ILecturerService, LecturerService>();
-builder.Services.AddScoped<ITrainingRepository, TrainingRepository>();
-builder.Services.AddScoped<ILecturerRepository, LecturerRepository>();
+// add service and provider connections here
+builder.Services.RegisterProjectService();
+builder.Services.RegisterProjectRepository();
+
 builder.Services.AddAutoMapper(typeof(APIMapperProfile), typeof(BusinessMapperProfile));
+builder.Services.AddScoped<ICompanyService, CompanyService>();
+builder.Services.AddScoped<ICompanyRepository, CompanyRepository>();
+builder.Services.AddScoped<IEventService, EventService>();
+builder.Services.AddScoped<IEventRepository, EventRepository>();
+builder.Services.AddScoped<IContactLecturerRepository, ContactLecturerRepository>();
+builder.Services.AddScoped<ILecturerRepository, LecturerRepository>();
+builder.Services.AddScoped<ITrainingRepository, TrainingRepository>();
+builder.Services.AddScoped<ITrainingReviewRepository, TrainingReviewRepository>();
+
+builder.Services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(connString));
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 
+
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+
+app.UseMiddleware<ErrorHandlerMiddleware>();
 
 app.MapControllers();
 
