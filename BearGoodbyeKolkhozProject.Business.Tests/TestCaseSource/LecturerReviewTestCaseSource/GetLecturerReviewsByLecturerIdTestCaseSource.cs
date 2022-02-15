@@ -1,16 +1,12 @@
 ﻿using BearGoodbyeKolkhozProject.Business.Models;
 using BearGoodbyeKolkhozProject.Data.Entities;
 using BearGoodbyeKolkhozProject.Data.Enums;
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Collections;
 
 namespace BearGoodbyeKolkhozProject.Business.Tests.TestCaseSource.LecturerReviewTestCaseSource
 {
-    public class GetLecturerReviewsTestCaseSource : IEnumerable
+    public class GetLecturerReviewsByLecturerIdTestCaseSource : IEnumerable
     {
         public IEnumerator GetEnumerator()
         {
@@ -29,6 +25,28 @@ namespace BearGoodbyeKolkhozProject.Business.Tests.TestCaseSource.LecturerReview
 
             var clientModel = new ClientModel() { };
 
+            var lecturer = new Lecturer()
+            {
+                Id = 1,
+                Name = "Roma",
+                LastName = "Azarov",
+                Password = "qwe",
+                BirthDay = "12.12.1999",
+                Gender = Gender.Male,
+                IsDeleted = false
+            };
+
+            var lecturerModel = new LecturerModel()
+            {
+                Id = 1,
+                Name = "Roma",
+                LastName = "Azarov",
+                Password = "qwe",
+                BirthDay = "12.12.1999",
+                Gender = Gender.Male,
+                IsDeleted = false
+            };
+
             List<LecturerReview> reviews = new List<LecturerReview>()
             {
                 new LecturerReview()
@@ -36,32 +54,16 @@ namespace BearGoodbyeKolkhozProject.Business.Tests.TestCaseSource.LecturerReview
                     Id = 1,
                     Text = "qwdfghu",
                     Mark = 3,
-                    Client = client
-                },
-                new LecturerReview()
-                {
-                    Id = 2,
-                    Text = "1234567",
-                    Mark = 5,
-                    Client = new Client()
-                    {
-                        Id = 112,
-                        Name = "qwe123",
-                        LastName = "321ewq",
-                        Gender = Gender.Male,
-                        BirthDay = "11.11.2000",
-                        Email = "123qwe@mail.com",
-                        PhoneNumber = "88777777777",
-                        Password = "qwe!23",
-                        IsDeleted = false
-                    }
+                    Client = client,
+                    Lecturer = lecturer
                 },
                 new LecturerReview()
                 {
                     Id = 3,
                     Text = "hgfds",
                     Mark = 6,
-                    Client = client
+                    Client = client,
+                    Lecturer = lecturer
                 },
             };
 
@@ -72,27 +74,20 @@ namespace BearGoodbyeKolkhozProject.Business.Tests.TestCaseSource.LecturerReview
                     Id = 1,
                     Text = "qwdfghu",
                     Mark = 3,
-                    Client = clientModel
-                },
-                new LecturerReviewModel()
-                {
-                    Id = 2,
-                    Text = "1234567",
-                    Mark = 5,
-                    Client = new ClientModel()
+                    Client = clientModel,
+                    LecturerModel = lecturerModel
                 },
                 new LecturerReviewModel()
                 {
                     Id = 3,
                     Text = "hgfds",
                     Mark = 6,
-                    Client = clientModel
+                    Client = clientModel,
+                    LecturerModel = lecturerModel
                 },
             };
 
-            yield return new object[] { reviews, expected };
-            yield return new object[] { new List<LecturerReview>(), new List<LecturerReviewModel>() };
-
+            yield return new object[] { reviews, expected, 1 };
         }
     }
 }

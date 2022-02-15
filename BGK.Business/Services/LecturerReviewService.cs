@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using BearGoodbyeKolkhozProject.Business.Models;
+using BearGoodbyeKolkhozProject.Data.Entities;
 using BearGoodbyeKolkhozProject.Data.Repositories;
 using System;
 using System.Collections.Generic;
@@ -34,6 +35,30 @@ namespace BearGoodbyeKolkhozProject.Business.Services
         {
             var reviews = _lecturerReviewRepo.GetLecturerReviews();
             return _mapper.Map<List<LecturerReviewModel>>(reviews);
+        }
+
+        public List<LecturerReviewModel> GetLecturerReviewsByLecturerId(int lecturerId)
+        {
+            var reviews = _lecturerReviewRepo.GetLecturerReviewsByLecturerId(lecturerId);
+            return _mapper.Map<List<LecturerReviewModel>>(reviews);
+        }
+
+        public void AddLecturerReview(LecturerReviewModel model)
+        {
+            var entity = _mapper.Map<LecturerReview>(model);
+            _lecturerReviewRepo.AddLecturerReview(entity);
+        }
+
+        public void DeleteLecturerReviewById(int id)
+        {
+            var review = _lecturerReviewRepo.GetLecturerReviewById(id);
+
+            if (review is null)
+            {
+                throw new Exception("Нет такого ревью");
+            }
+            
+            _lecturerReviewRepo.DeleteLecturerReviewById(id);
         }
     }
 }

@@ -28,8 +28,6 @@ namespace BearGoodbyeKolkhozProject.Business.Tests
         public void GetLecturerReviewModelByIdTest(LecturerReview review, LecturerReviewModel expected, int id)
         {
             //given
-            // эта штука эмитирует работу репозитория внутри сервиса когда в нем обращаемся к этому методу
-            // не совсем понимаю от куда сервис должен об эом знать, или это работает как локальное переобпределение?
             _lecturerReviewRepositoryMock.Setup(lr => lr.GetLecturerReviewById(id)).Returns(review);
 
             //when
@@ -41,12 +39,11 @@ namespace BearGoodbyeKolkhozProject.Business.Tests
             Assert.AreEqual(expected.Mark, actual.Mark);
             Assert.AreEqual(expected.Client, actual.Client);
 
-            // эта штука проверяет что метод внутри сервиса внутри репозитория вызываеться один раз?
             _lecturerReviewRepositoryMock.Verify(x => x.GetLecturerReviewById(id), Times.Once);
         }
 
         [TestCaseSource(typeof(GetLecturerReviewsTestCaseSource))]
-        public void GetLecturerReviewsTest(List<LecturerReview> reviews, List<LecturerReviewModel> expected )
+        public void GetLecturerReviewsTest(List<LecturerReview> reviews, List<LecturerReviewModel> expected)
         {
             //given
             _lecturerReviewRepositoryMock.Setup(lr => lr.GetLecturerReviews()).Returns(reviews);
@@ -64,8 +61,59 @@ namespace BearGoodbyeKolkhozProject.Business.Tests
                 Assert.AreEqual(expected[i].Mark, actual[i].Mark);
                 Assert.AreEqual(expected[i].Client, actual[i].Client);
             }
+        }
 
-            _lecturerReviewRepositoryMock.Verify(x => x.GetLecturerReviews(), Times.Once);
+        [TestCaseSource(typeof(GetLecturerReviewsByLecturerIdTestCaseSource))]
+        public void GetLecturerReviewsByLecturerIdTest(List<LecturerReview> reviews
+            , List<LecturerReviewModel> expected
+            , int lecturerId)
+        {
+            //given
+            _lecturerReviewRepositoryMock.Setup(lr => lr.GetLecturerReviewsByLecturerId(lecturerId)).Returns(reviews);
+
+            //when
+            var actual = _service.GetLecturerReviewsByLecturerId(lecturerId);
+
+            //then
+            Assert.AreEqual(expected.Count, actual.Count);
+
+            for (int i = 0; i < expected.Count; i++)
+            {
+                Assert.AreEqual(expected[i].Id, actual[i].Id);
+                Assert.AreEqual(expected[i].Text, actual[i].Text);
+                Assert.AreEqual(expected[i].Mark, actual[i].Mark);
+                Assert.AreEqual(expected[i].Client, actual[i].Client);
+            }
+        }
+
+        [TestCaseSource(typeof(AddLecturerReviewTestCaseSource))]
+        public void AddLecturerReviewTest(LecturerReview review, LecturerReviewModel expected)
+        {
+            //given
+            _lecturerReviewRepositoryMock.Setup(lr => lr.AddLecturerReview(review));
+
+            //when
+            _service.AddLecturerReview(expected);
+
+            //then
+            _lecturerReviewRepositoryMock.Verify(x => x.AddLecturerReview(review), Times.Once);
+        }
+
+        //[TestCaseSource(typeof(DeleteLecturerReviewByIdTestCaseSource))]
+        [TestCase(1)]
+        public void DeleteLecturerReviewByIdTest(int id)
+        {
+            //given
+
+            _lecturerReviewRepositoryMock.Setup(lr => lr.DeleteLecturerReviewById(id));
+            //_lecturerReviewRepositoryMock.Setup(lr => lr.GetLecturerReviewById(id)).Returns(review);
+
+            //when
+            _service.DeleteLecturerReviewById(id);
+
+            //then
+            _lecturerReviewRepositoryMock.Verify(x => x.GetLecturerReviewById(id), Times.Once);
+            _lecturerReviewRepositoryMock.Verify(x => x.DeleteLecturerReviewById(id), Times.Once);
         }
     }
 }

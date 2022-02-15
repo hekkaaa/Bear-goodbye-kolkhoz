@@ -13,6 +13,7 @@ namespace BearGoodbyeKolkhozProject.Business.Models
         public int Mark { get; set; }
 
         public ClientModel Client { get; set; }
+        public LecturerModel LecturerModel { get; set; }
 
         public override string ToString()
         {

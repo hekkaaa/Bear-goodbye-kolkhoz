@@ -18,10 +18,8 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
         public List<LecturerReview> GetLecturerReviews() =>
             _context.LecturerReview.ToList();
 
-        public List<LecturerReview> GetLecturerReviewsByLecturerId(int id)
-        {
-            return _context.LecturerReview.Where(lr => lr.Lecturer.Id == id).ToList();
-        }
+        public List<LecturerReview> GetLecturerReviewsByLecturerId(int id) =>
+            _context.LecturerReview.Where(lr => lr.Lecturer.Id == id).ToList();
 
         public void AddLecturerReview(LecturerReview model)
         {
