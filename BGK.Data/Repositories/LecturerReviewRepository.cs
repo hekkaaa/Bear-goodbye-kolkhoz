@@ -27,9 +27,10 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
             _context.SaveChanges();
         }
 
-        public void DeleteLecturerReviewById(int id)
+        public void ChangeIsDeleted(LecturerReview review, bool isDeleted)
         {
-            _context.LecturerReview.Remove(GetLecturerReviewById(id));
+            review.IsDeleted = isDeleted;
+            _context.SaveChanges();
         }
     }
 }

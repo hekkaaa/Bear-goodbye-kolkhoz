@@ -50,9 +50,9 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
             _context.SaveChanges();
         }
 
-        public void ChangeDeleteStatusById(Lecturer lecturer, bool IsDeleted)
+        public void ChangeDeleteStatusById(Lecturer lecturer, bool isDeleted)
         {
-            lecturer.IsDeleted = IsDeleted;
+            lecturer.IsDeleted = isDeleted;
             _context.SaveChanges();
         }
     }

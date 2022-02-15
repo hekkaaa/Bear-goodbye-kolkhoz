@@ -11,6 +11,7 @@ namespace BearGoodbyeKolkhozProject.Business.Models
         public int Id { get; set; }
         public string Text { get; set; }
         public int Mark { get; set; }
+        public bool IsDeleted { get; set; }
 
         public ClientModel Client { get; set; }
         public LecturerModel LecturerModel { get; set; }

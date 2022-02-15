@@ -10,6 +10,7 @@ namespace BearGoodbyeKolkhozProject.Data.Entities
         [StringLength(320)]
         public string Text { get; set; }
         public int Mark { get; set; }
+        public bool IsDeleted { get; set; }
 
         public virtual Client Client { get; set; }
         public virtual Lecturer Lecturer { get; set; }
@@ -20,6 +21,7 @@ namespace BearGoodbyeKolkhozProject.Data.Entities
                 || Id != ((LecturerReview)obj).Id
                 || Text != ((LecturerReview)obj).Text
                 || Mark != ((LecturerReview)obj).Mark
+                || IsDeleted != ((LecturerReview)obj).IsDeleted
                 || Client != ((LecturerReview)obj).Client
                 || Lecturer != ((LecturerReview)obj).Lecturer)
             {

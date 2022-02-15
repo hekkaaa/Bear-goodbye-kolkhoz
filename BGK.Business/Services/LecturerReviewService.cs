@@ -58,7 +58,19 @@ namespace BearGoodbyeKolkhozProject.Business.Services
                 throw new Exception("Нет такого ревью");
             }
             
-            _lecturerReviewRepo.DeleteLecturerReviewById(id);
+            _lecturerReviewRepo.ChangeIsDeleted(review, true);
+        }
+
+        public void RecoverLecturerReviewById(int id)
+        {
+            var review = _lecturerReviewRepo.GetLecturerReviewById(id);
+
+            if (review is null)
+            {
+                throw new Exception("Нет такого ревью");
+            }
+
+            _lecturerReviewRepo.ChangeIsDeleted(review, false);
         }
     }
 }

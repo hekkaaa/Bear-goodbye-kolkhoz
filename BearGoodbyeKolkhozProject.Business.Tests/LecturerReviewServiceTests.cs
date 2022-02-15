@@ -13,24 +13,22 @@ namespace BearGoodbyeKolkhozProject.Business.Tests
 {
     public class LecturerReviewServiceTests
     {
-        private readonly Mock<ILecturerReviewRepository> _lecturerReviewRepositoryMock;
-        private readonly LecturerReviewService _service;
         private readonly IMapper _mapper;
 
         public LecturerReviewServiceTests()
         {
             _mapper = new Mapper(new MapperConfiguration(cfg => cfg.AddProfile<BusinessMapperProfile>()));
-            _lecturerReviewRepositoryMock = new Mock<ILecturerReviewRepository>();
-            _service = new LecturerReviewService(_mapper, _lecturerReviewRepositoryMock.Object);
         }
 
         [TestCaseSource(typeof(GetLecturerReviewModelByIdTestCaseSource))]
         public void GetLecturerReviewModelByIdTest(LecturerReview review, LecturerReviewModel expected, int id)
         {
             //given
+            Mock<ILecturerReviewRepository> _lecturerReviewRepositoryMock = new Mock<ILecturerReviewRepository>();
             _lecturerReviewRepositoryMock.Setup(lr => lr.GetLecturerReviewById(id)).Returns(review);
 
             //when
+            LecturerReviewService _service = new LecturerReviewService(_mapper, _lecturerReviewRepositoryMock.Object);
             var actual = _service.GetLecturerReviewModelById(id);
 
             //then
@@ -46,9 +44,11 @@ namespace BearGoodbyeKolkhozProject.Business.Tests
         public void GetLecturerReviewsTest(List<LecturerReview> reviews, List<LecturerReviewModel> expected)
         {
             //given
+            Mock<ILecturerReviewRepository> _lecturerReviewRepositoryMock = new Mock<ILecturerReviewRepository>();
             _lecturerReviewRepositoryMock.Setup(lr => lr.GetLecturerReviews()).Returns(reviews);
 
             //when
+            LecturerReviewService _service = new LecturerReviewService(_mapper, _lecturerReviewRepositoryMock.Object);
             var actual = _service.GetLecturerReviews();
 
             //then
@@ -69,9 +69,11 @@ namespace BearGoodbyeKolkhozProject.Business.Tests
             , int lecturerId)
         {
             //given
+            Mock<ILecturerReviewRepository> _lecturerReviewRepositoryMock = new Mock<ILecturerReviewRepository>();
             _lecturerReviewRepositoryMock.Setup(lr => lr.GetLecturerReviewsByLecturerId(lecturerId)).Returns(reviews);
 
             //when
+            LecturerReviewService _service = new LecturerReviewService(_mapper, _lecturerReviewRepositoryMock.Object);
             var actual = _service.GetLecturerReviewsByLecturerId(lecturerId);
 
             //then
@@ -87,33 +89,55 @@ namespace BearGoodbyeKolkhozProject.Business.Tests
         }
 
         [TestCaseSource(typeof(AddLecturerReviewTestCaseSource))]
-        public void AddLecturerReviewTest(LecturerReview review, LecturerReviewModel expected)
+        public void AddLecturerReviewTest(LecturerReviewModel reviewModel)
         {
             //given
-            _lecturerReviewRepositoryMock.Setup(lr => lr.AddLecturerReview(review));
+            Mock<ILecturerReviewRepository> _lecturerReviewRepositoryMock = new Mock<ILecturerReviewRepository>();
+            _lecturerReviewRepositoryMock.Setup(lr => lr.AddLecturerReview(It.IsAny<LecturerReview>()));
 
             //when
-            _service.AddLecturerReview(expected);
+            LecturerReviewService _service = new LecturerReviewService(_mapper, _lecturerReviewRepositoryMock.Object);
+            _service.AddLecturerReview(reviewModel);
 
             //then
-            _lecturerReviewRepositoryMock.Verify(x => x.AddLecturerReview(review), Times.Once);
+            _lecturerReviewRepositoryMock.Verify(x => x.AddLecturerReview(It.IsAny<LecturerReview>()), Times.Once);
         }
 
-        //[TestCaseSource(typeof(DeleteLecturerReviewByIdTestCaseSource))]
-        [TestCase(1)]
-        public void DeleteLecturerReviewByIdTest(int id)
+        //[TestCase(1)]
+        [TestCaseSource(typeof(DeleteLecturerReviewByIdTestCaseSource))]
+        public void DeleteLecturerReviewByIdTest(int id, LecturerReview review)
         {
             //given
+            Mock<ILecturerReviewRepository> _lecturerReviewRepositoryMock = new Mock<ILecturerReviewRepository>();
 
-            _lecturerReviewRepositoryMock.Setup(lr => lr.DeleteLecturerReviewById(id));
-            //_lecturerReviewRepositoryMock.Setup(lr => lr.GetLecturerReviewById(id)).Returns(review);
+            _lecturerReviewRepositoryMock.Setup(lr => lr.GetLecturerReviewById(id)).Returns(review);
+            _lecturerReviewRepositoryMock.Setup(lr => lr.ChangeIsDeleted(review, true));
 
             //when
+            LecturerReviewService _service = new LecturerReviewService(_mapper, _lecturerReviewRepositoryMock.Object);
             _service.DeleteLecturerReviewById(id);
 
             //then
             _lecturerReviewRepositoryMock.Verify(x => x.GetLecturerReviewById(id), Times.Once);
-            _lecturerReviewRepositoryMock.Verify(x => x.DeleteLecturerReviewById(id), Times.Once);
+            _lecturerReviewRepositoryMock.Verify(x => x.ChangeIsDeleted(review, true), Times.Once);
+        }
+
+        [TestCaseSource(typeof(DeleteLecturerReviewByIdTestCaseSource))]
+        public void RecoverLecturerReviewByIdTest(int id, LecturerReview review)
+        {
+            //given
+            Mock<ILecturerReviewRepository> _lecturerReviewRepositoryMock = new Mock<ILecturerReviewRepository>();
+
+            _lecturerReviewRepositoryMock.Setup(lr => lr.GetLecturerReviewById(id)).Returns(review);
+            _lecturerReviewRepositoryMock.Setup(lr => lr.ChangeIsDeleted(review, false));
+
+            //when
+            LecturerReviewService _service = new LecturerReviewService(_mapper, _lecturerReviewRepositoryMock.Object);
+            _service.RecoverLecturerReviewById(id);
+
+            //then
+            _lecturerReviewRepositoryMock.Verify(x => x.GetLecturerReviewById(id), Times.Once);
+            _lecturerReviewRepositoryMock.Verify(x => x.ChangeIsDeleted(review, false), Times.Once);
         }
     }
 }
