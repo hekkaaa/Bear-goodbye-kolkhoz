@@ -1,6 +1,7 @@
 using AutoMapper;
 using BearGoodbyeKolkhozProject.Business.Configuration;
 using BearGoodbyeKolkhozProject.Business.Exceptions;
+using BearGoodbyeKolkhozProject.Business.Models;
 using BearGoodbyeKolkhozProject.Business.Services;
 using BearGoodbyeKolkhozProject.Data.ConnectDb;
 using BearGoodbyeKolkhozProject.Data.Repositories;
@@ -19,9 +20,6 @@ namespace BearGoodbyeKolkhozProject.Business.Tests
         [SetUp]
         public void Setup()
         {
-
-
-
             var options = new DbContextOptionsBuilder<ApplicationContext>()
                .UseInMemoryDatabase(databaseName: "Memory-DB")
                .Options;
@@ -39,7 +37,27 @@ namespace BearGoodbyeKolkhozProject.Business.Tests
             _service = new TrainingReviewService(_trainingRepository, mapper);
 
             _testData = new TestData();
+        }
 
+        [Test]
+        public void UpdateTrainingReviewTests()
+        {
+            //given
+            var oldTR = _testData.GetTrainingReviewModel();
+            var id = _service.AddTrainingReview(oldTR);
+
+            var newTR = new TrainingReviewModel
+            {
+                Id = id,
+                Mark = 666,
+                Text = "test"
+            };
+            //when
+            _service.UpdateTrainingReview(id, newTR);
+            var act = _service.GetTrainingReviewModelById(id);
+            //then
+            Assert.IsTrue(act.Mark == newTR.Mark);
+            Assert.IsTrue(act.Text == newTR.Text);
         }
 
         [Test]
@@ -53,6 +71,20 @@ namespace BearGoodbyeKolkhozProject.Business.Tests
         }
 
         [Test]
+        public void GetTrainingReviewByIdTests()
+        {
+            //given
+            var tr = _testData.GetTrainingReviewModel();
+            var id = _service.AddTrainingReview(tr);
+
+            //when
+            var act = _service.GetTrainingReviewModelById(id);
+            //then
+            Assert.IsTrue(act.Mark == tr.Mark);
+            Assert.IsTrue(act.Text == tr.Text);
+        }
+
+        [Test]
         public void GetTrainingReviewByIdNegativeTests()
         {
             //given
@@ -62,12 +94,37 @@ namespace BearGoodbyeKolkhozProject.Business.Tests
         }
 
         [Test]
-        public void GetTrainingReviewModels()
+        public void GetTrainingReviewModelsTests()
         {
             //given
+            var tr1 = _testData.GetTrainingReviewModel();
+            var tr2 = _testData.GetTrainingReviewModel();
+            var tr3 = _testData.GetTrainingReviewModel();
+            tr1.Training = null;
+            tr2.Training = null;
+            tr3.Training = null;
+            _service.AddTrainingReview(tr1);
+            _service.AddTrainingReview(tr2);
+            _service.AddTrainingReview(tr3);
             //when
+            var act = _service.GetTrainingReviewModels();
             //then
-            Assert.Throws<BusinessException>(() => _service.GetTrainingReviewModels());
+            Assert.IsNotNull(act);
+            Assert.IsTrue(act.Count == 3);
+        }
+
+        [Test]
+        public void DeleteTrainingReviewTests()
+        {
+            //given
+            var tr = _testData.GetTrainingReviewModel();
+            var id = _service.AddTrainingReview(tr);
+            //when
+            var listBeforeDelete = _service.GetTrainingReviewModels();
+            _service.DeleteTrainingReview(id);
+            var listAfterDelete = _service.GetTrainingReviewModels();
+            //then
+            Assert.IsTrue(listBeforeDelete.Count - listAfterDelete.Count == 1);
         }
 
         [Test]
@@ -79,7 +136,7 @@ namespace BearGoodbyeKolkhozProject.Business.Tests
 
             //when
             //then
-            Assert.Throws<BusinessException>(() => _service.DeleteTrainingReview(trainingReviewModel));
+            Assert.Throws<BusinessException>(() => _service.DeleteTrainingReview(666));
 
         }
 

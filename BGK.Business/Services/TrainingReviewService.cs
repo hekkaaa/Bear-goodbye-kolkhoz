@@ -42,27 +42,23 @@ namespace BearGoodbyeKolkhozProject.Business.Services
         public List<TrainingReviewModel> GetTrainingReviewModels()
         {
             var trainingReviewEntityList = _repository.GetTrainingReviews();
-
-            if (trainingReviewEntityList.Count == 0)
-                throw new BusinessException("Обзоров на тренинги ещё не написано");
-
             return _mapper.Map<List<TrainingReviewModel>>(trainingReviewEntityList);
         }
 
-        public void AddTrainingReview(TrainingReviewModel trainingReviewModel)
+        public int AddTrainingReview(TrainingReviewModel trainingReviewModel)
         {
             var trainingReviewEntity = _mapper.Map<TrainingReview>(trainingReviewModel);
-            _repository.AddTrainingReview(trainingReviewEntity);
+            return _repository.AddTrainingReview(trainingReviewEntity);
         }
 
-        public void DeleteTrainingReview(TrainingReviewModel trainingReviewModel)
+        public void DeleteTrainingReview(int id)
         {
-            var trainingReviewEntity = _repository.GetTrainingReviewById(trainingReviewModel.Id);
+            var trainingReviewEntity = _repository.GetTrainingReviewById(id);
 
             if (trainingReviewEntity == null)
                 throw new BusinessException("Такого обзора на тренинг не найдено!");
 
-            _repository.DeleteTrainingReview(trainingReviewModel.Id);
+            _repository.DeleteTrainingReview(id);
         }
     }
 }

@@ -32,7 +32,6 @@ namespace BearGoodbyeKolkhozProject.Business.Tests
         {
             return new TrainingReviewModel
             {
-                Id = 1,
                 Mark = 5,
                 Text = "kokoko",
                 Training = GetTrainingModel(),
