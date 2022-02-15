@@ -65,21 +65,21 @@ namespace BearGoodbyeKolkhozProject.Data.ConnectDb
             new Classroom() { Id = 3, Address = "ул. Пушкина дом 27", City = "Санкт-Петербург", MembersCount = 40 }
             );
 
-            var client = new Client
-            {
-                Id = 1,
-                Name = "ggg",
-                LastName = "zzz",
-                BirthDay = "25.01.2007",
-                Email = "чоооо",
-                Gender = Enums.Gender.Male,
-                Password = "444",
-                PhoneNumber = "555",
+            //var client = new Client
+            //{
+            //    Id = 1,
+            //    Name = "ggg",
+            //    LastName = "zzz",
+            //    BirthDay = "25.01.2007",
+            //    Email = "чоооо",
+            //    Gender = Enums.Gender.Male,
+            //    Password = "444",
+            //    PhoneNumber = "555",
 
-            };
+            //};
 
-            modelBuilder.Entity<Client>().HasData(client);
-            ;
+            //modelBuilder.Entity<Client>().HasData(client);
+            //   ;
 
 
         }

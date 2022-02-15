@@ -46,15 +46,20 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             return _mapper.Map<List<TrainingModel>>(trainingEntityList);
         }
 
-        public void AddTraining(TrainingModel trainingModel)
+        public int AddTraining(TrainingModel trainingModel)
         {
             var trainingEntity = _mapper.Map<Training>(trainingModel);
-            _repository.AddTraining(trainingEntity);
+            return _repository.AddTraining(trainingEntity);
         }
 
         public void DeleteTraining(TrainingModel trainingModel)
         {
-            _repository.DeleteTraining(trainingModel.Id);
+            _repository.UpdateTraining(_mapper.Map<Training>(trainingModel), true);
+        }
+
+        public void RestoreTraining(TrainingModel trainingModel)
+        {
+            _repository.UpdateTraining(_mapper.Map<Training>(trainingModel), false);
         }
     }
 }

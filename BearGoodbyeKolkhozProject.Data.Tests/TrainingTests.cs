@@ -41,14 +41,14 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
 
             //when
             var listBeforeDelete = _trainingRepository.GetTrainings();
-            _trainingRepository.DeleteTraining(training.Id);
+            _trainingRepository.UpdateTraining(training, true);
             var listAfterDelete = _trainingRepository.GetTrainings();
 
             //then 
             Assert.IsTrue(listBeforeDelete.Count - listAfterDelete.Count == 1);
             Assert.IsTrue(training.IsDeleted);
         }
-
+        
         [Test]
         public void AddTrainingTests()
         {

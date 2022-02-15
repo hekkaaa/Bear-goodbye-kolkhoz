@@ -1,4 +1,5 @@
 ﻿using BearGoodbyeKolkhozProject.Business.Exceptions;
+using Microsoft.Data.SqlClient;
 using System.Net;
 using System.Text.Json;
 
@@ -19,6 +20,10 @@ namespace BearGoodbyeKolkhozProject.API.Infrastructure
             {
                 await _next(context);
             }
+            catch (NotAuthorizedException error)
+            {
+                await ConstructResponse(context, HttpStatusCode.Forbidden, error.Message);
+            }
             catch (BusinessException ex)
             {
                 await ConstructResponse(context, HttpStatusCode.BadRequest, ex.Message);
@@ -31,6 +36,7 @@ namespace BearGoodbyeKolkhozProject.API.Infrastructure
             {
                 await ConstructResponse(context, HttpStatusCode.BadRequest, ex.Message);
             }
+            
         }
 
         private async Task ConstructResponse(HttpContext context, HttpStatusCode code, string message)
