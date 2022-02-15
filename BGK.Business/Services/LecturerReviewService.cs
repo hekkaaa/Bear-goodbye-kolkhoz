@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace BearGoodbyeKolkhozProject.Business.Services
 {
-    public class LecturerReviewService
+    public class LecturerReviewService : ILecturerReviewService
     {
         private readonly IMapper _mapper;
         private readonly ILecturerReviewRepository _lecturerReviewRepo;
@@ -57,7 +57,7 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             {
                 throw new Exception("Нет такого ревью");
             }
-            
+
             _lecturerReviewRepo.ChangeIsDeleted(review, true);
         }
 
