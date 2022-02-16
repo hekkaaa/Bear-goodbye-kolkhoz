@@ -2,6 +2,7 @@
 using BearGoodbyeKolkhozProject.Data.Entities;
 using BearGoodbyeKolkhozProject.Data.Repositories;
 using AutoMapper;
+using BearGoodbyeKolkhozProject.Business.Exceptions;
 
 namespace BearGoodbyeKolkhozProject.Business.Services
 {
@@ -22,7 +23,7 @@ namespace BearGoodbyeKolkhozProject.Business.Services
 
             if (topic is null)
             {
-                throw new Exception("Нет такой темы");
+                throw new NotFoundException($"Нет темы c id = {id}");
             }
 
             return _mapper.Map<TopicModel>(topic);
@@ -38,7 +39,7 @@ namespace BearGoodbyeKolkhozProject.Business.Services
         {
             if (model is null)
             {
-                throw new Exception("Ты передал в меня null");
+                throw new Exception($"Передана не верная модель: {model}");
             }
 
             var topic = _mapper.Map<Topic>(model);
@@ -56,7 +57,7 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             var topic = _topicRepo.GetTopicById(model.Id);
             if (topic is null)
             {
-                throw new Exception("Нет такой темы");
+                throw new NotFoundException($"Нет темы c id = {model.Id}");
             }
 
             _topicRepo.ChangeDeleteStatus(topic, true);
@@ -67,7 +68,7 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             var topic = _topicRepo.GetTopicById(model.Id);
             if (topic is null)
             {
-                throw new Exception("Нет такой темы");
+                throw new NotFoundException($"Нет темы c id = {model.Id}");
             }
 
             _topicRepo.ChangeDeleteStatus(topic, false);
