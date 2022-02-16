@@ -58,7 +58,7 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
             // наполняем тестовый БД подкготовленными данными.
             for (int i = 0; i < preVirtualData.Count; i++)
             {
-                if (preVirtualData[i].IsDeleted == false)
+                if (!preVirtualData[i].IsDeleted)
                 {   // исключаем данные с IsDeleted = true
                     _context.Add(preVirtualData[i]);
                     postVirtualData.Add(preVirtualData[i]);
@@ -90,8 +90,6 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
         {
             //given
             var virtualData = _testData.AddTestAdmin();
-            //_context.Add(virtualData);
-            //_context.SaveChanges();
 
             //when
             var act = _adminRepository.AddNewAdmin(virtualData);
