@@ -24,7 +24,7 @@ namespace BearGoodbyeKolkhozProject.Data.Tests.TestCaseSources.TopicRepositoryTe
 
             var updateModel = new Topic()
             {
-                Id = 102,
+                Id = 777,
                 Name = "123",
                 IsDeleted = true,
                 Training = topic.Training
@@ -38,8 +38,7 @@ namespace BearGoodbyeKolkhozProject.Data.Tests.TestCaseSources.TopicRepositoryTe
                 Training = updateModel.Training
             };
 
-            yield return new object[] { topic, updateModel, expected };
-            //yield return new object[] { topic, topic, topic };
+            yield return new object[] { topic, updateModel, expected, 102 };
         }
     }
 }

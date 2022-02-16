@@ -86,7 +86,7 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
         }
 
         [TestCaseSource(typeof(UpdateTopicTestCaseSource))]
-        public void UpdateTopicTest(Topic topic, Topic updateModel, Topic expected)
+        public void UpdateTopicByIdTest(Topic topic, Topic updateModel, Topic expected, int id)
         {
             //given
             _context.Topic.Add(topic);
@@ -94,7 +94,7 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
 
             //when
             TopicRepository topicRepository = new TopicRepository(_context);
-            topicRepository.UpdateTopic(updateModel);
+            topicRepository.UpdateTopicById(updateModel, id);
 
             //then
             var actual = _context.Topic.FirstOrDefault(t => t.Id == expected.Id);

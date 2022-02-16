@@ -8,6 +8,6 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
         void ChangeDeleteStatusById(Topic topic, bool IsDeleted);
         List<Topic> GetTopics();
         Topic GetTopicById(int id);
-        void UpdateTopic(Topic model);
+        void UpdateTopicById(Topic model, int id);
     }
 }
