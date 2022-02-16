@@ -7,6 +7,9 @@ using BearGoodbyeKolkhozProject.Data.ConnectDb;
 using BearGoodbyeKolkhozProject.Data.Repositories;
 using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
+using Moq;
+using BearGoodbyeKolkhozProject.Business.Tests.TestCaseSource.TraningTestCaseSource;
+using BearGoodbyeKolkhozProject.Data.Entities;
 
 namespace BearGoodbyeKolkhozProject.Business.Tests
 {
@@ -16,27 +19,37 @@ namespace BearGoodbyeKolkhozProject.Business.Tests
         private ApplicationContext _context;
         private TrainingReviewRepository _trainingRepository;
         private TestData _testData;
+        private IMapper _mapper;
+
 
         [SetUp]
         public void Setup()
         {
-            var options = new DbContextOptionsBuilder<ApplicationContext>()
-               .UseInMemoryDatabase(databaseName: "Memory-DB")
-               .Options;
-            _context = new ApplicationContext(options);
-            _context.Database.EnsureDeleted();
-            _context.Database.EnsureCreated();
+            //var options = new DbContextOptionsBuilder<ApplicationContext>()
+            //   .UseInMemoryDatabase(databaseName: "Memory-DB")
+            //   .Options;
+            //_context = new ApplicationContext(options);
+            //_context.Database.EnsureDeleted();
+            //_context.Database.EnsureCreated();
 
-            var mockMapper = new MapperConfiguration(cfg =>
-            {
-                cfg.AddProfile(new BusinessMapperProfile());
-            });
-            var mapper = mockMapper.CreateMapper();
+            _mapper = new Mapper(new MapperConfiguration(cfg => cfg.AddProfile<BusinessMapperProfile>()));
 
-            _trainingRepository = new TrainingReviewRepository(_context);
-            _service = new TrainingReviewService(_trainingRepository, mapper);
+        }
 
-            _testData = new TestData();
+
+        [TestCaseSource(typeof (GetTrainingReviewByIdTestCaseSource))]
+        public void GetTrainingReviewModelByIdTests(TrainingReview trainingReviewModel, TrainingReviewModel expected, int id)
+        {
+            //given
+            Mock<ITrainingReviewRepository> _trainingReviewRepository = new Mock<ITrainingReviewRepository>();
+            _trainingReviewRepository.Setup(lr => lr.GetTrainingReviewById(id)).Returns(trainingReviewModel);
+            //when
+            TrainingReviewService _service = new TrainingReviewService(_trainingReviewRepository.Object, _mapper);
+            var act = _service.GetTrainingReviewModelById(id);
+            //then
+            Assert.IsTrue(expected.Id == act.Id);
+            Assert.IsTrue(expected.Text == act.Text);
+            Assert.IsTrue(expected.Mark == act.Mark);
         }
 
         [Test]
