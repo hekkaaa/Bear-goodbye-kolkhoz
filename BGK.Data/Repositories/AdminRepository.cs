@@ -22,15 +22,16 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
 
             return _db.Admin.Where(a => !a.IsDeleted).ToList();
         }
-        public bool UpdateAdminInfo(Admin newInfo)
+        public bool UpdateAdminInfo(int id, Admin newItem)
         {
-            var res = _db.Admin.FirstOrDefault(x => x.Id == newInfo.Id);
+            var oldItem = _db.Admin.FirstOrDefault(a => a.Id == id);
 
-            res.Name = newInfo.Name;
-            res.LastName = newInfo.LastName;
-            res.BirthDay = newInfo.BirthDay;
-            res.Email = newInfo.Email;
-            res.Gender = newInfo.Gender;
+            oldItem.Name = newItem.Name;
+            oldItem.LastName = newItem.LastName;
+            oldItem.BirthDay = newItem.BirthDay;
+            oldItem.Email = newItem.Email;
+            oldItem.Gender = newItem.Gender;
+           
             _db.SaveChanges();
             return true;
         }
@@ -39,7 +40,8 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
         {
             var res = _db.Admin.FirstOrDefault(x => x.Id == id);
 
-            res.IsDeleted = false;
+            res.IsDeleted = true;
+            _db.Admin.Update(res);
             _db.SaveChanges();
             return true;
         }

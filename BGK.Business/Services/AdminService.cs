@@ -35,5 +35,16 @@ namespace BearGoodbyeKolkhozProject.Business.Services
         {
            return _repository.AddNewAdmin(_mapper.Map<Admin>(newItem));
         }
+
+        public bool DeleteAdmin(int id)
+        {
+            return _repository.DeleteAdminById(id);
+        }
+
+        public bool UpdateAdminInfo(int id, AdminModel newItem)
+        {   
+           var entities = _mapper.Map<Admin>(newItem);
+           return _repository.UpdateAdminInfo(id, entities);
+        }
     }
 }

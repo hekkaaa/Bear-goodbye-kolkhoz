@@ -10,6 +10,6 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
         List<Admin> GetAdminAll();
         Admin GetAdminById(int id);
         bool RecoverAdminById(int id);
-        bool UpdateAdminInfo(Admin newInfo);
+        bool UpdateAdminInfo(int id, Admin newItem);
     }
 }

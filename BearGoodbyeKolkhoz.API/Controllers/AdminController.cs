@@ -67,5 +67,20 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
                 return Ok(res);
             }
         }
+
+        [HttpDelete("{id}")]
+        public ActionResult<bool> DeleteAdminById(int id)
+        {
+            return Ok(_service.DeleteAdmin(id));
+        }
+
+        [HttpPut("{id}")]
+        public ActionResult<bool> UpdateAdmin(int id, [FromBody] AdminUpdateInputModel newItem)
+        {   
+            var model = _mapper.Map<AdminModel>(newItem);
+            var res = _service.UpdateAdminInfo(id, model);
+            return Ok(res);
+        }
+
     }
 }

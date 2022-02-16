@@ -19,7 +19,6 @@ namespace BearGoodbyeKolkhozProject.Business.Services
         }
 
 
-
         public void UpdateTraining(int id, TrainingModel trainingModel)
         {
             var training = _repository.GetTrainingById(id);
@@ -70,6 +69,11 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             if (trainingEntity == null)
                 throw new BusinessException("Такого тренинга не найдено!");
             _repository.UpdateTraining(_mapper.Map<Training>(trainingModel), false);
+        }
+
+        void ITrainingService.AddTraining(TrainingModel trainingModel)
+        {
+            throw new NotImplementedException();
         }
     }
 }
