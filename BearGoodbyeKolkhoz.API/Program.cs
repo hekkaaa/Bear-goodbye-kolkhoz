@@ -1,15 +1,13 @@
-using BearGoodbyeKolkhozProject.Business.Services;
 using BearGoodbyeKolkhozProject.Data.ConnectDb;
-using BearGoodbyeKolkhozProject.Data.Repositories;
 using Microsoft.EntityFrameworkCore;
-using AutoMapper;
 using BearGoodbyeKolkhozProject.API;
 using BearGoodbyeKolkhozProject.Business.Configuration;
-using BearGoodbyeKolkhozProject.Business.Interface;
-using BearGoodbyeKolkhozProject.Data.Interfaces;
 using BearGoodbyeKolkhozProject.API.Extensions;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using BearGoodbyeKolkhozProject.API.Configuration;
 
-const string _connString = "CONNECTION_STRING";
+const string? _connStringVariableName = "CONNECTION_STRING";
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,9 +18,44 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-var connString = builder.Configuration.GetValue<string>(_connString);
+builder.Services
+    .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+
+            // укзывает, будет ли валидироваться издатель при валидации токена
+            ValidateIssuer = true,
+            // строка, представляющая издателя
+            ValidIssuer = AuthOptions.Issuer,
+
+            // будет ли валидироваться потребитель токена
+            ValidateAudience = true,
+            // установка потребителя токена
+            ValidAudience = AuthOptions.Audience,
+            // будет ли валидироваться время существования
+            ValidateLifetime = true,
+
+            // установка ключа безопасности
+            IssuerSigningKey = AuthOptions.GetSymmetricSecurityKey(),
+            // валидация ключа безопасности
+            ValidateIssuerSigningKey = true,
+
+        };
+
+
+
+    });
+
+
+
+
+var connString = builder.Configuration.GetValue<string>(_connStringVariableName);
+
 
 builder.Services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(connString));
+
 
 // add service and provider connections here
 builder.Services.RegisterProjectService();

@@ -4,7 +4,7 @@
 
 namespace BearGoodbyeKolkhozProject.Data.Migrations
 {
-    public partial class newtestsad : Migration
+    public partial class wqeqwewqe : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -52,7 +52,8 @@ namespace BearGoodbyeKolkhozProject.Data.Migrations
                     Tin = table.Column<int>(type: "int", nullable: false),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -67,9 +68,10 @@ namespace BearGoodbyeKolkhozProject.Data.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false),
                     LastName = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false),
-                    BirthDay = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    BirthDay = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    Gender = table.Column<int>(type: "int", nullable: false)
+                    Gender = table.Column<int>(type: "int", nullable: false),
+                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -106,7 +108,8 @@ namespace BearGoodbyeKolkhozProject.Data.Migrations
                     StartDate = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CompanyId = table.Column<int>(type: "int", nullable: true),
                     ClassroomId = table.Column<int>(type: "int", nullable: false),
-                    LecturerId = table.Column<int>(type: "int", nullable: false)
+                    LecturerId = table.Column<int>(type: "int", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -221,8 +224,9 @@ namespace BearGoodbyeKolkhozProject.Data.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    ClientId = table.Column<int>(type: "int", nullable: true),
-                    TrainingId = table.Column<int>(type: "int", nullable: true)
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
+                    TrainingId = table.Column<int>(type: "int", nullable: false),
+                    ClientId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -236,7 +240,8 @@ namespace BearGoodbyeKolkhozProject.Data.Migrations
                         name: "FK_Topic_Training_TrainingId",
                         column: x => x.TrainingId,
                         principalTable: "Training",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -271,6 +276,31 @@ namespace BearGoodbyeKolkhozProject.Data.Migrations
                         principalTable: "Training",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.InsertData(
+                table: "Classroom",
+                columns: new[] { "Id", "Address", "City", "MembersCount" },
+                values: new object[,]
+                {
+                    { 1, "ул. Вавилова дом 5", "Санкт-Петербург", 25 },
+                    { 2, "пр. Ветеранов дом 8", "Санкт-Петербург", 25 },
+                    { 3, "ул. Пушкина дом 27", "Санкт-Петербург", 40 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Client",
+                columns: new[] { "Id", "BirthDay", "Email", "EventId", "Gender", "IsDeleted", "LastName", "Name", "Password", "PhoneNumber" },
+                values: new object[] { 1, "25.01.2007", "чоооо", null, 1, false, "zzz", "ggg", "444", "555" });
+
+            migrationBuilder.InsertData(
+                table: "Training",
+                columns: new[] { "Id", "Description", "Duration", "IsDeleted", "LecturerId", "MembersCount", "Name", "Price" },
+                values: new object[,]
+                {
+                    { 1, "Тренинг для развития ораторских способностей, лучшие приглашенные ораторы всех времён", 3, false, null, 15, "Развитие ораторских способностей", 1500 },
+                    { 2, "Тренинг для развития скиллов нетворкинга, знакомьтесь везде и всегда", 5, false, null, 18, "Нетворк-скиллы", 2000 },
+                    { 3, "Научитесь рассказывать истории, захватывайте всех своими презентациями", 2, false, null, 10, "Сторителлинг", 3500 }
                 });
 
             migrationBuilder.CreateIndex(

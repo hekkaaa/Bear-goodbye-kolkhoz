@@ -16,7 +16,7 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
             var res = _db.Classroom.FirstOrDefault(x => x.Id == id);
             return res;
         }
-
+            
         public bool UpdateClassroomInfo(Classroom newInfo)
         {
             var res = _db.Classroom.FirstOrDefault(x => x.Id == newInfo.Id);

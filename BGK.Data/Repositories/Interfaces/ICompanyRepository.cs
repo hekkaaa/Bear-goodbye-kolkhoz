@@ -10,5 +10,6 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
         Company GetCompanyById(int id);
         void UpdateCompany(Company company);
         void UpdateCompany(int id, bool isDel);
+       
     }
 }

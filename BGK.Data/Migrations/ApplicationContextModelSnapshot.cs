@@ -17,7 +17,7 @@ namespace BearGoodbyeKolkhozProject.Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.1")
+                .HasAnnotation("ProductVersion", "6.0.2")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
@@ -158,6 +158,20 @@ namespace BearGoodbyeKolkhozProject.Data.Migrations
                     b.HasIndex("EventId");
 
                     b.ToTable("Client");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            BirthDay = "25.01.2007",
+                            Email = "чоооо",
+                            Gender = 1,
+                            IsDeleted = false,
+                            LastName = "zzz",
+                            Name = "ggg",
+                            Password = "444",
+                            PhoneNumber = "555"
+                        });
                 });
 
             modelBuilder.Entity("BearGoodbyeKolkhozProject.Data.Entities.Company", b =>
@@ -171,6 +185,9 @@ namespace BearGoodbyeKolkhozProject.Data.Migrations
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -231,6 +248,9 @@ namespace BearGoodbyeKolkhozProject.Data.Migrations
                     b.Property<int?>("CompanyId")
                         .HasColumnType("int");
 
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
                     b.Property<int>("LecturerId")
                         .HasColumnType("int");
 
@@ -283,38 +303,6 @@ namespace BearGoodbyeKolkhozProject.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Lecturer");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            BirthDay = "27 августа",
-                            Gender = 1,
-                            IsDeleted = false,
-                            LastName = "Пототько",
-                            Name = "Вячеслав Ибрагимович",
-                            Password = "123"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            BirthDay = "22 сентября",
-                            Gender = 2,
-                            IsDeleted = false,
-                            LastName = "Цыплухина",
-                            Name = "Евгения Владимировна",
-                            Password = "234"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            BirthDay = "15 октября",
-                            Gender = 1,
-                            IsDeleted = false,
-                            LastName = "Вейпов",
-                            Name = "Андрей Андреевич",
-                            Password = "098"
-                        });
                 });
 
             modelBuilder.Entity("BearGoodbyeKolkhozProject.Data.Entities.LecturerReview", b =>
@@ -372,7 +360,7 @@ namespace BearGoodbyeKolkhozProject.Data.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<int?>("TrainingId")
+                    b.Property<int>("TrainingId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -420,6 +408,38 @@ namespace BearGoodbyeKolkhozProject.Data.Migrations
                     b.HasIndex("LecturerId");
 
                     b.ToTable("Training");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Description = "Тренинг для развития ораторских способностей, лучшие приглашенные ораторы всех времён",
+                            Duration = 3,
+                            IsDeleted = false,
+                            MembersCount = 15,
+                            Name = "Развитие ораторских способностей",
+                            Price = 1500
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Description = "Тренинг для развития скиллов нетворкинга, знакомьтесь везде и всегда",
+                            Duration = 5,
+                            IsDeleted = false,
+                            MembersCount = 18,
+                            Name = "Нетворк-скиллы",
+                            Price = 2000
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Description = "Научитесь рассказывать истории, захватывайте всех своими презентациями",
+                            Duration = 2,
+                            IsDeleted = false,
+                            MembersCount = 10,
+                            Name = "Сторителлинг",
+                            Price = 3500
+                        });
                 });
 
             modelBuilder.Entity("BearGoodbyeKolkhozProject.Data.Entities.TrainingReview", b =>
@@ -530,9 +550,13 @@ namespace BearGoodbyeKolkhozProject.Data.Migrations
                         .WithMany("Topic")
                         .HasForeignKey("ClientId");
 
-                    b.HasOne("BearGoodbyeKolkhozProject.Data.Entities.Training", null)
-                        .WithMany("Topic")
-                        .HasForeignKey("TrainingId");
+                    b.HasOne("BearGoodbyeKolkhozProject.Data.Entities.Training", "Training")
+                        .WithMany("Topics")
+                        .HasForeignKey("TrainingId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Training");
                 });
 
             modelBuilder.Entity("BearGoodbyeKolkhozProject.Data.Entities.Training", b =>
@@ -597,7 +621,7 @@ namespace BearGoodbyeKolkhozProject.Data.Migrations
 
             modelBuilder.Entity("BearGoodbyeKolkhozProject.Data.Entities.Training", b =>
                 {
-                    b.Navigation("Topic");
+                    b.Navigation("Topics");
 
                     b.Navigation("TrainingReviews");
                 });

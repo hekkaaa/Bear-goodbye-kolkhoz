@@ -29,8 +29,8 @@ namespace BearGoodbyeKolkhozProject.Business.Services
         public EventModel GetEventById(int id)
         {
             var even = _eventRepository.GetEventById(id);
-            if (even != null)
-                throw new Exception("Такого события не существует.");
+            if (even == null)
+                throw new NotAuthorizedException("Такого события не существует.");
 
             return _mapper.Map<EventModel>(even);
         }
@@ -60,7 +60,7 @@ namespace BearGoodbyeKolkhozProject.Business.Services
         {
             var even = _eventRepository.GetEventById(id);
             if (even == null)
-                throw new Exception("Такого события не существует!");
+                throw new NotAuthorizedException("Такого события не существует!");
 
 
             _eventRepository.UpdateEvent(_mapper.Map<Event>(eventModel));
@@ -72,7 +72,7 @@ namespace BearGoodbyeKolkhozProject.Business.Services
         {
             var even = _eventRepository.GetEventById(id);
             if (even == null)
-                throw new Exception("Такого события не существует!");
+                throw new NotAuthorizedException("Такого события не существует!");
 
 
             _eventRepository.UpdateEvent(_mapper.Map<Event>(eventModel));

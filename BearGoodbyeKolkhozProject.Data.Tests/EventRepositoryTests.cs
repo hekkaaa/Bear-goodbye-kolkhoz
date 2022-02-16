@@ -1,6 +1,7 @@
 ﻿using BearGoodbyeKolkhozProject.Data.ConnectDb;
 using BearGoodbyeKolkhozProject.Data.Entities;
 using BearGoodbyeKolkhozProject.Data.Repositories;
+using BearGoodbyeKolkhozProject.Data.Tests.TestCaseSources.CompanyTestCaseSourse;
 using BearGoodbyeKolkhozProject.Data.Tests.TestCaseSources.EventTestCaseSource;
 using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
@@ -47,5 +48,55 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
             //then
             Assert.AreEqual(expected, actual);
         }
+
+        //[TestCaseSource(typeof(UpdateEventTestCaseSource))]
+        //public void UpdateEventTest(Event even, Event updateEvent, Event expected)
+        //{
+        //    //given
+        //    EventRepository eventRepository = new EventRepository(_context);
+        //    _context.Event.Add(even);
+        //    _context.SaveChanges();
+
+        //    //when
+        //    eventRepository.UpdateEvent(updateEvent);
+        //    var actual = _context.Event.FirstOrDefault(c => c.Id == even.Id);
+
+        //    //then
+        //    Assert.AreEqual(expected, actual);
+        //}
+
+        [TestCaseSource(typeof(DeleteEventTestCaseSource))]
+        public void DeleteEventTest(Event even, Event expected)
+        {
+            //given
+            EventRepository eventRepository = new EventRepository(_context);
+            _context.Event.Add(even);
+            _context.SaveChanges();
+
+            //when
+            eventRepository.DeleteEvent(even.Id);
+            var actual = _context.Event.FirstOrDefault(c => c.Id == even.Id);
+
+            //then
+            Assert.AreEqual(expected, actual);
+
+
+        }
+
+        //[TestCaseSource(typeof(GetEventByIdTestCaseSource))]
+        //public void GetEventByIdTest(Event even, Event expected)
+        //{
+        //    //given
+        //    EventRepository eventRepository = new EventRepository(_context);
+        //    _context.Event.Add(even);
+        //    _context.SaveChanges();
+
+        //    //when
+       
+        //    var actual = eventRepository.GetEventById(even.Id);
+
+        //    //then
+        //    Assert.AreEqual(expected, actual);
+        //}
     }
 }

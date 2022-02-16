@@ -10,5 +10,6 @@ namespace BearGoodbyeKolkhozProject.Business.Services
         void RegistrCompany(CompanyModel companyModel);
         void UpdateCompany(CompanyModel companyModel);
         void UpdateCompany(int id, bool isDel);
+
     }
 }

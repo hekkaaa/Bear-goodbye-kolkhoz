@@ -33,12 +33,13 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
 
         public void UpdateCompany(Company company)
         {
-            var entity = GetCompanyById(company.Id);
-
+            var entity = GetCompanyById(company.Id);           
             entity.Name = company.Name;
-            entity.Password = company.Password;
             entity.PhoneNumber = company.PhoneNumber;
             entity.Tin = company.Tin;
+            entity.IsDeleted = company.IsDeleted;
+            
+            _context.Company.Update(entity);
 
             _context.SaveChanges();
         }
@@ -63,5 +64,7 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
             _context.SaveChanges();
 
         }
+
+        
     }
 }

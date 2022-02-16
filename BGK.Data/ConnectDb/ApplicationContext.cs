@@ -19,6 +19,7 @@ namespace BearGoodbyeKolkhozProject.Data.ConnectDb
 
         public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options)
         {
+            
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -53,11 +54,6 @@ namespace BearGoodbyeKolkhozProject.Data.ConnectDb
             }
             );
 
-            //modelBuilder.Entity<Lecturer>().HasData(
-            //    new Lecturer() { Id = 1, Name = "Вячеслав Ибрагимович", LastName = "Пототько", BirthDay = "27 августа", Gender = Enums.Gender.Male, Password = "qwe" },
-            //    new Lecturer() { Id = 2, Name = "Евгения Владимировна", LastName = "Цыплухина", BirthDay = "22 сентября", Gender = Enums.Gender.Female, Password = "asd" },
-            //    new Lecturer() { Id = 3, Name = "Андрей Андреевич", LastName = "Вейпов", BirthDay = "15 октября", Gender = Enums.Gender.Male, Password = "zxc" }
-            //);
 
             modelBuilder.Entity<Classroom>().HasData(
             new Classroom() { Id = 1, Address = "ул. Вавилова дом 5", City = "Санкт-Петербург", MembersCount = 25 },
@@ -79,7 +75,6 @@ namespace BearGoodbyeKolkhozProject.Data.ConnectDb
             };
 
             modelBuilder.Entity<Client>().HasData(client);
-               ;
 
 
         }

@@ -1,10 +1,15 @@
 ﻿using AutoMapper;
+using BearGoodbyeKolkhozProject.API.Configuration;
+using BearGoodbyeKolkhozProject.Business.Exceptions;
 using BearGoodbyeKolkhozProject.Business.Models;
 using BearGoodbyeKolkhozProject.Data.Entities;
 using BearGoodbyeKolkhozProject.Data.Repositories;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -27,7 +32,7 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             var company = _companyRepository.GetCompanyById(id);
 
             if (company == null)
-                throw new Exception("Такой Компания не существует.");
+                throw new NotAuthorizedException("Такой Компания не существует.");
 
             return _mapper.Map<CompanyModel>(company);
         }
@@ -67,6 +72,8 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             if (company == null)
                 throw new NullReferenceException("Такой Компании не существует.");
 
+            
+
             _companyRepository.UpdateCompany(_mapper.Map<Company>(companyModel));
 
         }
@@ -93,5 +100,7 @@ namespace BearGoodbyeKolkhozProject.Business.Services
 
             _companyRepository.UpdateCompany(id, isDel);
         }
+
+        
     }
 }

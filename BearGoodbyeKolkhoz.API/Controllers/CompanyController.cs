@@ -9,7 +9,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
 {
 
     [ApiController]
-    [Route("api/company/[controller]")]
+    [Route("api/[controller]")]
     public class CompanyController : Controller
     {
         private readonly ICompanyService _service;
@@ -25,7 +25,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
 
 
         //api/companies/21
-        [HttpGet("(id)")]
+        [HttpGet("(id/companies/)")]
         public ActionResult<List<CompanyOutputModel>> GetCompanies()
         {
             var entity = _service.GetCompanies();
@@ -60,7 +60,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
 
         }
         //api/companies/
-        [HttpPut]
+        [HttpPut("{id}")]
         public ActionResult<CompanyUpdateInputModel> UpdateCompany([FromBody] CompanyUpdateInputModel companyUpdateInputModel)
         {
             CompanyModel model = _mapperApi.Map<CompanyModel>(companyUpdateInputModel);
