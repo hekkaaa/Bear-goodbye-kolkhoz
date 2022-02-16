@@ -172,6 +172,9 @@ namespace BearGoodbyeKolkhozProject.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -230,6 +233,9 @@ namespace BearGoodbyeKolkhozProject.Data.Migrations
 
                     b.Property<int?>("CompanyId")
                         .HasColumnType("int");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
 
                     b.Property<int>("LecturerId")
                         .HasColumnType("int");

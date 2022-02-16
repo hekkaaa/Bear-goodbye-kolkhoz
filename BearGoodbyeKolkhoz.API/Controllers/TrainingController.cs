@@ -25,21 +25,14 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
 
             var model = _service.GetTrainingModelById(id);
             var result = _mapper.Map<TrainingOutputModel>(model);
+            return Ok(result);
 
-            if (result == null)
-            {
-                return NotFound($"Лекция номер {id} не найдена");
-            }
-            else
-            {
-                return Ok(result);
-            }
         }
 
         [HttpGet]
         public IActionResult GetTrainings()
         {
-            var models = _service.GetTrainingModelsAll();
+            var models = _service.GetTrainingModels();
             return Ok(_mapper.Map<List<TrainingOutputModel>>(models));
         }
 

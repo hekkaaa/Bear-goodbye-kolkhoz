@@ -1,14 +1,11 @@
-using BearGoodbyeKolkhozProject.Business.Services;
-using BearGoodbyeKolkhozProject.Data.ConnectDb;
-using BearGoodbyeKolkhozProject.Data.Repositories;
-using Microsoft.EntityFrameworkCore;
-using AutoMapper;
 using BearGoodbyeKolkhozProject.API;
+using BearGoodbyeKolkhozProject.API.Extensions;
+using BearGoodbyeKolkhozProject.API.Infrastructure;
 using BearGoodbyeKolkhozProject.Business.Configuration;
-using BearGoodbyeKolkhozProject.Business.Interface;
-using BearGoodbyeKolkhozProject.Data.Interfaces;
+using BearGoodbyeKolkhozProject.Data.ConnectDb;
+using Microsoft.EntityFrameworkCore;
 
-const string _connString = "CONNECTION_STRING";
+const string? _connString = "CONNECTION_STRING";
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,13 +20,10 @@ var connString = builder.Configuration.GetValue<string>(_connString);
 
 builder.Services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(connString));
 
-builder.Services.AddScoped<ITrainingRepository, TrainingRepository>();
-builder.Services.AddScoped<ITrainingService, TrainingService>();
-builder.Services.AddScoped<ITrainingReviewRepository, TrainingReviewRepository>();
-builder.Services.AddScoped<ITrainingReviewService, TrainingReviewService>();
-builder.Services.AddScoped<ILecturerService, LecturerService>();
-builder.Services.AddScoped<ITrainingRepository, TrainingRepository>();
-builder.Services.AddScoped<ILecturerRepository, LecturerRepository>();
+// add service and provider connections here
+builder.Services.RegisterProjectService();
+builder.Services.RegisterProjectRepository();
+
 builder.Services.AddAutoMapper(typeof(APIMapperProfile), typeof(BusinessMapperProfile));
 
 var app = builder.Build();
@@ -44,7 +38,7 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
-
+app.UseMiddleware<ErrorHandlerMiddleware>();
 app.MapControllers();
 
 app.Run();

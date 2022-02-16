@@ -19,7 +19,28 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "Roma": {
+    "SettingBGKProject": {
+      "commandName": "IISExpress",
+      "dotnetRunMessages": true,
+      "launchBrowser": true,
+      "launchUrl": "swagger",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "CONNECTION_STRING": "Data Source=DESKTOP-5HF0J14\\SQLEXPRESS;Initial Catalog=BGKProjectDB;Integrated Security=True"
+      }
+    },
+
+    "Antoshka": {
+      "commandName": "Project",
+      "dotnetRunMessages": true,
+      "launchBrowser": true,
+      "launchUrl": "swagger",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "CONNECTION_STRING": "Data Source=80.78.240.16;Initial Catalog=DevEdu;Persis Security Info = True;User ID = student; Password = qwe!23"
+      }
+    },
+    "Debug Config Pototsky": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": true,
@@ -27,15 +48,7 @@
       "applicationUrl": "https://localhost:7151;http://localhost:5151",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
-        "CONNECTION_STRING": "Data Source=(local);Database=test3;Integrated Security=True;Encrypt=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False"
-      }
-    },
-    "IIS Express": {
-      "commandName": "IISExpress",
-      "launchBrowser": true,
-      "launchUrl": "swagger",
-      "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "CONNECTION_STRING": "Data Source=LAPTOP-6F8LE3JH\\SQLEXPRESSDEV;Initial Catalog=Newtest;Integrated Security=True"
       }
     },
     "Ilya Launch Config": {
@@ -46,7 +59,7 @@
       "applicationUrl": "https://localhost:7151;http://localhost:5151",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
-        "CONNECTION_STRING": "Data Source=WIN-4PTG0MGAJ62\\SQLEXPRESS;Database=testSS;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False"
+        "CONNECTION_STRING": "Data Source=WIN-4PTG0MGAJ62\\SQLEXPRESS;Database=testS1S;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False"
       }
     }
   }

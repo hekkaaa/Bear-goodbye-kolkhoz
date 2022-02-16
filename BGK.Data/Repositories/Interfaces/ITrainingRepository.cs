@@ -4,11 +4,11 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
 {
     public interface ITrainingRepository
     {
-        void AddTraining(Training training);
-        void DeleteTraining(int id);
+        int AddTraining(Training training);
         Training GetTrainingById(int id);
         List<Training> GetTrainings();
-        List<Training> GetTrainingsByTopic(Topic topic);
+        List<Training> GetTrainingsByTopic(int id);
         void UpdateTraining(Training training);
+        void UpdateTraining(Training training, bool isDeleted);
     }
 }
