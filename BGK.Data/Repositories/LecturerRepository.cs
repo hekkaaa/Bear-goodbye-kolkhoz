@@ -1,5 +1,6 @@
 ﻿using BearGoodbyeKolkhozProject.Data.ConnectDb;
 using BearGoodbyeKolkhozProject.Data.Entities;
+using BearGoodbyeKolkhozProject.Data.Enums;
 using BearGoodbyeKolkhozProject.Data.Interfaces;
 
 namespace BearGoodbyeKolkhozProject.Data.Repositories
@@ -30,6 +31,7 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
 
         public void AddLecturer(Lecturer model)
         {
+            model.Role = Role.Lecturer;
             _context.Lecturer.Add(model);
             _context.SaveChanges();
         }
