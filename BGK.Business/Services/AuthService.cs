@@ -31,7 +31,8 @@ namespace BearGoodbyeKolkhozProject.Business.Services
 
             var claims = new List<Claim> { 
                 new Claim(ClaimTypes.Email, entity.Email),
-                new Claim(ClaimTypes.UserData, entity.Id.ToString())
+                new Claim(ClaimTypes.UserData, entity.Id.ToString()),
+                new Claim(ClaimTypes.Role, entity.Role.ToString())
             };
 
             // создаем JWT-токен
