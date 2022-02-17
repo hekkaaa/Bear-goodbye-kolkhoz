@@ -13,6 +13,15 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
             _context = context;
         }
 
+        public Lecturer Login(string email, string password)
+        {
+            Lecturer lecturer = _context.Lecturer
+                .Where(l => l.Email == email && l.Password == password)
+                .FirstOrDefault();
+
+            return lecturer;
+        }
+
         public Lecturer GetLecturerById(int id) =>
             _context.Lecturer.FirstOrDefault(L => L.Id == id);
 
@@ -55,5 +64,6 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
             lecturer.IsDeleted = IsDeleted;
             _context.SaveChanges();
         }
+
     }
 }

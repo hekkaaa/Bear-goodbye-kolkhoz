@@ -8,6 +8,7 @@ namespace BearGoodbyeKolkhozProject.Data.Entities
     public class Lecturer
     {
         public int Id { get; set; }
+        public string Email { get; set; }
         [StringLength(40)]
         public string Name { get; set; }
         [StringLength(40)]
