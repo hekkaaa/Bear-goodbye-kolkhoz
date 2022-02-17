@@ -11,9 +11,14 @@ const string? _connString = "CONNECTION_STRING";
 
 var builder = WebApplication.CreateBuilder(args);
 
+var connString = builder.Configuration.GetValue<string>(_connString);
+builder.Services.AddDbContext<ApplicationContext>(op =>
+            op.UseSqlServer(connString));
+
 // Add services to the container.
 
 builder.Services.AddControllers();
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(swagger =>
@@ -52,10 +57,6 @@ builder.Services
             ValidateIssuerSigningKey = true,
         };
     });
-
-var connString = builder.Configuration.GetValue<string>(_connString);
-
-builder.Services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(connString));
 
 // add service and provider connections here
 builder.Services.RegisterProjectService();

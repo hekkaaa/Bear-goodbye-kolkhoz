@@ -29,7 +29,7 @@ namespace BearGoodbyeKolkhozProject.Business.Services
         {
             Lecturer entity = _lecturerRepo.Login(email, password);
 
-            var claims = new List<Claim> { new Claim(ClaimTypes.Name, entity.Name) };
+            var claims = new List<Claim> { new Claim(ClaimTypes.Name, entity.Email) };
 
             // создаем JWT-токен
             var jwt = new JwtSecurityToken(
