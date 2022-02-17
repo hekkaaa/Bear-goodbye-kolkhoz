@@ -49,21 +49,7 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
             Assert.AreEqual(expected, actual);
         }
 
-        //[TestCaseSource(typeof(UpdateEventTestCaseSource))]
-        //public void UpdateEventTest(Event even, Event updateEvent, Event expected)
-        //{
-        //    //given
-        //    EventRepository eventRepository = new EventRepository(_context);
-        //    _context.Event.Add(even);
-        //    _context.SaveChanges();
-
-        //    //when
-        //    eventRepository.UpdateEvent(updateEvent);
-        //    var actual = _context.Event.FirstOrDefault(c => c.Id == even.Id);
-
-        //    //then
-        //    Assert.AreEqual(expected, actual);
-        //}
+       
 
         [TestCaseSource(typeof(DeleteEventTestCaseSource))]
         public void DeleteEventTest(Event even, Event expected)
@@ -83,20 +69,6 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
 
         }
 
-        //[TestCaseSource(typeof(GetEventByIdTestCaseSource))]
-        //public void GetEventByIdTest(Event even, Event expected)
-        //{
-        //    //given
-        //    EventRepository eventRepository = new EventRepository(_context);
-        //    _context.Event.Add(even);
-        //    _context.SaveChanges();
-
-        //    //when
        
-        //    var actual = eventRepository.GetEventById(even.Id);
-
-        //    //then
-        //    Assert.AreEqual(expected, actual);
-        //}
     }
 }

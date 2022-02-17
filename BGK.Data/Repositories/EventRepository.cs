@@ -35,10 +35,14 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
         public void UpdateEvent(Event even)
         {
             var entity = GetEventById(even.Id);
+
+            entity.StartDate = even.StartDate;
             entity.Clients = even.Clients;
             entity.Company = even.Company;
             entity.Classroom = even.Classroom;
             entity.Lecturer = even.Lecturer;
+
+            _context.Event.Update(entity);
 
             _context.SaveChanges();
 

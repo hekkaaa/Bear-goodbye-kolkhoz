@@ -12,13 +12,17 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
     [Route("api/[controller]")]
     public class CompanyController : Controller
     {
-        private readonly ICompanyService _service;
+        private readonly ICompanyService _serviceCom;
+
+        private IContactLecturerService _serviceLec;
 
         private IMapper _mapperApi;
 
-        public CompanyController(ICompanyService companyService, IMapper mapper)
+        public CompanyController(ICompanyService companyService, IContactLecturerService contactLecturerService, IMapper mapper)
         {
-            _service = companyService;
+            _serviceCom = companyService;
+
+            _serviceLec = contactLecturerService;
 
             _mapperApi = mapper;
         }
@@ -28,7 +32,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         [HttpGet("(id/companies/)")]
         public ActionResult<List<CompanyOutputModel>> GetCompanies()
         {
-            var entity = _service.GetCompanies();
+            var entity = _serviceCom.GetCompanies();
 
             var result = _mapperApi.Map<List<CompanyOutputModel>>(entity);
 
@@ -39,7 +43,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         [HttpGet("{id}")]
         public ActionResult<CompanyOutputModel> GetCompanyById(int id)
         {
-            var entity = _service.GetCompanyById(id);
+            var entity = _serviceCom.GetCompanyById(id);
 
             var result = _mapperApi.Map<CompanyOutputModel>(entity);
 
@@ -53,7 +57,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
 
             CompanyModel entity = _mapperApi.Map<CompanyModel>(companyInsertInputModel);
 
-            _service.RegistrCompany(entity);
+            _serviceCom.RegistrCompany(entity);
 
             return StatusCode(StatusCodes.Status201Created, entity);
 
@@ -65,15 +69,15 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         {
             CompanyModel model = _mapperApi.Map<CompanyModel>(companyUpdateInputModel);
 
-            _service.UpdateCompany(model);
+            _serviceCom.UpdateCompany(model);
 
             return Ok(model);
 
         }
         [HttpPut("{id}/company/")]
-        public ActionResult<CompanyUpdateInputModel> UpdateCompany(int id, bool isDel)
+        public ActionResult<CompanyOutputModel> UpdateCompany(int id, bool isDel)
         {
-            _service.UpdateCompany(id, isDel);
+            _serviceCom.UpdateCompany(id, isDel);
 
             return NoContent();
 
@@ -83,9 +87,24 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         public ActionResult<CompanyUpdateInputModel> DeleteCompany(int id)
         {
 
-            _service.DeleteCompany(id);
+            _serviceCom.DeleteCompany(id);
 
             return NoContent();
+        }
+
+        //api/contactlecturer/
+        [HttpPost("{LecturerId}")]
+        public ActionResult<ContactLecturerInsertInputModel> AddValue([FromBody] ContactLecturerInsertInputModel contactLecturerInsertInputModel)
+        {
+            
+
+            ContactLecturerModel entity = _mapperApi.Map<ContactLecturerModel>(contactLecturerInsertInputModel);
+
+            _serviceLec.AddValue(entity);
+
+            return StatusCode(StatusCodes.Status201Created, entity);
+
+
         }
     }
 }

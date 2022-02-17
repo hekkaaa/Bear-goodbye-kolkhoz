@@ -14,6 +14,7 @@ namespace BearGoodbyeKolkhozProject.Data.Tests.TestCaseSources.EventTestCaseSour
                 StartDate = "03.03.2022",
                 Company = new Company
                 {
+                    Id = 1,
                     Name = "OOO Ivan",
                     Email = "qwe@mail.ru",
                     PhoneNumber = "123456789",
@@ -44,6 +45,7 @@ namespace BearGoodbyeKolkhozProject.Data.Tests.TestCaseSources.EventTestCaseSour
                     StartDate = "03.03.2022",
                     Company = new Company
                     {
+                        Id = 1,
                         Name = "OOO Ivan",
                         Email = "qwe@mail.ru",
                         PhoneNumber = "123456789",

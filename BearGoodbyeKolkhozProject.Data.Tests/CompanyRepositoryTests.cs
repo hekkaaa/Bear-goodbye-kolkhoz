@@ -33,37 +33,46 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
         }
 
 
-        //[TestCaseSource(typeof(GetCompanyByIdTestCaseSource))]
-        //public void GetCompanyByIdTest(Company company1, Company expected1)
-        //{
-        //    //given
-        //    _context.Company.Add(company1);
-        //    _context.SaveChanges();
+        [TestCaseSource(typeof(GetCompanyByIdTestCaseSource))]
+        public void GetCompanyByIdTest(Company company, Company expected)
+        {
+            //given
+            _context.Company.Add(company);
 
-        //    //when
-        //    CompanyRepository _companyRepository = new CompanyRepository(_context);
+            //when
+            CompanyRepository _companyRepository = new CompanyRepository(_context);
 
-        //    var actual1 = _companyRepository.GetCompanyById(company1.Id);
+            var actual = _companyRepository.GetCompanyById(company.Id);
 
-        //    //then
-        //    Assert.AreEqual(expected1, actual1);
-        //}
+            //then
+           
+            Assert.IsTrue(expected.Id == actual.Id);
+            Assert.IsNotNull(expected);
+            Assert.AreEqual(expected.Name, actual.Name);
+            Assert.AreEqual(expected.PhoneNumber, actual.PhoneNumber);
+            Assert.AreEqual(expected.Tin, actual.Tin);
+            Assert.AreEqual(expected.Email, actual.Email);
+            Assert.AreEqual(expected.Password, actual.Password);
+            Assert.AreEqual(expected.IsDeleted, actual.IsDeleted);
+        }
 
 
-        //[TestCaseSource(typeof(GetCompaniesTestCaseSource))]
-        //public void GetCompaniesTest(List<Company> companies, List<Company> expected)
-        //{
-        //    CompanyRepository companyRepository = new CompanyRepository(_context);
-        //    //given
-        //    _context.AddRange(companies);
-        //    _context.SaveChanges();
+        [TestCaseSource(typeof(GetCompaniesTestCaseSource))]
+        public void GetCompaniesTest(List<Company> companies, List<Company> expected)
+        {
+            CompanyRepository companyRepository = new CompanyRepository(_context);
+            //given
+            _context.AddRange(companies);
+            _context.SaveChanges();
 
-        //    //when
-        //    var actual = companyRepository.GetCompanies();
+            //when
+            var actual = companyRepository.GetCompanies();
 
-        //    //then
-        //    Assert.AreEqual(expected, actual);
-        //}
+            //then
+
+            Assert.IsTrue(expected.Count == actual.Count);
+            Assert.IsNotNull(expected);
+        }
 
 
         [TestCaseSource(typeof(RegistrCompaniesTestCaseSource))]
@@ -93,8 +102,9 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
             var actual = _context.Company.FirstOrDefault(c => c.Id == company1.Id);
 
             //then
-            Assert.AreEqual(expected, actual);
 
+            
+            Assert.AreEqual(expected, actual);
 
         }
 
@@ -112,7 +122,16 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
 
             _context.SaveChanges();
             //then
-            Assert.AreEqual(expected, actual);
+            Assert.IsTrue(expected.Id == actual.Id);
+            Assert.IsNotNull(expected);
+            Assert.AreEqual(expected.Name, actual.Name);
+            Assert.AreEqual(expected.PhoneNumber, actual.PhoneNumber);
+            Assert.AreEqual(expected.Tin, actual.Tin);
+            Assert.AreEqual(expected.Email, actual.Email);
+            Assert.AreEqual(expected.Password, actual.Password);
+            Assert.AreEqual(expected.IsDeleted, actual.IsDeleted);
+
+
         }
     }
 }
