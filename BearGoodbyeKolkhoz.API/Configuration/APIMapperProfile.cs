@@ -27,6 +27,7 @@ namespace BearGoodbyeKolkhozProject.API
             CreateMap<AdminModel, AdminOutputModel>(); // Не менять строчку!!!
             CreateMap<AdminInsertInputModel, AdminModel>();
             CreateMap<AdminUpdateInputModel, AdminModel>();
+            CreateMap<AdminChangePasswordInputModel, AdminModel>();
         }
     }
 

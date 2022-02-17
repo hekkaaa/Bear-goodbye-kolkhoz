@@ -99,5 +99,25 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
             Assert.AreEqual(1,act);
 
         }
+
+        [Test]
+        public void DeleteAdminByIdTests()
+        {
+            //given
+            var virtualData = _testData.GetTestAdmin();
+            _context.Add(virtualData);
+            _context.SaveChanges();
+
+            //when
+            var act = _adminRepository.DeleteAdminById(virtualData.Id);
+
+            //then
+            Assert.IsNotNull(act);
+            //Assert.AreEqual(virtualData.LastName, act.LastName);
+            //Assert.AreEqual(virtualData.Gender, act.Gender);
+            //Assert.AreEqual(virtualData.BirthDay, act.BirthDay);
+            //Assert.AreEqual(virtualData.Email, act.Email);
+
+        }
     }  
 }

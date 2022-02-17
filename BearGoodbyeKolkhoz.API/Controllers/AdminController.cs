@@ -82,6 +82,14 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
             return Ok(res);
         }
 
+        [HttpPut("{id}/newpassword")]
+        public ActionResult<bool> ChangePasswordAdminById(int id, [FromBody] AdminChangePasswordInputModel newItem)
+        {
+            var model = _mapper.Map<AdminModel>(newItem);
+            var res = _service.ChangeAdminPassword(id, model);
+            return Ok(res);
+        }
+
         //api/admins/{id}/classroom
         [HttpDelete("{id}/classroom")]
         public ActionResult DeleteClassromById(int id)

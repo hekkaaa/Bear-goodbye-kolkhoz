@@ -46,5 +46,10 @@ namespace BearGoodbyeKolkhozProject.Business.Services
            var entities = _mapper.Map<Admin>(newItem);
            return _repository.UpdateAdminInfo(id, entities);
         }
+
+        public bool ChangeAdminPassword(int id, AdminModel newData)
+        {
+            return _repository.ChangePasswordAdmin(id, _mapper.Map<Admin>(newData));
+        }
     }
 }
