@@ -15,11 +15,6 @@ namespace BearGoodbyeKolkhozProject.Data.Entities
         public virtual Client Client { get; set; }
         public virtual Lecturer Lecturer { get; set; }
 
-        public override string ToString()
-        {
-            return $"{Id} {Text}";
-        }
-
         public override bool Equals(object? obj)
         {
             if (obj is null

@@ -45,7 +45,7 @@ namespace BearGoodbyeKolkhozProject.Business.Tests.TestCaseSource.LecturerReview
                 Lecturer = lecturer
             };
             
-            yield return new object[] { review.Id, review };
+            yield return new object[] { review };
         }
     }
 }
