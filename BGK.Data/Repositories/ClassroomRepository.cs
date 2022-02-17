@@ -3,12 +3,12 @@ using BearGoodbyeKolkhozProject.Data.Entities;
 
 namespace BearGoodbyeKolkhozProject.Data.Repositories
 {
-    public class ClassroomRepository
+    public class ClassroomRepository : IClassroomRepository
     {
         private ApplicationContext _db;
-        private ClassroomRepository(ApplicationContext context)
+        public ClassroomRepository(ApplicationContext applicationContext)
         {
-            this._db = context;
+            _db = applicationContext;
         }
 
         public Classroom GetClassroomById(int id)
@@ -17,9 +17,9 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
             return res;
         }
 
-        public bool UpdateClassroomInfo(Classroom newInfo)
+        public bool UpdateClassroomInfo(int id, Classroom newInfo)
         {
-            var res = _db.Classroom.FirstOrDefault(x => x.Id == newInfo.Id);
+            var res = _db.Classroom.FirstOrDefault(x => x.Id == id);
 
             res.City = newInfo.City;
             res.Address = newInfo.Address;
@@ -29,9 +29,24 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
             return true;
         }
 
-        public List<Classroom> GetClassrooms()
+        public List<Classroom> GetClassroomsAll()
         {
             return _db.Classroom.ToList();
+        }
+
+        public int AddNewClassroom(Classroom newItem)
+        {
+            _db.Classroom.Add(newItem);
+            _db.SaveChanges();
+            return newItem.Id;
+        }
+
+        public bool DeleteClassroomById(int Id)
+        {
+            var res = _db.Classroom.FirstOrDefault(x => x.Id == Id);
+            _db.Classroom.Remove(res);
+            _db.SaveChanges(true);
+            return true;
         }
     }
 }

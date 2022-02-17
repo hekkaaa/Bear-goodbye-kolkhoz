@@ -2,11 +2,6 @@
 using BearGoodbyeKolkhozProject.Business.Models;
 using BearGoodbyeKolkhozProject.Data.Entities;
 using BearGoodbyeKolkhozProject.Data.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BearGoodbyeKolkhozProject.Business.Services
 {
@@ -23,7 +18,7 @@ namespace BearGoodbyeKolkhozProject.Business.Services
 
         public AdminModel GetAdminById(int id)
         {
-            return _mapper.Map<AdminModel>(_repository.GetAdminById(id)); 
+            return _mapper.Map<AdminModel>(_repository.GetAdminById(id));
         }
 
         public List<AdminModel> GetAdminAll()
@@ -33,7 +28,7 @@ namespace BearGoodbyeKolkhozProject.Business.Services
 
         public int AddNewAdmin(AdminModel newItem)
         {
-           return _repository.AddNewAdmin(_mapper.Map<Admin>(newItem));
+            return _repository.AddNewAdmin(_mapper.Map<Admin>(newItem));
         }
 
         public bool DeleteAdmin(int id)
@@ -42,9 +37,9 @@ namespace BearGoodbyeKolkhozProject.Business.Services
         }
 
         public bool UpdateAdminInfo(int id, AdminModel newItem)
-        {   
-           var entities = _mapper.Map<Admin>(newItem);
-           return _repository.UpdateAdminInfo(id, entities);
+        {
+            var entities = _mapper.Map<Admin>(newItem);
+            return _repository.UpdateAdminInfo(id, entities);
         }
 
         public bool ChangeAdminPassword(int id, AdminModel newData)
