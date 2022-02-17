@@ -10,6 +10,7 @@ using NUnit.Framework;
 using Moq;
 using BearGoodbyeKolkhozProject.Business.Tests.TestCaseSource.TraningTestCaseSource;
 using BearGoodbyeKolkhozProject.Data.Entities;
+using System.Collections.Generic;
 
 namespace BearGoodbyeKolkhozProject.Business.Tests
 {
@@ -37,12 +38,12 @@ namespace BearGoodbyeKolkhozProject.Business.Tests
         }
 
 
-        [TestCaseSource(typeof (GetTrainingReviewByIdTestCaseSource))]
-        public void GetTrainingReviewModelByIdTests(TrainingReview trainingReviewModel, TrainingReviewModel expected, int id)
+        [TestCaseSource(typeof(GetTrainingReviewByIdTestCaseSource))]
+        public void GetTrainingReviewModelByIdTests(TrainingReview entity, TrainingReviewModel expected, int id)
         {
             //given
             Mock<ITrainingReviewRepository> _trainingReviewRepository = new Mock<ITrainingReviewRepository>();
-            _trainingReviewRepository.Setup(lr => lr.GetTrainingReviewById(id)).Returns(trainingReviewModel);
+            _trainingReviewRepository.Setup(tr => tr.GetTrainingReviewById(id)).Returns(entity);
             //when
             TrainingReviewService _service = new TrainingReviewService(_trainingReviewRepository.Object, _mapper);
             var act = _service.GetTrainingReviewModelById(id);
@@ -52,92 +53,100 @@ namespace BearGoodbyeKolkhozProject.Business.Tests
             Assert.IsTrue(expected.Mark == act.Mark);
         }
 
-        [Test]
-        public void UpdateTrainingReviewTests()
+        [TestCaseSource(typeof(UpdateTrainingReviewTestCaseSource))]
+        public void UpdateTrainingReviewTests(TrainingReview original, TrainingReviewModel update)
         {
             //given
-            var oldTR = _testData.GetTrainingReviewModel();
-            var id = _service.AddTrainingReview(oldTR);
+            Mock<ITrainingReviewRepository> _trainingReviewRepository = new Mock<ITrainingReviewRepository>();
+            _trainingReviewRepository.Setup(tr => tr.GetTrainingReviewById(original.Id)).Returns(original);
+            _trainingReviewRepository.Setup(tr => tr.UpdateTrainingReview(It.IsAny<TrainingReview>()));
 
-            var newTR = new TrainingReviewModel
-            {
-                Id = id,
-                Mark = 666,
-                Text = "test"
-            };
             //when
-            _service.UpdateTrainingReview(id, newTR);
-            var act = _service.GetTrainingReviewModelById(id);
+            TrainingReviewService trainingReviewService = new TrainingReviewService(_trainingReviewRepository.Object, _mapper);
+            trainingReviewService.UpdateTrainingReview(original.Id, update);
+            
             //then
-            Assert.IsTrue(act.Mark == newTR.Mark);
-            Assert.IsTrue(act.Text == newTR.Text);
+            _trainingReviewRepository.Verify(tr => tr.UpdateTrainingReview(It.IsAny<TrainingReview>()), Times.Once);
         }
 
+        [TestCaseSource(typeof(UpdateTrainingReviewTestCaseSource))]
         [Test]
-        public void UpdateTrainingReviewNegativeTests()
+        public void UpdateTrainingReviewNegativeTests(TrainingReview original, TrainingReviewModel update, TrainingReview expected)
         {
             //given
-            var trainingReviewModel = _testData.GetTrainingReviewModel();
+            Mock<ITrainingReviewRepository> _trainingReviewRepository = new Mock<ITrainingReviewRepository>();
+            _trainingReviewRepository.Setup(tr => tr.UpdateTrainingReview(It.IsAny<TrainingReview>()));
+
             //when
+            TrainingReviewService trainingReviewService = new TrainingReviewService(_trainingReviewRepository.Object, _mapper);
+
             //then
-            Assert.Throws<BusinessException>(() => _service.UpdateTrainingReview(666, trainingReviewModel));
+            Assert.Throws<BusinessException>(() => trainingReviewService.UpdateTrainingReview(666,update));
         }
 
+        [TestCaseSource(typeof(GetTrainingReviewByIdTestCaseSource))]
         [Test]
-        public void GetTrainingReviewByIdTests()
+        public void GetTrainingReviewByIdTests(TrainingReview trainingReview, TrainingReviewModel expected, int id)
         {
+
             //given
-            var tr = _testData.GetTrainingReviewModel();
-            var id = _service.AddTrainingReview(tr);
+            Mock<ITrainingReviewRepository> _trainingReviewRepository = new Mock<ITrainingReviewRepository>();
+            _trainingReviewRepository.Setup(tr => tr.GetTrainingReviewById(id)).Returns(trainingReview);
 
             //when
+            _service = new TrainingReviewService(_trainingReviewRepository.Object, _mapper);
             var act = _service.GetTrainingReviewModelById(id);
             //then
-            Assert.IsTrue(act.Mark == tr.Mark);
-            Assert.IsTrue(act.Text == tr.Text);
+            Assert.IsTrue(act.Mark == expected.Mark);
+            Assert.IsTrue(act.Text == expected.Text);
         }
 
         [Test]
         public void GetTrainingReviewByIdNegativeTests()
         {
             //given
+            Mock<ITrainingReviewRepository> _trainingReviewRepository = new Mock<ITrainingReviewRepository>();
+            _trainingReviewRepository.Setup(tr => tr.GetTrainingReviewById(It.IsAny<int>()));
             //when
+            TrainingReviewService trainingReviewService = new TrainingReviewService(_trainingReviewRepository.Object, _mapper);
+
             //then
-            Assert.Throws<BusinessException>(() => _service.GetTrainingReviewModelById(666));
+            Assert.Throws<BusinessException>(() => trainingReviewService.GetTrainingReviewModelById(666));
         }
 
-        [Test]
-        public void GetTrainingReviewModelsTests()
+        [TestCaseSource(typeof(GetTrainingReviewsTestCaseSource))]      
+        public void GetTrainingReviewModelsTests(List<TrainingReview> trainingReviews, List<TrainingReviewModel> expected)
         {
             //given
-            var tr1 = _testData.GetTrainingReviewModel();
-            var tr2 = _testData.GetTrainingReviewModel();
-            var tr3 = _testData.GetTrainingReviewModel();
-            tr1.Training = null;
-            tr2.Training = null;
-            tr3.Training = null;
-            _service.AddTrainingReview(tr1);
-            _service.AddTrainingReview(tr2);
-            _service.AddTrainingReview(tr3);
+            Mock<ITrainingReviewRepository> _trainingReviewRepository = new Mock<ITrainingReviewRepository>();
+            _trainingReviewRepository.Setup(tr => tr.GetTrainingReviews()).Returns(trainingReviews);
+
             //when
+            _service = new TrainingReviewService(_trainingReviewRepository.Object, _mapper);
             var act = _service.GetTrainingReviewModels();
+
             //then
-            Assert.IsNotNull(act);
-            Assert.IsTrue(act.Count == 3);
+            Assert.IsTrue(act[0].Mark == expected[0].Mark);
+            Assert.IsTrue(act[0].Text == expected[0].Text);
+            Assert.IsTrue(act[1].Mark == expected[1].Mark);
+            Assert.IsTrue(act[1].Text == expected[1].Text);
         }
 
-        [Test]
-        public void DeleteTrainingReviewTests()
+        [TestCaseSource(typeof(DeleteTrainingReviewByIdTestCaseSource))]
+        public void DeleteTrainingReviewTests(TrainingReview trainingReview, int id)
         {
             //given
-            var tr = _testData.GetTrainingReviewModel();
-            var id = _service.AddTrainingReview(tr);
+            Mock<ITrainingReviewRepository> _trainingReviewRepository = new Mock<ITrainingReviewRepository>();
+            _trainingReviewRepository.Setup(tr => tr.GetTrainingReviewById(id)).Returns(trainingReview);
+            _trainingReviewRepository.Setup(tr => tr.DeleteTrainingReview(id));
+
             //when
-            var listBeforeDelete = _service.GetTrainingReviewModels();
+            _service = new TrainingReviewService(_trainingReviewRepository.Object, _mapper);
             _service.DeleteTrainingReview(id);
-            var listAfterDelete = _service.GetTrainingReviewModels();
             //then
-            Assert.IsTrue(listBeforeDelete.Count - listAfterDelete.Count == 1);
+            _trainingReviewRepository.Verify(tr => tr.GetTrainingReviewById(id), Times.Once);
+            _trainingReviewRepository.Verify(tr => tr.DeleteTrainingReview(id), Times.Once);
+
         }
 
         [Test]

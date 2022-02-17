@@ -8,7 +8,7 @@ using System.Collections;
 
 namespace BearGoodbyeKolkhozProject.Business.Tests.TestCaseSource.TraningTestCaseSource
 {
-    public class GetTrainingReviewByIdTestCaseSource : IEnumerable
+    public class DeleteTrainingReviewByIdTestCaseSource : IEnumerable
     {
         IMapper _mapper = new Mapper(new MapperConfiguration(cfg => cfg.AddProfile<BusinessMapperProfile>()));
         public IEnumerator GetEnumerator()
@@ -21,16 +21,9 @@ namespace BearGoodbyeKolkhozProject.Business.Tests.TestCaseSource.TraningTestCas
                 Text = "xxx",
             };
             
-            var expected = new TrainingReviewModel
-            {
-                Id = 666,
-                Mark = 666,
-                Text = "xxx",
-            };
-
             int id = 666;
          
-            yield return new object[] { entity, expected, id };
+            yield return new object[] { entity, id };
 
         }
     }

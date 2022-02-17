@@ -8,29 +8,26 @@ using System.Collections;
 
 namespace BearGoodbyeKolkhozProject.Business.Tests.TestCaseSource.TraningTestCaseSource
 {
-    public class GetTrainingReviewByIdTestCaseSource : IEnumerable
+    public class UpdateTrainingReviewTestCaseSource : IEnumerable
     {
         IMapper _mapper = new Mapper(new MapperConfiguration(cfg => cfg.AddProfile<BusinessMapperProfile>()));
         public IEnumerator GetEnumerator()
         {
 
-            var entity = new TrainingReview
+            var trainingReviewModel = new TrainingReview
             {
                 Id = 666,
                 Mark = 666,
                 Text = "xxx",
             };
             
-            var expected = new TrainingReviewModel
+            var updateModel = new TrainingReviewModel
             {
-                Id = 666,
-                Mark = 666,
-                Text = "xxx",
+                Mark = 5,
+                Text = "hren",
             };
 
-            int id = 666;
-         
-            yield return new object[] { entity, expected, id };
+            yield return new object[] { trainingReviewModel, updateModel};
 
         }
     }
