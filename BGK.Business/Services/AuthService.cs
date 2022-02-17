@@ -1,16 +1,20 @@
 ﻿using AutoMapper;
+using BearGoodbyeKolkhozProject.Business.Configuration;
 using BearGoodbyeKolkhozProject.Business.Models;
 using BearGoodbyeKolkhozProject.Data.Entities;
 using BearGoodbyeKolkhozProject.Data.Interfaces;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace BearGoodbyeKolkhozProject.Business.Services
 {
-    public class AuthService
+    public class AuthService : IAuthService
     {
         private readonly ILecturerRepository _lecturerRepo;
         private readonly IMapper _mapper;
@@ -21,10 +25,21 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             _mapper = mapper;
         }
 
-        public LecturerModel LoginLecturer(string email, string password)
+        public string LoginLecturer(string email, string password)
         {
             Lecturer entity = _lecturerRepo.Login(email, password);
-            return _mapper.Map<LecturerModel>(entity);
+
+            var claims = new List<Claim> { new Claim(ClaimTypes.Name, entity.Name) };
+
+            // создаем JWT-токен
+            var jwt = new JwtSecurityToken(
+                    issuer: AuthOptions.Issuer,
+                    audience: AuthOptions.Audience,
+                    claims: claims,
+                    expires: DateTime.UtcNow.Add(TimeSpan.FromMinutes(2)),
+                    signingCredentials: new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256));
+
+            return new JwtSecurityTokenHandler().WriteToken(jwt);
         }
     }
 }

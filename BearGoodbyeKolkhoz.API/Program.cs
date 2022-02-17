@@ -1,5 +1,4 @@
 using BearGoodbyeKolkhozProject.API;
-using BearGoodbyeKolkhozProject.API.Configuration;
 using BearGoodbyeKolkhozProject.API.Extensions;
 using BearGoodbyeKolkhozProject.API.Infrastructure;
 using BearGoodbyeKolkhozProject.Business.Configuration;
