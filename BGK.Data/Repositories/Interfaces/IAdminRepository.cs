@@ -4,9 +4,10 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
 {
     public interface IAdminRepository
     {
-        bool AddAdmin(Admin newItem);
+        int AddNewAdmin(Admin newItem);
         bool ChangePasswordAdmin(Admin newItem);
         bool DeleteAdminById(int id);
+        List<Admin> GetAdminAll();
         Admin GetAdminById(int id);
         bool RecoverAdminById(int id);
         bool UpdateAdminInfo(Admin newInfo);
