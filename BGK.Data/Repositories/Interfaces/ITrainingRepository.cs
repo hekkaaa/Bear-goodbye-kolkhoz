@@ -7,8 +7,8 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
         int AddTraining(Training training);
         Training GetTrainingById(int id);
         List<Training> GetTrainings();
-        List<Training> GetTrainingsByTopic(Topic topic);
+        List<Training> GetTrainingsByTopic(int id);
         void UpdateTraining(Training training);
-        void UpdateTraining(Training training, bool IsDeleted);
+        void UpdateTraining(Training training, bool isDeleted);
     }
 }
