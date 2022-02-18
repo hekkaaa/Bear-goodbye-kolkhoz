@@ -113,8 +113,8 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
 
             //then
             Assert.IsNotNull(act);
-            Assert.AreEqual(true,act);
-            Assert.AreEqual(true,postAct.IsDeleted); 
+            Assert.AreEqual(true, act);
+            Assert.AreEqual(true, postAct.IsDeleted);
         }
 
         [Test]
@@ -135,7 +135,7 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
                 newVirtualData.BirthDay = "02-12-1780";
 
             }
-            var act = _adminRepository.UpdateAdminInfo(newVirtualData.Id, newVirtualData);
+            var act = _adminRepository.UpdateAdminInfo(newVirtualData, virtualData);
             var postAct = _adminRepository.GetAdminById(newVirtualData.Id);
 
             //then

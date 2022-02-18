@@ -15,17 +15,16 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
         public Admin GetAdminById(int id)
         {
             var res = _db.Admin.FirstOrDefault(x => x.Id == id);
-            return res;
+            if (res == null) { return res; }
+            else { return res; }
         }
         public List<Admin> GetAdminAll()
         {   
 
             return _db.Admin.Where(a => !a.IsDeleted).ToList();
         }
-        public bool UpdateAdminInfo(int id, Admin newItem)
+        public bool UpdateAdminInfo(Admin oldItem, Admin newItem)
         {
-            var oldItem = _db.Admin.FirstOrDefault(a => a.Id == id);
-
             oldItem.Name = newItem.Name;
             oldItem.LastName = newItem.LastName;
             oldItem.BirthDay = newItem.BirthDay;
@@ -36,19 +35,16 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
             return true;
         }
 
-        public bool DeleteAdminById(int id)
+        public bool DeleteAdminById(int item)
         {
-            var res = _db.Admin.FirstOrDefault(x => x.Id == id);
-
+            var res = _db.Admin.FirstOrDefault(x => x.Id == item);
             res.IsDeleted = true;
-            _db.Admin.Update(res);
             _db.SaveChanges();
             return true;
         }
 
         public int AddNewAdmin(Admin newItem)
         {
-            newItem.IsDeleted = false; // делам при создании нового админа статус НЕзаблокирован по умолчанию.
             _db.Admin.Add(newItem);
             _db.SaveChanges();
             return newItem.Id;

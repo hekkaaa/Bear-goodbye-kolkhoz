@@ -52,7 +52,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpPost("add")]
         public ActionResult<int> AddNewAdmin(AdminInsertInputModel newItem)
         {
             var model = _mapper.Map<AdminModel>(newItem);
@@ -82,7 +82,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
             return Ok(res);
         }
 
-        [HttpPut("{id}/newpassword")]
+        [HttpPut("{id}/password")]
         public ActionResult<bool> ChangePasswordAdminById(int id, [FromBody] AdminChangePasswordInputModel newItem)
         {
             var model = _mapper.Map<AdminModel>(newItem);
@@ -91,14 +91,14 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         }
 
         //api/admins/{id}/classroom
-        [HttpDelete("{id}/classroom")]
+        [HttpDelete("classroom/{id}")]
         public ActionResult DeleteClassromById(int id)
         {
             // заглушка для удаления classroom
             return Ok();
         }
 
-        [HttpPut("{id}/classroom")]
+        [HttpPut("classroom/{id}")]
         public ActionResult UpdateClassroomById(AdminInsertInputModel newItem)
         {
             // заглушка для изменения classroom
@@ -113,7 +113,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
             return Ok();
         }
 
-        [HttpPut("{id}/traning")]
+        [HttpPut("/traning")]
         public ActionResult UpdateTraningById(AdminInsertInputModel newItem)
         {
             // заглушка для изменения traning
