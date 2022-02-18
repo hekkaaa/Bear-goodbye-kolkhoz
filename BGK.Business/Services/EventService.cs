@@ -1,13 +1,10 @@
 ﻿using AutoMapper;
 using BearGoodbyeKolkhozProject.Business.Exceptions;
 using BearGoodbyeKolkhozProject.Business.Models;
+using BearGoodbyeKolkhozProject.Business.Processor;
 using BearGoodbyeKolkhozProject.Data.Entities;
 using BearGoodbyeKolkhozProject.Data.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace BearGoodbyeKolkhozProject.Business.Services
 {

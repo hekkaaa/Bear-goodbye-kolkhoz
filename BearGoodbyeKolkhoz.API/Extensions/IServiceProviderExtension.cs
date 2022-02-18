@@ -1,8 +1,8 @@
 ﻿using BearGoodbyeKolkhozProject.Business.Interface;
 using BearGoodbyeKolkhozProject.Business.Processor;
 using BearGoodbyeKolkhozProject.Business.Services;
+using BearGoodbyeKolkhozProject.Business.Services.Interfaces;
 using BearGoodbyeKolkhozProject.Data.Interfaces;
-using BearGoodbyeKolkhozProject.Data.Repo;
 using BearGoodbyeKolkhozProject.Data.Repositories;
 
 namespace BearGoodbyeKolkhozProject.API.Extensions

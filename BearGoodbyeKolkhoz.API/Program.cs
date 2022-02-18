@@ -3,9 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using BearGoodbyeKolkhozProject.API;
 using BearGoodbyeKolkhozProject.Business.Configuration;
 using BearGoodbyeKolkhozProject.API.Extensions;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
-using BearGoodbyeKolkhozProject.API.Configuration;
+using BearGoodbyeKolkhozProject.API.Infrastructure;
 
 const string? _connStringVariableName = "CONNECTION_STRING";
 

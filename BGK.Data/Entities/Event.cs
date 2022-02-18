@@ -16,7 +16,6 @@ namespace BearGoodbyeKolkhozProject.Data.Entities
 
         public virtual ICollection<Client>? Clients { get; set; }
 
-        public bool IsDeleted { get; set; }
        
     }
 }

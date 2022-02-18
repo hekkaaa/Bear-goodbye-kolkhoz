@@ -1,8 +1,6 @@
 ﻿using AutoMapper;
-using BearGoodbyeKolkhozProject.API.Models;
-using BearGoodbyeKolkhozProject.API.Models.InputModel;
-using BearGoodbyeKolkhozProject.API.Models.OutputModel;
-using BearGoodbyeKolkhozProject.Business.Configuration;
+using BearGoodbyeKolkhozProject.API.Models.InputModels;
+using BearGoodbyeKolkhozProject.API.Models.OutputModels;
 using BearGoodbyeKolkhozProject.Business.Models;
 using BearGoodbyeKolkhozProject.Business.Processor;
 using Microsoft.AspNetCore.Mvc;
