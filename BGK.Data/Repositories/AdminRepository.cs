@@ -21,16 +21,14 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
         {   
             return _db.Admin.Where(a => !a.IsDeleted).ToList();
         }
-        public bool UpdateAdminInfo(int id, Admin newItem)
+        public bool UpdateAdminInfo(Admin oldItem, Admin newItem)
         {
-            var oldItem = _db.Admin.FirstOrDefault(a => a.Id == id);
-
             oldItem.Name = newItem.Name;
             oldItem.LastName = newItem.LastName;
             oldItem.BirthDay = newItem.BirthDay;
             oldItem.Email = newItem.Email;
             oldItem.Gender = newItem.Gender;
-           
+
             _db.SaveChanges();
             return true;
         }
