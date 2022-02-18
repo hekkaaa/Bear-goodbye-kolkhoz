@@ -82,6 +82,7 @@ namespace BearGoodbyeKolkhozProject.Business.Services
 
             _companyRepository.DeleteCompany(id);
 
+            
         }
 
         public void UpdateCompany(int id, bool isDel)

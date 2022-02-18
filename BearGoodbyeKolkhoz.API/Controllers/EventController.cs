@@ -92,7 +92,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
 
             ////api/events/1
             [HttpPut("{id}/event/company")]
-            public ActionResult<EventUpdateCompanyInputModel> UpdateEventFromCompany(int id, [FromBody] EventUpdateClientInputModel eventUpdateInputModel)
+            public ActionResult<EventUpdateCompanyInputModel> UpdateEventFromCompany(int id, [FromBody] EventUpdateCompanyInputModel eventUpdateInputModel)
             {
                 EventModel entity = _mapperApi.Map<EventModel>(eventUpdateInputModel);
 
