@@ -3,7 +3,7 @@ using BearGoodbyeKolkhozProject.Data.Entities;
 
 namespace BearGoodbyeKolkhozProject.Data.Repositories
 {
-    public class ClientRepository
+    public class ClientRepository : IClientRepository
     {
         private ApplicationContext _db;
         public ClientRepository(ApplicationContext context)
@@ -12,13 +12,13 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
         }
         public Client GetClientById(int id)
         {
-            var res = _db.Client.FirstOrDefault(x => x.Id == id);
+            var res = _db.Client.Where(c => !c.IsDeleted).FirstOrDefault(с => с.Id == id);
             return res;
         }
 
         public bool UpdateClientInfo(Client newInfo)
         {
-            var res = _db.Client.FirstOrDefault(x => x.Id == newInfo.Id);
+            var res = _db.Client.FirstOrDefault(с => с.Id == newInfo.Id);
 
             res.Name = newInfo.Name;
             res.LastName = newInfo.LastName;
@@ -32,35 +32,21 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
             return true;
         }
 
-        public bool DeleteClientById(int id)
+        public void ChangeDeleteStatusById(Client client, bool isDeleted)
         {
-            var res = _db.Client.FirstOrDefault(x => x.Id == id);
-
-            res.IsDeleted = false;
+            client.IsDeleted = isDeleted;
             _db.SaveChanges();
-            return true;
         }
 
-        public bool RecoveryClientById(int id)
+        public void ChangePasswordClient(Client client, string newPassword)
         {
-            var res = _db.Client.FirstOrDefault(x => x.Id == id);
-
-            res.IsDeleted = true;
+            client.Password = newPassword;
             _db.SaveChanges();
-            return true;
-        }
-
-        public bool ChangePasswordClient(Client newItem)
-        {
-            Client item = GetClientById(newItem.Id);
-            item.Password = newItem.Password;
-            _db.SaveChanges();
-            return true;
         }
 
         public List<Client> GetClients()
         {
-            return _db.Client.Where(x => !x.IsDeleted).ToList();
+            return _db.Client.Where(с => !с.IsDeleted).ToList();
         }
     }
 }
