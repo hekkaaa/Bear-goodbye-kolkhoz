@@ -25,7 +25,7 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             var company = _companyRepository.GetCompanyById(id);
 
             if (company == null)
-                throw new NotAuthorizedException("Такой Компания не существует.");
+                throw new BusinessException("Такой Компания не существует.");
 
             return _mapper.Map<CompanyModel>(company);
         }
@@ -63,7 +63,7 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             var company = _companyRepository.GetCompanyById(companyModel.Id);
 
             if (company == null)
-                throw new NullReferenceException("Такой Компании не существует.");
+                throw new BusinessException("Такой Компании не существует.");
 
             
 

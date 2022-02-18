@@ -18,6 +18,9 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
         }
 
 
+        public ContactLecturer GetValueContactLecturerById(int id) =>
+            _context.ContactLecturer.Find(id);
+
         public void AddValue(ContactLecturer сontactLecturer)
         {
             _context.ContactLecturer.Add(сontactLecturer);
@@ -25,6 +28,18 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
             _context.SaveChanges();
         }
 
-        
+        public void UpdateValue(ContactLecturer contactLecturer)
+        {
+            var entity = GetValueContactLecturerById(contactLecturer.Id);
+
+            entity.Value = contactLecturer.Value;
+            
+
+            _context.ContactLecturer.Update(entity);
+
+            _context.SaveChanges();
+        }
+
+
     }
 }

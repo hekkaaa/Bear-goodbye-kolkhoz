@@ -38,6 +38,8 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
 
             var result = _mapperApi.Map<List<CompanyOutputModel>>(entity);
 
+            if (result == null) return NotFound($"Нет данных");
+
             return Ok(result);
         }
 
@@ -48,6 +50,8 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
             var entity = _serviceCom.GetCompanyById(id);
 
             var result = _mapperApi.Map<CompanyOutputModel>(entity);
+
+            if (result == null) return NotFound($"Нет данных");
 
             return Ok(result);
         }
@@ -84,7 +88,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
             return NoContent();
 
         }
-        //api/companies/2/ООО Восток./ True
+        //api/companies/
         [HttpDelete("{id}/company/")]
         public ActionResult<CompanyUpdateInputModel> DeleteCompany(int id)
         {
@@ -105,6 +109,21 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
             _serviceLec.AddValue(entity);
 
             return StatusCode(StatusCodes.Status201Created, entity);
+
+
+        }
+
+        //api/contactlecturer/
+        [HttpPut("{LecturerId}")]
+        public ActionResult<ContactLecturerInsertInputModel> UpdateValue([FromBody] ContactLecturerInsertInputModel contactLecturerInsertInputModel)
+        {
+
+
+            ContactLecturerModel entity = _mapperApi.Map<ContactLecturerModel>(contactLecturerInsertInputModel);
+
+            _serviceLec.UpdateContactLecturer(entity);
+
+            return Ok(entity);
 
 
         }

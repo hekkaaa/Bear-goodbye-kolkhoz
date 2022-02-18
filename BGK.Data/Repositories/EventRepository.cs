@@ -49,17 +49,6 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
 
         }
 
-        public void UpdateEvent(int id, bool isDel)
-        {
-
-            var entity = GetEventById(id);
-
-            entity.IsDeleted = isDel;
-
-            _context.SaveChanges();
-
-        }
-
         public void DeleteEvent(int id)
         {
             var entity = GetEventById(id);

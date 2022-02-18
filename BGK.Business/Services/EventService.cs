@@ -27,7 +27,7 @@ namespace BearGoodbyeKolkhozProject.Business.Services
         {
             var even = _eventRepository.GetEventById(id);
             if (even == null)
-                throw new NotAuthorizedException("Такого события не существует.");
+                throw new BusinessException("Такого события не существует.");
 
             return _mapper.Map<EventModel>(even);
         }
@@ -53,45 +53,26 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             _eventRepository.AddEvent(_mapper.Map<Event>(eventModel));
         }
 
-        public void UpdateEventFromClient(int id, EventModel eventModel)
+        public void UpdateEvent(int id, EventModel eventModel)
         {
             var even = _eventRepository.GetEventById(id);
             if (even == null)
-                throw new NotAuthorizedException("Такого события не существует!");
+                throw new BusinessException("Такого события не существует!");
 
 
             _eventRepository.UpdateEvent(_mapper.Map<Event>(eventModel));
 
-
         }
-
-        public void UpdateEventFromCompany(int id, EventModel eventModel)
-        {
-            var even = _eventRepository.GetEventById(id);
-            if (even == null)
-                throw new NotAuthorizedException("Такого события не существует!");
-
-
-            _eventRepository.UpdateEvent(_mapper.Map<Event>(eventModel));
-        }
+      
 
         public void DeleteEvent(int id)
         {
             var even = _eventRepository.GetEventById(id);
             if (even == null)
-                throw new NotAuthorizedException($"Такого события {id} не существует.");
+                throw new BusinessException($"Такого события {id} не существует.");
 
             _eventRepository.DeleteEvent(id);
         }
 
-        public void UpdateEvent(int id, bool isDel)
-        {
-            var even = _eventRepository.GetEventById(id);
-
-            if (even == null)
-                throw new NotAuthorizedException($"Такого события {id} не существует.");
-
-            _eventRepository.UpdateEvent(id, isDel);
-        }
     }
 }

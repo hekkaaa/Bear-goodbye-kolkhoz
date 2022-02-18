@@ -9,6 +9,5 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
         Event GetEventById(int id);
         List<Event> GetEvents();
         void UpdateEvent(Event even);
-        void UpdateEvent(int id, bool isDel);
     }
 }
