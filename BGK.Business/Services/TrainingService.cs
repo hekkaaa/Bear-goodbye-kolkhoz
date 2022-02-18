@@ -71,9 +71,6 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             _repository.UpdateTraining(_mapper.Map<Training>(trainingModel), false);
         }
 
-        void ITrainingService.AddTraining(TrainingModel trainingModel)
-        {
-            throw new NotImplementedException();
-        }
+       
     }
 }
