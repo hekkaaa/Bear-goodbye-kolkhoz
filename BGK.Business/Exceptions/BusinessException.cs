@@ -1,11 +1,11 @@
 ﻿namespace BearGoodbyeKolkhozProject.Business.Exceptions
 {
-    public class BusinessException : Exception
+    public class RepositoryException : Exception
     {
 
 
 
-        public BusinessException(string message) : base(message)
+        public RepositoryException(string message) : base(message)
         {
 
         }

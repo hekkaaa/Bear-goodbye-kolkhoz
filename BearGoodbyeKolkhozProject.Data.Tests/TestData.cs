@@ -82,5 +82,60 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
             };
             return adminItem;
         }
+
+        public List<Admin> GetTestAdminAll()
+        {
+            List<Admin> resultItem = new List<Admin>
+            { 
+                new Admin {  Id = 34,
+                Name = "Генадий",
+                LastName = "Тряпкин",
+                Gender = Enums.Gender.Male,
+                BirthDay = "1988-04-29",
+                Email = "ILoveBeer@ya.ru",
+                Password = "228_nanosim",
+                IsDeleted = true }, 
+            
+            new Admin
+            {
+                Id = 1,
+                Name = "Валерий",
+                LastName = "Меладзе",
+                Gender = Enums.Gender.Male,
+                BirthDay = "1968-10-09",
+                Email = "qwert1@ya.ru",
+                Password = "kssdfn314",
+                IsDeleted = false
+            },
+
+            new Admin
+            {
+                Id = 2,
+                Name = "Валерия",
+                LastName = "Новодворская",
+                Gender = Enums.Gender.Female,
+                BirthDay = "1950-11-10",
+                Email = "jjjjres@ya.ru",
+                Password = "fmpamfpqm1",
+                IsDeleted = false
+            },
+            };
+            return resultItem;
+        }
+
+        public Admin AddTestAdmin()
+        {
+            Admin adminItem = new Admin
+            {
+                Name = "Вова",
+                LastName = "Бородин",
+                Gender = Enums.Gender.Male,
+                BirthDay = "1951-11-08",
+                Email = "mnamny@yes.ru",
+                Password = "ningse56asdS",
+              
+            };
+            return adminItem;
+        }
     }
 }

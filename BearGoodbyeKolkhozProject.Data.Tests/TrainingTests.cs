@@ -11,7 +11,6 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
     public class TrainingTests
     {
 
-
         private ApplicationContext _context;
         private TrainingRepository _trainingRepository;
         private TestData _testData;
@@ -121,8 +120,8 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
 
             //then
             Assert.IsTrue(training.Id == act.Id);
-            Assert.IsNotNull(training.Topics);
-            Assert.IsNotNull(training.TrainingReviews);
+            Assert.IsNotNull(act.Topics);
+            Assert.IsNotNull(act.TrainingReviews);
         }
 
         [Test]
@@ -134,10 +133,15 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
             _context.SaveChanges();
 
             //when
-            var act = _trainingRepository.GetTrainingsByTopic(topic);
+            var act = _trainingRepository.GetTrainingsByTopic(topic.Id);
 
             //then
             Assert.AreEqual(act[0], training);
         }
+
+
+
+
+
     }
 }

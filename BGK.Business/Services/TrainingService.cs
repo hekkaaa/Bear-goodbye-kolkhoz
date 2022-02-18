@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using BearGoodbyeKolkhozProject.Business.Exceptions;
 using BearGoodbyeKolkhozProject.Business.Models;
 using BearGoodbyeKolkhozProject.Data.Entities;
 using BearGoodbyeKolkhozProject.Data.Interfaces;
@@ -15,15 +16,16 @@ namespace BearGoodbyeKolkhozProject.Business.Services
         {
             _repository = repository;
             _mapper = mapper;
-
         }
+
+
 
         public void UpdateTraining(int id, TrainingModel trainingModel)
         {
             var training = _repository.GetTrainingById(id);
 
             if (training == null)
-                throw new Exception("Такого тренинга не найдено!");
+                throw new BusinessException("Такого тренинга не найдено!");
 
             var trainingEntity = _mapper.Map<Training>(trainingModel);
             _repository.UpdateTraining(trainingEntity);
@@ -32,10 +34,12 @@ namespace BearGoodbyeKolkhozProject.Business.Services
         public TrainingModel GetTrainingModelById(int id)
         {
             var trainingEntity = _repository.GetTrainingById(id);
+            if (trainingEntity == null)
+                throw new BusinessException("Такого тренинга не найдено!");
             return _mapper.Map<TrainingModel>(trainingEntity);
         }
 
-        public List<TrainingModel> GetTrainingModelsAll()
+        public List<TrainingModel> GetTrainingModels()
         {
             var trainingEntityList = _repository.GetTrainings();
             return _mapper.Map<List<TrainingModel>>(trainingEntityList);
@@ -43,7 +47,7 @@ namespace BearGoodbyeKolkhozProject.Business.Services
 
         public List<TrainingModel> GetTrainingModelByTopic(TopicModel topicModel)
         {
-            var trainingEntityList = _repository.GetTrainingsByTopic(_mapper.Map<Topic>(topicModel));
+            var trainingEntityList = _repository.GetTrainingsByTopic(topicModel.Id);
             return _mapper.Map<List<TrainingModel>>(trainingEntityList);
         }
 
@@ -55,11 +59,16 @@ namespace BearGoodbyeKolkhozProject.Business.Services
 
         public void DeleteTraining(TrainingModel trainingModel)
         {
+            var trainingEntity = _repository.GetTrainingById(trainingModel.Id);
+            if (trainingEntity == null)
+                throw new BusinessException("Такого тренинга не найдено!");
             _repository.UpdateTraining(_mapper.Map<Training>(trainingModel), true);
         }
-
         public void RestoreTraining(TrainingModel trainingModel)
         {
+            var trainingEntity = _repository.GetTrainingById(trainingModel.Id);
+            if (trainingEntity == null)
+                throw new BusinessException("Такого тренинга не найдено!");
             _repository.UpdateTraining(_mapper.Map<Training>(trainingModel), false);
         }
     }
