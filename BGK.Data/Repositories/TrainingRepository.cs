@@ -52,7 +52,12 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
             return training.Id;
         }
 
-
+        public void AddTopicToTraining(int id, Topic topic)
+        {
+            var training = GetTrainingById(id);
+            training.Topics.Add(topic);
+            _applicationContext.SaveChanges();
+        }
 
     }
 }

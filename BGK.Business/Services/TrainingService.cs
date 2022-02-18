@@ -62,6 +62,10 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             _repository.UpdateTraining(_mapper.Map<Training>(trainingModel), false);
         }
 
-        
+        public void AddTopicToTraining(int id, TopicModel topicModel)
+        {
+            _repository.AddTopicToTraining(id, _mapper.Map<Topic>(topicModel));
+        }
+
     }
 }
