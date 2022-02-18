@@ -17,13 +17,11 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
             return res;
         }
 
-        public bool UpdateClassroomInfo(int id, Classroom newInfo)
+        public bool UpdateClassroomInfo(Classroom oldItem, Classroom newInfo)
         {
-            var res = _db.Classroom.FirstOrDefault(x => x.Id == id);
-
-            res.City = newInfo.City;
-            res.Address = newInfo.Address;
-            res.MembersCount = newInfo.MembersCount;
+            oldItem.City = newInfo.City;
+            oldItem.Address = newInfo.Address;
+            oldItem.MembersCount = newInfo.MembersCount;
 
             _db.SaveChanges();
             return true;
@@ -41,10 +39,9 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
             return newItem.Id;
         }
 
-        public bool DeleteClassroomById(int Id)
+        public bool DeleteClassroomById(Classroom item)
         {
-            var res = _db.Classroom.FirstOrDefault(x => x.Id == Id);
-            _db.Classroom.Remove(res);
+            _db.Classroom.Remove(item);
             _db.SaveChanges(true);
             return true;
         }

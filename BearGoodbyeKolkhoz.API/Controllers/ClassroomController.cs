@@ -50,7 +50,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpPost("add")]
         public ActionResult<int> AddNewClassroom(ClassroomInsertInputModel newItem)
         {
             var model = _mapper.Map<ClassroomModel>(newItem);
@@ -76,7 +76,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         public ActionResult<bool> UpdateClassroom(int id, [FromBody] ClassroomIUpdateInputModel newItem)
         {
             var model = _mapper.Map<ClassroomModel>(newItem);
-            var res = _service.UpdateAdminInfo(id, model);
+            var res = _service.UpdateClassroomInfo(id, model);
             return Ok(res);
         }
     }

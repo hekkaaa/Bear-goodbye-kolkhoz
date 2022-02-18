@@ -8,6 +8,6 @@ namespace BearGoodbyeKolkhozProject.Business.Services
         bool DeleteClassroom(int id);
         List<ClassroomModel> GetClassroomAll();
         ClassroomModel GetClassroomById(int id);
-        bool UpdateAdminInfo(int id, ClassroomModel newItem);
+        bool UpdateClassroomInfo(int id, ClassroomModel newItem);
     }
 }

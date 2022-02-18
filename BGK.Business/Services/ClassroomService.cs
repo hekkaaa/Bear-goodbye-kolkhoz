@@ -34,15 +34,26 @@ namespace BearGoodbyeKolkhozProject.Business.Services
 
         public bool DeleteClassroom(int id)
         {
-            return _repository.DeleteClassroomById(id);
+            var res = _repository.GetClassroomById(id);
+            if (res == null)
+            {
+                throw new ArgumentNullException();
+            }
+            else
+            {
+               return _repository.DeleteClassroomById(res);
+            }
         }
 
-        public bool UpdateAdminInfo(int id, ClassroomModel newItem)
+        public bool UpdateClassroomInfo(int id, ClassroomModel newItem)
         {
+            var res = _repository.GetClassroomById(id);
+            if (res == null)
+            {
+                throw new ArgumentNullException();
+            }
             var entities = _mapper.Map<Classroom>(newItem);
-            return _repository.UpdateClassroomInfo(id, entities);
+            return _repository.UpdateClassroomInfo(res, entities);
         }
     }
-
-
 }

@@ -4,10 +4,10 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
 {
     public interface IClassroomRepository
     {
-        bool DeleteClassroomById(int Id);
+        bool DeleteClassroomById(Classroom item);
         Classroom GetClassroomById(int id);
         List<Classroom> GetClassroomsAll();
-        bool UpdateClassroomInfo(int id, Classroom newInfo);
+        bool UpdateClassroomInfo(Classroom oldItem, Classroom newInfo);
         int AddNewClassroom(Classroom newItem);
     }
 }

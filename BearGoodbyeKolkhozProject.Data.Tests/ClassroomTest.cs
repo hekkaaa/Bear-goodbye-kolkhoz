@@ -90,7 +90,7 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
         }
 
         [Test]
-        public void DeleteAdminByIdTests()
+        public void DeleteClassroomByIdTests()
         {
             //given
             var virtualData = _testData.GetTestClassroom();
@@ -98,7 +98,7 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
             _context.SaveChanges();
 
             //when
-            var act = _adminRepository.DeleteClassroomById(virtualData.Id);
+            var act = _adminRepository.DeleteClassroomById(virtualData);
 
             //then
             Assert.IsNotNull(act);
@@ -106,7 +106,7 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
         }
 
         [Test]
-        public void UpdateAdminTests()
+        public void UpdateClassroomTests()
         {
             //given
             var virtualData = _testData.GetTestClassroom();
@@ -122,7 +122,7 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
                 newVirtualData.MembersCount = 10;
 
             }
-            var act = _adminRepository.UpdateClassroomInfo(newVirtualData.Id, newVirtualData);
+            var act = _adminRepository.UpdateClassroomInfo(newVirtualData, virtualData);
             var postAct = _adminRepository.GetClassroomById(newVirtualData.Id);
 
             //then
