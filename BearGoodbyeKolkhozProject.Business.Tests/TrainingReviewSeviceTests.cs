@@ -71,7 +71,7 @@ namespace BearGoodbyeKolkhozProject.Business.Tests
 
         [TestCaseSource(typeof(UpdateTrainingReviewTestCaseSource))]
         [Test]
-        public void UpdateTrainingReviewNegativeTests(TrainingReview original, TrainingReviewModel update, TrainingReview expected)
+        public void UpdateTrainingReviewNegativeTests(TrainingReview original, TrainingReviewModel update)
         {
             //given
             Mock<ITrainingReviewRepository> _trainingReviewRepository = new Mock<ITrainingReviewRepository>();
@@ -153,13 +153,13 @@ namespace BearGoodbyeKolkhozProject.Business.Tests
         public void DeleteTrainingReviewNegativeTests()
         {
             //given
-            var trainingReviewModel = _testData.GetTrainingReviewModel();
-            trainingReviewModel.Id = 666;
-
+            Mock<ITrainingReviewRepository> _trainingReviewRepository = new Mock<ITrainingReviewRepository>();
+            _trainingReviewRepository.Setup(tr => tr.DeleteTrainingReview(It.IsAny<int>()));
             //when
-            //then
-            Assert.Throws<BusinessException>(() => _service.DeleteTrainingReview(666));
+            TrainingReviewService trainingReviewService = new TrainingReviewService(_trainingReviewRepository.Object, _mapper);
 
+            //then
+            Assert.Throws<BusinessException>(() => trainingReviewService.DeleteTrainingReview(666));
         }
 
     }
