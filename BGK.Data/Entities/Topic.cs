@@ -11,5 +11,19 @@ namespace BearGoodbyeKolkhozProject.Data.Entities
         public string Name { get; set; }
         public bool IsDeleted { get; set; }
         public virtual Training Training { get; set; }
+
+        public override bool Equals(object? obj)
+        {
+            if (obj is null
+                || Id != ((Topic)obj).Id
+                || Name != ((Topic)obj).Name
+                || IsDeleted != ((Topic)obj).IsDeleted
+                || Training != ((Topic)obj).Training)
+            {
+                return false;
+            }
+
+            return true;
+        }
     }
 }

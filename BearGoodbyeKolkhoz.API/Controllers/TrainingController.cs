@@ -30,7 +30,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         [HttpGet]
         public IActionResult GetTrainings()
         {
-            var models = _service.GetTrainingModelsAll();
+            var models = _service.GetTrainingModels();
             return Ok(_mapper.Map<List<TrainingOutputModel>>(models));
         }
 

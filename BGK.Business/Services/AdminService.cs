@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using BearGoodbyeKolkhozProject.Business.Models;
+using BearGoodbyeKolkhozProject.Data.Entities;
 using BearGoodbyeKolkhozProject.Data.Repositories;
 using System;
 using System.Collections.Generic;
@@ -23,6 +24,16 @@ namespace BearGoodbyeKolkhozProject.Business.Services
         public AdminModel GetAdminById(int id)
         {
             return _mapper.Map<AdminModel>(_repository.GetAdminById(id)); 
+        }
+
+        public List<AdminModel> GetAdminAll()
+        {
+            return _mapper.Map<List<AdminModel>>(_repository.GetAdminAll());
+        }
+
+        public int AddNewAdmin(AdminModel newItem)
+        {
+           return _repository.AddNewAdmin(_mapper.Map<Admin>(newItem));
         }
     }
 }

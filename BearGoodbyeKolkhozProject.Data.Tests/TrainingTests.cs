@@ -3,19 +3,13 @@ using BearGoodbyeKolkhozProject.Data.Entities;
 using BearGoodbyeKolkhozProject.Data.Repositories;
 using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Text.Json;
 
 
 namespace BearGoodbyeKolkhozProject.Data.Tests
 {
     public class TrainingTests
     {
-
 
         private ApplicationContext _context;
         private TrainingRepository _trainingRepository;
@@ -43,7 +37,7 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
             var training = _testData.GetTestTraining();
             _context.Training.Add(training);
             _context.SaveChanges();
-            
+
             //when
             var listBeforeDelete = _trainingRepository.GetTrainings();
             _trainingRepository.UpdateTraining(training, true);
@@ -53,7 +47,7 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
             Assert.IsTrue(listBeforeDelete.Count - listAfterDelete.Count == 1);
             Assert.IsTrue(training.IsDeleted);
         }
-        
+
         [Test]
         public void AddTrainingTests()
         {
@@ -86,7 +80,7 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
                 Duration = 30,
                 MembersCount = 30
             };
-            
+
             //when
             _trainingRepository.UpdateTraining(newTraining);
             var trainingAfterUpdate = _context.Training.FirstOrDefault(tr => tr.Id == oldTraining.Id);
@@ -104,7 +98,7 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
         public void GetTrainingsTests()
         {
             //given
-            
+
             //when
             var act = _trainingRepository.GetTrainings();
 
@@ -126,8 +120,8 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
 
             //then
             Assert.IsTrue(training.Id == act.Id);
-            Assert.IsNotNull(training.Topics);
-            Assert.IsNotNull(training.TrainingReviews);
+            Assert.IsNotNull(act.Topics);
+            Assert.IsNotNull(act.TrainingReviews);
         }
 
         [Test]
@@ -139,10 +133,15 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
             _context.SaveChanges();
 
             //when
-            var act = _trainingRepository.GetTrainingsByTopic(topic);
+            var act = _trainingRepository.GetTrainingsByTopic(topic.Id);
 
             //then
             Assert.AreEqual(act[0], training);
         }
+
+
+
+
+
     }
 }
