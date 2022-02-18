@@ -19,7 +19,8 @@ namespace BearGoodbyeKolkhozProject.API
             CreateMap<LecturerOutputModel, LecturerModel>().ReverseMap();
             CreateMap<TrainingReviewOutputModel, TrainingReviewModel>();
             CreateMap<TrainingOutputModel, TrainingModel>();
-            CreateMap<AdminModel, AdminOutputModel>();
+            CreateMap<AdminModel, AdminOutputModel>(); // Не менять строчку!!!
+            CreateMap<AdminInsertInputModel, AdminModel>();
 
         }
     }
