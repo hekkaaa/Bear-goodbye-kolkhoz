@@ -1,5 +1,6 @@
 using AutoMapper;
 using BearGoodbyeKolkhozProject.Business.Configuration;
+using BearGoodbyeKolkhozProject.Business.Exceptions;
 using BearGoodbyeKolkhozProject.Business.Models;
 using BearGoodbyeKolkhozProject.Business.Services;
 using BearGoodbyeKolkhozProject.Business.Tests.TestCaseSource.LecturerReviewTestCaseSource;
@@ -138,6 +139,52 @@ namespace BearGoodbyeKolkhozProject.Business.Tests
             //then
             _lecturerReviewRepositoryMock.Verify(x => x.GetLecturerReviewById(review.Id), Times.Once);
             _lecturerReviewRepositoryMock.Verify(x => x.ChangeIsDeleted(review, false), Times.Once);
+        }
+
+        [Test]
+        public void GetLecturerReviewModelById_WhenTopicNotFoundInDataBase_ShouldThrowNotFoundException()
+        {
+            //given
+            Mock<ILecturerReviewRepository> _lecturerReviewRepositoryMock = new Mock<ILecturerReviewRepository>();
+            _lecturerReviewRepositoryMock.Setup(lr => lr.GetLecturerReviewById(It.IsAny<int>())).Returns((LecturerReview)null);
+
+            //when
+            LecturerReviewService _service = new LecturerReviewService(_mapper, _lecturerReviewRepositoryMock.Object);
+
+            //then
+            Assert.Throws<NotFoundException>(() => _service.GetLecturerReviewModelById(It.IsAny<int>()));
+
+            _lecturerReviewRepositoryMock.Verify(lr => lr.GetLecturerReviewById(It.IsAny<int>()), Times.Once);
+        }
+
+        [Test]
+        public void DeleteLecturerReviewById_WhenTopicNotFoundInDataBase_ShouldThrowNotFoundException()
+        {
+            Mock<ILecturerReviewRepository> _lecturerReviewRepositoryMock = new Mock<ILecturerReviewRepository>();
+            _lecturerReviewRepositoryMock.Setup(lr => lr.GetLecturerReviewById(It.IsAny<int>())).Returns((LecturerReview)null);
+
+            //when
+            LecturerReviewService _service = new LecturerReviewService(_mapper, _lecturerReviewRepositoryMock.Object);
+
+            //then
+            Assert.Throws<NotFoundException>(() => _service.DeleteLecturerReviewById(It.IsAny<int>()));
+
+            _lecturerReviewRepositoryMock.Verify(lr => lr.GetLecturerReviewById(It.IsAny<int>()), Times.Once);
+        }
+
+        [Test]
+        public void RecoverLecturerReviewById_WhenTopicNotFoundInDataBase_ShouldThrowNotFoundException()
+        {
+            Mock<ILecturerReviewRepository> _lecturerReviewRepositoryMock = new Mock<ILecturerReviewRepository>();
+            _lecturerReviewRepositoryMock.Setup(lr => lr.GetLecturerReviewById(It.IsAny<int>())).Returns((LecturerReview)null);
+
+            //when
+            LecturerReviewService _service = new LecturerReviewService(_mapper, _lecturerReviewRepositoryMock.Object);
+
+            //then
+            Assert.Throws<NotFoundException>(() => _service.RecoverLecturerReviewById(It.IsAny<int>()));
+
+            _lecturerReviewRepositoryMock.Verify(lr => lr.GetLecturerReviewById(It.IsAny<int>()), Times.Once);
         }
     }
 }

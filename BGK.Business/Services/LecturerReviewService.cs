@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using BearGoodbyeKolkhozProject.Business.Exceptions;
 using BearGoodbyeKolkhozProject.Business.Models;
 using BearGoodbyeKolkhozProject.Data.Entities;
 using BearGoodbyeKolkhozProject.Data.Repositories;
@@ -22,13 +23,13 @@ namespace BearGoodbyeKolkhozProject.Business.Services
 
         public LecturerReviewModel GetLecturerReviewModelById(int id)
         {
-            var entity = _lecturerReviewRepo.GetLecturerReviewById(id);
-            if (entity is null)
+            var review = _lecturerReviewRepo.GetLecturerReviewById(id);
+            if (review is null)
             {
-                throw new Exception("Нет такого отзыва");
+                throw new NotFoundException($"Нет отзыва c id = {id}");
             };
 
-            return _mapper.Map<LecturerReviewModel>(entity);
+            return _mapper.Map<LecturerReviewModel>(review);
         }
 
         public List<LecturerReviewModel> GetLecturerReviews()
@@ -55,8 +56,8 @@ namespace BearGoodbyeKolkhozProject.Business.Services
 
             if (review is null)
             {
-                throw new Exception("Нет такого ревью");
-            }
+                throw new NotFoundException($"Нет отзыва c id = {id}");
+            };
 
             _lecturerReviewRepo.ChangeIsDeleted(review, true);
         }
@@ -67,8 +68,8 @@ namespace BearGoodbyeKolkhozProject.Business.Services
 
             if (review is null)
             {
-                throw new Exception("Нет такого ревью");
-            }
+                throw new NotFoundException($"Нет отзыва c id = {id}");
+            };
 
             _lecturerReviewRepo.ChangeIsDeleted(review, false);
         }
