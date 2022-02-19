@@ -37,7 +37,7 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             var res = _repository.GetClassroomById(id);
             if (res == null)
             {
-                throw new ArgumentNullException();
+                throw new NotFoundException();
             }
             else
             {
