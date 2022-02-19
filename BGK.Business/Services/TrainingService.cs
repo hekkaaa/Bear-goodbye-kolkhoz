@@ -60,13 +60,14 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             return _repository.AddTraining(trainingEntity);
         }
 
-        public void DeleteTraining(TrainingModel trainingModel)
+        public void DeleteTraining(int id)
         {
-            var trainingEntity = _repository.GetTrainingById(trainingModel.Id);
+            var trainingEntity = _repository.GetTrainingById(id);
             if (trainingEntity == null)
                 throw new BusinessException("Такого тренинга не найдено!");
-            _repository.UpdateTraining(_mapper.Map<Training>(trainingModel), true);
+            _repository.UpdateTraining(_mapper.Map<Training>(trainingEntity), true);
         }
+
         public void RestoreTraining(TrainingModel trainingModel)
         {
             var trainingEntity = _repository.GetTrainingById(trainingModel.Id);

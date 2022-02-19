@@ -11,7 +11,6 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
     public class TrainingController : Controller
     {
         private readonly ITrainingService _service;
-        private readonly ITrainingReviewService _trainingReviewService;
         private IMapper _mapper;
 
         public TrainingController(ITrainingService trainingService, IMapper mapper)
@@ -72,5 +71,13 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
             _service.AddTraining(training);
             return Ok("Лекция успешно добавлена");
         }
+
+        [HttpPatch("{id}/delete")]
+        public IActionResult DeleteTraining(int id)
+        {
+            _service.DeleteTraining(id);
+            return Ok("Лекция успешно удалена");
+        }
+
     }
 }
