@@ -33,19 +33,16 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
             return true;
         }
 
-        public bool DeleteAdminById(int id)
+        public bool DeleteAdminById(int item)
         {
-            var res = _db.Admin.FirstOrDefault(x => x.Id == id);
-
+            var res = _db.Admin.FirstOrDefault(x => x.Id == item);
             res.IsDeleted = true;
-            _db.Admin.Update(res);
             _db.SaveChanges();
             return true;
         }
 
         public int AddNewAdmin(Admin newItem)
         {
-            newItem.IsDeleted = false; // делам при создании нового админа статус НЕзаблокирован по умолчанию.
             _db.Admin.Add(newItem);
             _db.SaveChanges();
             return newItem.Id;

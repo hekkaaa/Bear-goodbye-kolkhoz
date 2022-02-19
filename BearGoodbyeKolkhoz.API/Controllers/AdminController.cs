@@ -82,7 +82,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
             return Ok(res);
         }
 
-        [HttpPut("{id}/newpassword")]
+        [HttpPut("{id}/password")]
         public ActionResult<bool> ChangePasswordAdminById(int id, [FromBody] AdminChangePasswordInputModel newItem)
         {
             var model = _mapper.Map<AdminModel>(newItem);
