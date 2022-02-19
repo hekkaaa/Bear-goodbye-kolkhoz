@@ -78,7 +78,7 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
                 BirthDay = "1988-04-29",
                 Email = "ILoveBeer@ya.ru",
                 Password = "228_nanosim",
-                IsDeleted = true
+                IsDeleted = false
             };
             return adminItem;
         }
@@ -137,5 +137,6 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
             };
             return adminItem;
         }
+
     }
 }
