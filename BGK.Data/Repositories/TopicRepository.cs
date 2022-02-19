@@ -18,15 +18,18 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
         public List<Topic> GetTopics() =>
             _context.Topic.Where(t => !t.IsDeleted).ToList();
 
+        public List<Topic> GetTopicsByTrainingId(int id) =>
+            _context.Topic.Where(t => !t.IsDeleted).Where(t => t.Training.Id == id).ToList();
+
         public void AddTopic(Topic model)
         {
             _context.Topic.Add(model);
             _context.SaveChanges();
         }
 
-        public void UpdateTopic(Topic model)
+        public void UpdateTopicById(Topic model, int id)
         {
-            var entity = GetTopicById(model.Id);
+            var entity = GetTopicById(id);
             entity.Name = model.Name;
             _context.SaveChanges();
         }

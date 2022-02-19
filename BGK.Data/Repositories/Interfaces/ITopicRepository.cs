@@ -5,9 +5,9 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
     public interface ITopicRepository
     {
         void AddTopic(Topic model);
-        void ChangeDeleteStatus(Topic topic, bool IsDeleted);
+        void ChangeDeleteStatusById(Topic topic, bool IsDeleted);
         List<Topic> GetTopics();
         Topic GetTopicById(int id);
-        void UpdateTopic(Topic model);
+        void UpdateTopicById(Topic model, int id);
     }
 }
