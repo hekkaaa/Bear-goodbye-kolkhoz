@@ -94,7 +94,7 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
 
             //when
             TopicRepository topicRepository = new TopicRepository(_context);
-            topicRepository.UpdateTopicById(updateModel, id);
+            topicRepository.UpdateTopic(updateModel, id);
 
             //then
             var actual = _context.Topic.FirstOrDefault(t => t.Id == expected.Id);
@@ -110,7 +110,7 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
 
             //when
             TopicRepository topicRepository = new TopicRepository(_context);
-            topicRepository.ChangeDeleteStatusById(topic, isDeleted);
+            topicRepository.ChangeDeleteStatus(topic, isDeleted);
 
             //then
             var actual = _context.Topic.FirstOrDefault(t => t.Id == expected.Id);

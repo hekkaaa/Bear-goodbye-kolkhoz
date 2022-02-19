@@ -40,6 +40,16 @@
         "CONNECTION_STRING": "Data Source=80.78.240.16;Initial Catalog=DevEdu;Persis Security Info = True;User ID = student; Password = qwe!23"
       }
     },
+    "Roma": {
+      "commandName": "Project",
+      "dotnetRunMessages": true,
+      "launchBrowser": true,
+      "launchUrl": "swagger",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "CONNECTION_STRING": "Data Source=(local);Initial Catalog=testDb;Integrated Security=True"
+      }
+    },
     "Debug Config Pototsky": {
       "commandName": "Project",
       "dotnetRunMessages": true,

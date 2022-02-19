@@ -20,8 +20,6 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             _clientRepository = clientRepository;
         }
 
-
-
         public void UpdateTraining(int id, TrainingModel trainingModel)
         {
             var training = _repository.GetTrainingById(id);

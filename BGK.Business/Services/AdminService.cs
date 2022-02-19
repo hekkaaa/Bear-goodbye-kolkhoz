@@ -33,7 +33,44 @@ namespace BearGoodbyeKolkhozProject.Business.Services
 
         public int AddNewAdmin(AdminModel newItem)
         {
-           return _repository.AddNewAdmin(_mapper.Map<Admin>(newItem));
+            var item = _mapper.Map<Admin>(newItem);
+            item.IsDeleted = false; // делам при создании нового админа статус НЕзаблокирован по умолчанию.
+            return _repository.AddNewAdmin(item);
+        }
+
+        public bool DeleteAdmin(int id)
+        {
+            var item = _repository.GetAdminById(id);
+
+            if (item == null) 
+            { 
+                throw new EntryPointNotFoundException(); 
+            }
+            else
+            {   
+                
+                return _repository.DeleteAdminById(item.Id);
+            }
+            
+        }
+
+        public bool UpdateAdminInfo(int id, AdminModel newItem)
+        {
+            var existingAdmin = _repository.GetAdminById(id);
+            if (existingAdmin == null)
+            {
+                throw new EntryPointNotFoundException();
+            }
+            else
+            {
+                var modifiedAdmin = _mapper.Map<Admin>(newItem);
+                return _repository.UpdateAdminInfo(existingAdmin, modifiedAdmin);
+            }
+        }
+
+        public bool ChangeAdminPassword(int id, AdminModel newData)
+        {
+            return _repository.ChangePasswordAdmin(id, _mapper.Map<Admin>(newData));
         }
     }
 }

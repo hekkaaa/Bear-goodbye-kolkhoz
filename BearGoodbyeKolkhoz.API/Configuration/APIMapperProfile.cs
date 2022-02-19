@@ -32,6 +32,8 @@ namespace BearGoodbyeKolkhozProject.API
             CreateMap<TrainingUpdateInputModel, TrainingModel>();
             CreateMap<TrainingInsertInputModel, TrainingModel>();
 
+            CreateMap<AdminUpdateInputModel, AdminModel>();
+            CreateMap<AdminChangePasswordInputModel, AdminModel>();
         }
     }
 

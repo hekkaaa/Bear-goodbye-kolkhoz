@@ -1,4 +1,5 @@
-﻿using BearGoodbyeKolkhozProject.Data.Enums;
+﻿using BearGoodbyeKolkhozProject.Data.Entities;
+using BearGoodbyeKolkhozProject.Data.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,8 +20,8 @@ namespace BearGoodbyeKolkhozProject.Business.Models
         public string Password { get; set; }
         public bool IsDeleted { get; set; }
 
-        public List<TrainingReviewModel> TrainingReviews { get; set; }
-        public List<LecturerReviewModel> LecturerReviews { get; set; }
-        public List<TopicModel> Topic { get; set; }
+        public virtual List<TrainingReview> TrainingReviews { get; set; }
+        public virtual List<LecturerReview> LecturerReviews { get; set; }
+        public virtual List<Topic> Topic { get; set; }
     }
 }

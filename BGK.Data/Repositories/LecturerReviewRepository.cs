@@ -1,10 +1,5 @@
 ﻿using BearGoodbyeKolkhozProject.Data.ConnectDb;
 using BearGoodbyeKolkhozProject.Data.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BearGoodbyeKolkhozProject.Data.Repositories
 {
@@ -23,10 +18,8 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
         public List<LecturerReview> GetLecturerReviews() =>
             _context.LecturerReview.ToList();
 
-        public List<LecturerReview> GetLecturerReviewsByLecturerId(int id)
-        {
-            return _context.LecturerReview.Where(lr => lr.Lecturer.Id == id).ToList();
-        }
+        public List<LecturerReview> GetLecturerReviewsByLecturerId(int id) =>
+            _context.LecturerReview.Where(lr => lr.Lecturer.Id == id).ToList();
 
         public void AddLecturerReview(LecturerReview model)
         {
@@ -34,9 +27,9 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
             _context.SaveChanges();
         }
 
-        public void DeleteLecturerReviewById(int id)
+        public void ChangeIsDeleted(LecturerReview review, bool isDeleted)
         {
-            _context.LecturerReview.Remove(GetLecturerReviewById(id));
+            review.IsDeleted = isDeleted;
             _context.SaveChanges();
         }
     }
