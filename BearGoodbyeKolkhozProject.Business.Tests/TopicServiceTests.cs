@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using NUnit.Framework;
 using AutoMapper;
 using Moq;
+using BearGoodbyeKolkhozProject.Business.Exceptions;
 
 namespace BearGoodbyeKolkhozProject.Business.Tests
 {
@@ -85,18 +86,18 @@ namespace BearGoodbyeKolkhozProject.Business.Tests
         }
 
         [TestCaseSource(typeof(UpdateTopicTestCaseSource))]
-        public void UpdateTopicTest(TopicModel updateModel)
+        public void UpdateTopicTest(TopicModel updateModel, int id)
         {
             //given
             Mock<ITopicRepository> _topicMock = new Mock<ITopicRepository>();
-            _topicMock.Setup(lr => lr.UpdateTopic(It.IsAny<Topic>()));
+            _topicMock.Setup(lr => lr.UpdateTopic(It.IsAny<Topic>(), It.IsAny<int>()));
 
             //when
             TopicService _service = new TopicService(_mapper, _topicMock.Object);
-            _service.UpdateTopic(updateModel);
+            _service.UpdateTopic(updateModel, id);
 
             //then
-            _topicMock.Verify(x => x.UpdateTopic(It.IsAny<Topic>()), Times.Once);
+            _topicMock.Verify(x => x.UpdateTopic(It.IsAny<Topic>(), It.IsAny<int>()), Times.Once);
         }
 
         [TestCaseSource(typeof(DeleteTopicTestCaseSource))]
@@ -133,6 +134,48 @@ namespace BearGoodbyeKolkhozProject.Business.Tests
             //then
             _topicMock.Verify(t => t.GetTopicById(id), Times.Once);
             _topicMock.Verify(t => t.ChangeDeleteStatus(topic, false), Times.Once);
+        }
+
+        public void GetTopicById_WhenTopicNotFoundInDataBase_ShouldThrowNotFoundException()
+        {
+            Mock<ITopicRepository> _topicMock = new Mock<ITopicRepository>();
+            _topicMock.Setup(lr => lr.GetTopicById(It.IsAny<int>())).Returns((Topic)null);
+
+            //when
+            TopicService _service = new TopicService(_mapper, _topicMock.Object);
+
+            //then
+            Assert.Throws<NotFoundException>(() => _service.GetTopicById(It.IsAny<int>()));
+
+            _topicMock.Verify(t => t.GetTopicById(It.IsAny<int>()), Times.Once);
+        }
+
+        public void DeleteTopic_WhenTopicNotFoundInDataBase_ShouldThrowNotFoundException()
+        {
+            Mock<ITopicRepository> _topicMock = new Mock<ITopicRepository>();
+            _topicMock.Setup(lr => lr.GetTopicById(It.IsAny<int>())).Returns((Topic)null);
+
+            //when
+            TopicService _service = new TopicService(_mapper, _topicMock.Object);
+
+            //then
+            Assert.Throws<NotFoundException>(() => _service.DeleteTopic(It.IsAny<TopicModel>()));
+
+            _topicMock.Verify(t => t.GetTopicById(It.IsAny<int>()), Times.Once);
+        }
+
+        public void RecoverTopic_WhenTopicNotFoundInDataBase_ShouldThrowNotFoundException()
+        {
+            Mock<ITopicRepository> _topicMock = new Mock<ITopicRepository>();
+            _topicMock.Setup(lr => lr.GetTopicById(It.IsAny<int>())).Returns((Topic)null);
+
+            //when
+            TopicService _service = new TopicService(_mapper, _topicMock.Object);
+
+            //then
+            Assert.Throws<NotFoundException>(() => _service.RecoverTopic(It.IsAny<TopicModel>()));
+
+            _topicMock.Verify(t => t.GetTopicById(It.IsAny<int>()), Times.Once);
         }
     }
 }

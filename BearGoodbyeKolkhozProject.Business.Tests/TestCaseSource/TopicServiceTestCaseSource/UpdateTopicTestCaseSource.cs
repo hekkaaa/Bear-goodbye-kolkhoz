@@ -14,7 +14,7 @@ namespace BearGoodbyeKolkhozProject.Business.Tests.TestCaseSource.TopicServiceTe
                 IsDeleted = false
             };
 
-            yield return new object[] { updateModel };
+            yield return new object[] { updateModel, 1 };
         }
     }
 }
