@@ -25,7 +25,7 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             _mapper = mapper;
         }
 
-        public string LoginLecturer(string email, string password)
+        public string GetToken(string email, string password)
         {
             Lecturer entity = _lecturerRepo.Login(email, password);
 

@@ -2,6 +2,6 @@
 {
     public interface IAuthService
     {
-        string LoginLecturer(string email, string password);
+        string GetToken(string email, string password);
     }
 }

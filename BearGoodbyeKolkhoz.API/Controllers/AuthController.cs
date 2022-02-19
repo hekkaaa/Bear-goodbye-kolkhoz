@@ -14,10 +14,10 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
             _authService = authService;
         }
 
-        [HttpPost("lecturer/login")]
-        public ActionResult LecturerLogin([FromBody] LecturerInputAuthModel authModel)
+        [HttpPost("login")]
+        public ActionResult Login([FromBody] LecturerInputAuthModel authModel)
         {
-            var token = _authService.LoginLecturer(authModel.Email, authModel.Password);
+            var token = _authService.GetToken(authModel.Email, authModel.Password);
             return Json(token);
         }
     }
