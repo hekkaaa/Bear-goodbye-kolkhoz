@@ -18,8 +18,6 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             _mapper = mapper;
         }
 
-
-
         public void UpdateTraining(int id, TrainingModel trainingModel)
         {
             var training = _repository.GetTrainingById(id);

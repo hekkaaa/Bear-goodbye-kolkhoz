@@ -1,5 +1,6 @@
 ﻿using BearGoodbyeKolkhozProject.Data.ConnectDb;
 using BearGoodbyeKolkhozProject.Data.Entities;
+using BearGoodbyeKolkhozProject.Data.Enums;
 using BearGoodbyeKolkhozProject.Data.Interfaces;
 
 namespace BearGoodbyeKolkhozProject.Data.Repositories
@@ -13,6 +14,15 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
             _context = context;
         }
 
+        public Lecturer Login(string email, string password)
+        {
+            Lecturer lecturer = _context.Lecturer
+                .Where(l => l.Email == email && l.Password == password)
+                .FirstOrDefault();
+
+            return lecturer;
+        }
+
         public Lecturer GetLecturerById(int id) =>
             _context.Lecturer.FirstOrDefault(L => L.Id == id);
 
@@ -21,6 +31,7 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
 
         public void AddLecturer(Lecturer model)
         {
+            model.Role = Role.Lecturer;
             _context.Lecturer.Add(model);
             _context.SaveChanges();
         }
@@ -55,5 +66,6 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
             lecturer.IsDeleted = isDeleted;
             _context.SaveChanges();
         }
+
     }
 }

@@ -21,6 +21,7 @@ namespace BearGoodbyeKolkhozProject.Data.Entities
                 || Id != ((LecturerReview)obj).Id
                 || Text != ((LecturerReview)obj).Text
                 || Mark != ((LecturerReview)obj).Mark
+                || IsDeleted != ((LecturerReview)obj).IsDeleted
                 || Client != ((LecturerReview)obj).Client
                 || Lecturer != ((LecturerReview)obj).Lecturer)
             {
