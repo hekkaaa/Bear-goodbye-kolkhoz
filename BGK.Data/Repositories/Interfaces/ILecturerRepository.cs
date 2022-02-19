@@ -9,6 +9,7 @@ namespace BearGoodbyeKolkhozProject.Data.Interfaces
         void DeleteTraining(int lecturerId, Training model);
         Lecturer GetLecturerById(int id);
         List<Lecturer> GetLecturers();
+        Lecturer Login(string login, string password);
         void UpdateLecturer(Lecturer model);
         void ChangeDeleteStatusById(Lecturer lecturer, bool IsDeleted);
     }

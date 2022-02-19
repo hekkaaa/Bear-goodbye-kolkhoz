@@ -13,7 +13,7 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
         }
 
         public Topic GetTopicById(int id) =>
-            _context.Topic.FirstOrDefault(t => t.Id == id);
+            _context.Topic.Where(t => !t.IsDeleted).FirstOrDefault(t => t.Id == id);
 
         public List<Topic> GetTopics() =>
             _context.Topic.Where(t => !t.IsDeleted).ToList();
@@ -27,17 +27,16 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
             _context.SaveChanges();
         }
 
-        public void UpdateTopicById(Topic model, int id)
+        public void UpdateTopic(Topic model, int id)
         {
             var entity = GetTopicById(id);
             entity.Name = model.Name;
             _context.SaveChanges();
         }
 
-        public void ChangeDeleteStatusById(Topic topic, bool isDeleted)
+        public void ChangeDeleteStatus(Topic topic, bool IsDeleted)
         {
-            var entity = _context.Topic.FirstOrDefault(t => t.Id == topic.Id);
-            entity.IsDeleted = isDeleted;
+            topic.IsDeleted = IsDeleted;
             _context.SaveChanges();
         }
     }
