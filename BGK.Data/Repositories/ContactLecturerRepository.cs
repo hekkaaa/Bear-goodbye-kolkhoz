@@ -21,22 +21,23 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
         public ContactLecturer GetValueContactLecturerById(int id) =>
             _context.ContactLecturer.Find(id);
 
-        public void AddValue(ContactLecturer сontactLecturer)
+        public void AddContactLecturerValueRepo(ContactLecturer сontactLecturer)
         {
-            _context.ContactLecturer.Add(сontactLecturer);
 
+            var entity = GetValueContactLecturerById(сontactLecturer.Id);
+
+            entity.Value = сontactLecturer.Value;
+            
             _context.SaveChanges();
+   
         }
 
-        public void UpdateValue(ContactLecturer contactLecturer)
+        public void UpdateContactLecturerValueRepo(ContactLecturer contactLecturer)
         {
             var entity = GetValueContactLecturerById(contactLecturer.Id);
 
             entity.Value = contactLecturer.Value;
             
-
-            _context.ContactLecturer.Update(entity);
-
             _context.SaveChanges();
         }
 

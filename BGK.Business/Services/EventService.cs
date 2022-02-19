@@ -71,7 +71,7 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             if (even == null)
                 throw new BusinessException($"Такого события {id} не существует.");
 
-            _eventRepository.DeleteEvent(id);
+            _eventRepository.DeleteEvent(even);
         }
 
     }

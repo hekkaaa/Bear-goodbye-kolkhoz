@@ -38,7 +38,7 @@ namespace BearGoodbyeKolkhozProject.Business.Services
 
         }
 
-        public void RegistrCompany(CompanyModel companyModel)
+        public void RegistrationCompany(CompanyModel companyModel)
         {
 
             var mappedCompany = new Company
@@ -53,7 +53,7 @@ namespace BearGoodbyeKolkhozProject.Business.Services
 
             };
 
-            _companyRepository.RegistrCompany(_mapper.Map<Company>(mappedCompany));
+            _companyRepository.RegistrationCompany(_mapper.Map<Company>(mappedCompany));
         }
 
 
@@ -65,9 +65,9 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             if (company == null)
                 throw new BusinessException("Такой Компании не существует.");
 
-            
-
-            _companyRepository.UpdateCompany(_mapper.Map<Company>(companyModel));
+            var entity = _mapper.Map <Company> (companyModel);
+          
+            _companyRepository.UpdateCompany(entity);
 
         }
 

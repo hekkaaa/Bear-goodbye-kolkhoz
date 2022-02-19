@@ -19,14 +19,14 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             _mapper = mapper;
         }
 
-        public void AddValue(ContactLecturerModel сontactLecturerModel)
+        public void AddContactLecturerValue(ContactLecturerModel сontactLecturerModel)
         {
             var mappedLecturer = new ContactLecturerModel { Value = сontactLecturerModel.Value };
 
-            _contactLecturerRepository.AddValue(_mapper.Map<ContactLecturer>(mappedLecturer));
+            _contactLecturerRepository.AddContactLecturerValueRepo(_mapper.Map<ContactLecturer>(mappedLecturer));
         }
 
-        public void UpdateContactLecturer(ContactLecturerModel сontactLecturerModel)
+        public void UpdateContactLecturerValue(ContactLecturerModel сontactLecturerModel)
         {
             var contactLecturer = _contactLecturerRepository.GetValueContactLecturerById(сontactLecturerModel.Id);
 
@@ -35,7 +35,7 @@ namespace BearGoodbyeKolkhozProject.Business.Services
 
             var mappedLecturer = new ContactLecturerModel { Value = сontactLecturerModel.Value };
 
-            _contactLecturerRepository.UpdateValue(_mapper.Map<ContactLecturer>(mappedLecturer));
+            _contactLecturerRepository.UpdateContactLecturerValueRepo(_mapper.Map<ContactLecturer>(mappedLecturer));
 
         }
     }

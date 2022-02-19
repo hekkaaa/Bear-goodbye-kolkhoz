@@ -49,11 +49,10 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
 
         }
 
-        public void DeleteEvent(int id)
-        {
-            var entity = GetEventById(id);
+        public void DeleteEvent(Event even)
+        {            
 
-            _context.Event.Remove(entity);
+            _context.Event.Remove(even);
 
             _context.SaveChanges();
         }

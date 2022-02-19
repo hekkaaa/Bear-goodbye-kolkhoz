@@ -9,15 +9,15 @@ using Microsoft.AspNetCore.Mvc;
 namespace BearGoodbyeKolkhozProject.API.Controllers
 {
     [ApiController]
-    [Route("api/event/[controller]")]
-    public class EventController : Controller
+    [Route("api/[controller]")]
+    public class EventsController : Controller
     {
                
             private readonly IEventService _service;
 
             private IMapper _mapperApi;
 
-            public EventController(IEventService eventService, IMapper mapper)
+            public EventsController(IEventService eventService, IMapper mapper)
             {
                 _service = eventService;
 
@@ -25,7 +25,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
             }
 
 
-            //api/events/21
+            //api/events/
             [HttpGet("(id)")]
             public ActionResult<List<EventOutputModel>> GetEvents()
             {
@@ -39,7 +39,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
             }
 
 
-            //api/events/1
+            //api/events/
             [HttpGet("{id}")]
             public ActionResult<EventOutputModel> GetEventById(int id)
             {
@@ -52,9 +52,9 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
                 return Ok(result);
             }
 
-            ////api/events/1
-            [HttpPost("{id}/event/client")]
-            public ActionResult<EventUpdateClientInputModel> AddEventFromClient([FromBody] EventUpdateClientInputModel eventOutputModel)
+            ////api/events/
+            [HttpPost()]
+            public ActionResult<EventUpdateInputModel> AddEvent([FromBody] EventUpdateInputModel eventOutputModel)
             {
 
                 EventModel entity = _mapperApi.Map<EventModel>(eventOutputModel);
@@ -65,22 +65,10 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
 
             }
 
-            //api/events/1
-            [HttpPost("{id}/event/company")]
-            public ActionResult<EventUpdateCompanyInputModel> AddEventFromCompany([FromBody] EventUpdateCompanyInputModel eventOutputModel)
-            {
 
-                EventModel entity = _mapperApi.Map<EventModel>(eventOutputModel);
-
-                _service.AddEventFromCompany(entity);
-
-                return StatusCode(StatusCodes.Status201Created, entity);
-
-            }
-
-            //api/events/1
-            [HttpPut("{id}/event/client")]
-            public ActionResult<EventUpdateClientInputModel> UpdateEventFromClient(int id, [FromBody] EventUpdateClientInputModel eventUpdateInputModel)
+            //api/events/
+            [HttpPut()]
+            public ActionResult<EventUpdateInputModel> UpdateEvent(int id, [FromBody] EventUpdateInputModel eventUpdateInputModel)
             {
                 EventModel entity = _mapperApi.Map<EventModel>(eventUpdateInputModel);
 
@@ -88,23 +76,12 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
 
                 return Ok(entity);
             }
+            
 
 
-            ////api/events/1
-            [HttpPut("{id}/event/company")]
-            public ActionResult<EventUpdateCompanyInputModel> UpdateEventFromCompany(int id, [FromBody] EventUpdateCompanyInputModel eventUpdateInputModel)
-            {
-                EventModel entity = _mapperApi.Map<EventModel>(eventUpdateInputModel);
-
-                _service.UpdateEvent(id, entity);
-
-                return Ok(entity);
-            }
-
-
-            //api/events/1/
-            [HttpDelete("{id}/event/")]
-            public ActionResult<EventUpdateClientInputModel> DeleteEvent(int id)
+            //api/events/
+            [HttpDelete("{id}")]
+            public ActionResult<EventUpdateInputModel> DeleteEvent(int id)
             {
                 _service.DeleteEvent(id);
 

@@ -12,29 +12,29 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
 
     [ApiController]
     [Route("api/[controller]")]
-    public class CompanyController : Controller
+    public class CompaniesController : Controller
     {
-        private readonly ICompanyService _serviceCom;
+        private readonly ICompanyService _companyService;
 
-        private IContactLecturerService _serviceLec;
+        private IContactLecturerService _contactLecturerService;
 
         private IMapper _mapperApi;
 
-        public CompanyController(ICompanyService companyService, IContactLecturerService contactLecturerService, IMapper mapper)
+        public CompaniesController(ICompanyService companyService, IContactLecturerService contactLecturerService, IMapper mapper)
         {
-            _serviceCom = companyService;
+            _companyService = companyService;
 
-            _serviceLec = contactLecturerService;
+            _contactLecturerService = contactLecturerService;
 
             _mapperApi = mapper;
         }
 
 
-        //api/companies/21
+        //api/companies/
         [HttpGet("(id/companies/)")]
         public ActionResult<List<CompanyOutputModel>> GetCompanies()
         {
-            var entity = _serviceCom.GetCompanies();
+            var entity = _companyService.GetCompanies();
 
             var result = _mapperApi.Map<List<CompanyOutputModel>>(entity);
 
@@ -43,11 +43,11 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
             return Ok(result);
         }
 
-        //api/companies/2
+        //api/companies/
         [HttpGet("{id}")]
         public ActionResult<CompanyOutputModel> GetCompanyById(int id)
         {
-            var entity = _serviceCom.GetCompanyById(id);
+            var entity = _companyService.GetCompanyById(id);
 
             var result = _mapperApi.Map<CompanyOutputModel>(entity);
 
@@ -58,24 +58,24 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
 
         //api/companies/
         [HttpPost()]
-        public ActionResult<CompanyInsertInputModel> RegistrCompany([FromBody] CompanyInsertInputModel companyInsertInputModel)
+        public ActionResult<CompanyInsertInputModel> RegistrationCompany([FromBody] CompanyInsertInputModel companyInsertInputModel)
         {
 
             CompanyModel entity = _mapperApi.Map<CompanyModel>(companyInsertInputModel);
 
-            _serviceCom.RegistrCompany(entity);
+            _companyService.RegistrationCompany(entity);
 
             return StatusCode(StatusCodes.Status201Created, entity);
 
 
         }
         //api/companies/
-        [HttpPut("{id}")]
+        [HttpPut()]
         public ActionResult<CompanyUpdateInputModel> UpdateCompany([FromBody] CompanyUpdateInputModel companyUpdateInputModel)
         {
             CompanyModel model = _mapperApi.Map<CompanyModel>(companyUpdateInputModel);
 
-            _serviceCom.UpdateCompany(model);
+            _companyService.UpdateCompany(model);
 
             return Ok(model);
 
@@ -83,7 +83,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         [HttpPut("{id}/company/")]
         public ActionResult<CompanyOutputModel> UpdateCompany(int id, bool isDel)
         {
-            _serviceCom.UpdateCompany(id, isDel);
+            _companyService.UpdateCompany(id, isDel);
 
             return NoContent();
 
@@ -93,20 +93,21 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         public ActionResult<CompanyUpdateInputModel> DeleteCompany(int id)
         {
 
-            _serviceCom.DeleteCompany(id);
+            _companyService.DeleteCompany(id);
 
             return NoContent();
         }
 
         //api/contactlecturer/
         [HttpPost("{LecturerId}")]
-        public ActionResult<ContactLecturerInsertInputModel> AddValue([FromBody] ContactLecturerInsertInputModel contactLecturerInsertInputModel)
+        public ActionResult<ContactLecturerInsertInputModel> AddContactLecturerValueApi    // Данный метод позволяет компании ставить оценку Лектору за проведенное мероприятие
+            ([FromBody] ContactLecturerInsertInputModel contactLecturerInsertInputModel)
         {
             
 
             ContactLecturerModel entity = _mapperApi.Map<ContactLecturerModel>(contactLecturerInsertInputModel);
 
-            _serviceLec.AddValue(entity);
+            _contactLecturerService.AddContactLecturerValue(entity);
 
             return StatusCode(StatusCodes.Status201Created, entity);
 
@@ -115,13 +116,14 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
 
         //api/contactlecturer/
         [HttpPut("{LecturerId}")]
-        public ActionResult<ContactLecturerInsertInputModel> UpdateValue([FromBody] ContactLecturerInsertInputModel contactLecturerInsertInputModel)
+        public ActionResult<ContactLecturerInsertInputModel> UpdateContactLecturerValueApi   // Данный метод позволяет компании изменить оценку Лектору за проведенное мероприятие
+            ([FromBody] ContactLecturerInsertInputModel contactLecturerInsertInputModel)
         {
 
 
             ContactLecturerModel entity = _mapperApi.Map<ContactLecturerModel>(contactLecturerInsertInputModel);
 
-            _serviceLec.UpdateContactLecturer(entity);
+            _contactLecturerService.UpdateContactLecturerValue(entity);
 
             return Ok(entity);
 

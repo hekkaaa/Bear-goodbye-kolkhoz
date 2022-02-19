@@ -58,7 +58,7 @@ namespace BearGoodbyeKolkhozProject.Business.Tests
               IsDeleted = false
             };
 
-            _service.RegistrCompany(company);
+            _service.RegistrationCompany(company);
             //when
 
             var actual = _service.GetCompanyById(1);
@@ -90,7 +90,7 @@ namespace BearGoodbyeKolkhozProject.Business.Tests
                 IsDeleted = false
             };
 
-            _service.RegistrCompany(company);
+            _service.RegistrationCompany(company);
 
             var updateCompany = new CompanyModel
             {

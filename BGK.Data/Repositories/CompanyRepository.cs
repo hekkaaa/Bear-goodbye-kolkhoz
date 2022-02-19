@@ -16,7 +16,7 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
         {
             _context = context;
         }
-        public void RegistrCompany(Company company)
+        public void RegistrationCompany(Company company)
         {
 
             _context.Company.Add(company);
@@ -33,16 +33,14 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
 
         public void UpdateCompany(Company company)
         {
-            var entity = GetCompanyById(company.Id);    
-            
+            var entity = GetCompanyById(company.Id);
+
             entity.Name = company.Name;
             entity.PhoneNumber = company.PhoneNumber;
             entity.Tin = company.Tin;
-            entity.IsDeleted = company.IsDeleted;
-            
-            _context.Company.Update(entity);
 
             _context.SaveChanges();
+
         }
 
         public void UpdateCompany(int id, bool isDel)
