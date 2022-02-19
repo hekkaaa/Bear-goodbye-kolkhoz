@@ -23,7 +23,18 @@ namespace BearGoodbyeKolkhozProject.Business.Tests.TestCaseSource.LecturerReview
                 IsDeleted = false
             };
 
-            var clientModel = new ClientModel() { };
+            var clientModel = new ClientModel()
+            {
+                Id = 111,
+                Name = "qwe123",
+                LastName = "321ewq",
+                Gender = Gender.Male,
+                BirthDay = "11.11.2000",
+                Email = "123qwe@mail.com",
+                PhoneNumber = "77777777777",
+                Password = "qwe!23",
+                IsDeleted = false
+            };
 
             var lecturer = new Lecturer()
             {
