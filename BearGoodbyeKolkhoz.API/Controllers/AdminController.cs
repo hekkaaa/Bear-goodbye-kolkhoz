@@ -89,57 +89,5 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
             var res = _service.ChangeAdminPassword(id, model);
             return Ok(res);
         }
-
-        //api/admins/{id}/classroom
-        [HttpDelete("{id}/classroom")]
-        public ActionResult DeleteClassromById(int id)
-        {
-            // заглушка для удаления classroom
-            return Ok();
-        }
-
-        [HttpPut("{id}/classroom")]
-        public ActionResult UpdateClassroomById(AdminInsertInputModel newItem)
-        {
-            // заглушка для изменения classroom
-            return Ok();
-        }
-
-        //api/admins/{id}/traning
-        [HttpDelete("{id}/traning")]
-        public ActionResult DeleteTraningById(int id)
-        {
-            // заглушка для удаления traning
-            return Ok();
-        }
-
-        [HttpPut("{id}/traning")]
-        public ActionResult UpdateTraningById(AdminInsertInputModel newItem)
-        {
-            // заглушка для изменения traning
-            return Ok();
-        }
-
-        [HttpPut("{id}/lector/skills")]
-        public ActionResult UpdateSkillLectorById(int id)
-        {
-            // заглушка для изменения скилов lector
-            return Ok();
-        }
-
-        [HttpPut("{id}/user/ban")]
-        public ActionResult BanUserById(int id)
-        {
-            // заглушка для бана негодяев
-            return Ok();
-        }
-
-        [HttpPut("{id}/event/update")]
-        public ActionResult UpdateEventById(int id/*какой то инпут обьект*/)
-        {
-            // заглушка для редактирования эвентов
-            return Ok();
-        }
-
     }
 }
