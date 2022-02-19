@@ -9,6 +9,6 @@ namespace BearGoodbyeKolkhozProject.Business.Services
         TopicModel GetTopicById(int id);
         List<TopicModel> GetTopics();
         void RecoverTopic(TopicModel model);
-        void UpdateTopic(TopicModel model);
+        void UpdateTopic(TopicModel model, int id);
     }
 }

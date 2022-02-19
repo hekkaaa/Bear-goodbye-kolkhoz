@@ -46,10 +46,10 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             _topicRepo.AddTopic(topic);
         }
 
-        public void UpdateTopic(TopicModel model)
+        public void UpdateTopic(TopicModel model, int id)
         {
             var topic = _mapper.Map<Topic>(model);
-            _topicRepo.UpdateTopic(topic);
+            _topicRepo.UpdateTopic(topic, id);
         }
 
         public void DeleteTopic(TopicModel model)

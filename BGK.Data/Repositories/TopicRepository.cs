@@ -27,7 +27,7 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
             _context.SaveChanges();
         }
 
-        public void UpdateTopicById(Topic model, int id)
+        public void UpdateTopic(Topic model, int id)
         {
             var entity = GetTopicById(id);
             entity.Name = model.Name;
