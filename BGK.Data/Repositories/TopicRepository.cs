@@ -1,14 +1,9 @@
 ﻿using BearGoodbyeKolkhozProject.Data.ConnectDb;
 using BearGoodbyeKolkhozProject.Data.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BearGoodbyeKolkhozProject.Data.Repositories
 {
-    public class TopicRepository
+    public class TopicRepository : ITopicRepository
     {
         private ApplicationContext _context;
 
@@ -17,11 +12,14 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
             _context = context;
         }
 
-        public Topic GetTopicById(int id) => 
-            _context.Topic.FirstOrDefault(t => t.Id == id);
+        public Topic GetTopicById(int id) =>
+            _context.Topic.Where(t => !t.IsDeleted).FirstOrDefault(t => t.Id == id);
 
-        public List<Topic> GetTopic() => 
+        public List<Topic> GetTopics() =>
             _context.Topic.Where(t => !t.IsDeleted).ToList();
+
+        public List<Topic> GetTopicsByTrainingId(int id) =>
+            _context.Topic.Where(t => !t.IsDeleted).Where(t => t.Training.Id == id).ToList();
 
         public void AddTopic(Topic model)
         {
@@ -29,17 +27,16 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
             _context.SaveChanges();
         }
 
-        public void UpdateTopic(Topic model)
+        public void UpdateTopic(Topic model, int id)
         {
-            var entity = GetTopicById(model.Id);
+            var entity = GetTopicById(id);
             entity.Name = model.Name;
             _context.SaveChanges();
         }
 
-        public void ChangeDeleteStatusById(int id, bool IsDeleted)
+        public void ChangeDeleteStatus(Topic topic, bool IsDeleted)
         {
-            var entity = _context.Topic.FirstOrDefault(t => t.Id == id);
-            entity.IsDeleted = IsDeleted;
+            topic.IsDeleted = IsDeleted;
             _context.SaveChanges();
         }
     }

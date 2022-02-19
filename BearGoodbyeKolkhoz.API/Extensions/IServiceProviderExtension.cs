@@ -29,6 +29,7 @@ namespace BearGoodbyeKolkhozProject.API.Extensions
             repository.AddScoped<IAdminRepository, AdminRepository>();
             repository.AddScoped<IEventRepository, EventRepository>();
             repository.AddScoped<ICompanyRepository, CompanyRepository>();
+            repository.AddScoped<IAuthService, AuthService>();
         }
     }
 }

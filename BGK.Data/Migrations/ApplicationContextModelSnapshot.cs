@@ -85,6 +85,29 @@ namespace BearGoodbyeKolkhozProject.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Classroom");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Address = "ул. Вавилова дом 5",
+                            City = "Санкт-Петербург",
+                            MembersCount = 25
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Address = "пр. Ветеранов дом 8",
+                            City = "Санкт-Петербург",
+                            MembersCount = 25
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Address = "ул. Пушкина дом 27",
+                            City = "Санкт-Петербург",
+                            MembersCount = 40
+                        });
                 });
 
             modelBuilder.Entity("BearGoodbyeKolkhozProject.Data.Entities.Client", b =>
@@ -238,6 +261,10 @@ namespace BearGoodbyeKolkhozProject.Data.Migrations
                     b.Property<string>("BirthDay")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("Gender")
                         .HasColumnType("int");
 
@@ -245,12 +272,10 @@ namespace BearGoodbyeKolkhozProject.Data.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("LastName")
-                        .IsRequired()
                         .HasMaxLength(40)
                         .HasColumnType("nvarchar(40)");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasMaxLength(40)
                         .HasColumnType("nvarchar(40)");
 
@@ -366,6 +391,38 @@ namespace BearGoodbyeKolkhozProject.Data.Migrations
                     b.HasIndex("LecturerId");
 
                     b.ToTable("Training");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Description = "Тренинг для развития ораторских способностей, лучшие приглашенные ораторы всех времён",
+                            Duration = 3,
+                            IsDeleted = false,
+                            MembersCount = 15,
+                            Name = "Развитие ораторских способностей",
+                            Price = 1500
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Description = "Тренинг для развития скиллов нетворкинга, знакомьтесь везде и всегда",
+                            Duration = 5,
+                            IsDeleted = false,
+                            MembersCount = 18,
+                            Name = "Нетворк-скиллы",
+                            Price = 2000
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Description = "Научитесь рассказывать истории, захватывайте всех своими презентациями",
+                            Duration = 2,
+                            IsDeleted = false,
+                            MembersCount = 10,
+                            Name = "Сторителлинг",
+                            Price = 3500
+                        });
                 });
 
             modelBuilder.Entity("BearGoodbyeKolkhozProject.Data.Entities.TrainingReview", b =>
