@@ -14,7 +14,7 @@ using System.Collections.Generic;
 
 namespace BearGoodbyeKolkhozProject.Business.Tests
 {
-    public class Tests
+    public class TrainingReviewSeviceTests
     {
         private TrainingReviewService _service;
         private ApplicationContext _context;
@@ -26,15 +26,7 @@ namespace BearGoodbyeKolkhozProject.Business.Tests
         [SetUp]
         public void Setup()
         {
-            //var options = new DbContextOptionsBuilder<ApplicationContext>()
-            //   .UseInMemoryDatabase(databaseName: "Memory-DB")
-            //   .Options;
-            //_context = new ApplicationContext(options);
-            //_context.Database.EnsureDeleted();
-            //_context.Database.EnsureCreated();
-
             _mapper = new Mapper(new MapperConfiguration(cfg => cfg.AddProfile<BusinessMapperProfile>()));
-
         }
 
 

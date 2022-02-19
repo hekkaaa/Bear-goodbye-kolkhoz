@@ -11,7 +11,6 @@ namespace BearGoodbyeKolkhozProject.Business.Tests.TestCaseSource.TraningTestCas
 {
     public class GetTrainingReviewsTestCaseSource : IEnumerable
     {
-        IMapper _mapper = new Mapper(new MapperConfiguration(cfg => cfg.AddProfile<BusinessMapperProfile>()));
         public IEnumerator GetEnumerator()
         {
 
