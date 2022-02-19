@@ -10,12 +10,14 @@ namespace BearGoodbyeKolkhozProject.Business.Services
     public class TrainingService : ITrainingService
     {
         private ITrainingRepository _repository;
+        private IClientRepository _clientRepository;
         private IMapper _mapper;
 
-        public TrainingService(ITrainingRepository repository, IMapper mapper)
+        public TrainingService(ITrainingRepository repository, IMapper mapper, IClientRepository clientRepository)
         {
             _repository = repository;
             _mapper = mapper;
+            _clientRepository = clientRepository;
         }
 
 
@@ -28,6 +30,7 @@ namespace BearGoodbyeKolkhozProject.Business.Services
                 throw new BusinessException("Такого тренинга не найдено!");
 
             var trainingEntity = _mapper.Map<Training>(trainingModel);
+            trainingEntity.Id = id;
             _repository.UpdateTraining(trainingEntity);
         }
 
@@ -47,7 +50,7 @@ namespace BearGoodbyeKolkhozProject.Business.Services
 
         public List<TrainingModel> GetTrainingModelByTopic(TopicModel topicModel)
         {
-            var trainingEntityList = _repository.GetTrainingsByTopic(topicModel.Id);
+            var trainingEntityList = _repository.GetTrainingsByTopic((_mapper.Map<Topic>(topicModel)));
             return _mapper.Map<List<TrainingModel>>(trainingEntityList);
         }
 
@@ -72,9 +75,18 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             _repository.UpdateTraining(_mapper.Map<Training>(trainingModel), false);
         }
 
-        public void AddTopicToTraining(int id, TopicModel topicModel)
+        public void AddTopicToTraining(int id, int topicId)
         {
-            _repository.AddTopicToTraining(id, _mapper.Map<Topic>(topicModel));
+            _repository.AddTopicToTraining(id, topicId);
+        }
+
+        public void AddReviewToTraining(int trainingId, TrainingReviewModel trainingReview)
+        {
+            var training = _repository.GetTrainingById(trainingId);
+            if (training == null)
+                throw new BusinessException("Такого тренинга не найдено!");
+
+            _repository.AddReviewToTraining(trainingId, _mapper.Map<TrainingReview>(trainingReview));
         }
 
     }

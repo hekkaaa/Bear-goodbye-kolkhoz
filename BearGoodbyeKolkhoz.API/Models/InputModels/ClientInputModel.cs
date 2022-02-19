@@ -1,8 +1,8 @@
 ﻿namespace BearGoodbyeKolkhozProject.API.Models
 {
-    public class TrainingInputModelBase
+    public class ClientInputModel
     {
         public int Id { get; set; }
-       
+              
     }
 }

@@ -3,7 +3,7 @@ using BearGoodbyeKolkhozProject.Data.Entities;
 
 namespace BearGoodbyeKolkhozProject.Data.Repositories
 {
-    public class ClientRepository
+    public class ClientRepository : IClientRepository
     {
         private ApplicationContext _db;
         public ClientRepository(ApplicationContext context)

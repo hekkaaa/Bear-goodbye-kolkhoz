@@ -20,7 +20,7 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
             _applicationContext.Training.Where(t => !t.IsDeleted).ToList();
 
         public List<Training> GetTrainingsByTopic(Topic topic) =>
-            _applicationContext.Training.Where(t => t.Topics.Any(t => t.Name == topic.Name)).ToList();
+            _applicationContext.Training.Where(t => t.Topics.Any(t => t.Id == topic.Id)).ToList();
 
         public void UpdateTraining(Training training)
         {
@@ -49,10 +49,34 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
             return training.Id;
         }
 
-        public void AddTopicToTraining(int id, Topic topic)
+        public void AddTopicToTraining(int id, int topicId)
         {
             var training = GetTrainingById(id);
+            var topic = _applicationContext.Topic.FirstOrDefault(t => t.Id == topicId);
+
+            if (training.Topics == null)
+            {
+                training.Topics = new List<Topic>();
+            }
+
             training.Topics.Add(topic);
+            _applicationContext.SaveChanges();
+        }
+
+        public void AddReviewToTraining(int id, TrainingReview trainingReview)
+        {
+            var training = GetTrainingById(id);
+            var client = _applicationContext.Client.FirstOrDefault(c => c.Id == id);
+
+
+            if (training.TrainingReviews == null)
+            {
+                training.TrainingReviews = new List<TrainingReview>();
+            }
+            trainingReview.Training = training;
+            trainingReview.Client = client;
+
+            _applicationContext.TrainingReview.Add(trainingReview);
             _applicationContext.SaveChanges();
         }
 

@@ -11,6 +11,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
     public class TrainingController : Controller
     {
         private readonly ITrainingService _service;
+        private readonly ITrainingReviewService _trainingReviewService;
         private IMapper _mapper;
 
         public TrainingController(ITrainingService trainingService, IMapper mapper)
@@ -41,30 +42,35 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
             return Ok(_mapper.Map<TrainingOutputModel>(model));
         }
 
-        [HttpPatch("{trainingNewTopicInputModel.id}/new-topic")]
-        public IActionResult AddTopicToTraning(TopicInputModel topicInputModel, TrainingNewTopicInputModel trainingNewTopicInputModel)
+        [HttpPatch("{id}/new-topic")]
+        public IActionResult AddTopicToTraning(int id, int topicId)
         {
-            trainingNewTopicInputModel.Topics.Add(topicInputModel);
-            var training = _mapper.Map<TrainingModel>(trainingNewTopicInputModel);
-            _service.UpdateTraining(trainingNewTopicInputModel.Id, training);
+            _service.AddTopicToTraining(id, topicId);
             return Ok("Новый интерес у лекции успешно добавлен");
         }
 
-        [HttpPatch("{trainingNewTopicInputModel.id}/new-topic")]
-        public IActionResult AddReviewToTraining(TrainingReviewInputModel trainingReviewInputModel, TrainingNewReviewInputModel trainingNewReviewInputModel)
+        [HttpPatch("{id}/new-review")]
+        public IActionResult AddReviewToTraining(int id, [FromBody] TrainingReviewInsertInputModel trainingReview)
         {
-            trainingNewReviewInputModel.TrainingReviews.Add(trainingReviewInputModel);
-            var training = _mapper.Map<TrainingModel>(trainingNewReviewInputModel);
-            _service.UpdateTraining(trainingNewReviewInputModel.Id, training);
+            _service.AddReviewToTraining(id, _mapper.Map<TrainingReviewModel>(trainingReview));
             return Ok("Новый обзор на лекцию успешно добавлен");
         }
 
-        [HttpPatch("{trainingUpdateInputModel.id}/edit")]
-        public IActionResult UpdateTopic(TrainingUpdateInputModel trainingUpdateInputModel)
+        [HttpPatch("{id}/edit")]
+        public IActionResult UpdateTopic(int id, TrainingUpdateInputModel trainingUpdateInputModel)
         {
             var training = _mapper.Map<TrainingModel>(trainingUpdateInputModel);
-            _service.UpdateTraining(trainingUpdateInputModel.Id, training);
+            _service.UpdateTraining(id, training);
+
             return Ok("Лекция успешно обновлена");
+        }
+
+        [HttpPost("new")]
+        public IActionResult AddTraining([FromBody] TrainingInsertInputModel trainingInputModel)
+        {
+            var training = _mapper.Map<TrainingModel>(trainingInputModel);
+            _service.AddTraining(training);
+            return Ok("Лекция успешно добавлена");
         }
     }
 }

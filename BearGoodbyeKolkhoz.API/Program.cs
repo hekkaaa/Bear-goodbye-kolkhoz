@@ -18,7 +18,7 @@ builder.Services.AddSwaggerGen();
 
 var connString = builder.Configuration.GetValue<string>(_connString);
 
-builder.Services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(connString));
+builder.Services.AddDbContext<ApplicationContext>(options => options.UseSqlServer("Data Source=WIN-4PTG0MGAJ62\\SQLEXPRESS;Database=testSS123;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False"));
 
 // add service and provider connections here
 builder.Services.RegisterProjectService();
