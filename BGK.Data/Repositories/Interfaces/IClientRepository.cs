@@ -8,6 +8,6 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
         void ChangeDeleteStatusById(Client client, bool isDeleted);
         Client GetClientById(int id);
         List<Client> GetClients();
-        bool UpdateClientInfo(Client newInfo);
+        bool UpdateClientInfo(Client client, Client newInfo);
     }
 }

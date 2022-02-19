@@ -12,21 +12,19 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
         }
         public Client GetClientById(int id)
         {
-            var res = _db.Client.Where(c => !c.IsDeleted).FirstOrDefault(с => с.Id == id);
+            var res = _db.Client.FirstOrDefault(с => с.Id == id);
             return res;
         }
 
-        public bool UpdateClientInfo(Client newInfo)
+        public bool UpdateClientInfo(Client client, Client newInfo)
         {
-            var res = _db.Client.FirstOrDefault(с => с.Id == newInfo.Id);
-
-            res.Name = newInfo.Name;
-            res.LastName = newInfo.LastName;
-            res.Gender = newInfo.Gender;
-            res.BirthDay = newInfo.BirthDay;
-            res.Email = newInfo.Email;
-            res.PhoneNumber = newInfo.PhoneNumber;
-            res.Topic = newInfo.Topic;
+            client.Name = newInfo.Name;
+            client.LastName = newInfo.LastName;
+            client.Gender = newInfo.Gender;
+            client.BirthDay = newInfo.BirthDay;
+            client.Email = newInfo.Email;
+            client.PhoneNumber = newInfo.PhoneNumber;
+            client.Topic = newInfo.Topic;
 
             _db.SaveChanges();
             return true;

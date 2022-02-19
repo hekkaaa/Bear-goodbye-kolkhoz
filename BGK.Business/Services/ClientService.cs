@@ -46,7 +46,7 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             }
 
             var updateClient = _mapper.Map<Client>(updateModel);
-            _clientRepo.UpdateClientInfo(updateClient);
+            _clientRepo.UpdateClientInfo(client, updateClient);
         }
 
         public void DeleteClient(int id)
