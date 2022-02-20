@@ -9,5 +9,6 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
         Client GetClientById(int id);
         List<Client> GetClients();
         bool UpdateClientInfo(Client client, Client newInfo);
+        Client Login(string email, string password);
     }
 }
