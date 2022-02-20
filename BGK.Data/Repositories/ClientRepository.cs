@@ -1,5 +1,6 @@
 ﻿using BearGoodbyeKolkhozProject.Data.ConnectDb;
 using BearGoodbyeKolkhozProject.Data.Entities;
+using BearGoodbyeKolkhozProject.Data.Enums;
 
 namespace BearGoodbyeKolkhozProject.Data.Repositories
 {
@@ -10,10 +11,18 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
         {
             this._db = context;
         }
+
         public Client GetClientById(int id)
         {
             var res = _db.Client.FirstOrDefault(с => с.Id == id);
             return res;
+        }
+
+        public void AddClient(Client client)
+        {
+            client.Role = Role.Client;
+            _db.Client.Add(client);
+            _db.SaveChanges();
         }
 
         public bool UpdateClientInfo(Client client, Client newInfo)

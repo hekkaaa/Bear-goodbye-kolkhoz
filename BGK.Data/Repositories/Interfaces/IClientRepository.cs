@@ -4,6 +4,7 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
 {
     public interface IClientRepository
     {
+        void AddClient(Client client);
         void ChangePasswordClient(Client client, string newPassword);
         void ChangeDeleteStatusById(Client client, bool isDeleted);
         Client GetClientById(int id);

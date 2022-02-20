@@ -15,6 +15,12 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             _mapper = mapper;
         }
 
+        public void RegistrationClient(ClientModel model)
+        {
+            var entity = _mapper.Map<Client>(model);
+            _clientRepo.AddClient(entity);
+        }
+
         public ClientModel GetClientById(int id)
         {
             var client = _clientRepo.GetClientById(id);
