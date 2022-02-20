@@ -82,13 +82,15 @@ namespace BearGoodbyeKolkhozProject.Business.Services
         public void ChangePasswordClient(int id, string password)
         {
             var client = _clientRepo.GetClientById(id);
-
+            
             if (client is null)
             {
                 throw new NotFoundException($"нет клиента с id = {id}");
             }
 
-            _clientRepo.ChangePasswordClient(client, password);
+            string hashPassword = PasswordHash.HashPassword(password);
+
+            _clientRepo.ChangePasswordClient(client, hashPassword);
         }
     }
 }

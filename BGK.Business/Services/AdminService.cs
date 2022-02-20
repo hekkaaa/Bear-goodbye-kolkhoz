@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using BearGoodbyeKolkhozProject.Business.Configuration;
+using BearGoodbyeKolkhozProject.Business.Exceptions;
 using BearGoodbyeKolkhozProject.Business.Models;
 using BearGoodbyeKolkhozProject.Data.Entities;
 using BearGoodbyeKolkhozProject.Data.Repositories;
@@ -68,6 +69,12 @@ namespace BearGoodbyeKolkhozProject.Business.Services
         public bool ChangeAdminPassword(int id, string password)
         {
             var admin = _repository.GetAdminById(id);
+
+            if (admin is null)
+            {
+                throw new NotFoundException($"Нет клиента с id = {id}");
+            }
+
             string hashPassword = PasswordHash.HashPassword(password);
             return _repository.ChangePasswordAdmin(hashPassword, admin);
         }
