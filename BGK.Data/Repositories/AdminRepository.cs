@@ -19,7 +19,6 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
         }
         public List<Admin> GetAdminAll()
         {   
-
             return _db.Admin.Where(a => !a.IsDeleted).ToList();
         }
         public bool UpdateAdminInfo(Admin oldItem, Admin newItem)
@@ -29,7 +28,7 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
             oldItem.BirthDay = newItem.BirthDay;
             oldItem.Email = newItem.Email;
             oldItem.Gender = newItem.Gender;
-           
+
             _db.SaveChanges();
             return true;
         }

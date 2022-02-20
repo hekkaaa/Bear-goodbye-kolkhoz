@@ -20,6 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\BearGoodbyeKolkhoz.API\BearGoodbyeKolkhozProject.API.csproj" />
     <ProjectReference Include="..\BGK.Business\BearGoodbyeKolkhozProject.Business.csproj" />
     <ProjectReference Include="..\BGK.Data\BearGoodbyeKolkhozProject.Data.csproj" />
   </ItemGroup>

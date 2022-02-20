@@ -2,11 +2,6 @@
 using BearGoodbyeKolkhozProject.Business.Models;
 using BearGoodbyeKolkhozProject.Data.Entities;
 using BearGoodbyeKolkhozProject.Data.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BearGoodbyeKolkhozProject.Business.Services
 {
@@ -23,7 +18,7 @@ namespace BearGoodbyeKolkhozProject.Business.Services
 
         public AdminModel GetAdminById(int id)
         {
-            return _mapper.Map<AdminModel>(_repository.GetAdminById(id)); 
+            return _mapper.Map<AdminModel>(_repository.GetAdminById(id));
         }
 
         public List<AdminModel> GetAdminAll()
