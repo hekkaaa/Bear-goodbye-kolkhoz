@@ -34,49 +34,49 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
             return Ok(_mapper.Map<List<TrainingOutputModel>>(models));
         }
 
-        [HttpGet("by-topic/{topic}")]
+        [HttpGet("by-topic/{topicInputModel.Name}")]
         public IActionResult GetTrainingsByTopic(TopicInputModel topicInputModel)
         {
             var model = _service.GetTrainingModelByTopic(_mapper.Map<TopicModel>(topicInputModel));
             return Ok(_mapper.Map<TrainingOutputModel>(model));
         }
 
-        [HttpPatch("{id}/new-topic")]
+        [HttpPost("{id}/topic")]
         public IActionResult AddTopicToTraning(int id, int topicId)
         {
             _service.AddTopicToTraining(id, topicId);
-            return Ok("Новый интерес у лекции успешно добавлен");
+            return Ok("Новый интерес у тренинга успешно добавлен");
         }
 
-        [HttpPatch("{id}/new-review")]
+        [HttpPost("{id}/review")]
         public IActionResult AddReviewToTraining(int id, [FromBody] TrainingReviewInsertInputModel trainingReview)
         {
             _service.AddReviewToTraining(id, _mapper.Map<TrainingReviewModel>(trainingReview));
-            return Ok("Новый обзор на лекцию успешно добавлен");
+            return Ok("Новый обзор на тренинг успешно добавлен");
         }
 
-        [HttpPatch("{id}/edit")]
-        public IActionResult UpdateTopic(int id, TrainingUpdateInputModel trainingUpdateInputModel)
+        [HttpPut("{id}")]
+        public IActionResult UpdateTraining(int id, TrainingUpdateInputModel trainingUpdateInputModel)
         {
             var training = _mapper.Map<TrainingModel>(trainingUpdateInputModel);
             _service.UpdateTraining(id, training);
 
-            return Ok("Лекция успешно обновлена");
+            return Ok("Тренинг успешно обновлен");
         }
 
-        [HttpPost("new")]
+        [HttpPost]
         public IActionResult AddTraining([FromBody] TrainingInsertInputModel trainingInputModel)
         {
             var training = _mapper.Map<TrainingModel>(trainingInputModel);
             _service.AddTraining(training);
-            return Ok("Лекция успешно добавлена");
+            return Ok("Тренинг успешно добавлен");
         }
 
-        [HttpPatch("{id}/delete")]
+        [HttpPatch("{id}")]
         public IActionResult DeleteTraining(int id)
         {
             _service.DeleteTraining(id);
-            return Ok("Лекция успешно удалена");
+            return Ok("Тренинг успешно удален");
         }
 
     }
