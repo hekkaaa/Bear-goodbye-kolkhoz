@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using BearGoodbyeKolkhozProject.Business.Configuration;
 using BearGoodbyeKolkhozProject.Business.Models;
 using BearGoodbyeKolkhozProject.Data.Entities;
 using BearGoodbyeKolkhozProject.Data.Repositories;
@@ -64,9 +65,11 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             }
         }
 
-        public bool ChangeAdminPassword(int id, AdminModel newData)
+        public bool ChangeAdminPassword(int id, string password)
         {
-            return _repository.ChangePasswordAdmin(id, _mapper.Map<Admin>(newData));
+            var admin = _repository.GetAdminById(id);
+            string hashPassword = PasswordHash.HashPassword(password);
+            return _repository.ChangePasswordAdmin(hashPassword, admin);
         }
     }
 }

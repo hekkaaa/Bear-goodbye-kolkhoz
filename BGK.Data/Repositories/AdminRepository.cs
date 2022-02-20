@@ -48,12 +48,9 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
             return newItem.Id;
         }
 
-        public bool ChangePasswordAdmin(int id, Admin newData)
+        public bool ChangePasswordAdmin(string password, Admin admin)
         {
-            // т.к шифрование пока не реализованно записываем так.
-            var res = _db.Admin.FirstOrDefault(x => x.Id == id);
-
-            res.Password = newData.Password;
+            admin.Password = password;
             _db.SaveChanges();
             return true;
         }
