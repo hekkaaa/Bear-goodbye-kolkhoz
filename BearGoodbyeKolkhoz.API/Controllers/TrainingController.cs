@@ -56,7 +56,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         }
 
         [HttpPut("{id}")]
-        public IActionResult UpdateTraining(int id, TrainingUpdateInputModel trainingUpdateInputModel)
+        public IActionResult UpdateTraining(int id, [FromBody] TrainingUpdateInputModel trainingUpdateInputModel)
         {
             var training = _mapper.Map<TrainingModel>(trainingUpdateInputModel);
             _service.UpdateTraining(id, training);
