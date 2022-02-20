@@ -1,8 +1,7 @@
-﻿namespace BearGoodbyeKolkhozProject.Business.Models
+﻿namespace BearGoodbyeKolkhozProject.API.Models.OutputModels
 {
-    public class ClassroomModel
+    public class ClassroomOutputModel
     {
-        public int Id { get; set; }
         public int MembersCount { get; set; }
         public string? City { get; set; }
         public string? Address { get; set; }

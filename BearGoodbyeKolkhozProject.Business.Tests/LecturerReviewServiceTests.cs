@@ -79,7 +79,6 @@ namespace BearGoodbyeKolkhozProject.Business.Tests
             var actual = _service.GetLecturerReviewsByLecturerId(lecturerId);
 
             //then
-            Assert.AreEqual(expected.Count, actual.Count);
 
             for (int i = 0; i < expected.Count; i++)
             {
@@ -88,6 +87,7 @@ namespace BearGoodbyeKolkhozProject.Business.Tests
                 Assert.AreEqual(expected[i].Mark, actual[i].Mark);
                 Assert.AreEqual(expected[i].Client, actual[i].Client);
             }
+            Assert.AreEqual(expected.Count, actual.Count);
         }
 
         [TestCaseSource(typeof(AddLecturerReviewTestCaseSource))]

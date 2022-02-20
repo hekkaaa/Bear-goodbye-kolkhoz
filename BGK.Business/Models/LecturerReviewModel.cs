@@ -27,7 +27,8 @@ namespace BearGoodbyeKolkhozProject.Business.Models
                 || Id != ((LecturerReviewModel)obj).Id
                 || Text != ((LecturerReviewModel)obj).Text
                 || Mark != ((LecturerReviewModel)obj).Mark
-                || Client != ((LecturerReviewModel)obj).Client)
+                || Client != ((LecturerReviewModel)obj).Client
+                || IsDeleted != ((LecturerReviewModel)obj).IsDeleted)
             {
                 return false;
             }
