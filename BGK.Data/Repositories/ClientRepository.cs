@@ -55,8 +55,7 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
         public Client Login(string email)
         {
             Client? res = _db.Client
-                .Where(l => l.Email == email)
-                .FirstOrDefault();
+                .FirstOrDefault(l => l.Email == email);
 
             return res;
         }

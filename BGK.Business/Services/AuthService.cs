@@ -28,6 +28,12 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             if (role == "Lecturer")
             {
                 Lecturer entity = _lecturerRepo.Login(email);
+
+                if (entity is null)
+                {
+                    throw new NotFoundException($"Нет пользователя с email = {email}");
+                }
+
                 IsCorrectPassword(password, entity.Password);
 
                 claims = new List<Claim> {
@@ -40,6 +46,12 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             else if (role == "Admin")
             {
                 Admin entity = _adminRepo.Login(email);
+
+                if (entity is null)
+                {
+                    throw new NotFoundException($"Нет пользователя с email = {email}");
+                }
+
                 IsCorrectPassword(password, entity.Password);
 
                 claims = new List<Claim> {
@@ -52,6 +64,12 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             else if (role == "Client")
             {
                 Client entity = _userRepo.Login(email);
+
+                if (entity is null)
+                {
+                    throw new NotFoundException($"Нет пользователя с email = {email}");
+                }
+
                 IsCorrectPassword(password, entity.Password);
 
                 claims = new List<Claim> {
@@ -69,7 +87,7 @@ namespace BearGoodbyeKolkhozProject.Business.Services
                             issuer: AuthOptions.Issuer,
                             audience: AuthOptions.Audience,
                             claims: claims,
-                            expires: DateTime.UtcNow.Add(TimeSpan.FromMinutes(2)),
+                            expires: DateTime.UtcNow.Add(TimeSpan.FromMinutes(30)),
                             signingCredentials: new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256));
 
             return new JwtSecurityTokenHandler().WriteToken(jwt);
