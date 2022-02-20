@@ -36,13 +36,13 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
             _context.SaveChanges();
         }
 
-        public void UpdateLecturer(Lecturer model)
+        public void UpdateLecturer(Lecturer lecturer, Lecturer model)
         {
-            var entity = GetLecturerById(model.Id);
-            entity.BirthDay = model.BirthDay;
-            entity.Name = model.Name;
-            entity.LastName = model.LastName;
-            entity.Gender = model.Gender;
+
+            lecturer.BirthDay = model.BirthDay;
+            lecturer.Name = model.Name;
+            lecturer.LastName = model.LastName;
+            lecturer.Gender = model.Gender;
 
             _context.SaveChanges();
         }

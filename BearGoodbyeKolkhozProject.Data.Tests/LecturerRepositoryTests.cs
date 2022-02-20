@@ -129,7 +129,7 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
             _context.SaveChanges();
 
             //when
-            lecturerRepository.UpdateLecturer(updateLecturer);
+            lecturerRepository.UpdateLecturer(lecturer, updateLecturer);
             var actual = _context.Lecturer.FirstOrDefault(l => l.Id == lecturer.Id);
 
             //then

@@ -9,21 +9,21 @@ namespace BearGoodbyeKolkhozProject.Data.Entities
     {
         public int Id { get; set; }
         [StringLength(40)]
-        public string Name { get; set; }
+        public string? Name { get; set; }
         [StringLength(40)]
-        public string LastName { get; set; }
-        public Gender Gender { get; set; }
-        public string BirthDay { get; set; }
+        public string? LastName { get; set; }
+        public Gender? Gender { get; set; }
+        public string? BirthDay { get; set; }
         public string Email { get; set; }
-        public string PhoneNumber { get; set; }
+        public string? PhoneNumber { get; set; }
         public string Password { get; set; }
         public Role Role { get; set; }
         public bool IsDeleted { get; set; }
 
-        public virtual ICollection<TrainingReview> TrainingReviews { get; set; }
-        public virtual ICollection<LecturerReview> LecturerReviews { get; set; }
-        public virtual ICollection<Topic> Topic { get; set; }
-        public virtual ICollection<Event> Event { get; set; }
+        public virtual ICollection<TrainingReview>? TrainingReviews { get; set; }
+        public virtual ICollection<LecturerReview>? LecturerReviews { get; set; }
+        public virtual ICollection<Topic>? Topic { get; set; }
+        public virtual ICollection<Event>? Event { get; set; }
 
         public override bool Equals(object? obj)
         {

@@ -33,8 +33,6 @@ builder.Services.AddSwaggerGen(swagger =>
     });
 });
 
-
-
 builder.Services
     .AddAuthentication("Bearer")  // схема аутентификации - с помощью jwt-токенов
     .AddJwtBearer(options =>

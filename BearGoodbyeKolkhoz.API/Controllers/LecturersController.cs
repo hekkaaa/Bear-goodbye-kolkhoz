@@ -49,7 +49,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
             return NoContent();
         }
 
-        [HttpPost("/registration")]
+        [HttpPost()]
         public ActionResult LecturerRegistration([FromBody] LecturerRegistrationInputModel model)
         {
             LecturerModel entity = _mapper.Map<LecturerModel>(model);
@@ -58,7 +58,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         }
 
         [HttpPut("{id}")]
-        public ActionResult UpdateLecturer(int id, [FromBody] LecturerUpdateInputModel model)
+        public ActionResult UpdateLecturer(int id, [FromBody] UpdateInputModel model)
         {
             var entity = _mapper.Map<LecturerModel>(model);
             _service.UpdateLecturer(id, entity);
