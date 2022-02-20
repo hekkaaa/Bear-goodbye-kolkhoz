@@ -4,7 +4,7 @@
 
 namespace BearGoodbyeKolkhozProject.Data.Migrations
 {
-    public partial class CreateData : Migration
+    public partial class nenew : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -20,6 +20,7 @@ namespace BearGoodbyeKolkhozProject.Data.Migrations
                     BirthDay = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Role = table.Column<int>(type: "int", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
@@ -48,11 +49,11 @@ namespace BearGoodbyeKolkhozProject.Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Tin = table.Column<int>(type: "int", nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Password = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
@@ -66,11 +67,14 @@ namespace BearGoodbyeKolkhozProject.Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false),
-                    LastName = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false),
-                    BirthDay = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Password = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LastName = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: true),
+                    BirthDay = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    Gender = table.Column<int>(type: "int", nullable: false)
+                    Gender = table.Column<int>(type: "int", nullable: false),
+                    Role = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -104,7 +108,7 @@ namespace BearGoodbyeKolkhozProject.Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    StartDate = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    StartDate = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CompanyId = table.Column<int>(type: "int", nullable: true),
                     ClassroomId = table.Column<int>(type: "int", nullable: false),
                     LecturerId = table.Column<int>(type: "int", nullable: false),
@@ -169,6 +173,7 @@ namespace BearGoodbyeKolkhozProject.Data.Migrations
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Role = table.Column<int>(type: "int", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
                     EventId = table.Column<int>(type: "int", nullable: true)
                 },
@@ -190,6 +195,7 @@ namespace BearGoodbyeKolkhozProject.Data.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Text = table.Column<string>(type: "nvarchar(320)", maxLength: 320, nullable: false),
                     Mark = table.Column<int>(type: "int", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
                     ClientId = table.Column<int>(type: "int", nullable: false),
                     LecturerId = table.Column<int>(type: "int", nullable: false),
                     CompanyId = table.Column<int>(type: "int", nullable: true)
@@ -223,8 +229,10 @@ namespace BearGoodbyeKolkhozProject.Data.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
+                    TrainingId = table.Column<int>(type: "int", nullable: true),
                     ClientId = table.Column<int>(type: "int", nullable: true),
-                    TrainingId = table.Column<int>(type: "int", nullable: true)
+                    LecturerId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -233,6 +241,11 @@ namespace BearGoodbyeKolkhozProject.Data.Migrations
                         name: "FK_Topic_Client_ClientId",
                         column: x => x.ClientId,
                         principalTable: "Client",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Topic_Lecturer_LecturerId",
+                        column: x => x.LecturerId,
+                        principalTable: "Lecturer",
                         principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Topic_Training_TrainingId",
@@ -319,6 +332,11 @@ namespace BearGoodbyeKolkhozProject.Data.Migrations
                 name: "IX_Topic_ClientId",
                 table: "Topic",
                 column: "ClientId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Topic_LecturerId",
+                table: "Topic",
+                column: "LecturerId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Topic_TrainingId",

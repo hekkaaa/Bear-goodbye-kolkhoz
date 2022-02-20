@@ -8,14 +8,16 @@ namespace BearGoodbyeKolkhozProject.Data.Entities
     public class Lecturer
     {
         public int Id { get; set; }
+        public string Email { get; set; }
         [StringLength(40)]
-        public string Name { get; set; }
+        public string Password { get; set; }
+        public string? Name { get; set; }
         [StringLength(40)]
-        public string LastName { get; set; }
+        public string? LastName { get; set; }
         public string? BirthDay { get; set; }
         public bool IsDeleted { get; set; }
         public Gender Gender { get; set; }
-        public string Password { get; set; }
+        public Role Role { get; set; }
 
         public virtual ICollection<Training>? Trainings { get; set; }
         public virtual ICollection<Event>? Events { get; set; }
@@ -34,7 +36,8 @@ namespace BearGoodbyeKolkhozProject.Data.Entities
                 || LastName != ((Lecturer)obj).LastName
                 || BirthDay != ((Lecturer)obj).BirthDay
                 || Gender != ((Lecturer)obj).Gender
-                || Password != ((Lecturer)obj).Password)
+                || Password != ((Lecturer)obj).Password
+                || Role != ((Lecturer)obj).Role)
             {
                 return false;
             }

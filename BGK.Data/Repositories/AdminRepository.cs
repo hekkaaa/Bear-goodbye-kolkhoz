@@ -19,43 +19,41 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
         }
         public List<Admin> GetAdminAll()
         {   
-
             return _db.Admin.Where(a => !a.IsDeleted).ToList();
         }
-        public bool UpdateAdminInfo(Admin newInfo)
+        public bool UpdateAdminInfo(Admin oldItem, Admin newItem)
         {
-            var res = _db.Admin.FirstOrDefault(x => x.Id == newInfo.Id);
+            oldItem.Name = newItem.Name;
+            oldItem.LastName = newItem.LastName;
+            oldItem.BirthDay = newItem.BirthDay;
+            oldItem.Email = newItem.Email;
+            oldItem.Gender = newItem.Gender;
 
-            res.Name = newInfo.Name;
-            res.LastName = newInfo.LastName;
-            res.BirthDay = newInfo.BirthDay;
-            res.Email = newInfo.Email;
-            res.Gender = newInfo.Gender;
             _db.SaveChanges();
             return true;
         }
 
-        public bool DeleteAdminById(int id)
+        public bool DeleteAdminById(int item)
         {
-            var res = _db.Admin.FirstOrDefault(x => x.Id == id);
-
-            res.IsDeleted = false;
+            var res = _db.Admin.FirstOrDefault(x => x.Id == item);
+            res.IsDeleted = true;
             _db.SaveChanges();
             return true;
         }
 
         public int AddNewAdmin(Admin newItem)
         {
-            newItem.IsDeleted = false; // делам при создании нового админа статус НЕзаблокирован по умолчанию.
             _db.Admin.Add(newItem);
             _db.SaveChanges();
             return newItem.Id;
         }
 
-        public bool ChangePasswordAdmin(Admin newItem)
+        public bool ChangePasswordAdmin(int id, Admin newData)
         {
-            Admin item = GetAdminById(newItem.Id);
-            item.Password = newItem.Password;
+            // т.к шифрование пока не реализованно записываем так.
+            var res = _db.Admin.FirstOrDefault(x => x.Id == id);
+
+            res.Password = newData.Password;
             _db.SaveChanges();
             return true;
         }
@@ -67,6 +65,15 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
             res.IsDeleted = true;
             _db.SaveChanges();
             return true;
+        }
+
+        public Admin Login(string email, string password)
+        {
+            Admin? res = _db.Admin
+                .Where(l => l.Email == email && l.Password == password)
+                .FirstOrDefault();
+
+            return res;
         }
     }
 }

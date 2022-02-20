@@ -1,4 +1,5 @@
-﻿using BearGoodbyeKolkhozProject.Data.Entities;
+﻿using BearGoodbyeKolkhozProject.API.Models.InputModels;
+using BearGoodbyeKolkhozProject.Data.Entities;
 using System.Collections.Generic;
 
 namespace BearGoodbyeKolkhozProject.Data.Tests
@@ -78,7 +79,7 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
                 BirthDay = "1988-04-29",
                 Email = "ILoveBeer@ya.ru",
                 Password = "228_nanosim",
-                IsDeleted = true
+                IsDeleted = false
             };
             return adminItem;
         }
@@ -86,7 +87,7 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
         public List<Admin> GetTestAdminAll()
         {
             List<Admin> resultItem = new List<Admin>
-            { 
+            {
                 new Admin {  Id = 34,
                 Name = "Генадий",
                 LastName = "Тряпкин",
@@ -94,8 +95,8 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
                 BirthDay = "1988-04-29",
                 Email = "ILoveBeer@ya.ru",
                 Password = "228_nanosim",
-                IsDeleted = true }, 
-            
+                IsDeleted = true },
+
             new Admin
             {
                 Id = 1,
@@ -133,9 +134,61 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
                 BirthDay = "1951-11-08",
                 Email = "mnamny@yes.ru",
                 Password = "ningse56asdS",
-              
+
             };
             return adminItem;
         }
-    }
+
+        public Classroom GetTestClassroom()
+        {
+            Classroom classroomItem = new Classroom
+            {
+                Id = 2,
+                MembersCount = 20,
+                City = "Новосибирск",
+                Address = "Академгородок 128"
+            };
+            return classroomItem;
+        }
+
+        public Classroom GetTestClassroomAddModel()
+        {
+            Classroom classroomItem = new Classroom
+            {
+                MembersCount = 14,
+                City = "Барнаул",
+                Address = "Алтайская 16"
+            };
+            return classroomItem;
+        }
+
+        public List<Classroom> GetTestClassroomAll()
+        {
+            List<Classroom> resultItem = new List<Classroom>
+            {
+                new Classroom {
+                Id = 40,
+                MembersCount = 20,
+                City = "Новосибирск",
+                Address = "Академгородок 128"
+                },
+
+            new Classroom
+            {
+                Id = 2,
+                MembersCount = 57,
+                City = "Иркутск",
+                Address = "Маркса 12"
+            },
+            new Classroom
+            {
+                Id = 3,
+                MembersCount = 100,
+                City = "Тюмень",
+                Address = "Зорге 78"
+            }
+            };
+           return resultItem;
+        }
+    }    
 }

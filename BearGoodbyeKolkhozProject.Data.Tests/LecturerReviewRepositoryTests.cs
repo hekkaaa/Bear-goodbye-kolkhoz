@@ -79,7 +79,7 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
 
             //when
             LecturerReviewRepository lecturerReviewRepository = new LecturerReviewRepository(_context);
-            lecturerReviewRepository.DeleteLecturerReviewById(review.Id);
+            lecturerReviewRepository.ChangeIsDeleted(review, true);
 
             //then
             var actual = _context.LecturerReview.FirstOrDefault(Lr => Lr.Id == review.Id);

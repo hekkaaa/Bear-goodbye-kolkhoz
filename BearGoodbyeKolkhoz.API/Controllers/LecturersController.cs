@@ -49,7 +49,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
             return NoContent();
         }
 
-        [HttpPost]
+        [HttpPost("/registration")]
         public ActionResult LecturerRegistration([FromBody] LecturerRegistrationInputModel model)
         {
             LecturerModel entity = _mapper.Map<LecturerModel>(model);
