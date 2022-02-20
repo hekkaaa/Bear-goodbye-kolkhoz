@@ -28,8 +28,7 @@ namespace BearGoodbyeKolkhozProject.Business.Services
 
             if (client is null)
             {
-                // Антон, тут будет кастомный, не нервничай просто он пока в другой ветке <3
-                throw new Exception();
+                throw new NotFoundException($"нет клиента с id = {id}");
             }
 
             return _mapper.Map<ClientModel>(client);
@@ -60,8 +59,7 @@ namespace BearGoodbyeKolkhozProject.Business.Services
 
             if (client is null)
             {
-                // Антон, тут будет кастомный, не нервничай просто он пока в другой ветке <3
-                throw new Exception();
+                throw new NotFoundException($"нет клиента с id = {id}");
             }
 
             _clientRepo.ChangeDeleteStatusById(client, true);
@@ -73,8 +71,7 @@ namespace BearGoodbyeKolkhozProject.Business.Services
 
             if (client is null)
             {
-                // Антон, тут будет кастомный, не нервничай просто он пока в другой ветке <3
-                throw new Exception();
+                throw new NotFoundException($"нет клиента с id = {id}");
             }
 
             _clientRepo.ChangeDeleteStatusById(client, false);
@@ -86,8 +83,7 @@ namespace BearGoodbyeKolkhozProject.Business.Services
 
             if (client is null)
             {
-                // Антон, тут будет кастомный, не нервничай просто он пока в другой ветке <3
-                throw new Exception();
+                throw new NotFoundException($"нет клиента с id = {id}");
             }
 
             _clientRepo.ChangePasswordClient(client, password);
