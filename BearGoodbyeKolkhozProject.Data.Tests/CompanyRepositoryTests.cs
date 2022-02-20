@@ -3,10 +3,7 @@ using BearGoodbyeKolkhozProject.Data.Entities;
 using BearGoodbyeKolkhozProject.Data.Repo;
 using BearGoodbyeKolkhozProject.Data.Tests.TestCase;
 using Microsoft.EntityFrameworkCore;
-using Moq;
 using NUnit.Framework;
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace BearGoodbyeKolkhozProject.Data.Tests
@@ -71,7 +68,7 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
             CompanyRepository companyRepository = new CompanyRepository(_context);
             _context.Company.Add(company);
             _context.SaveChanges();
-           
+
             //when
             companyRepository.UpdateCompany(updateCompany);
             var actual = _context.Company.FirstOrDefault(c => c.Name == company.Name);
@@ -79,14 +76,14 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
             //then
             Assert.AreEqual(expected, actual);
         }
-     
-        
-            
 
 
 
 
 
-        
+
+
+
+
     }
 }

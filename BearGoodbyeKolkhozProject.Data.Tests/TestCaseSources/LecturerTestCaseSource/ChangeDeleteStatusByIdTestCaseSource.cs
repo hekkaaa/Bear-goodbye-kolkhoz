@@ -1,4 +1,4 @@
-﻿    using BearGoodbyeKolkhozProject.Data.Entities;
+﻿using BearGoodbyeKolkhozProject.Data.Entities;
 using System.Collections;
 
 namespace BearGoodbyeKolkhozProject.Data.Tests.TestCaseSources.LecturerTestCaseSource

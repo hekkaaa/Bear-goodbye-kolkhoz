@@ -1,5 +1,6 @@
 ﻿using BearGoodbyeKolkhozProject.Data.Entities;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace BearGoodbyeKolkhozProject.Data.Tests.TestCaseSources.TopicRepositoryTestCaseSource
 {
@@ -12,13 +13,17 @@ namespace BearGoodbyeKolkhozProject.Data.Tests.TestCaseSources.TopicRepositoryTe
                 Id = 100,
                 Name = "name",
                 IsDeleted = false,
-                Training = new Training()
-                {
-                    Id = 100,
+                Training = new List<Training>()
+                {   
+                    new Training()
+                    {
+                        Id = 100,
                     MembersCount = 8,
-                    Duration =  18,
+                    Duration = 18,
                     Price = 1200,
                     IsDeleted = false
+                    }
+                    
                 }
             };
 

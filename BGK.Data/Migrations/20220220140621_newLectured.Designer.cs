@@ -4,6 +4,7 @@ using BearGoodbyeKolkhozProject.Data.ConnectDb;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BearGoodbyeKolkhozProject.Data.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20220220140621_newLectured")]
+    partial class newLectured
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -315,8 +317,14 @@ namespace BearGoodbyeKolkhozProject.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<int?>("ClientId")
+                        .HasColumnType("int");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
+
+                    b.Property<int?>("LecturerId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -327,6 +335,10 @@ namespace BearGoodbyeKolkhozProject.Data.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ClientId");
+
+                    b.HasIndex("LecturerId");
 
                     b.HasIndex("TrainingId");
 
@@ -417,21 +429,6 @@ namespace BearGoodbyeKolkhozProject.Data.Migrations
                     b.ToTable("ClientEvent");
                 });
 
-            modelBuilder.Entity("ClientTopic", b =>
-                {
-                    b.Property<int>("ClientId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TopicId")
-                        .HasColumnType("int");
-
-                    b.HasKey("ClientId", "TopicId");
-
-                    b.HasIndex("TopicId");
-
-                    b.ToTable("ClientTopic");
-                });
-
             modelBuilder.Entity("LecturerTraining", b =>
                 {
                     b.Property<int>("LecturerId")
@@ -508,9 +505,21 @@ namespace BearGoodbyeKolkhozProject.Data.Migrations
 
             modelBuilder.Entity("BearGoodbyeKolkhozProject.Data.Entities.Topic", b =>
                 {
+                    b.HasOne("BearGoodbyeKolkhozProject.Data.Entities.Client", "Client")
+                        .WithMany("Topic")
+                        .HasForeignKey("ClientId");
+
+                    b.HasOne("BearGoodbyeKolkhozProject.Data.Entities.Lecturer", "Lecturer")
+                        .WithMany()
+                        .HasForeignKey("LecturerId");
+
                     b.HasOne("BearGoodbyeKolkhozProject.Data.Entities.Training", "Training")
                         .WithMany("Topics")
                         .HasForeignKey("TrainingId");
+
+                    b.Navigation("Client");
+
+                    b.Navigation("Lecturer");
 
                     b.Navigation("Training");
                 });
@@ -553,21 +562,6 @@ namespace BearGoodbyeKolkhozProject.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("ClientTopic", b =>
-                {
-                    b.HasOne("BearGoodbyeKolkhozProject.Data.Entities.Client", null)
-                        .WithMany()
-                        .HasForeignKey("ClientId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("BearGoodbyeKolkhozProject.Data.Entities.Topic", null)
-                        .WithMany()
-                        .HasForeignKey("TopicId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("LecturerTraining", b =>
                 {
                     b.HasOne("BearGoodbyeKolkhozProject.Data.Entities.Lecturer", null)
@@ -586,6 +580,8 @@ namespace BearGoodbyeKolkhozProject.Data.Migrations
             modelBuilder.Entity("BearGoodbyeKolkhozProject.Data.Entities.Client", b =>
                 {
                     b.Navigation("LecturerReviews");
+
+                    b.Navigation("Topic");
 
                     b.Navigation("TrainingReviews");
                 });

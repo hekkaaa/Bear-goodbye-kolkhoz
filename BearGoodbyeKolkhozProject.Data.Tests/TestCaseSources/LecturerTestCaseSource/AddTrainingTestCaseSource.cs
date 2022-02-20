@@ -18,7 +18,7 @@ namespace BearGoodbyeKolkhozProject.Data.Tests.TestCaseSources.LecturerTestCaseS
                 Gender = Enums.Gender.Male,
                 IsDeleted = false,
                 Trainings = new List<Training>()
-                };
+            };
 
             var training = new Training
             {

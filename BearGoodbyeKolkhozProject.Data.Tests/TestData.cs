@@ -1,5 +1,4 @@
-﻿using BearGoodbyeKolkhozProject.API.Models.InputModels;
-using BearGoodbyeKolkhozProject.Data.Entities;
+﻿using BearGoodbyeKolkhozProject.Data.Entities;
 using System.Collections.Generic;
 
 namespace BearGoodbyeKolkhozProject.Data.Tests
@@ -188,7 +187,7 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
                 Address = "Зорге 78"
             }
             };
-           return resultItem;
+            return resultItem;
         }
-    }    
+    }
 }

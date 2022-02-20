@@ -3,10 +3,7 @@ using BearGoodbyeKolkhozProject.Data.Entities;
 using BearGoodbyeKolkhozProject.Data.Repo;
 using BearGoodbyeKolkhozProject.Data.Tests.TestCase;
 using Microsoft.EntityFrameworkCore;
-using Moq;
 using NUnit.Framework;
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace BearGoodbyeKolkhozProject.Data.Tests
@@ -38,7 +35,7 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
             EventRepository eventRepository = new EventRepository(_context);
             _context.Event.Add(expected);
 
-           
+
             //when
             eventRepository.AddEvent(expected);
             var actual = _context.Event.FirstOrDefault(e => e.Id == expected.Id);

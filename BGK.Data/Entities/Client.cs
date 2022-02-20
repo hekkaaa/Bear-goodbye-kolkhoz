@@ -23,6 +23,7 @@ namespace BearGoodbyeKolkhozProject.Data.Entities
         public virtual ICollection<TrainingReview> TrainingReviews { get; set; }
         public virtual ICollection<LecturerReview> LecturerReviews { get; set; }
         public virtual ICollection<Topic> Topic { get; set; }
+        public virtual ICollection<Event> Event { get; set; }
 
         public override bool Equals(object? obj)
         {
@@ -39,7 +40,7 @@ namespace BearGoodbyeKolkhozProject.Data.Entities
             {
                 return false;
             }
-            
+
             return true;
         }
     }

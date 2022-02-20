@@ -1,5 +1,4 @@
-﻿using BearGoodbyeKolkhozProject.API.Models;
-using BearGoodbyeKolkhozProject.API.Models.InputModels;
+﻿using BearGoodbyeKolkhozProject.API.Models.InputModels;
 using BearGoodbyeKolkhozProject.Business.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,7 +16,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
 
         [HttpPost("login")]
         public ActionResult Login([FromBody] AuthInputModel auth)
-        {   
+        {
             var token = _authService.GetToken(auth.Email, auth.Password, auth.Role);
             return Json(token);
         }

@@ -38,16 +38,16 @@ namespace BearGoodbyeKolkhozProject.Business.Services
         {
             var item = _repository.GetAdminById(id);
 
-            if (item == null) 
-            { 
-                throw new EntryPointNotFoundException(); 
+            if (item == null)
+            {
+                throw new EntryPointNotFoundException();
             }
             else
-            {   
-                
+            {
+
                 return _repository.DeleteAdminById(item.Id);
             }
-            
+
         }
 
         public bool UpdateAdminInfo(int id, AdminModel newItem)

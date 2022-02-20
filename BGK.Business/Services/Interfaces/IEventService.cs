@@ -12,7 +12,7 @@ namespace BearGoodbyeKolkhozProject.Business.Processor
         void UpdateEventFromClient(int id, EventModel eventModel);
         void UpdateEventFromCompany(int id, EventModel eventModel);
         void UpdateEvent(int id, bool isDel);
-        
+
 
     }
 }

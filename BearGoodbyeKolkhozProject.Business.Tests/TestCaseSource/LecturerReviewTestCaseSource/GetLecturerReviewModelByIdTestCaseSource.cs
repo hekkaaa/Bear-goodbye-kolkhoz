@@ -1,9 +1,9 @@
-﻿using BearGoodbyeKolkhozProject.Business.Configuration;
+﻿using AutoMapper;
+using BearGoodbyeKolkhozProject.Business.Configuration;
 using BearGoodbyeKolkhozProject.Business.Models;
 using BearGoodbyeKolkhozProject.Data.Entities;
 using BearGoodbyeKolkhozProject.Data.Enums;
 using System.Collections;
-using AutoMapper;
 
 namespace BearGoodbyeKolkhozProject.Business.Tests.TestCaseSource.LecturerReviewTestCaseSource
 {

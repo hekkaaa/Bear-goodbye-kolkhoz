@@ -28,7 +28,7 @@ namespace BearGoodbyeKolkhozProject.Data.Repo
 
         public void UpdateEvent(Event even)
         {
-            
+
             var entity = _context.Event.FirstOrDefault(e => e.Id == even.Id);
 
             entity.Clients = even.Clients;
@@ -52,7 +52,7 @@ namespace BearGoodbyeKolkhozProject.Data.Repo
 
         public void DeleteEvent(Event even)
         {
-            
+
             _context.Event.Remove(even);
 
             _context.SaveChanges();
