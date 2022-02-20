@@ -1,6 +1,4 @@
-﻿using BearGoodbyeKolkhozProject.Data.Enums;
-
-namespace BearGoodbyeKolkhozProject.API.Models.InputModels
+﻿namespace BearGoodbyeKolkhozProject.API.Models.InputModels
 {
     public class AdminUpdateInputModel
     {
@@ -8,6 +6,6 @@ namespace BearGoodbyeKolkhozProject.API.Models.InputModels
         public string LastName { get; set; }
         public string BirthDay { get; set; }
         public string Email { get; set; }
-     
+
     }
 }

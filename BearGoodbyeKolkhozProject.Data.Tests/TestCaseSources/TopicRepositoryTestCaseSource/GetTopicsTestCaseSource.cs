@@ -1,6 +1,6 @@
 ﻿using BearGoodbyeKolkhozProject.Data.Entities;
-using System.Collections.Generic;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace BearGoodbyeKolkhozProject.Data.Tests.TestCaseSources.TopicRepositoryTestCaseSource
 {
@@ -15,13 +15,17 @@ namespace BearGoodbyeKolkhozProject.Data.Tests.TestCaseSources.TopicRepositoryTe
                     Id = 100,
                     Name = "name",
                     IsDeleted = false,
-                    Training = new Training()
-                    {
-                        Id = 100,
+                    Training = new List<Training>()
+                    {  
+                        new Training()
+                        {
+                              Id = 100,
                         MembersCount = 8,
                         Duration =  18,
                         Price = 1200,
                         IsDeleted = false
+                        }
+                      
                     }
                 },
                 new Topic()
@@ -29,13 +33,17 @@ namespace BearGoodbyeKolkhozProject.Data.Tests.TestCaseSources.TopicRepositoryTe
                     Id = 101,
                     Name = "eman",
                     IsDeleted = false,
-                    Training = new Training()
-                    {
-                        Id = 101,
+                    Training = new List<Training>()
+                    {   
+                        new Training()
+                        {
+                            Id = 101,
                         MembersCount = 8,
                         Duration =  18,
                         Price = 1200,
                         IsDeleted = false
+                        }
+                        
                     }
                 },
             };
@@ -66,13 +74,17 @@ namespace BearGoodbyeKolkhozProject.Data.Tests.TestCaseSources.TopicRepositoryTe
                     Id = 200,
                     Name = "name",
                     IsDeleted = true,
-                    Training = new Training()
-                    {
-                        Id = 100,
-                        MembersCount = 8,
-                        Duration =  18,
-                        Price = 1200,
-                        IsDeleted = false
+                    Training = new List<Training>()
+                    {   
+                        new Training()
+                        {
+                            Id = 100,
+                            MembersCount = 8,
+                            Duration =  18,
+                            Price = 1200,
+                            IsDeleted = false
+                        }
+                        
                     }
                 },
                 new Topic()
@@ -80,13 +92,17 @@ namespace BearGoodbyeKolkhozProject.Data.Tests.TestCaseSources.TopicRepositoryTe
                     Id = 201,
                     Name = "eman",
                     IsDeleted = false,
-                    Training = new Training()
-                    {
-                        Id = 101,
-                        MembersCount = 8,
-                        Duration =  18,
-                        Price = 1200,
-                        IsDeleted = false
+                    Training = new List<Training>()
+                    {   
+                        new Training()
+                        {
+                             Id = 101,
+                            MembersCount = 8,
+                            Duration =  18,
+                            Price = 1200,
+                            IsDeleted = false
+                        }
+                       
                     }
                 },
             };

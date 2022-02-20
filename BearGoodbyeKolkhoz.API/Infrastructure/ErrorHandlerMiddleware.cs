@@ -1,7 +1,5 @@
 ﻿using BearGoodbyeKolkhozProject.Business.Exceptions;
 using System.Net;
-﻿using BearGoodbyeKolkhozProject.Business.Exceptions;
-using System.Net;
 using System.Text.Json;
 
 namespace BearGoodbyeKolkhozProject.API.Infrastructure
@@ -33,7 +31,7 @@ namespace BearGoodbyeKolkhozProject.API.Infrastructure
             {
                 await ConstructResponse(context, HttpStatusCode.ServiceUnavailable, message: "База данных недоступна");
             }
-            catch(NotFoundException error)
+            catch (NotFoundException error)
             {
                 await ConstructResponse(context, HttpStatusCode.Forbidden, error.Message);
             }

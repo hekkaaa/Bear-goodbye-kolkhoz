@@ -22,7 +22,7 @@ namespace BearGoodbyeKolkhozProject.API.Extensions
             services.AddScoped<IClientService, ClientService>();
 
         }
-     
+
         public static void RegisterProjectRepository(this IServiceCollection repository)
         {
             repository.AddScoped<ITrainingRepository, TrainingRepository>();

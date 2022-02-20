@@ -1,18 +1,11 @@
-﻿using AutoMapper;
-using BearGoodbyeKolkhozProject.Business.Configuration;
+﻿using BearGoodbyeKolkhozProject.Business.Configuration;
 using BearGoodbyeKolkhozProject.Business.Exceptions;
-using BearGoodbyeKolkhozProject.Business.Models;
 using BearGoodbyeKolkhozProject.Data.Entities;
 using BearGoodbyeKolkhozProject.Data.Interfaces;
 using BearGoodbyeKolkhozProject.Data.Repositories;
 using Microsoft.IdentityModel.Tokens;
-using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Security.Claims;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BearGoodbyeKolkhozProject.Business.Services
 {
@@ -56,7 +49,7 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             }
 
             else if (role == "Client")
-            {   
+            {
                 Client entity = _userRepo.Login(email, password);
                 claims = new List<Claim> {
                 new Claim(ClaimTypes.Email, entity.Email),
