@@ -29,11 +29,7 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
         {
             client.Name = newInfo.Name;
             client.LastName = newInfo.LastName;
-            client.Gender = newInfo.Gender;
             client.BirthDay = newInfo.BirthDay;
-            client.Email = newInfo.Email;
-            client.PhoneNumber = newInfo.PhoneNumber;
-            client.Topic = newInfo.Topic;
 
             _db.SaveChanges();
             return true;

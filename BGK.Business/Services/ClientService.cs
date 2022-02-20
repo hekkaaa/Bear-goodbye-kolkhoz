@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using BearGoodbyeKolkhozProject.Business.Exceptions;
 using BearGoodbyeKolkhozProject.Business.Models;
 using BearGoodbyeKolkhozProject.Data.Entities;
 using BearGoodbyeKolkhozProject.Data.Repositories;
@@ -46,8 +47,7 @@ namespace BearGoodbyeKolkhozProject.Business.Services
 
             if (client is null)
             {
-                // Антон, тут будет кастомный, не нервничай просто он пока в другой ветке <3
-                throw new Exception();
+                throw new NotFoundException($"нет клиента с id = {id}");
             }
 
             var updateClient = _mapper.Map<Client>(updateModel);

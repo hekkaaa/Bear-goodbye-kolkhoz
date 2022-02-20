@@ -34,5 +34,15 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
             var result = _mapper.Map<List<ClientOutputModel>>(clients);
             return Ok(result);
         }
+
+        [HttpPut("/{id}")]
+        public ActionResult UpdateClient(int id, [FromBody] UpdateInputModel model)
+        {
+            var entity = _mapper.Map<ClientModel>(model);
+            _service.UpdateClientInfo(id, entity);
+            return NoContent();
+        }
+
+
     }
 }
