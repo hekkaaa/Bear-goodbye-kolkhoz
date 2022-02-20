@@ -39,6 +39,10 @@ namespace BearGoodbyeKolkhozProject.API.Infrastructure
             {
                 await ConstructResponse(context, HttpStatusCode.Forbidden, error.Message);
             }
+            catch (IncorrectPasswordException error)
+            {
+                await ConstructResponse(context, HttpStatusCode.Forbidden, error.Message);
+            }
             catch (Exception ex)
             {
                 await ConstructResponse(context, HttpStatusCode.BadRequest, ex.Message);

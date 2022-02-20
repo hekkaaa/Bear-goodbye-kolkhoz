@@ -52,10 +52,10 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
             return _db.Client.Where(с => !с.IsDeleted).ToList();
         }
 
-        public Client Login(string email, string password)
+        public Client Login(string email)
         {
             Client? res = _db.Client
-                .Where(l => l.Email == email && l.Password == password)
+                .Where(l => l.Email == email)
                 .FirstOrDefault();
 
             return res;

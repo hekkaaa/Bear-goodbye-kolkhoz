@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using BearGoodbyeKolkhozProject.Business.Configuration;
 using BearGoodbyeKolkhozProject.Business.Exceptions;
 using BearGoodbyeKolkhozProject.Business.Models;
 using BearGoodbyeKolkhozProject.Data.Entities;
@@ -19,6 +20,7 @@ namespace BearGoodbyeKolkhozProject.Business.Services
         public void RegistrationClient(ClientModel model)
         {
             var entity = _mapper.Map<Client>(model);
+            entity.Password = PasswordHash.HashPassword(model.Password);
             _clientRepo.AddClient(entity);
         }
 

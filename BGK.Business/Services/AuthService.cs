@@ -25,10 +25,10 @@ namespace BearGoodbyeKolkhozProject.Business.Services
         public string GetToken(string email, string password, string role)
         {
             List<Claim> claims = new List<Claim>();
-
             if (role == "Lecturer")
             {
-                Lecturer entity = _lecturerRepo.Login(email, password);
+                Lecturer entity = _lecturerRepo.Login(email);
+                IsCorrectPassword(password, entity.Password);
 
                 claims = new List<Claim> {
                     new Claim(ClaimTypes.Email, entity.Email),
@@ -39,22 +39,25 @@ namespace BearGoodbyeKolkhozProject.Business.Services
 
             else if (role == "Admin")
             {
-                Admin entity = _adminRepo.Login(email, password);
+                Admin entity = _adminRepo.Login(email);
+                IsCorrectPassword(password, entity.Password);
 
                 claims = new List<Claim> {
-                new Claim(ClaimTypes.Email, entity.Email),
-                new Claim(ClaimTypes.UserData, entity.Id.ToString()),
-                new Claim(ClaimTypes.Role, entity.Role.ToString())
+                    new Claim(ClaimTypes.Email, entity.Email),
+                    new Claim(ClaimTypes.UserData, entity.Id.ToString()),
+                    new Claim(ClaimTypes.Role, entity.Role.ToString())
                 };
             }
 
             else if (role == "Client")
             {
-                Client entity = _userRepo.Login(email, password);
+                Client entity = _userRepo.Login(email);
+                IsCorrectPassword(password, entity.Password);
+
                 claims = new List<Claim> {
-                new Claim(ClaimTypes.Email, entity.Email),
-                new Claim(ClaimTypes.UserData, entity.Id.ToString()),
-                new Claim(ClaimTypes.Role, entity.Role.ToString())
+                    new Claim(ClaimTypes.Email, entity.Email),
+                    new Claim(ClaimTypes.UserData, entity.Id.ToString()),
+                    new Claim(ClaimTypes.Role, entity.Role.ToString())
                 };
             }
             else
@@ -72,6 +75,14 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             return new JwtSecurityTokenHandler().WriteToken(jwt);
         }
 
+        private void IsCorrectPassword(string password, string hash)
+        {
+            if (!PasswordHash.ValidatePassword(password, hash))
+            {
+                throw new IncorrectPasswordException("Неверный пароль");
+            }
+
+        }
     };
 }
 
