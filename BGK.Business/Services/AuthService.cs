@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using BearGoodbyeKolkhozProject.Business.Configuration;
+using BearGoodbyeKolkhozProject.Business.Exceptions;
 using BearGoodbyeKolkhozProject.Business.Models;
 using BearGoodbyeKolkhozProject.Data.Entities;
 using BearGoodbyeKolkhozProject.Data.Interfaces;
@@ -65,7 +66,7 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             }
             else
             {
-                //throw new NoRole();
+                throw new NoRoleException("Wrong role specified in JSON request | Не верно указана роль в JSON запросе");
             }
             // создаем JWT-токен
             var jwt = new JwtSecurityToken(

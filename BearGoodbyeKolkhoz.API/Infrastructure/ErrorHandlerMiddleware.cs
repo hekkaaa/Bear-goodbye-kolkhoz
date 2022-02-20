@@ -38,6 +38,10 @@ namespace BearGoodbyeKolkhozProject.API.Infrastructure
             {
                 await ConstructResponse(context, HttpStatusCode.Forbidden, error.Message);
             }
+            catch (NoRoleException error)
+            {
+                await ConstructResponse(context, HttpStatusCode.Forbidden, error.Message);
+            }
             catch (Exception ex)
             {
                 await ConstructResponse(context, HttpStatusCode.BadRequest, ex.Message);
