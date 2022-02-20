@@ -6,7 +6,7 @@ namespace BearGoodbyeKolkhozProject.Business.Configuration
 	public class AuthOptions
 	{
 		public const string Issuer = "BgkBack"; // издатель токена
-		public const string Audience = "Client"; // потребитель токена
+		public const string Audience = "FrontEnd"; // потребитель токена
 
 		private const string _key = "BgkBackSuperSecretKye";   // ключ для шифрации
 

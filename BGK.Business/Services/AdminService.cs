@@ -29,6 +29,7 @@ namespace BearGoodbyeKolkhozProject.Business.Services
         public int AddNewAdmin(AdminModel newItem)
         {
             var item = _mapper.Map<Admin>(newItem);
+            item.Role = Data.Enums.Role.Admin;
             item.IsDeleted = false; // делам при создании нового админа статус НЕзаблокирован по умолчанию.
             return _repository.AddNewAdmin(item);
         }

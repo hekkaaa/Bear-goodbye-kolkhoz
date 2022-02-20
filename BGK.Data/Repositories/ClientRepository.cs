@@ -46,5 +46,14 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
         {
             return _db.Client.Where(с => !с.IsDeleted).ToList();
         }
+
+        public Client Login(string email, string password)
+        {
+            Client? res = _db.Client
+                .Where(l => l.Email == email && l.Password == password)
+                .FirstOrDefault();
+
+            return res;
+        }
     }
 }

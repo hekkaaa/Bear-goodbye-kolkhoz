@@ -11,5 +11,6 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
         bool RecoverAdminById(int id);
         bool UpdateAdminInfo(Admin oldItem, Admin newItem);
         bool ChangePasswordAdmin(int id, Admin newData);
+        Admin Login(string email, string password);
     }
 }
