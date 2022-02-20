@@ -2,7 +2,6 @@
 {
     public class ClientInputModel
     {
-        public int Id { get; set; }
               
     }
 }
