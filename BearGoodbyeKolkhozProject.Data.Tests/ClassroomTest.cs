@@ -3,7 +3,6 @@ using BearGoodbyeKolkhozProject.Data.Entities;
 using BearGoodbyeKolkhozProject.Data.Repositories;
 using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
-using System.Collections.Generic;
 
 namespace BearGoodbyeKolkhozProject.Data.Tests
 {
@@ -55,7 +54,7 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
             // наполняем тестовый БД подкготовленными данными.
             for (int i = 0; i < virtualData.Count; i++)
             {
-                   _context.Add(virtualData[i]);      
+                _context.Add(virtualData[i]);
             }
             _context.SaveChanges();
 

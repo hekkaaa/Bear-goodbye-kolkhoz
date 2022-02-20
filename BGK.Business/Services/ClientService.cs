@@ -1,8 +1,7 @@
 ﻿using AutoMapper;
 using BearGoodbyeKolkhozProject.Business.Models;
-using BearGoodbyeKolkhozProject.Data.Repositories;
-
 using BearGoodbyeKolkhozProject.Data.Entities;
+using BearGoodbyeKolkhozProject.Data.Repositories;
 
 namespace BearGoodbyeKolkhozProject.Business.Services
 {

@@ -1,10 +1,5 @@
 ﻿using BearGoodbyeKolkhozProject.Data.Entities;
-using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BearGoodbyeKolkhozProject.Data.Tests.TestCase
 {
@@ -12,7 +7,7 @@ namespace BearGoodbyeKolkhozProject.Data.Tests.TestCase
     {
         public IEnumerator GetEnumerator()
         {
-        
+
 
             var company = new Company
             {
@@ -26,7 +21,7 @@ namespace BearGoodbyeKolkhozProject.Data.Tests.TestCase
 
             Company expected = null;
 
-            yield return new object[] {company, expected };
+            yield return new object[] { company, expected };
 
 
         }

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using BearGoodbyeKolkhozProject.Business.Exceptions;
 using BearGoodbyeKolkhozProject.Business.Models;
 using BearGoodbyeKolkhozProject.Data.Entities;
 using BearGoodbyeKolkhozProject.Data.Repositories;
@@ -37,11 +38,11 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             var res = _repository.GetClassroomById(id);
             if (res == null)
             {
-                throw new NotFoundException();
+                throw new NotFoundException("Нет такого кабинета");
             }
             else
             {
-               return _repository.DeleteClassroomById(res);
+                return _repository.DeleteClassroomById(res);
             }
         }
 

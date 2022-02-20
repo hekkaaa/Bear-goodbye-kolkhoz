@@ -1,7 +1,4 @@
 ﻿using BearGoodbyeKolkhozProject.Business.Exceptions;
-using Microsoft.Data.SqlClient;
-using System.Net;
-﻿using BearGoodbyeKolkhozProject.Business.Exceptions;
 using System.Net;
 using System.Text.Json;
 
@@ -34,7 +31,7 @@ namespace BearGoodbyeKolkhozProject.API.Infrastructure
             {
                 await ConstructResponse(context, HttpStatusCode.ServiceUnavailable, message: "База данных недоступна");
             }
-            catch(NotFoundException error)
+            catch (NotFoundException error)
             {
                 await ConstructResponse(context, HttpStatusCode.Forbidden, error.Message);
             }
@@ -46,7 +43,7 @@ namespace BearGoodbyeKolkhozProject.API.Infrastructure
             {
                 await ConstructResponse(context, HttpStatusCode.BadRequest, ex.Message);
             }
-            
+
         }
 
         private async Task ConstructResponse(HttpContext context, HttpStatusCode code, string message)

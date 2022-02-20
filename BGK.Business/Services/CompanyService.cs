@@ -44,7 +44,7 @@ namespace BearGoodbyeKolkhozProject.Business.Processor
 
             var mappedCompany = new Company
             {
-                
+
                 Email = companyModel.Email,
                 Password = companyModel.Password,
                 Name = companyModel.Name,

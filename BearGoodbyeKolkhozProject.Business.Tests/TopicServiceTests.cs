@@ -1,14 +1,14 @@
-﻿using BearGoodbyeKolkhozProject.Business.Tests.TestCaseSource.TopicServiceTestCaseSource;
+﻿using AutoMapper;
 using BearGoodbyeKolkhozProject.Business.Configuration;
-using BearGoodbyeKolkhozProject.Business.Services;
-using BearGoodbyeKolkhozProject.Data.Repositories;
-using BearGoodbyeKolkhozProject.Business.Models;
-using BearGoodbyeKolkhozProject.Data.Entities;
-using System.Collections.Generic;
-using NUnit.Framework;
-using AutoMapper;
-using Moq;
 using BearGoodbyeKolkhozProject.Business.Exceptions;
+using BearGoodbyeKolkhozProject.Business.Models;
+using BearGoodbyeKolkhozProject.Business.Services;
+using BearGoodbyeKolkhozProject.Business.Tests.TestCaseSource.TopicServiceTestCaseSource;
+using BearGoodbyeKolkhozProject.Data.Entities;
+using BearGoodbyeKolkhozProject.Data.Repositories;
+using Moq;
+using NUnit.Framework;
+using System.Collections.Generic;
 
 namespace BearGoodbyeKolkhozProject.Business.Tests
 {
@@ -101,7 +101,7 @@ namespace BearGoodbyeKolkhozProject.Business.Tests
         }
 
         [TestCaseSource(typeof(DeleteTopicTestCaseSource))]
-        public void DeleteTopicByIdTest(Topic topic,TopicModel model, int id)
+        public void DeleteTopicByIdTest(Topic topic, TopicModel model, int id)
         {
             //given
             Mock<ITopicRepository> _topicMock = new Mock<ITopicRepository>();
