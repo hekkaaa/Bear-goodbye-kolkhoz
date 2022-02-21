@@ -1,9 +1,12 @@
-﻿using BearGoodbyeKolkhozProject.Business.Interface;
+﻿using BearGoodbyeKolkhozProject.Business.Configuration;
+using BearGoodbyeKolkhozProject.Business.Interface;
 using BearGoodbyeKolkhozProject.Business.Processor;
 using BearGoodbyeKolkhozProject.Business.Services;
 using BearGoodbyeKolkhozProject.Business.Services.Interfaces;
 using BearGoodbyeKolkhozProject.Data.Interfaces;
 using BearGoodbyeKolkhozProject.Data.Repositories;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
 namespace BearGoodbyeKolkhozProject.API.Extensions
@@ -73,6 +76,24 @@ namespace BearGoodbyeKolkhozProject.API.Extensions
                 }
                 });
             });
+        }
+
+        public static void RegisterAuthJwtToken(this IServiceCollection jwt)
+        {
+            jwt.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = true,
+                        ValidIssuer = AuthOptions.Issuer,
+                        ValidateAudience = true,
+                        ValidAudience = AuthOptions.Audience,
+                        ValidateLifetime = true,
+                        IssuerSigningKey = AuthOptions.GetSymmetricSecurityKey(),
+                        ValidateIssuerSigningKey = true,
+                    };
+                });
         }
     }
 }

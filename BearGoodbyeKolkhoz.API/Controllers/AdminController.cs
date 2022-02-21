@@ -40,7 +40,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
             }
         }
         [HttpGet("all")]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin, Client")]
         public ActionResult<List<AdminOutputModel>> GetAdminAll()
         {
             var res = _service.GetAdminAll();

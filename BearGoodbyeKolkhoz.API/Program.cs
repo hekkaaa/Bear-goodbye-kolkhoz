@@ -12,7 +12,7 @@ const string? _connString = "CONNECTION_STRING";
 
 var builder = WebApplication.CreateBuilder(args);
 
-var connString = builder.Configuration.GetValue<string>(_connStringVariableName);
+var connString = builder.Configuration.GetValue<string>(_connString);
 builder.Services.AddDbContext<ApplicationContext>(op =>
             op.UseSqlServer(connString));
 
@@ -25,21 +25,7 @@ builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.RegisterSwaggerAuth();
 
-builder.Services
-    .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddJwtBearer(options =>
-    {
-        options.TokenValidationParameters = new TokenValidationParameters
-        {
-            ValidateIssuer = true,
-            ValidIssuer = AuthOptions.Issuer,
-            ValidateAudience = true,
-            ValidAudience = AuthOptions.Audience,
-            ValidateLifetime = true,
-            IssuerSigningKey = AuthOptions.GetSymmetricSecurityKey(),
-            ValidateIssuerSigningKey = true,
-        };
-    });
+builder.Services.RegisterAuthJwtToken();
 
 // add service and provider connections here
 builder.Services.AddAuthorization();
