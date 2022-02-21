@@ -1,7 +1,4 @@
-using BearGoodbyeKolkhozProject.Data.ConnectDb;
-using Microsoft.EntityFrameworkCore;
 using BearGoodbyeKolkhozProject.API;
-using BearGoodbyeKolkhozProject.Business.Configuration;
 using BearGoodbyeKolkhozProject.API.Extensions;
 using BearGoodbyeKolkhozProject.API.Infrastructure;
 using BearGoodbyeKolkhozProject.Business.Configuration;
@@ -11,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
-const string? _connStringVariableName = "CONNECTION_STRING";
+const string? _connString = "CONNECTION_STRING";
 
 var builder = WebApplication.CreateBuilder(args);
 
