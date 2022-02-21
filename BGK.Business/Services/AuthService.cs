@@ -82,6 +82,7 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             {
                 throw new NoRoleException("Wrong role specified in JSON request | Не верно указана роль в JSON запросе");
             }
+
             // создаем JWT-токен
             var jwt = new JwtSecurityToken(
                             issuer: AuthOptions.Issuer,

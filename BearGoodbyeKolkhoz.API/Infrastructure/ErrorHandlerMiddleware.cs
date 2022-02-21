@@ -47,7 +47,6 @@ namespace BearGoodbyeKolkhozProject.API.Infrastructure
             {
                 await ConstructResponse(context, HttpStatusCode.BadRequest, ex.Message);
             }
-
         }
 
         private async Task ConstructResponse(HttpContext context, HttpStatusCode code, string message)
