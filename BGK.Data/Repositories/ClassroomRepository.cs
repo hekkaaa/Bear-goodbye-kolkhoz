@@ -45,5 +45,8 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
             _db.SaveChanges(true);
             return true;
         }
+
+        public List<Classroom> GetNeededClassroom(int sitCount) =>
+            _db.Classroom.Where(c => c.MembersCount >= sitCount).ToList();
     }
 }

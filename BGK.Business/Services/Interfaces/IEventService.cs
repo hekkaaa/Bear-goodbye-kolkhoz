@@ -1,6 +1,6 @@
 ﻿using BearGoodbyeKolkhozProject.Business.Models;
 
-namespace BearGoodbyeKolkhozProject.Business.Processor
+namespace BearGoodbyeKolkhozProject.Business.Interface
 {
     public interface IEventService
     {
@@ -10,6 +10,6 @@ namespace BearGoodbyeKolkhozProject.Business.Processor
         EventModel GetEventById(int id);
         List<EventModel> GetEvents();
         void UpdateEvent(int id, EventModel eventModel);
-        
+        bool SignUp(int trainingId, int clientId);
     }
 }

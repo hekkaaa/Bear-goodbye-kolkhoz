@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using BearGoodbyeKolkhozProject.API.Models.InputModels;
 using BearGoodbyeKolkhozProject.API.Models.OutputModels;
+using BearGoodbyeKolkhozProject.Business.Models;
 using BearGoodbyeKolkhozProject.Business.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -21,7 +22,6 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
             _mapper = mapper;
         }
 
-
         [HttpGet("{id}")]
         [Authorize]
         public ActionResult<AdminOutputModel> GetAdminById(int id)
@@ -38,8 +38,9 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
                 return Ok(res);
             }
         }
+
         [HttpGet("all")]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin, Client")]
         public ActionResult<List<AdminOutputModel>> GetAdminAll()
         {
             var res = _service.GetAdminAll();

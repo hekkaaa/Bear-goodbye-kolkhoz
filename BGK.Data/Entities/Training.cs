@@ -19,6 +19,7 @@ namespace BearGoodbyeKolkhozProject.Data.Entities
         public virtual ICollection<TrainingReview> TrainingReviews { get; set; }
         public virtual ICollection<Topic> Topics { get; set; }
         public virtual ICollection<Lecturer> Lecturer { get; set; }
+        public virtual ICollection<Event> Event { get; set; }
 
         public override bool Equals(object? obj)
         {

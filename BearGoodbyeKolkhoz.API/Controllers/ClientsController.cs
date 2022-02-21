@@ -21,7 +21,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         }
 
         [HttpPost()]
-        public ActionResult LecturerRegistration([FromBody] RegistrationInputModel model)
+        public ActionResult ClientRegistration([FromBody] RegistrationInputModel model)
         {
             ClientModel entity = _mapper.Map<ClientModel>(model);
             _service.RegistrationClient(entity);
@@ -29,7 +29,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         }
 
         [HttpGet()]
-        public ActionResult<List<ClientOutputModel>> GetLecturers()
+        public ActionResult<List<ClientOutputModel>> GetClients()
         {
             var clients = _service.GetClients();
             var result = _mapper.Map<List<ClientOutputModel>>(clients);

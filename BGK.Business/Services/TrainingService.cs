@@ -91,14 +91,24 @@ namespace BearGoodbyeKolkhozProject.Business.Services
         public void AddReviewToTraining(int trainingId, int clientId, TrainingReviewModel trainingReview)
         {
             var training = _repository.GetTrainingById(trainingId);
-            var client = _clientRepository.GetClientById(clientId);
-            var trainingReviewEntity = _mapper.Map<TrainingReview>(trainingReview);
-            trainingReviewEntity.Client = client;
-
-            training.TrainingReviews.Add(trainingReviewEntity);
 
             if (training == null)
                 throw new BusinessException("Такого тренинга не найдено!");
+
+            var client = _clientRepository.GetClientById(clientId);
+
+            if (client == null)
+                throw new BusinessException("Такого клиента нет!");
+
+            var trainingReviewEntity = _mapper.Map<TrainingReview>(trainingReview);
+            trainingReviewEntity.Client = client;
+
+            if (training.TrainingReviews is null)
+            {
+                training.TrainingReviews = new List<TrainingReview>();
+            }
+
+            training.TrainingReviews.Add(trainingReviewEntity);
 
             _repository.UpdateTraining(training);
         }
