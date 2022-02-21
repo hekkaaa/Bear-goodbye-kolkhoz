@@ -22,7 +22,6 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
             _mapper = mapper;
         }
 
-
         [HttpGet("{id}")]
         [Authorize]
         public ActionResult<AdminOutputModel> GetAdminById(int id)
@@ -39,6 +38,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
                 return Ok(res);
             }
         }
+
         [HttpGet("all")]
         [Authorize(Roles = "Admin, Client")]
         public ActionResult<List<AdminOutputModel>> GetAdminAll()

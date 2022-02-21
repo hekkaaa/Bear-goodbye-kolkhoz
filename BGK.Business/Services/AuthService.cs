@@ -118,7 +118,6 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             {
                 throw new IncorrectPasswordException("Неверный пароль");
             }
-
         }
     };
 }

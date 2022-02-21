@@ -2,7 +2,10 @@
 using BearGoodbyeKolkhozProject.API.Models;
 using BearGoodbyeKolkhozProject.Business.Models;
 using BearGoodbyeKolkhozProject.Business.Services;
+using BearGoodbyeKolkhozProject.Data.Enums;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace BearGoodbyeKolkhozProject.API.Controllers
 {
@@ -49,14 +52,25 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         }
 
         [HttpPost("{id}/review")]
+        [Authorize(Roles = "Client")]
         public ActionResult AddReviewToTraining(int id, [FromBody] TrainingReviewInsertInputModel trainingReview)
         {
-            _service.AddReviewToTraining(id, trainingReview.ClientId, _mapper.Map<TrainingReviewModel>(trainingReview));
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+
+            if (identity != null)
+            {
+                IEnumerable<Claim> claims = identity.Claims;
+                var clientId = Convert.ToInt32(identity
+                    .FindFirst(@"http://schemas.microsoft.com/ws/2008/06/identity/claims/userdata").Value);
+                _service.AddReviewToTraining(id, clientId, _mapper.Map<TrainingReviewModel>(trainingReview));
+            }
+            
             //дописать после мерджа получение айди клиента из токена
             return Ok("Новый обзор на тренинг успешно добавлен");
         }
 
         [HttpPut("{id}")]
+        [Authorize(Roles = "Admin")]
         public ActionResult UpdateTraining(int id, [FromBody] TrainingUpdateInputModel trainingUpdateInputModel)
         {
             var training = _mapper.Map<TrainingModel>(trainingUpdateInputModel);
@@ -66,6 +80,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public ActionResult AddTraining([FromBody] TrainingInsertInputModel trainingInputModel)
         {
             var training = _mapper.Map<TrainingModel>(trainingInputModel);
