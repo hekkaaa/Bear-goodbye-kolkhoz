@@ -1,11 +1,13 @@
 ﻿using BearGoodbyeKolkhozProject.API.Models.InputModels;
 using BearGoodbyeKolkhozProject.Business.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BearGoodbyeKolkhozProject.API.Controllers
 {
     [ApiController]
     [Route("auth/[controller]")]
+    [AllowAnonymous]
     public class AuthController : Controller
     {
         private readonly IAuthService _authService;
