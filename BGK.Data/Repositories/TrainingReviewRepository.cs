@@ -29,10 +29,11 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
             _applicationContext.SaveChanges();
         }
 
-        public void AddTrainingReview(TrainingReview trainingReview)
+        public int AddTrainingReview(TrainingReview trainingReview)
         {
             _applicationContext.TrainingReview.Add(trainingReview);
             _applicationContext.SaveChanges();
+            return trainingReview.Id;
         }
 
         public void DeleteTrainingReview(int id)

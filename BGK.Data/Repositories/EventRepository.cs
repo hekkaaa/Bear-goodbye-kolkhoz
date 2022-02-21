@@ -34,7 +34,8 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
 
         public void UpdateEvent(Event even)
         {
-            var entity = GetEventById(even.Id);
+
+            var entity = _context.Event.FirstOrDefault(e => e.Id == even.Id);
 
             entity.StartDate = even.StartDate;
             entity.Clients = even.Clients;
@@ -50,7 +51,7 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
         }
 
         public void DeleteEvent(Event even)
-        {            
+        {
 
             _context.Event.Remove(even);
 

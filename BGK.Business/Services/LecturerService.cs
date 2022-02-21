@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using BearGoodbyeKolkhozProject.Business.Configuration;
+using BearGoodbyeKolkhozProject.Business.Exceptions;
 using BearGoodbyeKolkhozProject.Business.Interface;
 using BearGoodbyeKolkhozProject.Business.Models;
 using BearGoodbyeKolkhozProject.Data.Entities;
@@ -18,7 +18,7 @@ namespace BearGoodbyeKolkhozProject.Business.Services
         {
             _lecturerRepo = lecturerRepository;
             _trainingRepo = trainingRepository;
-            _mapper =  mapper;
+            _mapper = mapper;
         }
 
         public void RegistrationLecturer(LecturerModel model)
@@ -32,7 +32,8 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             var lecturer = _lecturerRepo.GetLecturerById(id);
             if (lecturer is null)
             {
-                throw new Exception("Нет Такого треннинга");
+                throw new NotFoundException($"Нет лектора c id = {id}");
+
             }
 
             _lecturerRepo.ChangeDeleteStatusById(lecturer, true);
@@ -43,7 +44,7 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             var lecturer = _lecturerRepo.GetLecturerById(id);
             if (lecturer is null)
             {
-                throw new Exception("Нет Такого треннинга");
+                throw new NotFoundException($"Нет лектора c id = {id}");
             }
 
             _lecturerRepo.ChangeDeleteStatusById(lecturer, false);
@@ -55,11 +56,11 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             var lecturer = _lecturerRepo.GetLecturerById(trainingId);
             if (training is null)
             {
-                throw new Exception("Нет такого треннинга");
+                throw new NotFoundException($"Нет треннинга c id = {id}");
             }
             if (lecturer is null)
             {
-                throw new Exception("Нет такого лектора");
+                throw new NotFoundException($"Нет лектора c id = {id}");
             }
 
             _lecturerRepo.AddTraining(lecturer, training);
@@ -70,7 +71,7 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             var training = _trainingRepo.GetTrainingById(trainingId);
             if (training is null)
             {
-                throw new Exception("Нет такого треннинга");
+                throw new NotFoundException($"Нет треннинга c id = {id}");
             }
 
             _lecturerRepo.DeleteTraining(id, training);
@@ -82,11 +83,11 @@ namespace BearGoodbyeKolkhozProject.Business.Services
 
             if (lecturer is null)
             {
-                throw new Exception("Такого лектора нет");
+                throw new NotFoundException($"Нет лектора c id = {id}");
             }
 
             var entity = _mapper.Map<Lecturer>(model);
-            _lecturerRepo.UpdateLecturer(entity);
+            _lecturerRepo.UpdateLecturer(lecturer, entity);
         }
 
         public LecturerModel GetLecturerById(int id)
@@ -94,7 +95,7 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             var entity = _lecturerRepo.GetLecturerById(id);
             if (entity is null)
             {
-                throw new Exception("Такого лектора нет");
+                throw new NotFoundException($"Нет лектора c id = {id}");
             }
 
             return _mapper.Map<LecturerModel>(entity);

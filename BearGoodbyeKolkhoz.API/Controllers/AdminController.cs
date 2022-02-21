@@ -1,12 +1,13 @@
 ﻿using AutoMapper;
 using BearGoodbyeKolkhozProject.API.Models.InputModels;
 using BearGoodbyeKolkhozProject.API.Models.OutputModels;
-using BearGoodbyeKolkhozProject.Business.Models;
 using BearGoodbyeKolkhozProject.Business.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BearGoodbyeKolkhozProject.API.Controllers
 {
+    
     [Route("api/admins")]
     [ApiController]
     public class AdminController : Controller
@@ -22,9 +23,9 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
 
 
         [HttpGet("{id}")]
-
+        [Authorize]
         public ActionResult<AdminOutputModel> GetAdminById(int id)
-        {   
+        {
             var model = _service.GetAdminById(id);
             var res = _mapper.Map<AdminOutputModel>(model);
 
@@ -38,9 +39,10 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
             }
         }
         [HttpGet("all")]
+        [Authorize(Roles = "Admin")]
         public ActionResult<List<AdminOutputModel>> GetAdminAll()
         {
-            var res = _service.GetAdminAll(); 
+            var res = _service.GetAdminAll();
 
             if (res == null)
             {
@@ -66,6 +68,27 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
             {
                 return Ok(res);
             }
+        }
+
+        [HttpDelete("{id}")]
+        public ActionResult<bool> DeleteAdminById(int id)
+        {
+            return Ok(_service.DeleteAdmin(id));
+        }
+
+        [HttpPut("{id}")]
+        public ActionResult<bool> UpdateAdmin(int id, [FromBody] AdminUpdateInputModel newItem)
+        {
+            var model = _mapper.Map<AdminModel>(newItem);
+            var res = _service.UpdateAdminInfo(id, model);
+            return Ok(res);
+        }
+
+        [HttpPut("{id}/password")]
+        public ActionResult<bool> ChangePasswordAdminById(int id, [FromBody] ChangePasswordInputModel newItem)
+        {
+            var res = _service.ChangeAdminPassword(id, newItem.Password);
+            return Ok(res);
         }
     }
 }

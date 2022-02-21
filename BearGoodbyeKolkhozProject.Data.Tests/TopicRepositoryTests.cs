@@ -1,10 +1,10 @@
-﻿using BearGoodbyeKolkhozProject.Data.Tests.TestCaseSources.TopicRepositoryTestCaseSource;
-using BearGoodbyeKolkhozProject.Data.ConnectDb;
-using BearGoodbyeKolkhozProject.Data.Repositories;
+﻿using BearGoodbyeKolkhozProject.Data.ConnectDb;
 using BearGoodbyeKolkhozProject.Data.Entities;
+using BearGoodbyeKolkhozProject.Data.Repositories;
+using BearGoodbyeKolkhozProject.Data.Tests.TestCaseSources.TopicRepositoryTestCaseSource;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
 using NUnit.Framework;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace BearGoodbyeKolkhozProject.Data.Tests
@@ -94,7 +94,7 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
 
             //when
             TopicRepository topicRepository = new TopicRepository(_context);
-            topicRepository.UpdateTopicById(updateModel, id);
+            topicRepository.UpdateTopic(updateModel, id);
 
             //then
             var actual = _context.Topic.FirstOrDefault(t => t.Id == expected.Id);
@@ -110,7 +110,7 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
 
             //when
             TopicRepository topicRepository = new TopicRepository(_context);
-            topicRepository.ChangeDeleteStatusById(topic, isDeleted);
+            topicRepository.ChangeDeleteStatus(topic, isDeleted);
 
             //then
             var actual = _context.Topic.FirstOrDefault(t => t.Id == expected.Id);

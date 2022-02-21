@@ -42,6 +42,16 @@
         "CONNECTION_STRING": "Data Source=80.78.240.16;Initial Catalog=DevEdu;Persis Security Info = True;User ID = student; Password = qwe!23"
       }
     },
+    "Roma": {
+      "commandName": "Project",
+      "dotnetRunMessages": true,
+      "launchBrowser": true,
+      "launchUrl": "swagger",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "CONNECTION_STRING": "Data Source=(local);Initial Catalog=testDb;Integrated Security=True"
+      }
+    },
     "Debug Config Pototsky": {
       "commandName": "Project",
       "dotnetRunMessages": true,
@@ -61,7 +71,7 @@
       "applicationUrl": "https://localhost:7151;http://localhost:5151",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
-        "CONNECTION_STRING": "Data Source=WIN-4PTG0MGAJ62\\SQLEXPRESS;Database=testS1S;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False"
+        "CONNECTION_STRING": "Data Source=LAPTOP-6F8LE3JH\\SQLEXPRESSDEV;Initial Catalog=Newtest;Integrated Security=True"
       }
     },
     "Debug Config Shokhin": {

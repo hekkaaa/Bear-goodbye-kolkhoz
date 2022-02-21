@@ -1,4 +1,5 @@
 ﻿using BearGoodbyeKolkhozProject.Data.ConnectDb;
+using BearGoodbyeKolkhozProject.Data.Entities;
 using BearGoodbyeKolkhozProject.Data.Repositories;
 using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
@@ -45,7 +46,6 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
             Assert.AreEqual(virtualData.Gender, act.Gender);
             Assert.AreEqual(virtualData.BirthDay, act.BirthDay);
             Assert.AreEqual(virtualData.Email, act.Email);
-
         }
 
         [Test]
@@ -96,8 +96,94 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
 
             //then
             Assert.IsNotNull(act);
-            Assert.AreEqual(1,act);
-
+            Assert.AreEqual(1, act);
         }
-    }  
+
+        [Test]
+        public void DeleteAdminByIdTests()
+        {
+            //given
+            var virtualData = _testData.GetTestAdmin();
+            _context.Add(virtualData);
+            _context.SaveChanges();
+
+            //when
+            var act = _adminRepository.DeleteAdminById(virtualData.Id);
+            var postAct = _adminRepository.GetAdminById(virtualData.Id);
+
+            //then
+            Assert.IsNotNull(act);
+            Assert.AreEqual(true, act);
+            Assert.AreEqual(true, postAct.IsDeleted);
+        }
+
+        [Test]
+        public void UpdateAdminTests()
+        {
+            //given
+            var virtualData = _testData.GetTestAdmin();
+            _context.Add(virtualData);
+            _context.SaveChanges();
+
+            //when
+            Admin newVirtualData = new Admin();
+            {
+                newVirtualData.Id = virtualData.Id;
+                newVirtualData.Name = "Генрих";
+                newVirtualData.LastName = "Ардамонов";
+                newVirtualData.Gender = Enums.Gender.Male;
+                newVirtualData.BirthDay = "02-12-1780";
+
+            }
+            var act = _adminRepository.UpdateAdminInfo(newVirtualData, virtualData);
+            var postAct = _adminRepository.GetAdminById(newVirtualData.Id);
+
+            //then
+            Assert.IsNotNull(act);
+            Assert.IsTrue(act);
+            Assert.AreEqual(newVirtualData.Name, postAct.Name);
+            Assert.AreEqual(newVirtualData.LastName, postAct.LastName);
+            Assert.AreEqual(newVirtualData.Gender, postAct.Gender);
+        }
+
+        [Test]
+        public void ChangePasswordAdminTests()
+        {
+            //given
+            var virtualData = _testData.GetTestAdmin();
+            _context.Add(virtualData);
+            _context.SaveChanges();
+
+            //when
+            Admin newVirtualData = new Admin();
+            newVirtualData.Password = "newssss111";
+
+            var act = _adminRepository.ChangePasswordAdmin(newVirtualData.Password, newVirtualData);
+            var postAct = _adminRepository.GetAdminById(virtualData.Id);
+
+            //then
+            Assert.IsNotNull(act);
+            Assert.IsTrue(act);
+            Assert.AreEqual(newVirtualData.Password, postAct.Password);
+        }
+
+        [Test]
+        public void RecoverAdminByIdTests()
+        {
+            //given
+            var virtualData = _testData.GetTestAdmin();
+            _context.Add(virtualData);
+            _context.SaveChanges();
+
+            //when
+            var act = _adminRepository.RecoverAdminById(virtualData.Id);
+            var postAct = _adminRepository.GetAdminById(virtualData.Id);
+
+            //then
+            Assert.IsNotNull(act);
+            Assert.IsTrue(act);
+            Assert.AreEqual(true, postAct.IsDeleted);
+        }
+
+    }
 }

@@ -1,10 +1,10 @@
-﻿using BearGoodbyeKolkhozProject.Data.Tests.TestCaseSources.LecturerReviewTestCaseSource;
-using BearGoodbyeKolkhozProject.Data.ConnectDb;
-using BearGoodbyeKolkhozProject.Data.Repositories;
+﻿using BearGoodbyeKolkhozProject.Data.ConnectDb;
 using BearGoodbyeKolkhozProject.Data.Entities;
+using BearGoodbyeKolkhozProject.Data.Repositories;
+using BearGoodbyeKolkhozProject.Data.Tests.TestCaseSources.LecturerReviewTestCaseSource;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
 using NUnit.Framework;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace BearGoodbyeKolkhozProject.Data.Tests
@@ -79,7 +79,7 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
 
             //when
             LecturerReviewRepository lecturerReviewRepository = new LecturerReviewRepository(_context);
-            lecturerReviewRepository.DeleteLecturerReviewById(review.Id);
+            lecturerReviewRepository.ChangeIsDeleted(review, true);
 
             //then
             var actual = _context.LecturerReview.FirstOrDefault(Lr => Lr.Id == review.Id);

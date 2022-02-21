@@ -1,5 +1,6 @@
 ﻿using BearGoodbyeKolkhozProject.Data.ConnectDb;
 using BearGoodbyeKolkhozProject.Data.Entities;
+using BearGoodbyeKolkhozProject.Data.Enums;
 using BearGoodbyeKolkhozProject.Data.Interfaces;
 
 namespace BearGoodbyeKolkhozProject.Data.Repositories
@@ -13,6 +14,15 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
             _context = context;
         }
 
+        public Lecturer Login(string email)
+        {
+            Lecturer lecturer = _context.Lecturer
+                .Where(l => l.Email == email)
+                .FirstOrDefault();
+
+            return lecturer;
+        }
+
         public Lecturer GetLecturerById(int id) =>
             _context.Lecturer.FirstOrDefault(L => L.Id == id);
 
@@ -21,17 +31,18 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
 
         public void AddLecturer(Lecturer model)
         {
+            model.Role = Role.Lecturer;
             _context.Lecturer.Add(model);
             _context.SaveChanges();
         }
 
-        public void UpdateLecturer(Lecturer model)
+        public void UpdateLecturer(Lecturer lecturer, Lecturer model)
         {
-            var entity = GetLecturerById(model.Id);
-            entity.BirthDay = model.BirthDay;
-            entity.Name = model.Name;
-            entity.LastName = model.LastName;
-            entity.Gender = model.Gender;
+
+            lecturer.BirthDay = model.BirthDay;
+            lecturer.Name = model.Name;
+            lecturer.LastName = model.LastName;
+            lecturer.Gender = model.Gender;
 
             _context.SaveChanges();
         }
@@ -50,10 +61,11 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
             _context.SaveChanges();
         }
 
-        public void ChangeDeleteStatusById(Lecturer lecturer, bool IsDeleted)
+        public void ChangeDeleteStatusById(Lecturer lecturer, bool isDeleted)
         {
-            lecturer.IsDeleted = IsDeleted;
+            lecturer.IsDeleted = isDeleted;
             _context.SaveChanges();
         }
+
     }
 }

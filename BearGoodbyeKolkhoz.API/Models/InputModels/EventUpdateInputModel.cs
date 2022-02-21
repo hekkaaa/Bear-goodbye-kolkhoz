@@ -8,6 +8,7 @@ namespace BearGoodbyeKolkhozProject.API.Models.InputModels
         public CompanyModel? Company { get; set; }
         public ClassroomModel Classroom { get; set; }
         public LecturerModel Lecturer { get; set; }
+        public List<ClientModel>? Clients { get; set; }
 
         public List<ClientModel>? Clients { get; set; }
     }
