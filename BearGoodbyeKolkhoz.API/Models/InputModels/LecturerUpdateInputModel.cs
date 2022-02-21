@@ -1,6 +1,6 @@
 ﻿namespace BearGoodbyeKolkhozProject.API.Models
 {
-    public class LecturerUpdateInputModel
+    public class UpdateInputModel
     {
         public string? Name { get; set; }
         public string? LastName { get; set; }

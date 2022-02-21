@@ -87,7 +87,7 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             }
 
             var entity = _mapper.Map<Lecturer>(model);
-            _lecturerRepo.UpdateLecturer(entity);
+            _lecturerRepo.UpdateLecturer(lecturer, entity);
         }
 
         public LecturerModel GetLecturerById(int id)

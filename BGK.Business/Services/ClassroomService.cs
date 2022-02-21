@@ -42,6 +42,7 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             }
             else
             {
+                res.IsDeleted = true;
                 return _repository.DeleteClassroomById(res);
             }
         }

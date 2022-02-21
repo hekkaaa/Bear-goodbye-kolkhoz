@@ -22,6 +22,9 @@ namespace BearGoodbyeKolkhozProject.API
 
             CreateMap<LecturerRegistrationInputModel, LecturerModel>().ReverseMap();
             CreateMap<LecturerOutputModel, LecturerModel>().ReverseMap();
+            CreateMap<UpdateInputModel, LecturerModel>().ReverseMap();
+            CreateMap<UpdateInputModel, ClientModel>().ReverseMap();
+            CreateMap<UpdateInputModel, AdminModel>().ReverseMap();
             CreateMap<TrainingReviewOutputModel, TrainingReviewModel>();
             CreateMap<TrainingOutputModel, TrainingModel>();
             CreateMap<AdminModel, AdminOutputModel>(); // Не менять строчку!!!
@@ -29,8 +32,10 @@ namespace BearGoodbyeKolkhozProject.API
             CreateMap<AdminUpdateInputModel, AdminModel>();
             CreateMap<AdminChangePasswordInputModel, AdminModel>();
             CreateMap<ClassroomOutputModel, ClassroomModel>().ReverseMap();
-            CreateMap<ClassroomInsertInputModel, ClassroomModel>().ReverseMap(); ;
-            CreateMap<ClassroomOutputModel, ClassroomModel>().ReverseMap(); ;
+            CreateMap<ClassroomInsertInputModel, ClassroomModel>().ReverseMap();
+            CreateMap<ClassroomOutputModel, ClassroomModel>().ReverseMap();
+            CreateMap<RegistrationInputModel, ClientModel>().ReverseMap();
+            CreateMap<ClientOutputModel, ClientModel>().ReverseMap();
 
         }
     }
