@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using BearGoodbyeKolkhozProject.API.Models;
+using BearGoodbyeKolkhozProject.API.Models.InputModels;
 using BearGoodbyeKolkhozProject.Business.Models;
 using BearGoodbyeKolkhozProject.Business.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -43,6 +44,11 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
             return NoContent();
         }
 
-
+        [HttpPut("{id}/password")]
+        public ActionResult ChangePassword(int id, [FromBody] ChangePasswordInputModel newItem)
+        {
+            _service.ChangePasswordClient(id, newItem.Password);
+            return Ok();
+        }
     }
 }

@@ -39,6 +39,10 @@ namespace BearGoodbyeKolkhozProject.API.Infrastructure
             {
                 await ConstructResponse(context, HttpStatusCode.Forbidden, error.Message);
             }
+            catch (IncorrectPasswordException error)
+            {
+                await ConstructResponse(context, HttpStatusCode.Forbidden, error.Message);
+            }
             catch(DuplicateException error)
             {
                 await ConstructResponse(context, HttpStatusCode.Forbidden, error.Message);
@@ -51,7 +55,6 @@ namespace BearGoodbyeKolkhozProject.API.Infrastructure
             {
                 await ConstructResponse(context, HttpStatusCode.BadRequest, ex.Message);
             }
-
         }
 
         private async Task ConstructResponse(HttpContext context, HttpStatusCode code, string message)
