@@ -11,6 +11,6 @@ namespace BearGoodbyeKolkhozProject.Business.Services
         List<TrainingModel> GetTrainingModelByTopic(TopicModel topicModel);
         void UpdateTraining(int id, TrainingModel trainingModel);
         void AddTopicToTraining(int id, int topicId);
-        void AddReviewToTraining(int id, TrainingReviewModel trainingReview);
+        void AddReviewToTraining(int id, int clientId, TrainingReviewModel trainingReview);
     }
 }

@@ -15,12 +15,13 @@ namespace BearGoodbyeKolkhozProject.Business.Services
         private ITopicRepository _topicRepository;
         private IMapper _mapper;
 
-        public TrainingService(ITrainingRepository repository, IMapper mapper, ITrainingReviewRepository trainingReviewRepository, ITopicRepository topicRepository)
+        public TrainingService(ITrainingRepository repository, IMapper mapper, IClientRepository clientRepository, ITrainingReviewRepository trainingReviewRepository, ITopicRepository topicRepository)
         {
             _repository = repository;
             _mapper = mapper;
             _trainingReviewRepository = trainingReviewRepository;
             _topicRepository = topicRepository;
+            _clientRepository = clientRepository;
         }
 
         public void UpdateTraining(int id, TrainingModel trainingModel)
@@ -88,10 +89,12 @@ namespace BearGoodbyeKolkhozProject.Business.Services
 
         }
 
-        public void AddReviewToTraining(int trainingId, TrainingReviewModel trainingReview)
+        public void AddReviewToTraining(int trainingId, int clientId, TrainingReviewModel trainingReview)
         {
             var training = _repository.GetTrainingById(trainingId);
+            var client = _clientRepository.GetClientById(clientId);
             var trainingReviewEntity = _mapper.Map<TrainingReview>(trainingReview);
+            trainingReviewEntity.Client = client;
 
             training.TrainingReviews.Add(trainingReviewEntity);
 

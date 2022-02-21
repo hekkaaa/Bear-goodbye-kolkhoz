@@ -20,7 +20,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetTrainingById(int id)
+        public ActionResult GetTrainingById(int id)
         {
             var model = _service.GetTrainingModelById(id);
             var result = _mapper.Map<TrainingOutputModel>(model);
@@ -28,35 +28,36 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetTrainings()
+        public ActionResult GetTrainings()
         {
             var models = _service.GetTrainingModels();
             return Ok(_mapper.Map<List<TrainingOutputModel>>(models));
         }
 
         [HttpGet("by-topic/{topicInputModel.Name}")]
-        public IActionResult GetTrainingsByTopic(TopicInputModel topicInputModel)
+        public ActionResult GetTrainingsByTopic(TopicInputModel topicInputModel)
         {
             var model = _service.GetTrainingModelByTopic(_mapper.Map<TopicModel>(topicInputModel));
             return Ok(_mapper.Map<TrainingOutputModel>(model));
         }
 
-        [HttpPost("{id}/topic")]
-        public IActionResult AddTopicToTraning(int id, int topicId)
+        [HttpPost("{id}/topic/{topicId}")]
+        public ActionResult AddTopicToTraning(int id, int topicId)
         {
             _service.AddTopicToTraining(id, topicId);
             return Ok("Новый интерес у тренинга успешно добавлен");
         }
 
         [HttpPost("{id}/review")]
-        public IActionResult AddReviewToTraining(int id, [FromBody] TrainingReviewInsertInputModel trainingReview)
+        public ActionResult AddReviewToTraining(int id, [FromBody] TrainingReviewInsertInputModel trainingReview)
         {
-            _service.AddReviewToTraining(id, _mapper.Map<TrainingReviewModel>(trainingReview));
+            _service.AddReviewToTraining(id, trainingReview.ClientId, _mapper.Map<TrainingReviewModel>(trainingReview));
+            //дописать после мерджа получение айди клиента из токена
             return Ok("Новый обзор на тренинг успешно добавлен");
         }
 
         [HttpPut("{id}")]
-        public IActionResult UpdateTraining(int id, [FromBody] TrainingUpdateInputModel trainingUpdateInputModel)
+        public ActionResult UpdateTraining(int id, [FromBody] TrainingUpdateInputModel trainingUpdateInputModel)
         {
             var training = _mapper.Map<TrainingModel>(trainingUpdateInputModel);
             _service.UpdateTraining(id, training);
@@ -65,7 +66,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddTraining([FromBody] TrainingInsertInputModel trainingInputModel)
+        public ActionResult AddTraining([FromBody] TrainingInsertInputModel trainingInputModel)
         {
             var training = _mapper.Map<TrainingModel>(trainingInputModel);
             _service.AddTraining(training);
@@ -73,7 +74,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         }
 
         [HttpPatch("{id}")]
-        public IActionResult DeleteTraining(int id)
+        public ActionResult DeleteTraining(int id)
         {
             _service.DeleteTraining(id);
             return Ok("Тренинг успешно удален");
