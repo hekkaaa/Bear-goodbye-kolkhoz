@@ -20,12 +20,12 @@ namespace BearGoodbyeKolkhozProject.API.Extensions
             services.AddScoped<IEventService, EventService>();
             services.AddScoped<IClassroomService, ClassroomService>();
             services.AddScoped<IClientService, ClientService>();
+            services.AddScoped<ITopicService, TopicService>();
 
         }
 
         public static void RegisterProjectRepository(this IServiceCollection repository)
         {
-            repository.AddScoped<ITrainingRepository, TrainingRepository>();
             repository.AddScoped<ITrainingReviewRepository, TrainingReviewRepository>();
             repository.AddScoped<ITrainingRepository, TrainingRepository>();
             repository.AddScoped<ILecturerRepository, LecturerRepository>();
@@ -34,6 +34,8 @@ namespace BearGoodbyeKolkhozProject.API.Extensions
             repository.AddScoped<ICompanyRepository, CompanyRepository>();
             repository.AddScoped<IClassroomRepository, ClassroomRepository>();
             repository.AddScoped<IClientRepository, ClientRepository>();
+            repository.AddScoped<IClientRepository, ClientRepository>();
+            repository.AddScoped<ITopicRepository, TopicRepository>();
             repository.AddScoped<IAuthService, AuthService>();
         }
     }
