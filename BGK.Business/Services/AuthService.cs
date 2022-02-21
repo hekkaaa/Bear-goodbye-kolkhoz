@@ -30,6 +30,12 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             {
                 Lecturer entity = _lecturerRepo.Login(email, password);
 
+                // проверка на блок
+                if(entity.IsDeleted == true)
+                {
+                    throw new UserIsBlockException("User deleted or blocked | Пользователь удален или заблокирован");
+                }
+
                 claims = new List<Claim> {
                     new Claim(ClaimTypes.Email, entity.Email),
                     new Claim(ClaimTypes.UserData, entity.Id.ToString()),
@@ -41,6 +47,12 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             {
                 Admin entity = _adminRepo.Login(email, password);
 
+                // проверка на блок
+                if (entity.IsDeleted == true)
+                {
+                    throw new UserIsBlockException("User deleted or blocked | Пользователь удален или заблокирован");
+                }
+
                 claims = new List<Claim> {
                 new Claim(ClaimTypes.Email, entity.Email),
                 new Claim(ClaimTypes.UserData, entity.Id.ToString()),
@@ -51,6 +63,13 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             else if (role == "Client")
             {
                 Client entity = _userRepo.Login(email, password);
+
+                // проверка на блок
+                if (entity.IsDeleted == true)
+                {
+                    throw new UserIsBlockException("User deleted or blocked | Пользователь удален или заблокирован");
+                }
+
                 claims = new List<Claim> {
                 new Claim(ClaimTypes.Email, entity.Email),
                 new Claim(ClaimTypes.UserData, entity.Id.ToString()),

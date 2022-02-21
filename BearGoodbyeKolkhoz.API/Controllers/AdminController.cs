@@ -3,10 +3,12 @@ using BearGoodbyeKolkhozProject.API.Models.InputModels;
 using BearGoodbyeKolkhozProject.API.Models.OutputModels;
 using BearGoodbyeKolkhozProject.Business.Models;
 using BearGoodbyeKolkhozProject.Business.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BearGoodbyeKolkhozProject.API.Controllers
 {
+    
     [Route("api/admins")]
     [ApiController]
     public class AdminController : Controller
@@ -22,7 +24,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
 
 
         [HttpGet("{id}")]
-
+        [Authorize]
         public ActionResult<AdminOutputModel> GetAdminById(int id)
         {
             var model = _service.GetAdminById(id);
@@ -38,6 +40,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
             }
         }
         [HttpGet("all")]
+        [Authorize(Roles = "Admin")]
         public ActionResult<List<AdminOutputModel>> GetAdminAll()
         {
             var res = _service.GetAdminAll();
