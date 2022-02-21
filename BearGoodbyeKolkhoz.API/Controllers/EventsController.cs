@@ -1,8 +1,9 @@
 ﻿using AutoMapper;
-using BearGoodbyeKolkhozProject.API.Models.InputModel;
-using BearGoodbyeKolkhozProject.API.Models.OutputModel;
+using BearGoodbyeKolkhozProject.API.Models.InputModels;
+using BearGoodbyeKolkhozProject.API.Models.OutputModels;
 using BearGoodbyeKolkhozProject.Business.Models;
 using BearGoodbyeKolkhozProject.Business.Processor;
+using BearGoodbyeKolkhozProject.Business.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BearGoodbyeKolkhozProject.API.Controllers
@@ -11,108 +12,81 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
     [Route("api/[controller]")]
     public class EventsController : Controller
     {
-        private readonly IEventService _service;
+               
+            private readonly IEventService _service;
 
-        private IMapper _mapperApi;
+            private IMapper _mapperApi;
 
-        public EventsController(IEventService eventService, IMapper mapper)
-        {
-            _service = eventService;
+            public EventsController(IEventService eventService, IMapper mapper)
+            {
+                _service = eventService;
 
-            _mapperApi = mapper;
-        }
-
-
-        //api/events/21
-        [HttpGet("(id)")]
-        public ActionResult<List<EventOutputModel>> GetEvents()
-        {
-            var entity = _service.GetEvents();
-
-            var result = _mapperApi.Map<List<EventOutputModel>>(entity);
-
-            return Ok(result);
-        }
+                _mapperApi = mapper;
+            }
 
 
-        //api/events/1
-        [HttpGet("{id}")]
-        public ActionResult<EventOutputModel> GetEventById(int id)
-        {
-            var entity = _service.GetEventById(id);
+            //api/events/
+            [HttpGet("(id)")]
+            public ActionResult<List<EventOutputModel>> GetEvents()
+            {
+                var entity = _service.GetEvents();
 
-            var result = _mapperApi.Map<EventOutputModel>(entity);
+                var result = _mapperApi.Map<List<EventOutputModel>>(entity);
 
-            return Ok(result);
-        }
+                if (result == null) return NotFound($"Нет данных");
 
-        ////api/events/1
-        [HttpPost("{id}/event/client")]
-        public ActionResult<EventOutputModel> AddEventFromClient([FromBody] EventOutputModel eventOutputModel)
-        {
-
-            EventModel entity = _mapperApi.Map<EventModel>(eventOutputModel);
-
-            _service.AddEventFromClient(entity);
-
-            return StatusCode(StatusCodes.Status201Created, entity);
-
-        }
-
-        //api/events/1
-        [HttpPost("{id}/event/company")]
-        public ActionResult<EventOutputModel> AddEventFromCompany([FromBody] EventOutputModel eventOutputModel)
-        {
-
-            EventModel entity = _mapperApi.Map<EventModel>(eventOutputModel);
-
-            _service.AddEventFromCompany(entity);
-
-            return StatusCode(StatusCodes.Status201Created, entity);
-
-        }
-
-        //api/events/1
-        [HttpPut("{id}/event/client")]
-        public ActionResult<EventUpdateInputModel> UpdateEventFromClient(int id, [FromBody] EventUpdateInputModel eventUpdateInputModel)
-        {
-            EventModel entity = _mapperApi.Map<EventModel>(eventUpdateInputModel);
-
-            _service.UpdateEventFromClient(id, entity);
-
-            return Ok(entity);
-        }
+                return Ok(result);
+            }
 
 
-        ////api/events/1
-        [HttpPut("{id}/event/company")]
-        public ActionResult<EventUpdateInputModel> UpdateEventFromCompany(int id, [FromBody] EventUpdateInputModel eventUpdateInputModel)
-        {
-            EventModel entity = _mapperApi.Map<EventModel>(eventUpdateInputModel);
+            //api/events/
+            [HttpGet("{id}")]
+            public ActionResult<EventOutputModel> GetEventById(int id)
+            {
+                var entity = _service.GetEventById(id);
 
-            _service.UpdateEventFromCompany(id, entity);
+                var result = _mapperApi.Map<EventOutputModel>(entity);
 
-            return Ok(entity);
-        }
+                if (result == null) return NotFound($"Нет данных");
 
-        [HttpPut("{id}/event/")]
-        public ActionResult<EventUpdateInputModel> UpdateEvent(int id, bool isDel)
-        {
-            _service.UpdateEvent(id, isDel);
+                return Ok(result);
+            }
 
-            return NoContent();
+            ////api/events/
+            [HttpPost()]
+            public ActionResult<EventUpdateInputModel> AddEvent([FromBody] EventUpdateInputModel eventOutputModel)
+            {
 
-        }
+                EventModel entity = _mapperApi.Map<EventModel>(eventOutputModel);
+
+                _service.AddEventFromClient(entity);
+
+                return StatusCode(StatusCodes.Status201Created, entity);
+
+            }
 
 
-        //api/events/1/
-        [HttpDelete("{id}/event/")]
-        public ActionResult<EventUpdateInputModel> DeleteEvent(int id)
-        {
-            _service.DeleteEvent(id);
+            //api/events/
+            [HttpPut()]
+            public ActionResult<EventUpdateInputModel> UpdateEvent(int id, [FromBody] EventUpdateInputModel eventUpdateInputModel)
+            {
+                EventModel entity = _mapperApi.Map<EventModel>(eventUpdateInputModel);
 
-            return NoContent();
-        }
+                _service.UpdateEvent(id, entity);
 
+                return Ok(entity);
+            }
+            
+
+
+            //api/events/
+            [HttpDelete("{id}")]
+            public ActionResult<EventUpdateInputModel> DeleteEvent(int id)
+            {
+                _service.DeleteEvent(id);
+
+                return NoContent();
+            }
+        
     }
 }

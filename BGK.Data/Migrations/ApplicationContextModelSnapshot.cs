@@ -17,7 +17,7 @@ namespace BearGoodbyeKolkhozProject.Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.1")
+                .HasAnnotation("ProductVersion", "6.0.2")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
@@ -131,6 +131,20 @@ namespace BearGoodbyeKolkhozProject.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Client");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            BirthDay = "25.01.2007",
+                            Email = "чоооо",
+                            Gender = 1,
+                            IsDeleted = false,
+                            LastName = "zzz",
+                            Name = "ggg",
+                            Password = "444",
+                            PhoneNumber = "555"
+                        });
                 });
 
             modelBuilder.Entity("BearGoodbyeKolkhozProject.Data.Entities.Company", b =>
@@ -355,6 +369,38 @@ namespace BearGoodbyeKolkhozProject.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Training");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Description = "Тренинг для развития ораторских способностей, лучшие приглашенные ораторы всех времён",
+                            Duration = 3,
+                            IsDeleted = false,
+                            MembersCount = 15,
+                            Name = "Развитие ораторских способностей",
+                            Price = 1500
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Description = "Тренинг для развития скиллов нетворкинга, знакомьтесь везде и всегда",
+                            Duration = 5,
+                            IsDeleted = false,
+                            MembersCount = 18,
+                            Name = "Нетворк-скиллы",
+                            Price = 2000
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Description = "Научитесь рассказывать истории, захватывайте всех своими презентациями",
+                            Duration = 2,
+                            IsDeleted = false,
+                            MembersCount = 10,
+                            Name = "Сторителлинг",
+                            Price = 3500
+                        });
                 });
 
             modelBuilder.Entity("BearGoodbyeKolkhozProject.Data.Entities.TrainingReview", b =>

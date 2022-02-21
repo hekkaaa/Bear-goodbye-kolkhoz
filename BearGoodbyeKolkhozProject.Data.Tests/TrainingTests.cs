@@ -133,7 +133,7 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
             _context.SaveChanges();
 
             //when
-            var act = _trainingRepository.GetTrainingsByTopic(topic.Id);
+            var act = _trainingRepository.GetTrainingsByTopic(topic);
 
             //then
             Assert.AreEqual(act[0], training);

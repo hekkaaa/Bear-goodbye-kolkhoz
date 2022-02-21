@@ -12,9 +12,10 @@ namespace BearGoodbyeKolkhozProject.Data.Entities
         public virtual Classroom Classroom { get; set; }
         public virtual Lecturer Lecturer { get; set; }
 
-        public virtual ICollection<Client>? Clients { get; set; }
-
         public bool IsDeleted { get; set; }
 
+        public virtual ICollection<Client>? Clients { get; set; }
+
+       
     }
 }

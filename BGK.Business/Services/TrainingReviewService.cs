@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using BearGoodbyeKolkhozProject.Business.Exceptions;
 using BearGoodbyeKolkhozProject.Business.Models;
 using BearGoodbyeKolkhozProject.Data.Entities;
 using BearGoodbyeKolkhozProject.Data.Repositories;
@@ -19,6 +20,11 @@ namespace BearGoodbyeKolkhozProject.Business.Services
 
         public void UpdateTrainingReview(int id, TrainingReviewModel trainingReviewModel)
         {
+            var training = _repository.GetTrainingReviewById(id);
+
+            if (training == null)
+                throw new BusinessException("Такого обзора на тренинг не найдено!");
+
             var trainingReviewEntity = _mapper.Map<TrainingReview>(trainingReviewModel);
             _repository.UpdateTrainingReview(trainingReviewEntity);
         }
@@ -26,6 +32,10 @@ namespace BearGoodbyeKolkhozProject.Business.Services
         public TrainingReviewModel GetTrainingReviewModelById(int trainingReviewId)
         {
             var trainingReviewEntity = _repository.GetTrainingReviewById(trainingReviewId);
+
+            if (trainingReviewEntity == null)
+                throw new BusinessException("Такого обзора на тренинг не найдено!");
+
             return _mapper.Map<TrainingReviewModel>(trainingReviewEntity);
         }
 
@@ -35,15 +45,20 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             return _mapper.Map<List<TrainingReviewModel>>(trainingReviewEntityList);
         }
 
-        public void AddTrainingReview(TrainingReviewModel trainingReviewModel)
+        public int AddTrainingReview(TrainingReviewModel trainingReviewModel)
         {
             var trainingReviewEntity = _mapper.Map<TrainingReview>(trainingReviewModel);
-            _repository.AddTrainingReview(trainingReviewEntity);
+            return _repository.AddTrainingReview(trainingReviewEntity);
         }
 
-        public void DeleteTrainingReview(TrainingReviewModel trainingReviewModel)
+        public void DeleteTrainingReview(int id)
         {
-            _repository.DeleteTrainingReview(trainingReviewModel.Id);
+            var trainingReviewEntity = _repository.GetTrainingReviewById(id);
+
+            if (trainingReviewEntity == null)
+                throw new BusinessException("Такого обзора на тренинг не найдено!");
+
+            _repository.DeleteTrainingReview(id);
         }
     }
 }

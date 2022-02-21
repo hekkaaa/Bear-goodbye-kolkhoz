@@ -1,9 +1,9 @@
 ﻿using BearGoodbyeKolkhozProject.Data.Entities;
 using System.Collections;
 
-namespace BearGoodbyeKolkhozProject.Data.Tests.TestCase
+namespace BearGoodbyeKolkhozProject.Data.Tests.TestCaseSources.EventTestCaseSource
 {
-    public class AddEventTestCaseSource : IEnumerable
+    public class AddEventTestCaseSource :IEnumerable
     {
         public IEnumerator GetEnumerator()
         {

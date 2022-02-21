@@ -1,6 +1,6 @@
 ﻿using BearGoodbyeKolkhozProject.Business.Models;
 
-namespace BearGoodbyeKolkhozProject.API.Models.OutputModel
+namespace BearGoodbyeKolkhozProject.API.Models.OutputModels
 {
     public class EventOutputModel
     {

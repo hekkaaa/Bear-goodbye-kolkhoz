@@ -1,9 +1,9 @@
 ﻿using BearGoodbyeKolkhozProject.Data.Entities;
 using System.Collections;
 
-namespace BearGoodbyeKolkhozProject.Data.Tests.TestCase
+namespace BearGoodbyeKolkhozProject.Data.Tests.TestCaseSources.CompanyTestCaseSourse
 {
-    public class DeleteCompanyTestCaseSource : IEnumerable
+    public class DeleteCompanyTestCaseSource: IEnumerable
     {
         public IEnumerator GetEnumerator()
         {
@@ -24,6 +24,6 @@ namespace BearGoodbyeKolkhozProject.Data.Tests.TestCase
             yield return new object[] { company, expected };
 
 
-        }
+       }
     }
 }

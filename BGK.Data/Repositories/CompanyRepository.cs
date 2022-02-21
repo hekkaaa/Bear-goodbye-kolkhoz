@@ -1,7 +1,12 @@
 ﻿using BearGoodbyeKolkhozProject.Data.ConnectDb;
 using BearGoodbyeKolkhozProject.Data.Entities;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace BearGoodbyeKolkhozProject.Data.Repo
+namespace BearGoodbyeKolkhozProject.Data.Repositories
 {
     public class CompanyRepository : ICompanyRepository
     {
@@ -11,7 +16,7 @@ namespace BearGoodbyeKolkhozProject.Data.Repo
         {
             _context = context;
         }
-        public void RegistrCompany(Company company)
+        public void RegistrationCompany(Company company)
         {
 
             _context.Company.Add(company);
@@ -28,20 +33,20 @@ namespace BearGoodbyeKolkhozProject.Data.Repo
 
         public void UpdateCompany(Company company)
         {
+            var entity = GetCompanyById(company.Id);
 
-            var res = _context.Company.FirstOrDefault(с => с.Id == company.Id);
-
-            res.Name = company.Name;
-            res.Tin = company.Tin;
-            res.PhoneNumber = company.PhoneNumber;
+            entity.Name = company.Name;
+            entity.PhoneNumber = company.PhoneNumber;
+            entity.Tin = company.Tin;
 
             _context.SaveChanges();
+
         }
 
         public void UpdateCompany(int id, bool isDel)
         {
 
-            var entity = _context.Company.FirstOrDefault(x => x.Id == id);
+            var entity = GetCompanyById(id);
 
             entity.IsDeleted = isDel;
 
@@ -49,14 +54,16 @@ namespace BearGoodbyeKolkhozProject.Data.Repo
 
         }
 
-        public void DeleteCompany(Company company)
+        public void DeleteCompany(int id)
         {
+            var entity = GetCompanyById(id);
 
-            _context.Company.Remove(company);
+            _context.Company.Remove(entity);
 
             _context.SaveChanges();
 
         }
 
+        
     }
 }

@@ -9,6 +9,6 @@ namespace BearGoodbyeKolkhozProject.Business.Services
         int AddNewAdmin(AdminModel newItem);
         bool DeleteAdmin(int id);
         bool UpdateAdminInfo(int id, AdminModel newItem);
-        bool ChangeAdminPassword(int id, AdminModel newData);
+        bool ChangeAdminPassword(int id, string password);
     }
 }

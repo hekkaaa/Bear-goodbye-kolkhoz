@@ -19,7 +19,8 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
         }
         public List<Admin> GetAdminAll()
         {
-            return _db.Admin.Where(a => !a.IsDeleted).ToList();
+            //return _db.Admin.Where(a => !a.IsDeleted).ToList();
+            return _db.Admin.ToList();
         }
         public bool UpdateAdminInfo(Admin oldItem, Admin newItem)
         {
@@ -48,12 +49,9 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
             return newItem.Id;
         }
 
-        public bool ChangePasswordAdmin(int id, Admin newData)
+        public bool ChangePasswordAdmin(string password, Admin admin)
         {
-            // т.к шифрование пока не реализованно записываем так.
-            var res = _db.Admin.FirstOrDefault(x => x.Id == id);
-
-            res.Password = newData.Password;
+            admin.Password = password;
             _db.SaveChanges();
             return true;
         }
@@ -67,10 +65,10 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
             return true;
         }
 
-        public Admin Login(string email, string password)
+        public Admin Login(string email)
         {
             Admin? res = _db.Admin
-                .Where(l => l.Email == email && l.Password == password)
+                .Where(l => l.Email == email)
                 .FirstOrDefault();
 
             return res;

@@ -36,7 +36,8 @@ namespace BearGoodbyeKolkhozProject.Business.Tests
             var mapper = mockMapper.CreateMapper();
 
             _trainingRepository = new TrainingRepository(_context);
-            _service = new TrainingService(_trainingRepository, mapper);
+            
+            //_service = new TrainingService(_trainingRepository, mapper);
 
             _testData = new TestData();
 

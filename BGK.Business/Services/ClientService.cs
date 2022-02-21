@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using BearGoodbyeKolkhozProject.Business.Configuration;
 using BearGoodbyeKolkhozProject.Business.Exceptions;
 using BearGoodbyeKolkhozProject.Business.Models;
 using BearGoodbyeKolkhozProject.Data.Entities;
@@ -19,6 +20,7 @@ namespace BearGoodbyeKolkhozProject.Business.Services
         public void RegistrationClient(ClientModel model)
         {
             var entity = _mapper.Map<Client>(model);
+            entity.Password = PasswordHash.HashPassword(model.Password);
             _clientRepo.AddClient(entity);
         }
 
@@ -80,13 +82,15 @@ namespace BearGoodbyeKolkhozProject.Business.Services
         public void ChangePasswordClient(int id, string password)
         {
             var client = _clientRepo.GetClientById(id);
-
+            
             if (client is null)
             {
                 throw new NotFoundException($"нет клиента с id = {id}");
             }
 
-            _clientRepo.ChangePasswordClient(client, password);
+            string hashPassword = PasswordHash.HashPassword(password);
+
+            _clientRepo.ChangePasswordClient(client, hashPassword);
         }
     }
 }
