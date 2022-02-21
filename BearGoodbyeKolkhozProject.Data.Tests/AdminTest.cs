@@ -158,7 +158,7 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
             Admin newVirtualData = new Admin();
             newVirtualData.Password = "newssss111";
 
-            var act = _adminRepository.ChangePasswordAdmin(virtualData.Id, newVirtualData);
+            var act = _adminRepository.ChangePasswordAdmin(newVirtualData.Password, newVirtualData);
             var postAct = _adminRepository.GetAdminById(virtualData.Id);
 
             //then

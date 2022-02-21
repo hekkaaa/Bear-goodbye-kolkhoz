@@ -14,10 +14,10 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
             _context = context;
         }
 
-        public Lecturer Login(string email, string password)
+        public Lecturer Login(string email)
         {
             Lecturer lecturer = _context.Lecturer
-                .Where(l => l.Email == email && l.Password == password)
+                .Where(l => l.Email == email)
                 .FirstOrDefault();
 
             return lecturer;

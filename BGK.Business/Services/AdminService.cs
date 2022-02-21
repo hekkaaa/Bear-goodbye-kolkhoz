@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using BearGoodbyeKolkhozProject.Business.Configuration;
 using BearGoodbyeKolkhozProject.Business.Exceptions;
 using BearGoodbyeKolkhozProject.Business.Models;
 using BearGoodbyeKolkhozProject.Data.Entities;
@@ -97,9 +98,17 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             return _repository.UpdateAdminInfo(existingAdmin, modifiedAdmin);
         }
 
-        public bool ChangeAdminPassword(int id, AdminModel newData)
+        public bool ChangeAdminPassword(int id, string password)
         {
-            return _repository.ChangePasswordAdmin(id, _mapper.Map<Admin>(newData));
+            var admin = _repository.GetAdminById(id);
+
+            if (admin is null)
+            {
+                throw new NotFoundException($"Нет клиента с id = {id}");
+            }
+
+            string hashPassword = PasswordHash.HashPassword(password);
+            return _repository.ChangePasswordAdmin(hashPassword, admin);
         }
 
         private bool CheckDublicateEmailAddAdmin(string email)
