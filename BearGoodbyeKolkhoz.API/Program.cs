@@ -22,17 +22,6 @@ builder.Services.AddControllers();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-//builder.Services.AddSwaggerGen(swagger =>
-//{
-//    swagger.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
-//    {
-//        Name = "Authorization",
-//        Type = SecuritySchemeType.ApiKey,
-//        Scheme = "Bearer",
-//        BearerFormat = "JWT",
-//        In = ParameterLocation.Header,
-//    });
-//});
 
 builder.Services.AddSwaggerGen(opt =>
 {
@@ -63,12 +52,9 @@ builder.Services.AddSwaggerGen(opt =>
     });
 });
 
-
-
 builder.Services
     .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)  // схема аутентификации - с помощью jwt-токенов
-    .AddJwtBearer(
-    options =>
+    .AddJwtBearer(options =>
     {
         options.TokenValidationParameters = new TokenValidationParameters
         {
@@ -87,8 +73,7 @@ builder.Services
             // валидация ключа безопасности
             ValidateIssuerSigningKey = true,
         };
-    }
-    );
+    });
 
 // add service and provider connections here
 builder.Services.AddAuthorization();
