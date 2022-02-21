@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using BearGoodbyeKolkhozProject.API.Models;
 using BearGoodbyeKolkhozProject.Business.Models;
+using BearGoodbyeKolkhozProject.Business.Interface;
 using BearGoodbyeKolkhozProject.Business.Services;
 using BearGoodbyeKolkhozProject.Data.Enums;
 using Microsoft.AspNetCore.Authorization;
@@ -14,11 +15,13 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
     public class TrainingController : Controller
     {
         private readonly ITrainingService _service;
+        private readonly IEventService _eventService;
         private IMapper _mapper;
 
-        public TrainingController(ITrainingService trainingService, IMapper mapper)
+        public TrainingController(ITrainingService trainingService, IEventService eventService, IMapper mapper)
         {
             _service = trainingService;
+            _eventService = eventService;
             _mapper = mapper;
         }
 
@@ -55,17 +58,10 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         [Authorize(Roles = "Client")]
         public ActionResult AddReviewToTraining(int id, [FromBody] TrainingReviewInsertInputModel trainingReview)
         {
-            var identity = HttpContext.User.Identity as ClaimsIdentity;
+            var clientId = GetClientIdFromToken();
 
-            if (identity != null)
-            {
-                IEnumerable<Claim> claims = identity.Claims;
-                var clientId = Convert.ToInt32(identity
-                    .FindFirst(@"http://schemas.microsoft.com/ws/2008/06/identity/claims/userdata").Value);
-                _service.AddReviewToTraining(id, clientId, _mapper.Map<TrainingReviewModel>(trainingReview));
-            }
+            _service.AddReviewToTraining(id, clientId, _mapper.Map<TrainingReviewModel>(trainingReview));
             
-            //дописать после мерджа получение айди клиента из токена
             return Ok("Новый обзор на тренинг успешно добавлен");
         }
 
@@ -95,5 +91,27 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
             return Ok("Тренинг успешно удален");
         }
 
+        [HttpPost("{id}/signup")]
+        [Authorize(Roles = "Client, Company")]
+        public ActionResult<bool> SugnUp(int id)
+        {
+            var clientId = GetClientIdFromToken();
+            var res = _eventService.SignUp(id, clientId);
+
+            return Ok(res);
+        }
+
+        private int GetClientIdFromToken()
+        {
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+
+            if (identity != null)
+            {
+                var clientId = Convert.ToInt32(identity
+                    .FindFirst(@"http://schemas.microsoft.com/ws/2008/06/identity/claims/userdata").Value);
+                return clientId;
+            }
+            throw new HttpRequestException();
+        }
     }
 }

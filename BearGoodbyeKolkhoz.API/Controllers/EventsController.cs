@@ -2,7 +2,7 @@
 using BearGoodbyeKolkhozProject.API.Models.InputModels;
 using BearGoodbyeKolkhozProject.API.Models.OutputModels;
 using BearGoodbyeKolkhozProject.Business.Models;
-using BearGoodbyeKolkhozProject.Business.Processor;
+using BearGoodbyeKolkhozProject.Business.Interface;
 using BearGoodbyeKolkhozProject.Business.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -24,7 +24,6 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
                 _mapperApi = mapper;
             }
 
-
             //api/events/
             [HttpGet("(id)")]
             public ActionResult<List<EventOutputModel>> GetEvents()
@@ -37,7 +36,6 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
 
                 return Ok(result);
             }
-
 
             //api/events/
             [HttpGet("{id}")]
@@ -65,7 +63,6 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
 
             }
 
-
             //api/events/
             [HttpPut()]
             public ActionResult<EventUpdateInputModel> UpdateEvent(int id, [FromBody] EventUpdateInputModel eventUpdateInputModel)
@@ -77,8 +74,6 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
                 return Ok(entity);
             }
             
-
-
             //api/events/
             [HttpDelete("{id}")]
             public ActionResult<EventUpdateInputModel> DeleteEvent(int id)
