@@ -41,7 +41,7 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
 
         public bool DeleteClassroomById(Classroom item)
         {
-            _db.Classroom.Remove(item);
+            _db.Classroom.Update(item);
             _db.SaveChanges(true);
             return true;
         }
