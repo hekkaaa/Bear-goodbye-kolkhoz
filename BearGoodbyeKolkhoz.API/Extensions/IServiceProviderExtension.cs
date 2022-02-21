@@ -1,8 +1,8 @@
 ﻿using BearGoodbyeKolkhozProject.Business.Interface;
 using BearGoodbyeKolkhozProject.Business.Processor;
 using BearGoodbyeKolkhozProject.Business.Services;
+using BearGoodbyeKolkhozProject.Business.Services.Interfaces;
 using BearGoodbyeKolkhozProject.Data.Interfaces;
-using BearGoodbyeKolkhozProject.Data.Repo;
 using BearGoodbyeKolkhozProject.Data.Repositories;
 
 namespace BearGoodbyeKolkhozProject.API.Extensions
@@ -18,6 +18,11 @@ namespace BearGoodbyeKolkhozProject.API.Extensions
             services.AddScoped<IAdminService, AdminService>();
             services.AddScoped<ICompanyService, CompanyService>();
             services.AddScoped<IEventService, EventService>();
+            services.AddScoped<IContactLecturerService, ContactLecturerService>();
+            
+
+
+
             services.AddScoped<IClassroomService, ClassroomService>();
             services.AddScoped<IClientService, ClientService>();
             services.AddScoped<ITopicService, TopicService>();
@@ -26,6 +31,9 @@ namespace BearGoodbyeKolkhozProject.API.Extensions
 
         public static void RegisterProjectRepository(this IServiceCollection repository)
         {
+
+            repository.AddScoped<IContactLecturerRepository, ContactLecturerRepository>();
+            repository.AddScoped<ICompanyRepository, CompanyRepository>();
             repository.AddScoped<ITrainingReviewRepository, TrainingReviewRepository>();
             repository.AddScoped<ITrainingRepository, TrainingRepository>();
             repository.AddScoped<ILecturerRepository, LecturerRepository>();

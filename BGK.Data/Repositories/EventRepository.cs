@@ -1,15 +1,21 @@
 ﻿using BearGoodbyeKolkhozProject.Data.ConnectDb;
 using BearGoodbyeKolkhozProject.Data.Entities;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace BearGoodbyeKolkhozProject.Data.Repo
+namespace BearGoodbyeKolkhozProject.Data.Repositories
 {
     public class EventRepository : IEventRepository
     {
+
         private ApplicationContext _context;
 
         public EventRepository(ApplicationContext context)
         {
-            _context = context;
+            this._context = context;
         }
 
         public Event GetEventById(int id) =>
@@ -31,22 +37,16 @@ namespace BearGoodbyeKolkhozProject.Data.Repo
 
             var entity = _context.Event.FirstOrDefault(e => e.Id == even.Id);
 
+            entity.StartDate = even.StartDate;
             entity.Clients = even.Clients;
             entity.Company = even.Company;
             entity.Classroom = even.Classroom;
             entity.Lecturer = even.Lecturer;
 
-            _context.SaveChanges();
-        }
-
-        public void UpdateEvent(int id, bool isDel)
-        {
-
-            var entity = _context.Event.FirstOrDefault(x => x.Id == id);
-
-            entity.IsDeleted = isDel;
+            _context.Event.Update(entity);
 
             _context.SaveChanges();
+
 
         }
 
@@ -57,7 +57,5 @@ namespace BearGoodbyeKolkhozProject.Data.Repo
 
             _context.SaveChanges();
         }
-
-
     }
 }

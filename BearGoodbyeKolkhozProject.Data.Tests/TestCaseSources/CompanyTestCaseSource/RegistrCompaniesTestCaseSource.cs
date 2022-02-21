@@ -1,7 +1,7 @@
 ﻿using BearGoodbyeKolkhozProject.Data.Entities;
 using System.Collections;
 
-namespace BearGoodbyeKolkhozProject.Data.Tests.TestCase
+namespace BearGoodbyeKolkhozProject.Data.Tests.TestCaseSources.CompanyTestCaseSourse
 {
     public class RegistrCompaniesTestCaseSource : IEnumerable
     {
@@ -32,9 +32,5 @@ namespace BearGoodbyeKolkhozProject.Data.Tests.TestCase
             yield return new object[] { company1 };
             yield return new object[] { company2 };
         }
-
     }
 }
-
-
-

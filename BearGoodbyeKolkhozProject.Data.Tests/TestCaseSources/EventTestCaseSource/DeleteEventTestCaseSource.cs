@@ -1,9 +1,14 @@
 ﻿using BearGoodbyeKolkhozProject.Data.Entities;
+using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace BearGoodbyeKolkhozProject.Data.Tests.TestCaseSources.EventTestCaseSource
 {
-    public class AddEventTestCaseSource :IEnumerable
+    public class DeleteEventTestCaseSource : IEnumerable
     {
         public IEnumerator GetEnumerator()
         {
@@ -36,13 +41,18 @@ namespace BearGoodbyeKolkhozProject.Data.Tests.TestCaseSources.EventTestCaseSour
 
                 },
 
+                
+
 
             };
 
-            yield return new object[] { even };
+            Event expected = null;
+
+            yield return new object[] { even, expected };
 
 
 
         }
+
     }
 }

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using BearGoodbyeKolkhozProject.Business.Exceptions;
 using BearGoodbyeKolkhozProject.Business.Models;
 using BearGoodbyeKolkhozProject.Business.Services.Interfaces;
 using BearGoodbyeKolkhozProject.Data.Entities;
@@ -18,13 +19,24 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             _mapper = mapper;
         }
 
-        public void AddValue(ContactLecturerModel сontactLecturerModel)
+        public void AddContactLecturerValue(ContactLecturerModel сontactLecturerModel)
         {
             var mappedLecturer = new ContactLecturerModel { Value = сontactLecturerModel.Value };
 
-            _contactLecturerRepository.AddValue(_mapper.Map<ContactLecturer>(mappedLecturer));
+            _contactLecturerRepository.AddContactLecturerValueRepo(_mapper.Map<ContactLecturer>(mappedLecturer));
         }
 
+        public void UpdateContactLecturerValue(ContactLecturerModel сontactLecturerModel)
+        {
+            var contactLecturer = _contactLecturerRepository.GetValueContactLecturerById(сontactLecturerModel.Id);
 
+            if (contactLecturer == null)
+                throw new BusinessException("Такой значения не существует.");
+
+            var mappedLecturer = new ContactLecturerModel { Value = сontactLecturerModel.Value };
+
+            _contactLecturerRepository.UpdateContactLecturerValueRepo(_mapper.Map<ContactLecturer>(mappedLecturer));
+
+        }
     }
 }

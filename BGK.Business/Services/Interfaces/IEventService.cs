@@ -9,10 +9,7 @@ namespace BearGoodbyeKolkhozProject.Business.Processor
         void DeleteEvent(int id);
         EventModel GetEventById(int id);
         List<EventModel> GetEvents();
-        void UpdateEventFromClient(int id, EventModel eventModel);
-        void UpdateEventFromCompany(int id, EventModel eventModel);
-        void UpdateEvent(int id, bool isDel);
-
-
+        void UpdateEvent(int id, EventModel eventModel);
+        
     }
 }

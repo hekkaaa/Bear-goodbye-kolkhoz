@@ -1,14 +1,17 @@
 ﻿using AutoMapper;
+using BearGoodbyeKolkhozProject.API.Configuration;
 using BearGoodbyeKolkhozProject.Business.Exceptions;
 using BearGoodbyeKolkhozProject.Business.Models;
+using BearGoodbyeKolkhozProject.Business.Processor;
 using BearGoodbyeKolkhozProject.Data.Entities;
-using BearGoodbyeKolkhozProject.Data.Repo;
+using BearGoodbyeKolkhozProject.Data.Repositories;
 
-namespace BearGoodbyeKolkhozProject.Business.Processor
+namespace BearGoodbyeKolkhozProject.Business.Services
 {
     public class CompanyService : ICompanyService
     {
-        private ICompanyRepository? _companyRepository;
+
+        private readonly ICompanyRepository? _companyRepository;
 
         private IMapper _mapper;
         public CompanyService(ICompanyRepository companyRepository, IMapper mapper)
@@ -22,7 +25,7 @@ namespace BearGoodbyeKolkhozProject.Business.Processor
             var company = _companyRepository.GetCompanyById(id);
 
             if (company == null)
-                throw new NotAuthorizedException($"Такой Компании {id} не существует.");
+                throw new BusinessException("Такой Компания не существует.");
 
             return _mapper.Map<CompanyModel>(company);
         }
@@ -35,12 +38,8 @@ namespace BearGoodbyeKolkhozProject.Business.Processor
 
         }
 
-        public void RegistrCompany(CompanyModel companyModel)
+        public void RegistrationCompany(CompanyModel companyModel)
         {
-            var company = _companyRepository.GetCompanyById(companyModel.Id);
-
-            if (company != null)
-                throw new NotAuthorizedException($"Такой Компании {company.Id} не существует.");
 
             var mappedCompany = new Company
             {
@@ -54,7 +53,7 @@ namespace BearGoodbyeKolkhozProject.Business.Processor
 
             };
 
-            _companyRepository.RegistrCompany(_mapper.Map<Company>(mappedCompany));
+            _companyRepository.RegistrationCompany(_mapper.Map<Company>(mappedCompany));
         }
 
 
@@ -64,9 +63,11 @@ namespace BearGoodbyeKolkhozProject.Business.Processor
             var company = _companyRepository.GetCompanyById(companyModel.Id);
 
             if (company == null)
-                throw new NotAuthorizedException($"Такой Компании {company.Id} не существует.");
+                throw new BusinessException("Такой Компании не существует.");
 
-            _companyRepository.UpdateCompany(_mapper.Map<Company>(companyModel));
+            var entity = _mapper.Map <Company> (companyModel);
+          
+            _companyRepository.UpdateCompany(entity);
 
         }
 
@@ -79,8 +80,9 @@ namespace BearGoodbyeKolkhozProject.Business.Processor
             if (company == null)
                 throw new NullReferenceException("Такой Компании не существует.");
 
-            _companyRepository.DeleteCompany(company);
+            _companyRepository.DeleteCompany(id);
 
+            
         }
 
         public void UpdateCompany(int id, bool isDel)
@@ -92,5 +94,7 @@ namespace BearGoodbyeKolkhozProject.Business.Processor
 
             _companyRepository.UpdateCompany(id, isDel);
         }
+
+        
     }
 }

@@ -1,6 +1,6 @@
 ﻿using BearGoodbyeKolkhozProject.Data.Entities;
 
-namespace BearGoodbyeKolkhozProject.Data.Repo
+namespace BearGoodbyeKolkhozProject.Data.Repositories
 {
     public interface IEventRepository
     {
@@ -9,6 +9,5 @@ namespace BearGoodbyeKolkhozProject.Data.Repo
         Event GetEventById(int id);
         List<Event> GetEvents();
         void UpdateEvent(Event even);
-        void UpdateEvent(int id, bool isDel);
     }
 }

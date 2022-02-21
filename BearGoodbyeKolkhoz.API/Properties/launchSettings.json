@@ -16,7 +16,9 @@
       "launchUrl": "swagger",
       "applicationUrl": "https://localhost:7151;http://localhost:5151",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "CONNECTION_STRING": "Data Source=DESKTOP-5HF0J14\\SQLEXPRESS;Initial Catalog=BGKdb;Integrated Security=True"
+
       }
     },
     "SettingBGKProject": {
@@ -70,6 +72,16 @@
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
         "CONNECTION_STRING": "Data Source=WIN-4PTG0MGAJ62\\SQLEXPRESS;Database=testSS;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False"
+      }
+    },
+    "Debug Config Shokhin": {
+      "commandName": "Project",
+      "dotnetRunMessages": true,
+      "launchBrowser": true,
+      "launchUrl": "swagger",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "CONNECTION_STRING": "Data Source=DESKTOP-5HF0J14\\SQLEXPRESS;Initial Catalog=BGKdb;Integrated Security=True"
       }
     }
   }

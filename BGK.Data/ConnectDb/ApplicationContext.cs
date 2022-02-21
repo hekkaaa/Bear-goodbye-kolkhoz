@@ -19,6 +19,7 @@ namespace BearGoodbyeKolkhozProject.Data.ConnectDb
 
         public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options)
         {
+            
         }
 
     }
