@@ -12,7 +12,7 @@ const string? _connString = "CONNECTION_STRING";
 
 var builder = WebApplication.CreateBuilder(args);
 
-var connString = builder.Configuration.GetValue<string>(_connString);
+var connString = builder.Configuration.GetValue<string>(_connStringVariableName);
 builder.Services.AddDbContext<ApplicationContext>(op =>
             op.UseSqlServer(connString));
 
