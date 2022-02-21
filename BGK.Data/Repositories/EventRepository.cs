@@ -50,7 +50,6 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
 
         public void DeleteEvent(Event even)
         {
-
             _context.Event.Remove(even);
 
             _context.SaveChanges();
@@ -65,7 +64,7 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
         public Event GetEventsByTrainingId(int trainingId)
         {
             var even = _context.Event
-                    .FirstOrDefault(e => e.Training.Id == trainingId && e.Training.MembersCount >= e.Clients.Count);
+                    .FirstOrDefault(e => e.Training.Id == trainingId);
 
             return even;
         }
