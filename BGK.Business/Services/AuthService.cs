@@ -36,6 +36,12 @@ namespace BearGoodbyeKolkhozProject.Business.Services
 
                 IsCorrectPassword(password, entity.Password);
 
+                // проверка на блок
+                if(entity.IsDeleted == true)
+                {
+                    throw new UserIsBlockException("User deleted or blocked | Пользователь удален или заблокирован");
+                }
+
                 claims = new List<Claim> {
                     new Claim(ClaimTypes.Email, entity.Email),
                     new Claim(ClaimTypes.UserData, entity.Id.ToString()),
@@ -54,6 +60,12 @@ namespace BearGoodbyeKolkhozProject.Business.Services
 
                 IsCorrectPassword(password, entity.Password);
 
+                // проверка на блок
+                if (entity.IsDeleted == true)
+                {
+                    throw new UserIsBlockException("User deleted or blocked | Пользователь удален или заблокирован");
+                }
+
                 claims = new List<Claim> {
                     new Claim(ClaimTypes.Email, entity.Email),
                     new Claim(ClaimTypes.UserData, entity.Id.ToString()),
@@ -71,6 +83,14 @@ namespace BearGoodbyeKolkhozProject.Business.Services
                 }
 
                 IsCorrectPassword(password, entity.Password);
+
+                Client entity = _userRepo.Login(email, password);
+
+                // проверка на блок
+                if (entity.IsDeleted == true)
+                {
+                    throw new UserIsBlockException("User deleted or blocked | Пользователь удален или заблокирован");
+                }
 
                 claims = new List<Claim> {
                     new Claim(ClaimTypes.Email, entity.Email),

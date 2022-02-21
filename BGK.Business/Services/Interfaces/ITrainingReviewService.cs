@@ -4,8 +4,8 @@ namespace BearGoodbyeKolkhozProject.Business.Services
 {
     public interface ITrainingReviewService
     {
-        void AddTrainingReview(TrainingReviewModel trainingReviewModel);
-        void DeleteTrainingReview(TrainingReviewModel trainingReviewModel);
+        int AddTrainingReview(TrainingReviewModel trainingReviewModel);
+        void DeleteTrainingReview(int id);
         TrainingReviewModel GetTrainingReviewModelById(int id);
         List<TrainingReviewModel> GetTrainingReviewModels();
         void UpdateTrainingReview(int id, TrainingReviewModel trainingReviewModel);
