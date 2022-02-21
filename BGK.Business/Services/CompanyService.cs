@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using BearGoodbyeKolkhozProject.API.Configuration;
 using BearGoodbyeKolkhozProject.Business.Exceptions;
 using BearGoodbyeKolkhozProject.Business.Models;
 using BearGoodbyeKolkhozProject.Business.Processor;

@@ -84,8 +84,6 @@ namespace BearGoodbyeKolkhozProject.Business.Services
 
                 IsCorrectPassword(password, entity.Password);
 
-                Client entity = _userRepo.Login(email, password);
-
                 // проверка на блок
                 if (entity.IsDeleted == true)
                 {
