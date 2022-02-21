@@ -19,12 +19,29 @@ namespace BearGoodbyeKolkhozProject.Business.Services
 
         public AdminModel GetAdminById(int id)
         {
-            return _mapper.Map<AdminModel>(_repository.GetAdminById(id));
+            var res = _mapper.Map<AdminModel>(_repository.GetAdminById(id));
+            if (res == null)
+            {
+                throw new EntryPointNotFoundException("Нет пользователя по указанному Id");
+            }
+            else
+            {
+                return res;
+            }
         }
 
         public List<AdminModel> GetAdminAll()
-        {
-            return _mapper.Map<List<AdminModel>>(_repository.GetAdminAll());
+        {   
+            var res = _mapper.Map<List<AdminModel>>(_repository.GetAdminAll());
+
+            if (res == null)
+            {
+                throw new EntryPointNotFoundException("Нет никаких пользователей в списке Администраторов");
+            }
+            else
+            {
+                return res;
+            }
         }
 
         public int AddNewAdmin(AdminModel newItem)
@@ -51,11 +68,10 @@ namespace BearGoodbyeKolkhozProject.Business.Services
 
             if (item == null)
             {
-                throw new EntryPointNotFoundException();
+                throw new EntryPointNotFoundException("Нет пользователя по указанному Id");
             }
             else
             {
-
                 return _repository.DeleteAdminById(item.Id);
             }
 
