@@ -27,7 +27,15 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
             _context.Lecturer.FirstOrDefault(L => L.Id == id);
 
         public List<Lecturer> GetLecturers() =>
-            _context.Lecturer.Where(t => !t.IsDeleted).ToList();
+            _context.Lecturer.Where(l => !l.IsDeleted).ToList();
+
+        public List<Lecturer> GetLecturerByTrainingId(int trainingId)
+        {
+            return _context.Lecturer
+                .Where(l => !l.IsDeleted)
+                .Where(l => l.Trainings.FirstOrDefault(t => t.Id == trainingId) != null)
+                .ToList();
+        }
 
         public void AddLecturer(Lecturer model)
         {
@@ -67,5 +75,9 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
             _context.SaveChanges();
         }
 
+        public int GetEventsCount(Lecturer lecturer)
+        {
+            return _context.Event.Where(e => e.Lecturer.Id == lecturer.Id).ToList().Count;
+        }
     }
 }

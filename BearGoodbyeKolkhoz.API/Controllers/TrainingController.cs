@@ -1,8 +1,12 @@
 ﻿using AutoMapper;
 using BearGoodbyeKolkhozProject.API.Models;
 using BearGoodbyeKolkhozProject.Business.Models;
+using BearGoodbyeKolkhozProject.Business.Interface;
 using BearGoodbyeKolkhozProject.Business.Services;
+using BearGoodbyeKolkhozProject.Data.Enums;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace BearGoodbyeKolkhozProject.API.Controllers
 {
@@ -11,11 +15,13 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
     public class TrainingController : Controller
     {
         private readonly ITrainingService _service;
+        private readonly IEventService _eventService;
         private IMapper _mapper;
 
-        public TrainingController(ITrainingService trainingService, IMapper mapper)
+        public TrainingController(ITrainingService trainingService, IEventService eventService, IMapper mapper)
         {
             _service = trainingService;
+            _eventService = eventService;
             _mapper = mapper;
         }
 
@@ -49,14 +55,18 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         }
 
         [HttpPost("{id}/review")]
+        [Authorize(Roles = "Client")]
         public ActionResult AddReviewToTraining(int id, [FromBody] TrainingReviewInsertInputModel trainingReview)
         {
-            _service.AddReviewToTraining(id, trainingReview.ClientId, _mapper.Map<TrainingReviewModel>(trainingReview));
-            //дописать после мерджа получение айди клиента из токена
+            var clientId = GetClientIdFromToken();
+
+            _service.AddReviewToTraining(id, clientId, _mapper.Map<TrainingReviewModel>(trainingReview));
+            
             return Ok("Новый обзор на тренинг успешно добавлен");
         }
 
         [HttpPut("{id}")]
+        [Authorize(Roles = "Admin")]
         public ActionResult UpdateTraining(int id, [FromBody] TrainingUpdateInputModel trainingUpdateInputModel)
         {
             var training = _mapper.Map<TrainingModel>(trainingUpdateInputModel);
@@ -66,6 +76,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public ActionResult AddTraining([FromBody] TrainingInsertInputModel trainingInputModel)
         {
             var training = _mapper.Map<TrainingModel>(trainingInputModel);
@@ -80,11 +91,27 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
             return Ok("Тренинг успешно удален");
         }
 
-        [HttpPost("test")]
-        public ActionResult TestEmail()
+        [HttpPost("{id}/signup")]
+        [Authorize(Roles = "Client, Company")]
+        public ActionResult<bool> SugnUp(int id)
         {
-            _service.SendEmail();
-            return Ok();
+            var clientId = GetClientIdFromToken();
+            var res = _eventService.SignUp(id, clientId);
+
+            return Ok(res);
+        }
+
+        private int GetClientIdFromToken()
+        {
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+
+            if (identity != null)
+            {
+                var clientId = Convert.ToInt32(identity
+                    .FindFirst(@"http://schemas.microsoft.com/ws/2008/06/identity/claims/userdata").Value);
+                return clientId;
+            }
+            throw new HttpRequestException();
         }
     }
 }

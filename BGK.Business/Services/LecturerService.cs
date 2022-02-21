@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using BearGoodbyeKolkhozProject.Business.Configuration;
 using BearGoodbyeKolkhozProject.Business.Exceptions;
 using BearGoodbyeKolkhozProject.Business.Interface;
 using BearGoodbyeKolkhozProject.Business.Models;
@@ -24,6 +25,7 @@ namespace BearGoodbyeKolkhozProject.Business.Services
         public void RegistrationLecturer(LecturerModel model)
         {
             var entity = _mapper.Map<Lecturer>(model);
+            entity.Password = PasswordHash.HashPassword(model.Password);
             _lecturerRepo.AddLecturer(entity);
         }
 

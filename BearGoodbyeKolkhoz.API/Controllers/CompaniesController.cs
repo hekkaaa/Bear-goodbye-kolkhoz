@@ -103,15 +103,11 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         public ActionResult<ContactLecturerInsertInputModel> AddContactLecturerValueApi    // Данный метод позволяет компании ставить оценку Лектору за проведенное мероприятие
             ([FromBody] ContactLecturerInsertInputModel contactLecturerInsertInputModel)
         {
-            
-
             ContactLecturerModel entity = _mapperApi.Map<ContactLecturerModel>(contactLecturerInsertInputModel);
 
             _contactLecturerService.AddContactLecturerValue(entity);
 
             return StatusCode(StatusCodes.Status201Created, entity);
-
-
         }
 
         //api/contactlecturer/
@@ -119,8 +115,6 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         public ActionResult<ContactLecturerInsertInputModel> UpdateContactLecturerValueApi   // Данный метод позволяет компании изменить оценку Лектору за проведенное мероприятие
             ([FromBody] ContactLecturerInsertInputModel contactLecturerInsertInputModel)
         {
-
-
             ContactLecturerModel entity = _mapperApi.Map<ContactLecturerModel>(contactLecturerInsertInputModel);
 
             _contactLecturerService.UpdateContactLecturerValue(entity);

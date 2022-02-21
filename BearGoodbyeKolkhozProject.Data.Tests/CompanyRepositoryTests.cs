@@ -82,7 +82,7 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
             CompanyRepository companyRepository = new CompanyRepository(_context);
             _context.Company.Add(expected);
             //when
-            companyRepository.RegistrCompany(expected);
+            companyRepository.RegistrationCompany(expected);
             var actual = _context.Company.FirstOrDefault(c => c.Id == expected.Id);
 
             //then

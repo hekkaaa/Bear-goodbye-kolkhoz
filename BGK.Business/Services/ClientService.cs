@@ -24,6 +24,8 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             _clientRepo.AddClient(entity);
         }
 
+
+
         public ClientModel GetClientById(int id)
         {
             var client = _clientRepo.GetClientById(id);

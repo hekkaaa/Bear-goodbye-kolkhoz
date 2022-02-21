@@ -55,9 +55,10 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             }
             else
             {
+                newItem.Password = PasswordHash.HashPassword(newItem.Password);
                 var item = _mapper.Map<Admin>(newItem);
                 item.Role = Data.Enums.Role.Admin;
-                item.IsDeleted = false; // делам при создании нового админа статус НЕзаблокирован по умолчанию.
+                item.IsDeleted = false; 
 
                 return _repository.AddNewAdmin(item);
             }
@@ -75,19 +76,17 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             {
                 return _repository.DeleteAdminById(item.Id);
             }
-
         }
 
         public bool UpdateAdminInfo(int id, AdminModel newItem)
         {
             var existingAdmin = _repository.GetAdminById(id);
 
-            // Проверка на присутсвие нужного обьекта по id
             if (existingAdmin == null)
             {
                 throw new NotFoundException("The object with the specified id does not exist | Обьекта с указанным id не существет");
             }
-            // Проверяем изменяется ли Email.
+            
             if(existingAdmin.Email != newItem.Email)
             {
                 bool res = CheckDublicateEmailUpdateAdmin(id, newItem.Email);
@@ -126,7 +125,7 @@ namespace BearGoodbyeKolkhozProject.Business.Services
         private bool CheckDublicateEmailUpdateAdmin(int id, string email)
         {
             var allList = _repository.GetAdminAll();
-            // Ищем совпадения по Email отталкиваясь от изменяемого ID.
+            
             var res = allList.Where(a => a.Email == email).Where(x=>x.Id < id || x.Id > id).Count();
 
             if(res != 0)

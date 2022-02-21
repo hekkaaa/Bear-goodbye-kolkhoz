@@ -60,7 +60,7 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
             _context.SaveChanges();
 
             //when
-            eventRepository.DeleteEvent(even.Id);
+            eventRepository.DeleteEvent(even);
             var actual = _context.Event.FirstOrDefault(c => c.Id == even.Id);
 
             //then
