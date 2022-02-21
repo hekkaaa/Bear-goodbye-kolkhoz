@@ -42,5 +42,8 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
             var model = _service.GetTrainingModelByTopic(_mapper.Map<TopicModel>(topicInputModel));
             return Ok(_mapper.Map<TrainingOutputModel>(model));
         }
+
+        [HttpPost]
+        public ActionResult
     }
 }

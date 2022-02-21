@@ -3,25 +3,26 @@ using System.Text;
 using System.IO;
 using System.Net;
 using System.Net.Mail;
+using BearGoodbyeKolkhozProject.Business.Models;
 
 namespace BearGoodbyeKolkhozProject.Business
 {
     public class EmailSender
     {
-        public void SendEmail(string toEmail, string text, EventModel )
+        public void SendEmail(string toEmail, string text, EventModel eventModel)
         {
-            string to = "toaddress@gmail.com"; //To address    
-            string from = "fromaddress@gmail.com"; //From address    
+            string to = "jokzik@gmail.com"; //To address    
+            string from = "teeststeest555@yandex.ru"; //From address    
             MailMessage message = new MailMessage(from, to);
 
-            string mailbody = "In this article you will learn how to send a email using Asp.Net & C#";
+            string mailbody = "Тренинг состоится {eventModel.StartDate}";
             message.Subject = "Тренинг скоро состоится! Подробности в письме.";
             message.Body = mailbody;
             message.BodyEncoding = Encoding.UTF8;
             message.IsBodyHtml = true;
-            SmtpClient client = new SmtpClient("smtp.gmail.com", 587); //Gmail smtp    
+            SmtpClient client = new SmtpClient("smtp.yandex.ru", 465); //Gmail smtp    
             System.Net.NetworkCredential basicCredential1 = new
-            System.Net.NetworkCredential("yourmail id", "Password");
+            System.Net.NetworkCredential("teeststeest555@yandex.ru", "9KdQXY9ZKgw5yHp");
             client.EnableSsl = true;
             client.UseDefaultCredentials = false;
             client.Credentials = basicCredential1;
