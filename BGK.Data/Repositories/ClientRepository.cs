@@ -1,5 +1,6 @@
 ﻿using BearGoodbyeKolkhozProject.Data.ConnectDb;
 using BearGoodbyeKolkhozProject.Data.Entities;
+using BearGoodbyeKolkhozProject.Data.Enums;
 
 namespace BearGoodbyeKolkhozProject.Data.Repositories
 {
@@ -10,21 +11,25 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
         {
             this._db = context;
         }
+
         public Client GetClientById(int id)
         {
             var res = _db.Client.FirstOrDefault(с => с.Id == id);
             return res;
         }
 
+        public void AddClient(Client client)
+        {
+            client.Role = Role.Client;
+            _db.Client.Add(client);
+            _db.SaveChanges();
+        }
+
         public bool UpdateClientInfo(Client client, Client newInfo)
         {
             client.Name = newInfo.Name;
             client.LastName = newInfo.LastName;
-            client.Gender = newInfo.Gender;
             client.BirthDay = newInfo.BirthDay;
-            client.Email = newInfo.Email;
-            client.PhoneNumber = newInfo.PhoneNumber;
-            client.Topic = newInfo.Topic;
 
             _db.SaveChanges();
             return true;
@@ -45,6 +50,15 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
         public List<Client> GetClients()
         {
             return _db.Client.Where(с => !с.IsDeleted).ToList();
+        }
+
+        public Client Login(string email, string password)
+        {
+            Client? res = _db.Client
+                .Where(l => l.Email == email && l.Password == password)
+                .FirstOrDefault();
+
+            return res;
         }
     }
 }

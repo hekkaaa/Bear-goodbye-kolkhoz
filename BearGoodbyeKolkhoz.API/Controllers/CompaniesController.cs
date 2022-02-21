@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using BearGoodbyeKolkhozProject.API.Models;
 using BearGoodbyeKolkhozProject.API.Models.OutputModel;
-using BearGoodbyeKolkhozProject.Business.Configuration;
 using BearGoodbyeKolkhozProject.Business.Models;
 using BearGoodbyeKolkhozProject.Business.Processor;
 using Microsoft.AspNetCore.Mvc;
@@ -16,13 +15,13 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
 
         private IMapper _mapperApi;
 
-        public CompaniesController(ICompanyService  companyService, IMapper mapper)
+        public CompaniesController(ICompanyService companyService, IMapper mapper)
         {
             _service = companyService;
 
             _mapperApi = mapper;
         }
-            
+
 
         //api/companies/21
         [HttpGet("(id)")]
@@ -31,7 +30,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
             var entity = _service.GetCompanies();
 
             var result = _mapperApi.Map<List<CompanyOutputModel>>(entity);
-            
+
             return Ok(result);
         }
 
@@ -48,8 +47,8 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
 
         //api/companies/
         [HttpPost()]
-         public  ActionResult<CompanyInsertInputModel> RegistrCompany( [FromBody] CompanyInsertInputModel companyInsertInputModel)
-         {
+        public ActionResult<CompanyInsertInputModel> RegistrCompany([FromBody] CompanyInsertInputModel companyInsertInputModel)
+        {
 
             CompanyModel entity = _mapperApi.Map<CompanyModel>(companyInsertInputModel);
 
@@ -57,8 +56,8 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
 
             return StatusCode(StatusCodes.Status201Created, entity);
 
-            
-         }
+
+        }
         //api/companies/
         [HttpPut]
         public ActionResult<CompanyUpdateInputModel> UpdateCompany([FromBody] CompanyUpdateInputModel companyUpdateInputModel)
@@ -81,10 +80,10 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         //api/companies/2/ООО Восток./ True
         [HttpDelete("{id}/company/")]
         public ActionResult<CompanyUpdateInputModel> DeleteCompany(int id)
-        {           
+        {
 
             _service.DeleteCompany(id);
-            
+
             return NoContent();
         }
     }

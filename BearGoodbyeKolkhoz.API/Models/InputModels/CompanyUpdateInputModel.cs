@@ -1,6 +1,4 @@
-﻿using BearGoodbyeKolkhozProject.Data.Entities;
-
-namespace BearGoodbyeKolkhozProject.API.Models
+﻿namespace BearGoodbyeKolkhozProject.API.Models
 {
     public class CompanyUpdateInputModel
     {
@@ -9,7 +7,7 @@ namespace BearGoodbyeKolkhozProject.API.Models
         public int Tin { get; set; }
         public string PhoneNumber { get; set; }
 
-        public bool IsDelete {get;set;}
-     
+        public bool IsDelete { get; set; }
+
     }
 }

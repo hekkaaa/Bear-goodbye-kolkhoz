@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using BearGoodbyeKolkhozProject.Business.Configuration;
 using BearGoodbyeKolkhozProject.Business.Exceptions;
 using BearGoodbyeKolkhozProject.Business.Models;
 using BearGoodbyeKolkhozProject.Data.Entities;
@@ -98,7 +97,7 @@ namespace BearGoodbyeKolkhozProject.Business.Processor
             _eventRepository.UpdateEvent(id, isDel);
         }
 
-       
-        
+
+
     }
 }

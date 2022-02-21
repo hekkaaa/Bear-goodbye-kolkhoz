@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace BearGoodbyeKolkhozProject.Business.Models
+﻿namespace BearGoodbyeKolkhozProject.Business.Models
 {
     public class LecturerReviewModel
     {
@@ -27,7 +21,8 @@ namespace BearGoodbyeKolkhozProject.Business.Models
                 || Id != ((LecturerReviewModel)obj).Id
                 || Text != ((LecturerReviewModel)obj).Text
                 || Mark != ((LecturerReviewModel)obj).Mark
-                || Client != ((LecturerReviewModel)obj).Client)
+                || Client != ((LecturerReviewModel)obj).Client
+                || IsDeleted != ((LecturerReviewModel)obj).IsDeleted)
             {
                 return false;
             }

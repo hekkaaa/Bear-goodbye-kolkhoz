@@ -1,12 +1,8 @@
 ﻿using BearGoodbyeKolkhozProject.Business.Models;
 using BearGoodbyeKolkhozProject.Data.Entities;
 using BearGoodbyeKolkhozProject.Data.Enums;
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BearGoodbyeKolkhozProject.Business.Tests.TestCaseSource.LecturerReviewTestCaseSource
 {
@@ -27,7 +23,18 @@ namespace BearGoodbyeKolkhozProject.Business.Tests.TestCaseSource.LecturerReview
                 IsDeleted = false
             };
 
-            var clientModel = new ClientModel() { };
+            var clientModel = new ClientModel()
+            {
+                Id = 111,
+                Name = "qwe123",
+                LastName = "321ewq",
+                Gender = Gender.Male,
+                BirthDay = "11.11.2000",
+                Email = "123qwe@mail.com",
+                PhoneNumber = "77777777777",
+                Password = "qwe!23",
+                IsDeleted = false
+            };
 
             List<LecturerReview> reviews = new List<LecturerReview>()
             {
@@ -79,7 +86,18 @@ namespace BearGoodbyeKolkhozProject.Business.Tests.TestCaseSource.LecturerReview
                     Id = 2,
                     Text = "1234567",
                     Mark = 5,
-                    Client = new ClientModel()
+                    Client = new ClientModel
+                    {
+                        Id = 112,
+                        Name = "qwe123",
+                        LastName = "321ewq",
+                        Gender = Gender.Male,
+                        BirthDay = "11.11.2000",
+                        Email = "123qwe@mail.com",
+                        PhoneNumber = "88777777777",
+                        Password = "qwe!23",
+                        IsDeleted = false
+                    }
                 },
                 new LecturerReviewModel()
                 {

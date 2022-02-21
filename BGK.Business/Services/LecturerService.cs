@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using BearGoodbyeKolkhozProject.Business.Configuration;
 using BearGoodbyeKolkhozProject.Business.Exceptions;
 using BearGoodbyeKolkhozProject.Business.Interface;
 using BearGoodbyeKolkhozProject.Business.Models;
@@ -19,7 +18,7 @@ namespace BearGoodbyeKolkhozProject.Business.Services
         {
             _lecturerRepo = lecturerRepository;
             _trainingRepo = trainingRepository;
-            _mapper =  mapper;
+            _mapper = mapper;
         }
 
         public void RegistrationLecturer(LecturerModel model)
@@ -88,7 +87,7 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             }
 
             var entity = _mapper.Map<Lecturer>(model);
-            _lecturerRepo.UpdateLecturer(entity);
+            _lecturerRepo.UpdateLecturer(lecturer, entity);
         }
 
         public LecturerModel GetLecturerById(int id)

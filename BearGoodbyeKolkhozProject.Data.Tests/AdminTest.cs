@@ -96,7 +96,7 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
 
             //then
             Assert.IsNotNull(act);
-            Assert.AreEqual(1,act);
+            Assert.AreEqual(1, act);
         }
 
         [Test]
@@ -185,5 +185,5 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
             Assert.AreEqual(true, postAct.IsDeleted);
         }
 
-    }  
+    }
 }
