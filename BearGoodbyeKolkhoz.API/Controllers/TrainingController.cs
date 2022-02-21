@@ -80,8 +80,11 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
             return Ok("Тренинг успешно удален");
         }
 
-
-        [HttpPost]
-        public ActionResult
+        [HttpPost("test")]
+        public ActionResult TestEmail()
+        {
+            _service.SendEmail();
+            return Ok();
+        }
     }
 }

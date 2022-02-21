@@ -12,18 +12,18 @@ namespace BearGoodbyeKolkhozProject.Business
         public void SendEmail(string toEmail, string text, EventModel eventModel)
         {
             string to = "jokzik@gmail.com"; //To address    
-            string from = "teeststeest555@yandex.ru"; //From address    
+            string from = "support@homewell.info"; //From address    
             MailMessage message = new MailMessage(from, to);
 
-            string mailbody = "Тренинг состоится {eventModel.StartDate}";
+            string mailbody = $"Тренинг состоится {eventModel.StartDate}";
             message.Subject = "Тренинг скоро состоится! Подробности в письме.";
             message.Body = mailbody;
             message.BodyEncoding = Encoding.UTF8;
             message.IsBodyHtml = true;
-            SmtpClient client = new SmtpClient("smtp.yandex.ru", 465); //Gmail smtp    
-            System.Net.NetworkCredential basicCredential1 = new
-            System.Net.NetworkCredential("teeststeest555@yandex.ru", "9KdQXY9ZKgw5yHp");
-            client.EnableSsl = true;
+            SmtpClient client = new SmtpClient("mail.homewell.info", 25); //Gmail smtp    
+            NetworkCredential basicCredential1 = new
+            NetworkCredential("support@homewell.info", "sYLBuuZwn7L2eRM");
+            //client.EnableSsl = true;
             client.UseDefaultCredentials = false;
             client.Credentials = basicCredential1;
             try
