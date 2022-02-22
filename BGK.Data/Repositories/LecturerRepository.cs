@@ -2,6 +2,7 @@
 using BearGoodbyeKolkhozProject.Data.Entities;
 using BearGoodbyeKolkhozProject.Data.Enums;
 using BearGoodbyeKolkhozProject.Data.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace BearGoodbyeKolkhozProject.Data.Repositories
 {
@@ -34,6 +35,7 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
             return _context.Lecturer
                 .Where(l => !l.IsDeleted)
                 .Where(l => l.Trainings.FirstOrDefault(t => t.Id == trainingId) != null)
+                .Include(l => l.Events)
                 .ToList();
         }
 

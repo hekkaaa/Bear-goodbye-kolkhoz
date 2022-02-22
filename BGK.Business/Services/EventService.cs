@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+using AutoMapper;
 using BearGoodbyeKolkhozProject.Business.Exceptions;
 using BearGoodbyeKolkhozProject.Business.Models;
 using BearGoodbyeKolkhozProject.Business.Interface;
@@ -57,9 +57,7 @@ namespace BearGoodbyeKolkhozProject.Business.Services
 
         public void AddEventFromCompany(EventModel eventModel)
         {
-
             _eventRepository.AddEvent(_mapper.Map<Event>(eventModel));
-
         }
 
         public void AddEventFromClient(EventModel eventModel)
@@ -77,7 +75,6 @@ namespace BearGoodbyeKolkhozProject.Business.Services
 
             _eventRepository.UpdateEvent(_mapper.Map<Event>(eventModel));
         }
-      
 
         public void DeleteEvent(int id)
         {
@@ -90,9 +87,10 @@ namespace BearGoodbyeKolkhozProject.Business.Services
 
         public bool SignUp(int trainingId, int clientId)
         {
-            var events = _eventRepository.GetEventsByTrainingId(trainingId);
+            var even = _eventRepository.GetEventsByTrainingId(trainingId);
             var client = _clientRepository.GetClientById(clientId);
             var training = _trainingRepository.GetTrainingById(trainingId);
+
 
             if (training is null)
             {
@@ -104,7 +102,7 @@ namespace BearGoodbyeKolkhozProject.Business.Services
                 throw new NotFoundException($"Нет клиента с id = {trainingId}");
             }
 
-            if (events is null)
+            if (even is null)
             {
                 var newEvent = new Event()
                 {
@@ -116,76 +114,134 @@ namespace BearGoodbyeKolkhozProject.Business.Services
 
                 return true;
             }
-            else if (training.MembersCount - events.Clients.Count == 1)
+            else if (training.MembersCount - even.Clients.Count == 1 && !IsDuplicateRegistration(even, clientId))
             {
-                _eventRepository.SignUp(client, events);
-                //метод назначения всего
-                //запись на ивент
+                _eventRepository.SignUp(client, even);
+                LecturerClassroomTimeSelection(training, even);
             }
-            else if(events.Clients.Count < training.MembersCount)
+            else if(even.Clients.Count < training.MembersCount && !IsDuplicateRegistration(even, clientId))
             {
-                _eventRepository.SignUp(client, events);
+                _eventRepository.SignUp(client, even);
                 return true;
             }
-            //заглушка
+            return true;
+        }
+
+        private bool IsDuplicateRegistration(Event even, int clientId)
+        {
+            foreach (Client eventsClient in even.Clients)
+            {
+                if (eventsClient.Id == clientId)
+                {
+                    return true;
+                }
+            }
+
             return false;
         }
 
-        private void LecturerClassroomTimeSelection(Training training)
+        private void LecturerClassroomTimeSelection(Training training, Event even)
         {
-            List<DateTime> lecturerWork = new List<DateTime>();
-
             var lecturers = _lecturerRepository.GetLecturerByTrainingId(training.Id);
             var classrooms = _classroomRepository.GetNeededClassroom(training.MembersCount);
 
-            Dictionary<Classroom, List<DateTime>> classroomWorks = new Dictionary<Classroom, List<DateTime>>();
+            if (classrooms.Count == 0)
+            {
+                throw new NotFoundException("Нет подходящего помещения");
+            }
 
-            Lecturer actualLecturer = null;
-            Classroom freeClassroom = null;
+            if (lecturers.Count == 0)
+            {
+                throw new NotFoundException("Нет подходящего тренера");
+            }
 
-            DateTime dateTime = DateTime.Now;
-            DateTime date = Convert.ToDateTime(dateTime.AddDays(1).ToString("dd.MM.yyyy"));
+            // нашли самого неоптыного тренера
+            Lecturer actualLecturer = GetMostInexperiencedLecturer(lecturers);
 
-            // нашли нужного тренера
+            //только эвенты с завершенной регистрацией
+            var events = _eventRepository.GetClosedRegEvents();
+
+            // расписание каждого кабинета
+            Dictionary<Classroom, List<DateTime>> classroomsWork = GetClassroomsSchedule(classrooms, events);
+
+            // получили список рабочих дней лектора
+            List<DateTime> lecturerWork = GetLecturerSchedule(actualLecturer, events);
+
+            //получаем первый ближайший свободный день кабинета
+            Dictionary <Classroom, DateTime> firstClassroomsFreeDay = new Dictionary<Classroom, DateTime>();
+
+            foreach (KeyValuePair<Classroom, List<DateTime>> pair in classroomsWork)
+            {
+                firstClassroomsFreeDay.Add(pair.Key, FirstFreeDay(lecturerWork, pair.Value));
+            }
+
+            //выбираем самую близкую дату и кабинет
+            Classroom freeClassroom = firstClassroomsFreeDay.Min().Key;
+            DateTime time = firstClassroomsFreeDay.Min().Value;
+
+            even.Lecturer = actualLecturer;
+            even.Classroom = freeClassroom;
+            even.StartDate = time.ToString();
+
+            _eventRepository.UpdateEvent(even);
+        }
+
+        private Lecturer GetMostInexperiencedLecturer(List<Lecturer> lecturers)
+        {
+            Lecturer resLecturer;
             if (lecturers.Count > 0)
             {
+                resLecturer = lecturers[0];
                 foreach (Lecturer lecturer in lecturers)
                 {
-                    if (_lecturerRepository.GetEventsCount(lecturer) < _lecturerRepository.GetEventsCount(actualLecturer))
+                    if (_lecturerRepository.GetEventsCount(lecturer) < _lecturerRepository.GetEventsCount(resLecturer))
                     {
-                        actualLecturer = lecturer;
+                        resLecturer = lecturer;
                     }
                 }
+
+                return resLecturer;
             }
-            else if (lecturers.Count == 0)
+            else
             {
                 throw new NotFoundException("Нет подхощего тренера");
             }
+        }
 
-            //только эвенты с завершенной регистрацией
-            var events = _eventRepository.GetEvents();
+        private List<DateTime> GetLecturerSchedule(Lecturer lecturer, List<Event> events)
+        {
+            List<DateTime> schedule = new List<DateTime>();
 
+            DateTime date = DateTime.Today.AddDays(1);
 
-            // получили список рабочих дней лектора
-            foreach (Event even in actualLecturer.Events)
+            if (lecturer.Events.Count != 0)
             {
-                //i'm sorry
-                DateTime eventDate = Convert.ToDateTime(Convert.ToDateTime(even.StartDate).ToString("dd.MM.yyyy"));
 
-                if (eventDate > date)
+                foreach (Event even in lecturer.Events)
                 {
-                    lecturerWork.Add(eventDate);
+                    DateTime eventDate = Convert.ToDateTime(Convert.ToDateTime(even.StartDate).ToString("dd.MM.yyyy"));
+
+                    if (eventDate >= date)
+                    {
+                        schedule.Add(eventDate);
+                    }
                 }
             }
+            return schedule;
+        }
 
-            //мы узнали когда какой кабинет занят
+        private Dictionary<Classroom, List<DateTime>> GetClassroomsSchedule(List<Classroom> classrooms, List<Event> events)
+        {
+            Dictionary<Classroom, List<DateTime>> classroomWorks = new Dictionary<Classroom, List<DateTime>>();
+
+            
             foreach (Classroom classroom in classrooms)
             {
-                foreach(Event even in events)
+                foreach (Event even in events)
                 {
                     if (classroom == even.Classroom)
                     {
-                        if (classroomWorks[classroom] is null)
+                        if (!classroomWorks.ContainsKey(classroom))
                         {
                             classroomWorks[classroom] = new List<DateTime> {
                                 Convert.ToDateTime(Convert.ToDateTime(even.StartDate).ToString("dd.MM.yyyy"))};
@@ -199,16 +255,27 @@ namespace BearGoodbyeKolkhozProject.Business.Services
                 }
             }
 
-            foreach (KeyValuePair<Classroom, List<DateTime>> pair in classroomWorks)
+            if (classroomWorks.Count == 0)
             {
-                foreach (DateTime classroomWorkTime in pair.Value)
+                foreach (Classroom classroom in classrooms)
                 {
-                    if (!lecturerWork.Contains(classroomWorkTime))
-                    {
-
-                    }
+                    classroomWorks.Add(classroom, new List<DateTime>());
                 }
             }
+
+            return classroomWorks;
+        }
+
+        private DateTime FirstFreeDay(List<DateTime> workDays, List<DateTime> workClassroomDays)
+        {
+            DateTime resDate = DateTime.Today.AddDays(1);
+
+            while (workDays.Contains(resDate) || workClassroomDays.Contains(resDate))
+            {
+                resDate = resDate.AddDays(1);
+            }
+
+            return resDate;
         }
     }
 }

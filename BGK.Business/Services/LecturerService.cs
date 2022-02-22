@@ -55,7 +55,8 @@ namespace BearGoodbyeKolkhozProject.Business.Services
         public void AddTraining(int id, int trainingId)
         {
             var training = _trainingRepo.GetTrainingById(trainingId);
-            var lecturer = _lecturerRepo.GetLecturerById(trainingId);
+            var lecturer = _lecturerRepo.GetLecturerById(id);
+
             if (training is null)
             {
                 throw new NotFoundException($"Нет треннинга c id = {id}");
@@ -63,6 +64,11 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             if (lecturer is null)
             {
                 throw new NotFoundException($"Нет лектора c id = {id}");
+            }
+
+            if (lecturer.Trainings is null)
+            {
+                lecturer.Trainings = new List<Training>();
             }
 
             _lecturerRepo.AddTraining(lecturer, training);
