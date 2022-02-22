@@ -49,43 +49,6 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
         }
 
         [Test]
-        public void GetAdminAllTests()
-        {
-            //given
-            var preVirtualData = _testData.GetTestAdminAll();
-            List<Entities.Admin> postVirtualData = new List<Entities.Admin>();
-
-            // наполняем тестовый БД подкготовленными данными.
-            for (int i = 0; i < preVirtualData.Count; i++)
-            {
-                if (!preVirtualData[i].IsDeleted)
-                {   // исключаем данные с IsDeleted = true
-                    _context.Add(preVirtualData[i]);
-                    postVirtualData.Add(preVirtualData[i]);
-                }
-            }
-            _context.SaveChanges();
-
-            //when
-            var act = _adminRepository.GetAdminAll();
-
-
-            //then
-            Assert.AreEqual(2, act.Count);
-            Assert.IsNotNull(act[0]);
-
-            for (int i = 0; i < act.Count; i++)
-            {
-                Assert.AreEqual(postVirtualData[i].Id, act[i].Id);
-                Assert.AreEqual(postVirtualData[i].Name, act[i].Name);
-                Assert.AreEqual(postVirtualData[i].BirthDay, act[i].BirthDay);
-                Assert.AreEqual(postVirtualData[i].Email, act[i].Email);
-                Assert.AreEqual(postVirtualData[i].Gender, act[i].Gender);
-                Assert.AreEqual(postVirtualData[i].Password, act[i].Password);
-                Assert.AreEqual(postVirtualData[i].IsDeleted, act[i].IsDeleted);
-            }
-        }
-        [Test]
         public void AddNewAdminTests()
         {
             //given
@@ -96,7 +59,8 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
 
             //then
             Assert.IsNotNull(act);
-            Assert.AreEqual(1, act);
+            Assert.AreEqual(2, act);
+
         }
 
         [Test]
@@ -158,7 +122,7 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
             Admin newVirtualData = new Admin();
             newVirtualData.Password = "newssss111";
 
-            var act = _adminRepository.ChangePasswordAdmin(newVirtualData.Password, newVirtualData);
+            var act = _adminRepository.ChangePasswordAdmin(newVirtualData.Password, virtualData);
             var postAct = _adminRepository.GetAdminById(virtualData.Id);
 
             //then

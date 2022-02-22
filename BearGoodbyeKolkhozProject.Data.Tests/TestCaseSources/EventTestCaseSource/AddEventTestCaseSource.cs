@@ -30,16 +30,16 @@ namespace BearGoodbyeKolkhozProject.Data.Tests.TestCaseSources.EventTestCaseSour
                 {
                     Name = "Семен",
                     LastName = "Семенов",
+                    Email = "lector@mail.ru",
                     BirthDay = "03.03.1993",
                     Gender = Enums.Gender.Male,
                     Password = "12345"
 
                 },
-
-
             };
 
-            yield return new object[] { even };
+
+                yield return new object[] { even };
 
 
 
