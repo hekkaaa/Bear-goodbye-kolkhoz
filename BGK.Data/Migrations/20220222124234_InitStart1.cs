@@ -4,7 +4,7 @@
 
 namespace BearGoodbyeKolkhozProject.Data.Migrations
 {
-    public partial class CreateDB : Migration
+    public partial class InitStart1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -91,7 +91,7 @@ namespace BearGoodbyeKolkhozProject.Data.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Password = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false),
+                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LastName = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: true),
                     BirthDay = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -359,6 +359,21 @@ namespace BearGoodbyeKolkhozProject.Data.Migrations
                         principalTable: "Event",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.InsertData(
+                table: "Admin",
+                columns: new[] { "Id", "BirthDay", "Email", "Gender", "IsDeleted", "LastName", "Name", "Password", "Role" },
+                values: new object[] { 1, "01.01.2000", "Admin@mail.ru", 1, false, "Admin", "Admin", "1000:WvGHoK1WF2vO/ZkCz8FcmEdWsULri96e:oYQNDwkRfTN2Sm1fY56gS/5esvc=", 1 });
+
+            migrationBuilder.InsertData(
+                table: "Classroom",
+                columns: new[] { "Id", "Address", "City", "IsDeleted", "MembersCount" },
+                values: new object[,]
+                {
+                    { 1, "ул. Вавилова дом 5", "Санкт-Петербург", false, 25 },
+                    { 2, "пр. Ветеранов дом 8", "Санкт-Петербург", false, 25 },
+                    { 3, "ул. Пушкина дом 27", "Санкт-Петербург", false, 40 }
                 });
 
             migrationBuilder.CreateIndex(
