@@ -9,7 +9,6 @@ namespace BearGoodbyeKolkhozProject.Data.Entities
     {
         public int Id { get; set; }
         public string Email { get; set; }
-        [StringLength(40)]
         public string Password { get; set; }
         public string? Name { get; set; }
         [StringLength(40)]
