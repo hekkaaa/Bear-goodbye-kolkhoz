@@ -12,8 +12,6 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
 {
     [ApiController]
     [Route("api/training")]
-    [Authorize(Roles = "Admin")]
-    
     public class TrainingController : Controller
     {
         private readonly ITrainingService _service;

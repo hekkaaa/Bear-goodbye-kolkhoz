@@ -66,6 +66,13 @@ namespace BearGoodbyeKolkhozProject.Data.Tests.TestCaseSources.TopicRepositoryTe
                     IsDeleted = false,
                     Training = training
                 },
+                 new Topic()
+                {
+                    Id = 101,
+                    Name = "eman",
+                    IsDeleted = true,
+                    Training = training
+                }
             };
 
             yield return new object[] { topics, expected, 100 };

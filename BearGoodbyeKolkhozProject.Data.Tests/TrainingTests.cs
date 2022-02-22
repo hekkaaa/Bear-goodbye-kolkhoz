@@ -98,6 +98,14 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
         public void GetTrainingsTests()
         {
             //given
+            var training = _testData.GetTestTrainingReview();
+            var training1 = _testData.GetTestTrainingReview();
+            var training2 = _testData.GetTestTrainingReview();
+
+            _context.Add(training);
+            _context.Add(training1);
+            _context.Add(training2);
+            _context.SaveChanges();
 
             //when
             var act = _trainingRepository.GetTrainings();
@@ -126,9 +134,11 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
 
         [Test]
         public void GetTrainingByTopicTests()
-        {   //given
+        {
+            //given
             var training = _testData.GetTestTraining();
             var topic = _testData.GetTestTopic();
+            training.Topics.Add(topic);
             _context.Add(training);
             _context.SaveChanges();
 
@@ -138,10 +148,5 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
             //then
             Assert.AreEqual(act[0], training);
         }
-
-
-
-
-
     }
 }

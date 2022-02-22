@@ -20,8 +20,7 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
 
         public List<Topic> GetTopicsByTrainingId(int id)
         {
-            var res = _context.Training.FirstOrDefault(t => !t.IsDeleted && t.Id == id);
-            return res.Topics.ToList();
+            return _context.Topic.Where(t => t.Training.Any(t => !t.IsDeleted && t.Id == id)).ToList();
         }
            
         

@@ -15,6 +15,7 @@ namespace BearGoodbyeKolkhozProject.Data.Tests.TestCaseSources.LecturerTestCaseS
                 LastName = "Azarov",
                 Password = "qwe",
                 BirthDay = "12.12.1999",
+                Email = "123qwe@mail.com",
                 Gender = Enums.Gender.Male,
                 IsDeleted = false,
                 Trainings = new List<Training>()
@@ -39,6 +40,7 @@ namespace BearGoodbyeKolkhozProject.Data.Tests.TestCaseSources.LecturerTestCaseS
                 LastName = "Azarov",
                 Password = "qwe",
                 BirthDay = "12.12.1999",
+                Email = "123qwe@mail.com",
                 Gender = Enums.Gender.Male,
                 IsDeleted = false,
                 Trainings = new List<Training>{

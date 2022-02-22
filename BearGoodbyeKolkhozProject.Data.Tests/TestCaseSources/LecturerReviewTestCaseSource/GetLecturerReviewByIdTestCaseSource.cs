@@ -31,6 +31,7 @@ namespace BearGoodbyeKolkhozProject.Data.Tests.TestCaseSources.LecturerReviewTes
                     Name = "Roma",
                     LastName = "Azarov",
                     Password = "qwe",
+                    Email = "123qwe@mail.com",
                     BirthDay = "12.12.1999",
                     Gender = Gender.Male,
                 }

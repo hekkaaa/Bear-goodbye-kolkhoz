@@ -13,6 +13,8 @@ namespace BearGoodbyeKolkhozProject.Data.Tests.TestCaseSources.LecturerTestCaseS
                 Name = "Roma",
                 LastName = "Azarov",
                 Password = "qwe",
+                Email = "123qwe@mail.com",
+
                 BirthDay = "12.12.1999",
                 Gender = Enums.Gender.Male,
                 IsDeleted = false
@@ -24,6 +26,8 @@ namespace BearGoodbyeKolkhozProject.Data.Tests.TestCaseSources.LecturerTestCaseS
                 Name = "Roma",
                 LastName = "Azarov",
                 Password = "qwe",
+                Email = "123qwe@mail.com",
+
                 BirthDay = "12.12.1999",
                 Gender = Enums.Gender.Male,
                 IsDeleted = true
