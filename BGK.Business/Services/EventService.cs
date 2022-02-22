@@ -116,8 +116,8 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             }
             else if (training.MembersCount - even.Clients.Count == 1 && !IsDuplicateRegistration(even, clientId))
             {
-                _eventRepository.SignUp(client, even);
                 LecturerClassroomTimeSelection(training, even);
+                _eventRepository.SignUp(client, even);
             }
             else if(even.Clients.Count < training.MembersCount && !IsDuplicateRegistration(even, clientId))
             {
@@ -151,7 +151,7 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             }
 
             if (lecturers.Count == 0)
-            {
+            {   
                 throw new NotFoundException("Нет подходящего тренера");
             }
 
@@ -176,7 +176,7 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             }
 
             //выбираем самую близкую дату и кабинет
-            Classroom freeClassroom = firstClassroomsFreeDay.Min().Key;
+            Classroom freeClassroom = (Classroom)(IComparable)firstClassroomsFreeDay.Min().Key;
             DateTime time = firstClassroomsFreeDay.Min().Value;
 
             even.Lecturer = actualLecturer;
