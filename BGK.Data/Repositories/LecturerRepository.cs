@@ -48,7 +48,6 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
 
         public void UpdateLecturer(Lecturer lecturer, Lecturer model)
         {
-
             lecturer.BirthDay = model.BirthDay;
             lecturer.Name = model.Name;
             lecturer.LastName = model.LastName;

@@ -91,12 +91,10 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             var client = _clientRepository.GetClientById(clientId);
             var training = _trainingRepository.GetTrainingById(trainingId);
 
-
             if (training is null)
             {
                 throw new NotFoundException($"Нет тренинга с id = {trainingId}");
             }
-
             if (client is null)
             {
                 throw new NotFoundException($"Нет клиента с id = {trainingId}");
@@ -104,29 +102,102 @@ namespace BearGoodbyeKolkhozProject.Business.Services
 
             if (even is null)
             {
-                var newEvent = new Event()
-                {
-                    Training = training,
-                    Clients = new List<Client> { client }
-                };
-
-                _eventRepository.AddEvent(newEvent);
-
+                InitEvent(training, client);
                 return true;
             }
             else if (training.MembersCount - even.Clients.Count == 1 && !IsDuplicateRegistration(even, clientId))
             {
-                
-                LecturerClassroomTimeSelection(training, even);
+                AssignData(training, client, even);
+
                 _eventRepository.SignUp(client, even);
+
                 // EmailSender() - отправка EMAIL по всем участникам.
+
+                return true;
             }
             else if(even.Clients.Count < training.MembersCount && !IsDuplicateRegistration(even, clientId))
             {
                 _eventRepository.SignUp(client, even);
                 return true;
             }
+
             return true;
+        }
+
+        private void InitEvent(Training training, Client client)
+        {
+            var newEvent = new Event()
+            {
+                Training = training,
+                Clients = new List<Client> { client }
+            };
+
+            _eventRepository.AddEvent(newEvent);
+        }
+
+        private void AssignData(Training training, Client client, Event even)
+        {
+            List<Event> events = _eventRepository.GetClosedRegEvents();
+
+            Lecturer selectedLecturer = LecturerSelection(training);
+
+            List<DateTime> lecturerSchedule = GetLecturerSchedule(selectedLecturer, events);
+
+            KeyValuePair<Classroom, DateTime> selectedClassroomWithTime
+                = ClassroomSelection(training, events, lecturerSchedule);
+
+            Classroom selectedClassroom = selectedClassroomWithTime.Key;
+            DateTime selectedDate = selectedClassroomWithTime.Value;
+
+            SetEventData(selectedClassroom, selectedLecturer, selectedDate, even);
+        }
+
+        private Lecturer LecturerSelection(Training training)
+        {
+            var lecturers = _lecturerRepository.GetLecturerByTrainingId(training.Id);
+
+            if (lecturers.Count == 0)
+            {
+                throw new NotFoundException("Нет подходящего тренера");
+            }
+
+            return GetMostInexperiencedLecturer(lecturers);
+        }
+
+        private KeyValuePair<Classroom, DateTime> ClassroomSelection(
+            Training training
+            , List<Event> events
+            , List<DateTime> lecturerSchedule)
+        {
+            var classrooms = _classroomRepository.GetNeededClassroom(training.MembersCount);
+
+            if (classrooms.Count == 0)
+            {
+                throw new NotFoundException("Нет подходящего помещения");
+            }
+
+            Dictionary<Classroom, List<DateTime>> classroomsWork = GetClassroomsSchedule(classrooms, events);
+
+            Dictionary<Classroom, DateTime> firstClassroomsFreeDay = new Dictionary<Classroom, DateTime>();
+
+            foreach (KeyValuePair<Classroom, List<DateTime>> pair in classroomsWork)
+            {
+                firstClassroomsFreeDay.Add(pair.Key, FirstFreeDay(lecturerSchedule, pair.Value));
+            }
+
+            Classroom freeClassroom = firstClassroomsFreeDay.First(x => x.Value == firstClassroomsFreeDay.Values.Min()).Key;
+            DateTime time = firstClassroomsFreeDay.First(x => x.Value == firstClassroomsFreeDay.Values.Min()).Value;
+
+            return new KeyValuePair<Classroom, DateTime>(freeClassroom, time);
+        }
+
+        private void SetEventData(Classroom classroom, Lecturer lecturer, DateTime date, Event even)
+        {
+            even.Classroom = classroom;
+            even.StartDate = date.ToString();
+            even.Lecturer = lecturer;
+
+            _eventRepository.UpdateEvent(even);
         }
 
         private bool IsDuplicateRegistration(Event even, int clientId)
@@ -140,52 +211,6 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             }
 
             return false;
-        }
-
-        private void LecturerClassroomTimeSelection(Training training, Event even)
-        {
-            var lecturers = _lecturerRepository.GetLecturerByTrainingId(training.Id);
-            var classrooms = _classroomRepository.GetNeededClassroom(training.MembersCount);
-
-            if (classrooms.Count == 0)
-            {
-                throw new NotFoundException("Нет подходящего помещения");
-            }
-
-            if (lecturers.Count == 0)
-            {   
-                throw new NotFoundException("Нет подходящего тренера");
-            }
-
-            // нашли самого неоптыного тренера
-            Lecturer actualLecturer = GetMostInexperiencedLecturer(lecturers);
-
-            //только эвенты с завершенной регистрацией
-            var events = _eventRepository.GetClosedRegEvents();
-
-            // расписание каждого кабинета
-            Dictionary<Classroom, List<DateTime>> classroomsWork = GetClassroomsSchedule(classrooms, events);
-
-            // получили список рабочих дней лектора
-            List<DateTime> lecturerWork = GetLecturerSchedule(actualLecturer, events);
-
-            //получаем первый ближайший свободный день кабинета
-            Dictionary <Classroom, DateTime> firstClassroomsFreeDay = new Dictionary<Classroom, DateTime>();
-
-            foreach (KeyValuePair<Classroom, List<DateTime>> pair in classroomsWork)
-            {
-                firstClassroomsFreeDay.Add(pair.Key, FirstFreeDay(lecturerWork, pair.Value));
-            }
-
-            //выбираем самую близкую дату и кабинет
-            Classroom freeClassroom = firstClassroomsFreeDay.First(x => x.Value == firstClassroomsFreeDay.Values.Min()).Key;
-            DateTime time = firstClassroomsFreeDay.First(x => x.Value == firstClassroomsFreeDay.Values.Min()).Value;
-
-            even.Lecturer = actualLecturer;
-            even.Classroom = freeClassroom;
-            even.StartDate = time.ToString();
-
-            _eventRepository.UpdateEvent(even);
         }
 
         private Lecturer GetMostInexperiencedLecturer(List<Lecturer> lecturers)
@@ -218,7 +243,6 @@ namespace BearGoodbyeKolkhozProject.Business.Services
 
             if (lecturer.Events.Count != 0)
             {
-
                 foreach (Event even in lecturer.Events)
                 {
                     DateTime eventDate = Convert.ToDateTime(Convert.ToDateTime(even.StartDate).ToString("dd.MM.yyyy"));
@@ -236,7 +260,6 @@ namespace BearGoodbyeKolkhozProject.Business.Services
         {
             Dictionary<Classroom, List<DateTime>> classroomWorks = new Dictionary<Classroom, List<DateTime>>();
 
-            
             foreach (Classroom classroom in classrooms)
             {
                 foreach (Event even in events)
