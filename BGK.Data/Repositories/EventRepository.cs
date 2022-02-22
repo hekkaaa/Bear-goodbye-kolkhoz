@@ -1,5 +1,6 @@
 ﻿using BearGoodbyeKolkhozProject.Data.ConnectDb;
 using BearGoodbyeKolkhozProject.Data.Entities;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -64,11 +65,13 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
         public Event GetEventsByTrainingId(int trainingId)
         {
             var even = _context.Event
-                    .FirstOrDefault(e => e.Training.Id == trainingId);
+                    .Include(e => e.Clients)
+                    .FirstOrDefault(e => e.Training.Id == trainingId && e.StartDate == null);
 
             return even;
         }
 
-        
+        public List<Event> GetClosedRegEvents() => 
+            _context.Event.Where(e => e.StartDate != null).ToList();
     }
 }
