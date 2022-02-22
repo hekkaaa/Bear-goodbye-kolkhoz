@@ -57,9 +57,7 @@ namespace BearGoodbyeKolkhozProject.Business.Services
 
         public void AddEventFromCompany(EventModel eventModel)
         {
-
             _eventRepository.AddEvent(_mapper.Map<Event>(eventModel));
-
         }
 
         public void AddEventFromClient(EventModel eventModel)
@@ -77,7 +75,6 @@ namespace BearGoodbyeKolkhozProject.Business.Services
 
             _eventRepository.UpdateEvent(_mapper.Map<Event>(eventModel));
         }
-      
 
         public void DeleteEvent(int id)
         {
@@ -121,15 +118,13 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             {
                 _eventRepository.SignUp(client, even);
                 LecturerClassroomTimeSelection(training, even);
-                //запись на ивент
             }
             else if(even.Clients.Count < training.MembersCount && !IsDuplicateRegistration(even, clientId))
             {
                 _eventRepository.SignUp(client, even);
                 return true;
             }
-            //заглушка
-            return false;
+            return true;
         }
 
         private bool IsDuplicateRegistration(Event even, int clientId)
