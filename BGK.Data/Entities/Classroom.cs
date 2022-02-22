@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BearGoodbyeKolkhozProject.Data.Entities
 {
@@ -11,12 +6,9 @@ namespace BearGoodbyeKolkhozProject.Data.Entities
     public class Classroom
     {
         public int Id { get; set; }
-
         public int MembersCount { get; set; }
-
-        public string City { get; set; }
-
-        public string Address { get; set; }
-
+        public string? City { get; set; }
+        public string? Address { get; set; }
+        public bool IsDeleted { get; set; }
     }
 }
