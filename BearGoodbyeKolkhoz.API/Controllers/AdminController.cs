@@ -11,6 +11,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
     
     [Route("api/admins")]
     [ApiController]
+    [Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
         private readonly IAdminService _service;
@@ -23,7 +24,6 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         }
 
         [HttpGet("{id}")]
-        [Authorize]
         public ActionResult<AdminOutputModel> GetAdminById(int id)
         {
             var model = _service.GetAdminById(id);
@@ -40,7 +40,6 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         }
 
         [HttpGet("all")]
-        [Authorize(Roles = "Admin, Client")]
         public ActionResult<List<AdminOutputModel>> GetAdminAll()
         {
             var res = _service.GetAdminAll();
