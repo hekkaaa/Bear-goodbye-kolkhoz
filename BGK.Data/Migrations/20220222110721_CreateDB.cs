@@ -4,7 +4,7 @@
 
 namespace BearGoodbyeKolkhozProject.Data.Migrations
 {
-    public partial class AddNewMigration : Migration
+    public partial class CreateDB : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

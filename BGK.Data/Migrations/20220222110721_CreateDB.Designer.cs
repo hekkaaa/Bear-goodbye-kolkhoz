@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BearGoodbyeKolkhozProject.Data.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20220222101839_AddAdmin")]
-    partial class AddAdmin
+    [Migration("20220222110721_CreateDB")]
+    partial class CreateDB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -64,20 +64,6 @@ namespace BearGoodbyeKolkhozProject.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Admin");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            BirthDay = "01.01.2000",
-                            Email = "qwe@mail.ru",
-                            Gender = 1,
-                            IsDeleted = false,
-                            LastName = "Admin",
-                            Name = "Admin",
-                            Password = "12345qwe",
-                            Role = 1
-                        });
                 });
 
             modelBuilder.Entity("BearGoodbyeKolkhozProject.Data.Entities.Classroom", b =>
@@ -103,32 +89,6 @@ namespace BearGoodbyeKolkhozProject.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Classroom");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Address = "ул. Вавилова дом 5",
-                            City = "Санкт-Петербург",
-                            IsDeleted = false,
-                            MembersCount = 25
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Address = "пр. Ветеранов дом 8",
-                            City = "Санкт-Петербург",
-                            IsDeleted = false,
-                            MembersCount = 25
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Address = "ул. Пушкина дом 27",
-                            City = "Санкт-Петербург",
-                            IsDeleted = false,
-                            MembersCount = 40
-                        });
                 });
 
             modelBuilder.Entity("BearGoodbyeKolkhozProject.Data.Entities.Client", b =>

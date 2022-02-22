@@ -68,12 +68,12 @@ namespace BearGoodbyeKolkhozProject.Data.Migrations
                         {
                             Id = 1,
                             BirthDay = "01.01.2000",
-                            Email = "qwe@mail.ru",
+                            Email = "Admin@mail.ru",
                             Gender = 1,
                             IsDeleted = false,
                             LastName = "Admin",
                             Name = "Admin",
-                            Password = "12345qwe",
+                            Password = "1000:WvGHoK1WF2vO/ZkCz8FcmEdWsULri96e:oYQNDwkRfTN2Sm1fY56gS/5esvc=",
                             Role = 1
                         });
                 });

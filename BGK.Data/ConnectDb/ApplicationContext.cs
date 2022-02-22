@@ -35,8 +35,8 @@ namespace BearGoodbyeKolkhozProject.Data.ConnectDb
                 LastName = "Admin",
                 Gender = Gender.Male,
                 BirthDay = "01.01.2000",
-                Email = "qwe@mail.ru",
-                Password  = "12345qwe",
+                Email = "Admin@mail.ru",
+                Password = "1000:WvGHoK1WF2vO/ZkCz8FcmEdWsULri96e:oYQNDwkRfTN2Sm1fY56gS/5esvc=",
                 Role = Role.Admin,
                 IsDeleted = false,
 
@@ -49,9 +49,6 @@ namespace BearGoodbyeKolkhozProject.Data.ConnectDb
             new Classroom() { Id = 2, Address = "пр. Ветеранов дом 8", City = "Санкт-Петербург", MembersCount = 25 },
             new Classroom() { Id = 3, Address = "ул. Пушкина дом 27", City = "Санкт-Петербург", MembersCount = 40 }
             );
-
-            
-
 
         }
 
