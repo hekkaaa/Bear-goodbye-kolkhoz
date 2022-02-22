@@ -85,7 +85,7 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
 
             //then
             Assert.IsNotNull(act);
-            Assert.AreEqual(1, act);
+            Assert.AreEqual(4, act);
         }
 
         [Test]

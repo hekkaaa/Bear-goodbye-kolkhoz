@@ -1,9 +1,10 @@
 ﻿using BearGoodbyeKolkhozProject.Data.Entities;
+using System.Collections;
 using System.Collections.Generic;
 
 namespace BearGoodbyeKolkhozProject.Data.Tests
 {
-    public class TestData
+    public class TestData : IEnumerable
     {
         public Client GetTestClient()
         {
@@ -83,7 +84,7 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
             return adminItem;
         }
 
-        public List<Admin> GetTestAdminAll()
+        public IEnumerator GetEnumerator()
         {
             List<Admin> resultItem = new List<Admin>
             {
@@ -120,7 +121,46 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
                 IsDeleted = false
             },
             };
-            return resultItem;
+
+            List<Admin> expected = new List<Admin>
+            {
+                new Admin {  Id = 34,
+                Name = "Генадий",
+                LastName = "Тряпкин",
+                Gender = Enums.Gender.Male,
+                BirthDay = "1988-04-29",
+                Email = "ILoveBeer@ya.ru",
+                Password = "228_nanosim",
+                IsDeleted = true },
+
+            new Admin
+            {
+                Id = 1,
+                Name = "Валерий",
+                LastName = "Меладзе",
+                Gender = Enums.Gender.Male,
+                BirthDay = "1968-10-09",
+                Email = "qwert1@ya.ru",
+                Password = "kssdfn314",
+                IsDeleted = false
+            },
+
+            new Admin
+            {
+                Id = 2,
+                Name = "Валерия",
+                LastName = "Новодворская",
+                Gender = Enums.Gender.Female,
+                BirthDay = "1950-11-10",
+                Email = "jjjjres@ya.ru",
+                Password = "fmpamfpqm1",
+                IsDeleted = false
+            },
+            };
+
+
+
+            yield return new object[] { resultItem, expected };
         }
 
         public Admin AddTestAdmin()
@@ -142,7 +182,7 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
         {
             Classroom classroomItem = new Classroom
             {
-                Id = 2,
+                Id = 4,
                 MembersCount = 20,
                 City = "Новосибирск",
                 Address = "Академгородок 128"
@@ -154,7 +194,7 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
         {
             Classroom classroomItem = new Classroom
             {
-                MembersCount = 14,
+                MembersCount = 10,
                 City = "Барнаул",
                 Address = "Алтайская 16"
             };
@@ -166,7 +206,7 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
             List<Classroom> resultItem = new List<Classroom>
             {
                 new Classroom {
-                Id = 40,
+                Id = 20,
                 MembersCount = 20,
                 City = "Новосибирск",
                 Address = "Академгородок 128"
@@ -174,18 +214,39 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
 
             new Classroom
             {
-                Id = 2,
+                Id = 21,
                 MembersCount = 57,
                 City = "Иркутск",
                 Address = "Маркса 12"
             },
             new Classroom
             {
-                Id = 3,
+                Id = 22,
                 MembersCount = 100,
                 City = "Тюмень",
                 Address = "Зорге 78"
-            }
+            },
+            new Classroom
+            {
+                Id = 23,
+                MembersCount = 100,
+                City = "Арх",
+                Address = "Штурман 8",
+            },
+            new Classroom
+            {
+                Id = 24,
+                MembersCount = 10,
+                City = "Мурманск",
+                Address = "Ленина 2",
+            },
+            new Classroom
+            {
+                Id = 25,
+                MembersCount = 21,
+                City = "Нижнекамск",
+                Address = "Вавилова 1",
+            },
             };
             return resultItem;
         }
