@@ -12,6 +12,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
 {
     [ApiController]
     [Route("api/training")]
+
     public class TrainingController : Controller
     {
         private readonly ITrainingService _service;
@@ -26,6 +27,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         }
 
         [HttpGet("{id}")]
+        [Authorize(Roles = "Admin, Client, Lector, Company")]
         public ActionResult GetTrainingById(int id)
         {
             var model = _service.GetTrainingModelById(id);
@@ -34,6 +36,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public ActionResult GetTrainings()
         {
             var models = _service.GetTrainingModels();
@@ -48,6 +51,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         }
 
         [HttpPost("{id}/topic/{topicId}")]
+        [Authorize(Roles = "Admin")]
         public ActionResult AddTopicToTraning(int id, int topicId)
         {
             _service.AddTopicToTraining(id, topicId);
@@ -85,6 +89,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         }
 
         [HttpPatch("{id}")]
+        [Authorize(Roles = "Admin")]
         public ActionResult DeleteTraining(int id)
         {
             _service.DeleteTraining(id);
