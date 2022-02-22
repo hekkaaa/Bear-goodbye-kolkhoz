@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+using AutoMapper;
 using BearGoodbyeKolkhozProject.Business.Exceptions;
 using BearGoodbyeKolkhozProject.Business.Models;
 using BearGoodbyeKolkhozProject.Business.Interface;

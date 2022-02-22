@@ -6,10 +6,10 @@ namespace BearGoodbyeKolkhozProject.Business.Services
     {
         void RegistrationClient(ClientModel model);
         void ChangePasswordClient(int id, string password);
-        void DeleteClient(int id);
+        bool DeleteClient(int id);
+        bool RestoreClient(int id);
         ClientModel GetClientById(int id);
         List<ClientModel> GetClients();
-        void RecoverClient(int id);
         void UpdateClientInfo(int id, ClientModel updateModel);
     }
 }
