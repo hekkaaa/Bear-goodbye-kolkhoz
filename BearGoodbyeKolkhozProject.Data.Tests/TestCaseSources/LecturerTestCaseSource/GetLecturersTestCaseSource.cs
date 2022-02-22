@@ -12,6 +12,7 @@ namespace BearGoodbyeKolkhozProject.Data.Tests.TestCaseSources.LecturerTestCaseS
                 Name = "Roma",
                 LastName = "Azarov",
                 Password = "qwe",
+                Email = "123qwe@mail.com",
                 BirthDay = "12.12.1999",
                 Gender = Enums.Gender.Male,
                 Trainings = new List<Training>{
@@ -27,10 +28,12 @@ namespace BearGoodbyeKolkhozProject.Data.Tests.TestCaseSources.LecturerTestCaseS
                 LastName = "Azarov",
                 Password = "asd",
                 BirthDay = "12.12.2004",
+                Email = "123qwe@mail.com",
                 Gender = Enums.Gender.Male}
             , new Lecturer {
                 Name = "qwe",
                 LastName = "asd",
+                Email = "123qwe@mail.com",
                 Password = "123",
                 BirthDay = "11.22.1234",
                 Gender = Enums.Gender.Other,
@@ -43,6 +46,7 @@ namespace BearGoodbyeKolkhozProject.Data.Tests.TestCaseSources.LecturerTestCaseS
                 LastName = "Azarov",
                 Password = "qwe",
                 BirthDay = "12.12.1999",
+                Email = "123qwe@mail.com",
                 Gender = Enums.Gender.Male,
                 Trainings = new List<Training>{
                     new Training {
@@ -59,6 +63,7 @@ namespace BearGoodbyeKolkhozProject.Data.Tests.TestCaseSources.LecturerTestCaseS
                 LastName = "Azarov",
                 Password = "asd",
                 BirthDay = "12.12.2004",
+                Email = "123qwe@mail.com",
                 Gender = Enums.Gender.Male}
             };
 

@@ -66,7 +66,7 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
             //when
             TopicRepository topicRepository = new TopicRepository(_context);
             var actual = topicRepository.GetTopicsByTrainingId(triningId);
-
+            var test = topicRepository.GetTopics();
             //then
             CollectionAssert.AreEqual(expected, actual);
         }

@@ -15,6 +15,7 @@ namespace BearGoodbyeKolkhozProject.Data.Tests.TestCaseSources.LecturerTestCaseS
                 LastName = "Azarov",
                 Password = "qwe",
                 BirthDay = "12.12.1999",
+                Email = "123qwe@mail.com",
                 Gender = Enums.Gender.Male,
                 IsDeleted = false,
                 Trainings = new List<Training>()
@@ -27,6 +28,7 @@ namespace BearGoodbyeKolkhozProject.Data.Tests.TestCaseSources.LecturerTestCaseS
                 LastName = "Voraza",
                 Password = "ewq",
                 BirthDay = "21.01.2000",
+                Email = "123qwe@mail.com",
                 Gender = Enums.Gender.Other,
                 IsDeleted = false,
                 Trainings = new List<Training>()
@@ -39,6 +41,7 @@ namespace BearGoodbyeKolkhozProject.Data.Tests.TestCaseSources.LecturerTestCaseS
                 LastName = "Voraza",
                 Password = "qwe",
                 BirthDay = "21.01.2000",
+                Email = "123qwe@mail.com",
                 Gender = Enums.Gender.Other,
                 IsDeleted = false,
                 Trainings = new List<Training>()
@@ -53,6 +56,7 @@ namespace BearGoodbyeKolkhozProject.Data.Tests.TestCaseSources.LecturerTestCaseS
                 LastName = "Azarov",
                 Password = "qwe",
                 BirthDay = "12.12.1999",
+                Email = "123qwe@mail.com",
                 Gender = Enums.Gender.Male,
                 IsDeleted = false,
                 Trainings = new List<Training>()
@@ -64,6 +68,7 @@ namespace BearGoodbyeKolkhozProject.Data.Tests.TestCaseSources.LecturerTestCaseS
                 Name = "Amor",
                 LastName = "Voraza",
                 Password = "ewq",
+                Email = "123qwe@mail.com",
                 BirthDay = null,
                 Gender = Enums.Gender.Other,
                 IsDeleted = false,
@@ -76,6 +81,7 @@ namespace BearGoodbyeKolkhozProject.Data.Tests.TestCaseSources.LecturerTestCaseS
                 Name = "Amor",
                 LastName = "Voraza",
                 Password = "qwe",
+                Email = "123qwe@mail.com",
                 BirthDay = null,
                 Gender = Enums.Gender.Other,
                 IsDeleted = false,

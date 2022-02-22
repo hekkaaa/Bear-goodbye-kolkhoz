@@ -83,7 +83,7 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
 
             //then
             var actual = _context.LecturerReview.FirstOrDefault(Lr => Lr.Id == review.Id);
-            Assert.AreEqual(actual, null);
+            Assert.IsTrue(actual.IsDeleted);
         }
     }
 }
