@@ -13,6 +13,7 @@ namespace BearGoodbyeKolkhozProject.Business.Services
         private ITrainingReviewRepository _trainingReviewRepository;
         private ITopicRepository _topicRepository;
         private IMapper _mapper;
+        private EmailSender _emailSender;
 
         public TrainingService(ITrainingRepository repository, IMapper mapper, IClientRepository clientRepository, ITrainingReviewRepository trainingReviewRepository, ITopicRepository topicRepository)
         {
@@ -21,6 +22,7 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             _trainingReviewRepository = trainingReviewRepository;
             _topicRepository = topicRepository;
             _clientRepository = clientRepository;
+            _emailSender = new EmailSender();
         }
 
         public void UpdateTraining(int id, TrainingModel trainingModel)
@@ -113,5 +115,12 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             _repository.UpdateTraining(training);
         }
 
+
+        //удолить после проверки
+        public void SendEmail()
+        {
+            EventModel em = new EventModel { StartDate = "20.05.01" };
+            _emailSender.SendEmail("ff", "ff", em);
+        }
     }
 }

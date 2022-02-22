@@ -12,5 +12,6 @@ namespace BearGoodbyeKolkhozProject.Business.Services
         void UpdateTraining(int id, TrainingModel trainingModel);
         void AddTopicToTraining(int id, int topicId);
         void AddReviewToTraining(int id, int clientId, TrainingReviewModel trainingReview);
+        void SendEmail();
     }
 }
