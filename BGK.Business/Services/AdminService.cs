@@ -60,7 +60,7 @@ namespace BearGoodbyeKolkhozProject.Business.Services
                 item.Role = Data.Enums.Role.Admin;
                 item.IsDeleted = false; 
 
-                return _repository.AddNewAdmin(item);
+                return _repository.AddNewAdmin(item);   
             }
         }
 

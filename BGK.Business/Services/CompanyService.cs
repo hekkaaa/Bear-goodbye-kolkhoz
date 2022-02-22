@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using BearGoodbyeKolkhozProject.Business.Configuration;
 using BearGoodbyeKolkhozProject.Business.Exceptions;
 using BearGoodbyeKolkhozProject.Business.Models;
 using BearGoodbyeKolkhozProject.Business.Processor;
@@ -24,7 +25,7 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             var company = _companyRepository.GetCompanyById(id);
 
             if (company == null)
-                throw new BusinessException("Такой Компания не существует.");
+                throw new NotFoundException("Такой Компания не существует.");
 
             return _mapper.Map<CompanyModel>(company);
         }
@@ -39,22 +40,24 @@ namespace BearGoodbyeKolkhozProject.Business.Services
 
         public void RegistrationCompany(CompanyModel companyModel)
         {
+            companyModel.Password = PasswordHash.HashPassword(companyModel.Password);
 
             var mappedCompany = new Company
             {
-
                 Email = companyModel.Email,
                 Password = companyModel.Password,
                 Name = companyModel.Name,
                 PhoneNumber = companyModel.PhoneNumber,
                 Tin = companyModel.Tin,
                 IsDeleted = companyModel.IsDeleted
-
             };
 
-            _companyRepository.RegistrationCompany(_mapper.Map<Company>(mappedCompany));
-        }
+            mappedCompany.Role = Data.Enums.Role.Company;
 
+            _companyRepository.RegistrationCompany(_mapper.Map<Company>(mappedCompany));
+
+
+        }
 
 
         public void UpdateCompany(CompanyModel companyModel)
@@ -62,7 +65,7 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             var company = _companyRepository.GetCompanyById(companyModel.Id);
 
             if (company == null)
-                throw new BusinessException("Такой Компании не существует.");
+                throw new NotFoundException("Такой Компании не существует.");
 
             var entity = _mapper.Map <Company> (companyModel);
           
@@ -77,7 +80,7 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             var company = _companyRepository.GetCompanyById(id);
 
             if (company == null)
-                throw new NullReferenceException("Такой Компании не существует.");
+                throw new NotFoundException("Такой Компании не существует.");
 
             _companyRepository.DeleteCompany(id);
 
@@ -89,11 +92,24 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             var company = _companyRepository.GetCompanyById(id);
 
             if (company == null)
-                throw new NullReferenceException("Такой Компании не существует.");
+                throw new NotFoundException("Такой Компании не существует.");
 
             _companyRepository.UpdateCompany(id, isDel);
         }
 
-        
+        public void UpdatePasswordCompany(int id, string password)
+        {
+            var company = _companyRepository.GetCompanyById(id);
+
+            if (company is null)
+            {
+                throw new NotFoundException("Такой Компании не существует.");
+            }
+
+            string hashPassword = PasswordHash.HashPassword(password);
+            _companyRepository.ChangePasswordCompany(hashPassword, company);
+        }
+
+
     }
 }

@@ -14,7 +14,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 var connString = builder.Configuration.GetValue<string>(_connString);
 builder.Services.AddDbContext<ApplicationContext>(op =>
-            op.UseSqlServer(connString));
+            op.UseSqlServer("Data Source=DESKTOP-5HF0J14\\SQLEXPRESS;Initial Catalog=BGKProjectDB;Integrated Security=True"));
 
 // Add services to the container.
 
