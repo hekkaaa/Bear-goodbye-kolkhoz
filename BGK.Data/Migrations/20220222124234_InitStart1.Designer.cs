@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BearGoodbyeKolkhozProject.Data.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20220222110850_AddAdmniAndClassroom")]
-    partial class AddAdmniAndClassroom
+    [Migration("20220222124234_InitStart1")]
+    partial class InitStart1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -304,8 +304,7 @@ namespace BearGoodbyeKolkhozProject.Data.Migrations
 
                     b.Property<string>("Password")
                         .IsRequired()
-                        .HasMaxLength(40)
-                        .HasColumnType("nvarchar(40)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Role")
                         .HasColumnType("int");

@@ -5,6 +5,7 @@ using BearGoodbyeKolkhozProject.Business.Models;
 using BearGoodbyeKolkhozProject.Business.Interface;
 using BearGoodbyeKolkhozProject.Business.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BearGoodbyeKolkhozProject.API.Controllers
 {
@@ -24,7 +25,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
          }
          
          //api/events/
-         [HttpGet("(id)")]
+         [HttpGet("all")]
          public ActionResult<List<EventOutputModel>> GetEvents()
          {
              var entity = _service.GetEvents();
@@ -51,7 +52,8 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
          
          ////api/events/
          [HttpPost()]
-         public ActionResult<EventUpdateInputModel> AddEvent([FromBody] EventUpdateInputModel eventOutputModel)
+         [Authorize(Roles = "Admin")]
+        public ActionResult<EventUpdateInputModel> AddEvent([FromBody] EventUpdateInputModel eventOutputModel)
          {
          
              EventModel entity = _mapperApi.Map<EventModel>(eventOutputModel);
@@ -64,7 +66,8 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
          
          //api/events/
          [HttpPut()]
-         public ActionResult<EventUpdateInputModel> UpdateEvent(int id, [FromBody] EventUpdateInputModel eventUpdateInputModel)
+         [Authorize(Roles = "Admin")]
+        public ActionResult<EventUpdateInputModel> UpdateEvent(int id, [FromBody] EventUpdateInputModel eventUpdateInputModel)
          {
              EventModel entity = _mapperApi.Map<EventModel>(eventUpdateInputModel);
          
@@ -75,7 +78,8 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
          
          //api/events/
          [HttpDelete("{id}")]
-         public ActionResult<EventUpdateInputModel> DeleteEvent(int id)
+         [Authorize(Roles = "Admin")]
+        public ActionResult<EventUpdateInputModel> DeleteEvent(int id)
          {
              _service.DeleteEvent(id);
          
