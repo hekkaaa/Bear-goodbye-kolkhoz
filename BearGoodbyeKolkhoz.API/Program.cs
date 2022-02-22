@@ -6,7 +6,7 @@ using BearGoodbyeKolkhozProject.Data.ConnectDb;
 using Microsoft.EntityFrameworkCore;
 
 
-const string? _connString = "CONNECTION_STRING";
+const string? _connString = "BEAR_CONNECTION_STRING";
 
 var builder = WebApplication.CreateBuilder(args);
 
