@@ -12,8 +12,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
 {
 
     [ApiController]
-    [Route("api/[controller]")]
-    [Authorize(Roles = "Admin, Company")]
+    [Route("api/[controller]")]    
     public class CompaniesController : Controller
     {
         private readonly ICompanyService _companyService;
@@ -34,7 +33,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
 
         //api/companies/
         [HttpGet("(id/companies/)")]
-        
+        [Authorize(Roles = "Admin, Company")]
         public ActionResult<List<CompanyOutputModel>> GetCompanies()
         {
             var entity = _companyService.GetCompanies();
@@ -48,7 +47,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
 
         //api/companies/
         [HttpGet("{id}")]
-        [Authorize]
+        [Authorize(Roles = "Admin, Company")]
         public ActionResult<CompanyOutputModel> GetCompanyById(int id)
         {
             var entity = _companyService.GetCompanyById(id);
