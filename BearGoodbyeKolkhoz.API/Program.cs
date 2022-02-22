@@ -3,10 +3,8 @@ using BearGoodbyeKolkhozProject.API.Extensions;
 using BearGoodbyeKolkhozProject.API.Infrastructure;
 using BearGoodbyeKolkhozProject.Business.Configuration;
 using BearGoodbyeKolkhozProject.Data.ConnectDb;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
-using Microsoft.OpenApi.Models;
+
 
 const string? _connString = "CONNECTION_STRING";
 

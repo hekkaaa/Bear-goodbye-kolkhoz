@@ -5,13 +5,14 @@ using BearGoodbyeKolkhozProject.Business.Models;
 using BearGoodbyeKolkhozProject.Business.Processor;
 using BearGoodbyeKolkhozProject.Business.Services;
 using BearGoodbyeKolkhozProject.Business.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BearGoodbyeKolkhozProject.API.Controllers
 {
 
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/[controller]")]    
     public class CompaniesController : Controller
     {
         private readonly ICompanyService _companyService;
@@ -32,6 +33,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
 
         //api/companies/
         [HttpGet("(id/companies/)")]
+        [Authorize(Roles = "Admin, Company")]
         public ActionResult<List<CompanyOutputModel>> GetCompanies()
         {
             var entity = _companyService.GetCompanies();
@@ -45,6 +47,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
 
         //api/companies/
         [HttpGet("{id}")]
+        [Authorize(Roles = "Admin, Company")]
         public ActionResult<CompanyOutputModel> GetCompanyById(int id)
         {
             var entity = _companyService.GetCompanyById(id);
@@ -103,11 +106,11 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         public ActionResult<ContactLecturerInsertInputModel> AddContactLecturerValueApi    // Данный метод позволяет компании ставить оценку Лектору за проведенное мероприятие
             ([FromBody] ContactLecturerInsertInputModel contactLecturerInsertInputModel)
         {
-            ContactLecturerModel entity = _mapperApi.Map<ContactLecturerModel>(contactLecturerInsertInputModel);
+            ContactLecturerModel model = _mapperApi.Map<ContactLecturerModel>(contactLecturerInsertInputModel);
 
-            _contactLecturerService.AddContactLecturerValue(entity);
+            _contactLecturerService.AddContactLecturerValue(model);
 
-            return StatusCode(StatusCodes.Status201Created, entity);
+            return StatusCode(StatusCodes.Status201Created, model);
         }
 
         //api/contactlecturer/
@@ -123,5 +126,14 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
 
 
         }
+
+        [HttpPut("{id}/password")]
+        public ActionResult<ChangePasswordInputModel> UpdatePasswordCompanyById(int id, [FromBody] ChangePasswordInputModel newItem)
+        {
+            CompanyModel model = _mapperApi.Map<CompanyModel>(newItem);
+            _companyService.UpdatePasswordCompany(id, model.Password);
+            return Ok(model);
+        }
     }
-}
+
+}       

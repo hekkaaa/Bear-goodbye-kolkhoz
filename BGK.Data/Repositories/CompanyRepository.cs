@@ -16,12 +16,14 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
         {
             _context = context;
         }
-        public void RegistrationCompany(Company company)
+        public int RegistrationCompany(Company company)
         {
 
             _context.Company.Add(company);
 
             _context.SaveChanges();
+
+            return company.Id;
         }
 
         public List<Company> GetCompanies() =>
@@ -64,6 +66,20 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
 
         }
 
-        
+        public void ChangePasswordCompany(string password, Company company)
+        {
+            company.Password = password;
+            _context.SaveChanges();           
+        }
+
+        public Company Login(string email)
+        {
+            Company? entity = _context.Company
+                .FirstOrDefault(c => c.Email == email);
+
+            return entity;
+        }
+
+
     }
 }

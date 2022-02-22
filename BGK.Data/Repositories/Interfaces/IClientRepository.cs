@@ -6,7 +6,8 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
     {
         void AddClient(Client client);
         void ChangePasswordClient(Client client, string newPassword);
-        void ChangeDeleteStatusById(Client client, bool isDeleted);
+        bool ChangeDeleteStatusById(Client client);
+        bool ChangeRestoreStatusById(Client client);
         Client GetClientById(int id);
         List<Client> GetClients();
         bool UpdateClientInfo(Client client, Client newInfo);

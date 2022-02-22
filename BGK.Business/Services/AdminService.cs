@@ -100,7 +100,7 @@ namespace BearGoodbyeKolkhozProject.Business.Services
         public bool ChangeAdminPassword(int id, string password)
         {
             var admin = _repository.GetAdminById(id);
-
+            
             if (admin is null)
             {
                 throw new NotFoundException($"Нет клиента с id = {id}");

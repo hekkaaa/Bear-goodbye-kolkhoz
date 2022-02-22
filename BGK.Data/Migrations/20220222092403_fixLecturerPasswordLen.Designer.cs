@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BearGoodbyeKolkhozProject.Data.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20220221125159_init")]
-    partial class init
+    [Migration("20220222092403_fixLecturerPasswordLen")]
+    partial class fixLecturerPasswordLen
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -199,7 +199,7 @@ namespace BearGoodbyeKolkhozProject.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("ClassroomId")
+                    b.Property<int?>("ClassroomId")
                         .HasColumnType("int");
 
                     b.Property<int?>("CompanyId")
@@ -208,11 +208,14 @@ namespace BearGoodbyeKolkhozProject.Data.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<int>("LecturerId")
+                    b.Property<int?>("LecturerId")
                         .HasColumnType("int");
 
                     b.Property<string>("StartDate")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("TrainingId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -221,6 +224,8 @@ namespace BearGoodbyeKolkhozProject.Data.Migrations
                     b.HasIndex("CompanyId");
 
                     b.HasIndex("LecturerId");
+
+                    b.HasIndex("TrainingId");
 
                     b.ToTable("Event");
                 });
@@ -255,8 +260,7 @@ namespace BearGoodbyeKolkhozProject.Data.Migrations
 
                     b.Property<string>("Password")
                         .IsRequired()
-                        .HasMaxLength(40)
-                        .HasColumnType("nvarchar(40)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Role")
                         .HasColumnType("int");
@@ -470,9 +474,7 @@ namespace BearGoodbyeKolkhozProject.Data.Migrations
                 {
                     b.HasOne("BearGoodbyeKolkhozProject.Data.Entities.Classroom", "Classroom")
                         .WithMany()
-                        .HasForeignKey("ClassroomId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ClassroomId");
 
                     b.HasOne("BearGoodbyeKolkhozProject.Data.Entities.Company", "Company")
                         .WithMany()
@@ -480,7 +482,11 @@ namespace BearGoodbyeKolkhozProject.Data.Migrations
 
                     b.HasOne("BearGoodbyeKolkhozProject.Data.Entities.Lecturer", "Lecturer")
                         .WithMany("Events")
-                        .HasForeignKey("LecturerId")
+                        .HasForeignKey("LecturerId");
+
+                    b.HasOne("BearGoodbyeKolkhozProject.Data.Entities.Training", "Training")
+                        .WithMany("Event")
+                        .HasForeignKey("TrainingId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -489,6 +495,8 @@ namespace BearGoodbyeKolkhozProject.Data.Migrations
                     b.Navigation("Company");
 
                     b.Navigation("Lecturer");
+
+                    b.Navigation("Training");
                 });
 
             modelBuilder.Entity("BearGoodbyeKolkhozProject.Data.Entities.LecturerReview", b =>
@@ -620,6 +628,8 @@ namespace BearGoodbyeKolkhozProject.Data.Migrations
 
             modelBuilder.Entity("BearGoodbyeKolkhozProject.Data.Entities.Training", b =>
                 {
+                    b.Navigation("Event");
+
                     b.Navigation("TrainingReviews");
                 });
 #pragma warning restore 612, 618

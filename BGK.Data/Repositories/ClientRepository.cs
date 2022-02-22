@@ -35,10 +35,18 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
             return true;
         }
 
-        public void ChangeDeleteStatusById(Client client, bool isDeleted)
+        public bool ChangeDeleteStatusById(Client client)
         {
-            client.IsDeleted = isDeleted;
+            client.IsDeleted = true;
             _db.SaveChanges();
+            return true;
+        }
+
+        public bool ChangeRestoreStatusById(Client client)
+        {
+            client.IsDeleted = false;
+            _db.SaveChanges();
+            return true;
         }
 
         public void ChangePasswordClient(Client client, string newPassword)
@@ -59,5 +67,6 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
 
             return res;
         }
+
     }
 }
