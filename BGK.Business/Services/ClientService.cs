@@ -19,12 +19,20 @@ namespace BearGoodbyeKolkhozProject.Business.Services
 
         public void RegistrationClient(ClientModel model)
         {
-            var entity = _mapper.Map<Client>(model);
-            entity.Password = PasswordHash.HashPassword(model.Password);
-            _clientRepo.AddClient(entity);
+            bool res = CheckDublicateEmailAddClient(model.Email);
+
+            if (res)
+            {
+                throw new DuplicateException("User with this Email already exists | Пользователь с таким Email уже существует ");
+            }
+            else
+            {
+                var entity = _mapper.Map<Client>(model);
+                entity.Password = PasswordHash.HashPassword(model.Password);
+                _clientRepo.AddClient(entity);
+            }
+            
         }
-
-
 
         public ClientModel GetClientById(int id)
         {
@@ -57,7 +65,7 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             _clientRepo.UpdateClientInfo(client, updateClient);
         }
 
-        public void DeleteClient(int id)
+        public bool DeleteClient(int id)
         {
             var client = _clientRepo.GetClientById(id);
 
@@ -66,10 +74,10 @@ namespace BearGoodbyeKolkhozProject.Business.Services
                 throw new NotFoundException($"нет клиента с id = {id}");
             }
 
-            _clientRepo.ChangeDeleteStatusById(client, true);
+           return _clientRepo.ChangeDeleteStatusById(client);
         }
 
-        public void RecoverClient(int id)
+        public bool RestoreClient(int id)
         {
             var client = _clientRepo.GetClientById(id);
 
@@ -78,7 +86,7 @@ namespace BearGoodbyeKolkhozProject.Business.Services
                 throw new NotFoundException($"нет клиента с id = {id}");
             }
 
-            _clientRepo.ChangeDeleteStatusById(client, false);
+            return _clientRepo.ChangeRestoreStatusById(client);
         }
 
         public void ChangePasswordClient(int id, string password)
@@ -93,6 +101,19 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             string hashPassword = PasswordHash.HashPassword(password);
 
             _clientRepo.ChangePasswordClient(client, hashPassword);
+        }
+
+        private bool CheckDublicateEmailAddClient(string email)
+        {
+            var allList = _clientRepo.GetClients();
+
+            Client res = allList.FirstOrDefault(a => a.Email == email);
+
+            if (res == null)
+            {
+                return false;
+            }
+            return true;
         }
     }
 }

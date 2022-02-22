@@ -70,7 +70,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
             }
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("{id}/delete")]
         public ActionResult<bool> DeleteAdminById(int id)
         {
             return Ok(_service.DeleteAdmin(id));

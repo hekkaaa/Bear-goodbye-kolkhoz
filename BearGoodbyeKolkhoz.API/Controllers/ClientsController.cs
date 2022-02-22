@@ -3,12 +3,14 @@ using BearGoodbyeKolkhozProject.API.Models;
 using BearGoodbyeKolkhozProject.API.Models.InputModels;
 using BearGoodbyeKolkhozProject.Business.Models;
 using BearGoodbyeKolkhozProject.Business.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BearGoodbyeKolkhozProject.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    
     public class ClientsController : Controller
     {
         private readonly IClientService _service;
@@ -21,6 +23,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         }
 
         [HttpPost()]
+        [AllowAnonymous]
         public ActionResult ClientRegistration([FromBody] RegistrationInputModel model)
         {
             ClientModel entity = _mapper.Map<ClientModel>(model);
@@ -29,6 +32,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         }
 
         [HttpGet()]
+        [Authorize(Roles = "Admin")]
         public ActionResult<List<ClientOutputModel>> GetClients()
         {
             var clients = _service.GetClients();
@@ -37,6 +41,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         }
 
         [HttpPut("/{id}")]
+        [Authorize(Roles = "Client")]
         public ActionResult UpdateClient(int id, [FromBody] UpdateInputModel model)
         {
             var entity = _mapper.Map<ClientModel>(model);
@@ -45,10 +50,25 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         }
 
         [HttpPut("{id}/password")]
+        [Authorize(Roles = "Client")]
         public ActionResult ChangePassword(int id, [FromBody] ChangePasswordInputModel newItem)
         {
             _service.ChangePasswordClient(id, newItem.Password);
             return Ok();
+        }
+
+        [HttpPut("{id}/delete")]
+        [Authorize(Roles = "Admin")]
+        public ActionResult<bool> DeleteAndBanUserById(int id)
+        {   
+            return Ok(_service.DeleteClient(id));
+        }
+
+        [HttpPut("{id}/restore")]
+        [Authorize(Roles = "Admin")]
+        public ActionResult<bool> RestoreUserById(int id)
+        {
+            return Ok(_service.RestoreClient(id));
         }
     }
 }
