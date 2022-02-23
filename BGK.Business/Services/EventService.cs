@@ -141,7 +141,7 @@ namespace BearGoodbyeKolkhozProject.Business.Services
 
             Lecturer selectedLecturer = LecturerSelection(training);
 
-            List<DateTime> lecturerSchedule = GetLecturerSchedule(selectedLecturer, events);
+            List<DateTime> lecturerSchedule = GetLecturerSchedule(selectedLecturer);
 
             KeyValuePair<Classroom, DateTime> selectedClassroomWithTime
                 = ClassroomSelection(training, events, lecturerSchedule);
@@ -235,7 +235,7 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             }
         }
 
-        private List<DateTime> GetLecturerSchedule(Lecturer lecturer, List<Event> events)
+        private List<DateTime> GetLecturerSchedule(Lecturer lecturer)
         {
             List<DateTime> schedule = new List<DateTime>();
 
