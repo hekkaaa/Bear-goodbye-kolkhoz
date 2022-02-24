@@ -69,8 +69,7 @@ namespace BearGoodbyeKolkhozProject.Business.Services
         public void UpdateEvent(int id, EventModel eventModel)
         {
             var even = _eventRepository.GetEventById(id);
-            if (even == null)
-                throw new BusinessException("Такого события не существует!");
+            if (even == null) throw new BusinessException("Такого события не существует!");
 
 
             _eventRepository.UpdateEvent(_mapper.Map<Event>(eventModel));
@@ -79,8 +78,7 @@ namespace BearGoodbyeKolkhozProject.Business.Services
         public void DeleteEvent(int id)
         {
             var even = _eventRepository.GetEventById(id);
-            if (even == null)
-                throw new BusinessException($"Такого события {id} не существует.");
+            if (even == null) throw new BusinessException($"Такого события {id} не существует.");
 
             _eventRepository.DeleteEvent(even);
         }
@@ -92,15 +90,11 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             var training = _trainingRepository.GetTrainingById(trainingId);
 
 
-            if (training is null)
-            {
-                throw new NotFoundException($"Нет тренинга с id = {trainingId}");
-            }
+            if (training is null) throw new NotFoundException($"Нет тренинга с id = {trainingId}");
 
-            if (client is null)
-            {
-                throw new NotFoundException($"Нет клиента с id = {trainingId}");
-            }
+
+            if (client is null) throw new NotFoundException($"Нет клиента с id = {trainingId}");
+
 
             if (even is null)
             {
@@ -115,8 +109,7 @@ namespace BearGoodbyeKolkhozProject.Business.Services
                 return true;
             }
             else if (training.MembersCount - even.Clients.Count == 1 && !IsDuplicateRegistration(even, clientId))
-            {
-                
+            {               
                 LecturerClassroomTimeSelection(training, even);
                 _eventRepository.SignUp(client, even);
                 // EmailSender() - отправка EMAIL по всем участникам.
@@ -133,10 +126,7 @@ namespace BearGoodbyeKolkhozProject.Business.Services
         {
             foreach (Client eventsClient in even.Clients)
             {
-                if (eventsClient.Id == clientId)
-                {
-                    return true;
-                }
+                if (eventsClient.Id == clientId) return true;
             }
 
             return false;
@@ -147,15 +137,9 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             var lecturers = _lecturerRepository.GetLecturerByTrainingId(training.Id);
             var classrooms = _classroomRepository.GetNeededClassroom(training.MembersCount);
 
-            if (classrooms.Count == 0)
-            {
-                throw new NotFoundException("Нет подходящего помещения");
-            }
+            if (classrooms.Count == 0) throw new NotFoundException("Нет подходящего помещения");
 
-            if (lecturers.Count == 0)
-            {   
-                throw new NotFoundException("Нет подходящего тренера");
-            }
+            if (lecturers.Count == 0) throw new NotFoundException("Нет подходящего тренера");
 
             // нашли самого неоптыного тренера
             Lecturer actualLecturer = GetMostInexperiencedLecturer(lecturers);
@@ -173,9 +157,8 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             Dictionary <Classroom, DateTime> firstClassroomsFreeDay = new Dictionary<Classroom, DateTime>();
 
             foreach (KeyValuePair<Classroom, List<DateTime>> pair in classroomsWork)
-            {
                 firstClassroomsFreeDay.Add(pair.Key, FirstFreeDay(lecturerWork, pair.Value));
-            }
+
 
             //выбираем самую близкую дату и кабинет
             Classroom freeClassroom = firstClassroomsFreeDay.First(x => x.Value == firstClassroomsFreeDay.Values.Min()).Key;
@@ -197,17 +180,14 @@ namespace BearGoodbyeKolkhozProject.Business.Services
                 foreach (Lecturer lecturer in lecturers)
                 {
                     if (_lecturerRepository.GetEventsCount(lecturer) < _lecturerRepository.GetEventsCount(resLecturer))
-                    {
                         resLecturer = lecturer;
-                    }
                 }
 
                 return resLecturer;
             }
-            else
-            {
-                throw new NotFoundException("Нет подхощего тренера");
-            }
+
+            else throw new NotFoundException("Нет подхощего тренера");
+
         }
 
         private List<DateTime> GetLecturerSchedule(Lecturer lecturer, List<Event> events)
@@ -223,10 +203,8 @@ namespace BearGoodbyeKolkhozProject.Business.Services
                 {
                     DateTime eventDate = Convert.ToDateTime(Convert.ToDateTime(even.StartDate).ToString("dd.MM.yyyy"));
 
-                    if (eventDate >= date)
-                    {
-                        schedule.Add(eventDate);
-                    }
+                    if (eventDate >= date) schedule.Add(eventDate);
+
                 }
             }
             return schedule;
@@ -243,26 +221,20 @@ namespace BearGoodbyeKolkhozProject.Business.Services
                 {
                     if (classroom == even.Classroom)
                     {
-                        if (!classroomWorks.ContainsKey(classroom))
-                        {
+                        if (!classroomWorks.ContainsKey(classroom)) 
                             classroomWorks[classroom] = new List<DateTime> {
                                 Convert.ToDateTime(Convert.ToDateTime(even.StartDate).ToString("dd.MM.yyyy"))};
-                        }
+                       
                         else
-                        {
                             classroomWorks[classroom]
                                 .Add(Convert.ToDateTime(Convert.ToDateTime(even.StartDate).ToString("dd.MM.yyyy")));
-                        }
                     }
                 }
             }
 
             if (classroomWorks.Count == 0)
             {
-                foreach (Classroom classroom in classrooms)
-                {
-                    classroomWorks.Add(classroom, new List<DateTime>());
-                }
+                foreach (Classroom classroom in classrooms) classroomWorks.Add(classroom, new List<DateTime>());
             }
 
             return classroomWorks;
@@ -272,10 +244,7 @@ namespace BearGoodbyeKolkhozProject.Business.Services
         {
             DateTime resDate = DateTime.Today.AddDays(1);
 
-            while (workDays.Contains(resDate) || workClassroomDays.Contains(resDate))
-            {
-                resDate = resDate.AddDays(1);
-            }
+            while (workDays.Contains(resDate) || workClassroomDays.Contains(resDate)) resDate = resDate.AddDays(1);
 
             return resDate;
         }
