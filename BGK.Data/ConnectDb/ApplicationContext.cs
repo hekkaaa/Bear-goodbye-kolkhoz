@@ -29,8 +29,8 @@ namespace BearGoodbyeKolkhozProject.Data.ConnectDb
             modelBuilder.Entity<Lecturer>().ToTable("Lecturer");
             modelBuilder.Entity<Client>().ToTable("Client");
 
-            modelBuilder.Entity<User>().HasData(
-            new User()
+            modelBuilder.Entity<Admin>().HasData(
+            new Admin()
             {
                 Id = 1,
                 Name = "Admin",

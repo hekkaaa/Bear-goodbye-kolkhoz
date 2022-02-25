@@ -7,7 +7,7 @@ namespace BearGoodbyeKolkhozProject.Data.Entities
     [Table("Client")]
     public class Client : User
     {
-        public string PhoneNumber { get; set; }
+        public string? PhoneNumber { get; set; }
 
         public virtual ICollection<TrainingReview>? TrainingReviews { get; set; }
         public virtual ICollection<LecturerReview>? LecturerReviews { get; set; }
