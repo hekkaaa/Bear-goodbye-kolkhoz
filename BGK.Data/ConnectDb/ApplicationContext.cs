@@ -17,18 +17,20 @@ namespace BearGoodbyeKolkhozProject.Data.ConnectDb
         public DbSet<Topic> Topic { get; set; }
         public DbSet<Training> Training { get; set; }
         public DbSet<TrainingReview> TrainingReview { get; set; }
-
+        public DbSet<User> User { get; set; }
         public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options)
         {
-            
+
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Admin>().ToTable("Admin");
+            modelBuilder.Entity<Lecturer>().ToTable("Lecturer");
+            modelBuilder.Entity<Client>().ToTable("Client");
 
-
-            modelBuilder.Entity<Admin>().HasData(
-            new Admin()
+            modelBuilder.Entity<User>().HasData(
+            new User()
             {
                 Id = 1,
                 Name = "Admin",
@@ -39,7 +41,6 @@ namespace BearGoodbyeKolkhozProject.Data.ConnectDb
                 Password = "1000:WvGHoK1WF2vO/ZkCz8FcmEdWsULri96e:oYQNDwkRfTN2Sm1fY56gS/5esvc=",
                 Role = Role.Admin,
                 IsDeleted = false,
-
             }
             );
 
