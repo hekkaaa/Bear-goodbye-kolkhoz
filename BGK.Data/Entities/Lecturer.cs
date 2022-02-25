@@ -5,22 +5,12 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace BearGoodbyeKolkhozProject.Data.Entities
 {
     [Table("Lecturer")]
-    public class Lecturer
+    public class Lecturer : User
     {
-        public int Id { get; set; }
-        public string Email { get; set; }
-        public string Password { get; set; }
-        public string? Name { get; set; }
-        [StringLength(40)]
-        public string? LastName { get; set; }
-        public string? BirthDay { get; set; }
-        public bool IsDeleted { get; set; }
-        public Gender Gender { get; set; }
-        public Role Role { get; set; }
-
         public virtual ICollection<Training>? Trainings { get; set; }
         public virtual ICollection<Event>? Events { get; set; }
         public virtual ICollection<LecturerReview>? LecturerReviews { get; set; }
+        public virtual ICollection<ContactLecturer>? ContactLecturer { get; set; }
 
         public override string ToString()
         {
