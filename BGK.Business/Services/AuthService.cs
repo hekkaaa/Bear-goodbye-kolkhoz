@@ -11,122 +11,38 @@ namespace BearGoodbyeKolkhozProject.Business.Services
 {
     public class AuthService : IAuthService
     {
-        private readonly ILecturerRepository _lecturerRepo;
-        private readonly IAdminRepository _adminRepo;
-        private readonly IClientRepository _userRepo;
-        private readonly ICompanyRepository _companyRepo;
+        private readonly IUserRepository _userRepo;
 
-        public AuthService(ILecturerRepository lecturerRepo, IAdminRepository adminRepo, IClientRepository userRepo, ICompanyRepository companyRepo)
+
+        public AuthService(IUserRepository userRepo)
         {
-            _lecturerRepo = lecturerRepo;
-            _adminRepo = adminRepo;
             _userRepo = userRepo;
-            _companyRepo = companyRepo;
         }
 
-        public string GetToken(string email, string password, string role)
+        public string GetToken(string email, string password)
         {
-            List<Claim> claims = new List<Claim>();
-            if (role == "Lecturer")
+            
+            User entity = _userRepo.GetUserByEmail(email);
+
+            if (entity is null)
             {
-                Lecturer entity = _lecturerRepo.Login(email);
-
-                if (entity is null)
-                {
-                    throw new NotFoundException($"Нет пользователя с email = {email}");
-                }
-
-                IsCorrectPassword(password, entity.Password);
-
-                // проверка на блок
-                if(entity.IsDeleted == true)
-                {
-                    throw new UserIsBlockException("User deleted or blocked | Пользователь удален или заблокирован");
-                }
-
-                claims = new List<Claim> {
-                    new Claim(ClaimTypes.Email, entity.Email),
-                    new Claim(ClaimTypes.UserData, entity.Id.ToString()),
-                    new Claim(ClaimTypes.Role, entity.Role.ToString())
-                };
+                throw new NotFoundException($"Нет пользователя с email = {email}");
+            }
+            if(entity.IsDeleted == true)
+            {
+                throw new UserIsBlockException("User deleted or blocked | Пользователь удален или заблокирован");
             }
 
-            else if (role == "Admin")
-            {
-                Admin entity = _adminRepo.Login(email);
+            IsCorrectPassword(password, entity.Password);
 
-                if (entity is null)
-                {
-                    throw new NotFoundException($"Нет пользователя с email = {email}");
-                }
+            List<Claim> claims = new List<Claim> {
+                new Claim(ClaimTypes.Email, entity.Email),
+                new Claim(ClaimTypes.UserData, entity.Id.ToString()),
+                new Claim(ClaimTypes.Role, entity.Role.ToString())
+            };
+            
 
-                IsCorrectPassword(password, entity.Password);
-
-                // проверка на блок
-                if (entity.IsDeleted == true)
-                {
-                    throw new UserIsBlockException("User deleted or blocked | Пользователь удален или заблокирован");
-                }
-
-                claims = new List<Claim> {
-                    new Claim(ClaimTypes.Email, entity.Email),
-                    new Claim(ClaimTypes.UserData, entity.Id.ToString()),
-                    new Claim(ClaimTypes.Role, entity.Role.ToString())
-                };
-            }
-
-            else if (role == "Client")
-            {
-                Client entity = _userRepo.Login(email);
-
-                if (entity is null)
-                {
-                    throw new NotFoundException($"Нет пользователя с email = {email}");
-                }
-
-                IsCorrectPassword(password, entity.Password);
-
-                // проверка на блок
-                if (entity.IsDeleted == true)
-                {
-                    throw new UserIsBlockException("User deleted or blocked | Пользователь удален или заблокирован");
-                }
-
-                claims = new List<Claim> {
-                    new Claim(ClaimTypes.Email, entity.Email),
-                    new Claim(ClaimTypes.UserData, entity.Id.ToString()),
-                    new Claim(ClaimTypes.Role, entity.Role.ToString())
-                };
-            }
-            else if (role == "Company")
-            {
-                Company entity = _companyRepo.Login(email);
-
-                if (entity is null)
-                {
-                    throw new NotFoundException($"Нет пользователя с email = {email}");
-                }
-
-                IsCorrectPassword(password, entity.Password);
-
-                // проверка на блок
-                if (entity.IsDeleted == true)
-                {
-                    throw new UserIsBlockException("User deleted or blocked | Пользователь удален или заблокирован");
-                }
-
-                claims = new List<Claim> {
-                    new Claim(ClaimTypes.Email, entity.Email),
-                    new Claim(ClaimTypes.UserData, entity.Id.ToString()),
-                    new Claim(ClaimTypes.Role, entity.Role.ToString())
-                };
-            }
-            else
-            {
-                throw new NoRoleException("Wrong role specified in JSON request | Не верно указана роль в JSON запросе");
-            }
-
-            // создаем JWT-токен
+            // cоздаем JWT-токен
             var jwt = new JwtSecurityToken(
                             issuer: AuthOptions.Issuer,
                             audience: AuthOptions.Audience,
