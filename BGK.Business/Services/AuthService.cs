@@ -13,7 +13,6 @@ namespace BearGoodbyeKolkhozProject.Business.Services
     {
         private readonly IUserRepository _userRepo;
 
-
         public AuthService(IUserRepository userRepo)
         {
             _userRepo = userRepo;
@@ -21,7 +20,6 @@ namespace BearGoodbyeKolkhozProject.Business.Services
 
         public string GetToken(string email, string password)
         {
-            
             User entity = _userRepo.GetUserByEmail(email);
 
             if (entity is null)
@@ -42,7 +40,6 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             };
             
 
-            // cоздаем JWT-токен
             var jwt = new JwtSecurityToken(
                             issuer: AuthOptions.Issuer,
                             audience: AuthOptions.Audience,

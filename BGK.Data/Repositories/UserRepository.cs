@@ -17,10 +17,7 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
             _context = applicationContext;
         }
 
-        public User GetUserByEmail(string email) =>
+        public User? GetUserByEmail(string email) =>
             _context.User.FirstOrDefault(x => x.Email == email);
-
-        public User GetUserById(int id) =>
-            _context.User.FirstOrDefault(x => x.Id == id);
     }
 }

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BearGoodbyeKolkhozProject.Data.Entities
 {
-    public class User
+    public abstract class User
     {
         public int Id { get; set; }
         public string Email { get; set; }
