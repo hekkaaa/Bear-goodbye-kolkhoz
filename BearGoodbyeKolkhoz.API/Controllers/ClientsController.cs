@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace BearGoodbyeKolkhozProject.API.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/client")]
     
     public class ClientsController : Controller
     {
@@ -57,7 +57,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
             return Ok();
         }
 
-        [HttpPut("{id}/delete")]
+        [HttpPut("{id}")]
         [Authorize(Roles = "Admin")]
         public ActionResult<bool> DeleteAndBanUserById(int id)
         {   

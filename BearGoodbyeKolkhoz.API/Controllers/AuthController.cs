@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace BearGoodbyeKolkhozProject.API.Controllers
 {
     [ApiController]
-    [Route("auth/[controller]")]
+    [Route("api/auth")]
     [AllowAnonymous]
     public class AuthController : Controller
     {
