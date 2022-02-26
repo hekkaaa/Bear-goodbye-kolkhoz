@@ -41,8 +41,7 @@ namespace BearGoodbyeKolkhozProject.Business.Services
         public EventModel GetEventById(int id)
         {
             var even = _eventRepository.GetEventById(id);
-            if (even == null)
-                throw new BusinessException("Такого события не существует.");
+            CheckExistsOrRaiseException(even, id);
 
             return _mapper.Map<EventModel>(even);
         }
@@ -69,9 +68,7 @@ namespace BearGoodbyeKolkhozProject.Business.Services
         public void UpdateEvent(int id, EventModel eventModel)
         {
             var even = _eventRepository.GetEventById(id);
-            if (even == null)
-                throw new BusinessException("Такого события не существует!");
-
+            CheckExistsOrRaiseException(even, id);
 
             _eventRepository.UpdateEvent(_mapper.Map<Event>(eventModel));
         }
@@ -79,10 +76,16 @@ namespace BearGoodbyeKolkhozProject.Business.Services
         public void DeleteEvent(int id)
         {
             var even = _eventRepository.GetEventById(id);
-            if (even == null)
-                throw new BusinessException($"Такого события {id} не существует.");
-
+            CheckExistsOrRaiseException(even, id);
             _eventRepository.DeleteEvent(even);
+        }
+
+        private void CheckExistsOrRaiseException(object test, int id)
+        {
+            if (test is null)
+            {
+                throw new NotFoundException($"Не найдено в базе данных объекта с ID {id}");
+            }
         }
 
         public bool SignUp(int trainingId, int clientId)
@@ -91,14 +94,8 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             var client = _clientRepository.GetClientById(clientId);
             var training = _trainingRepository.GetTrainingById(trainingId);
 
-            if (training is null)
-            {
-                throw new NotFoundException($"Нет тренинга с id = {trainingId}");
-            }
-            if (client is null)
-            {
-                throw new NotFoundException($"Нет клиента с id = {trainingId}");
-            }
+            CheckExistsOrRaiseException(training, trainingId);
+            CheckExistsOrRaiseException(client, clientId);
 
             if (even is null)
             {
