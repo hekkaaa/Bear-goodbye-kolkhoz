@@ -65,12 +65,9 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
             return true;
         }
 
-        public Admin Login(string email)
+        public Admin? Login(string email)
         {
-            Admin? res = _db.Admin
-                .Where(l => l.Email == email)
-                .FirstOrDefault();
-
+            Admin? res = _db.Admin.Where(l => l.Email == email).FirstOrDefault();
             return res;
         }
     }

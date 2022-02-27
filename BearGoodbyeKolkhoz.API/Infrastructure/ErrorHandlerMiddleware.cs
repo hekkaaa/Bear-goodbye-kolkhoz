@@ -1,4 +1,5 @@
-﻿using BearGoodbyeKolkhozProject.Business.Exceptions;
+﻿using BearGoodbyeKolkhozProject.API.Models.ExceptionModel;
+using BearGoodbyeKolkhozProject.Business.Exceptions;
 using System.Net;
 using System.Text.Json;
 
@@ -23,12 +24,13 @@ namespace BearGoodbyeKolkhozProject.API.Infrastructure
             {
                 await ConstructResponse(context, HttpStatusCode.Forbidden, error.Message);
             }
-            catch (BusinessException ex)
+            catch (BusinessException error)
             {
-                await ConstructResponse(context, HttpStatusCode.BadRequest, ex.Message);
+                await ConstructResponse(context, HttpStatusCode.BadRequest, error.Message);
             }
             catch (Microsoft.Data.SqlClient.SqlException)
-            {
+            {   
+                // ошибка когда БД вообще отсуствует или миграция иная на БД и стобцы не сходятся.
                 await ConstructResponse(context, HttpStatusCode.ServiceUnavailable, message: "База данных недоступна");
             }
             catch (NotFoundException error)
@@ -45,11 +47,15 @@ namespace BearGoodbyeKolkhozProject.API.Infrastructure
             }
             catch(DuplicateException error)
             {
-                await ConstructResponse(context, HttpStatusCode.Forbidden, error.Message);
+                await ConstructResponse(context, HttpStatusCode.Conflict, error.Message);
             }
             catch(UserIsBlockException error)
             {
                 await ConstructResponse(context, HttpStatusCode.Forbidden, error.Message);
+            }
+            catch (EntryPointNotFoundException error)
+            {
+                await ConstructResponse(context, HttpStatusCode.NotFound, error.Message);
             }
             catch (Exception ex)
             {
@@ -62,7 +68,9 @@ namespace BearGoodbyeKolkhozProject.API.Infrastructure
             context.Response.ContentType = "application/json";
             context.Response.StatusCode = (int)code;
 
-            var result = JsonSerializer.Serialize(new { message = message });
+            var updateModel = new ExceptionOutputModel{ Code = (int)code, Message = message};
+
+            var result = JsonSerializer.Serialize(updateModel);
             await context.Response.WriteAsync(result);
         }
     }

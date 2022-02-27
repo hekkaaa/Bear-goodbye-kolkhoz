@@ -49,7 +49,8 @@ namespace BearGoodbyeKolkhozProject.API.Extensions
         public static void RegisterSwaggerAuth(this IServiceCollection swagger)
         {
             swagger.AddSwaggerGen(opt =>
-            {
+            {   
+                opt.EnableAnnotations();
                 opt.SwaggerDoc("v1", new OpenApiInfo { Title = "MyAPI", Version = "v1" });
                 opt.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {

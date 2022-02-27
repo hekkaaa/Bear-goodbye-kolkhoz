@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using BearGoodbyeKolkhozProject.API.Models;
+using BearGoodbyeKolkhozProject.API.Models.ExceptionModel;
 using BearGoodbyeKolkhozProject.API.Models.InputModels;
 using BearGoodbyeKolkhozProject.Business.Models;
 using BearGoodbyeKolkhozProject.Business.Services;
