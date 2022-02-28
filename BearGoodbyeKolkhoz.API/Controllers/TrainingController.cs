@@ -63,7 +63,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         [Authorize(Roles = "Client")]
         public ActionResult AddReviewToTraining(int id, [FromBody] TrainingReviewInsertInputModel trainingReview)
         {
-            var clientId = HttpContext.GetClientIdFromToken();
+            var clientId = HttpContext.GetUserIdFromToken();
 
             _service.AddReviewToTraining(id, clientId, _mapper.Map<TrainingReviewModel>(trainingReview));
             
@@ -101,7 +101,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         [Authorize(Roles = "Client, Company")]
         public ActionResult<bool> SugnUp(int id)
         {
-            var clientId = HttpContext.GetClientIdFromToken();
+            var clientId = HttpContext.GetUserIdFromToken();
             var res = _eventService.SignUp(id, clientId);
 
             return Ok(res);

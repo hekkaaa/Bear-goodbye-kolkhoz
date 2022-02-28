@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
+using BearGoodbyeKolkhozProject.API.Extensions;
 using BearGoodbyeKolkhozProject.API.Models;
 using BearGoodbyeKolkhozProject.API.Models.InputModels;
 using BearGoodbyeKolkhozProject.Business.Interface;
 using BearGoodbyeKolkhozProject.Business.Models;
 using BearGoodbyeKolkhozProject.Business.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BearGoodbyeKolkhozProject.API.Controllers
@@ -77,11 +79,15 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
             return StatusCode(StatusCodes.Status201Created);
         }
 
-        //[HttpDelete("delete_training")]
-        //public ActionResult DeleteTraining()
-        //{
-        //    _service.DeleteTraining(id);
-        //}
+        [HttpDelete("delete_training/{id}")]
+        [Authorize(Roles = "Lecturer")]
+        public ActionResult DeleteTraining(int id)
+        {
+            int lecturerId = HttpContext.GetUserIdFromToken();
+            _service.DeleteTraining(lecturerId, id);
+
+            return NoContent();
+        }
 
         [HttpPost("{LecturerId}")]
         public ActionResult<ContactLecturerInsertInputModel> AddContactLecturerValueApi    // Данный метод позволяет компании ставить оценку Лектору за проведенное мероприятие

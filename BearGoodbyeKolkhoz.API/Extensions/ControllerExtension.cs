@@ -5,7 +5,7 @@ namespace BearGoodbyeKolkhozProject.API.Extensions
 {
     public static class ControllerExtension
     {
-        public static int GetClientIdFromToken(this HttpContext context)
+        public static int GetUserIdFromToken(this HttpContext context)
         {
             var identity = context.User.Identity as ClaimsIdentity;
 
