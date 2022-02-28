@@ -43,6 +43,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         }
 
         [HttpPatch("{id}")]
+        [Authorize(Roles = "Admin, Lecturer")]
         public ActionResult DeleteLecturerById(int id)
         {
             _service.DeleteLecturerById(id);
@@ -57,7 +58,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         }
 
         [HttpPost()]
-        public ActionResult LecturerRegistration([FromBody] LecturerRegistrationInputModel model)
+        public ActionResult LecturerRegistration([FromBody] RegistrationInputModel model)
         {
             LecturerModel entity = _mapper.Map<LecturerModel>(model);
             _service.RegistrationLecturer(entity);
@@ -73,6 +74,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         }
 
         [HttpPost("add-training")]
+        [Authorize(Roles = "Lecturer")]
         public ActionResult AddTraining(int id, int trainingId)
         {
             _service.AddTraining(id, trainingId);
