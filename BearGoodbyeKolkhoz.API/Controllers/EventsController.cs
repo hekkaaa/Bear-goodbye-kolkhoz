@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Authorization;
 namespace BearGoodbyeKolkhozProject.API.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/event")]
     public class EventsController : Controller
     {   
          private readonly IEventService _service;
@@ -25,7 +25,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
          }
          
          //api/events/
-         [HttpGet("all")]
+         [HttpGet]
          public ActionResult<List<EventOutputModel>> GetEvents()
          {
              var entity = _service.GetEvents();

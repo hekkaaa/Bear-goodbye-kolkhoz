@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BearGoodbyeKolkhozProject.API.Controllers
 {
-    [Route("api/classrooms")]
+    [Route("api/classroom")]
     [ApiController]
     [Authorize(Roles = "Admin")]
     public class ClassroomController : Controller
@@ -37,7 +37,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
                 return Ok(res);
             }
         }
-        [HttpGet("all")]
+        [HttpGet]
         public ActionResult<List<ClassroomOutputModel>> GetClassroomAll()
         {
             var res = _service.GetClassroomAll();
@@ -52,7 +52,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
             }
         }
 
-        [HttpPost("add")]
+        [HttpPost]
         public ActionResult<int> AddNewClassroom(ClassroomInsertInputModel newItem)
         {
             var model = _mapper.Map<ClassroomModel>(newItem);
@@ -60,7 +60,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
 
             if (res == null)
             {
-                return NotFound($"Failed to create new user. | Неудалось создать нового пользователя.");
+                return NotFound($"Failed to create new location. | Не удалось создать новое место.");
             }
             else
             {

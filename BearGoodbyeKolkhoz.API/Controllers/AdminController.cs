@@ -12,7 +12,7 @@ using System.ComponentModel;
 namespace BearGoodbyeKolkhozProject.API.Controllers
 {
     
-    [Route("api/admins")]
+    [Route("api/admin")]
     [ApiController]
     [Authorize(Roles = "Admin")]
     [SwaggerTag("The controller can be used after authentication/authorization under the role of Admin")]

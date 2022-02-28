@@ -17,16 +17,15 @@ namespace BearGoodbyeKolkhozProject.Data.ConnectDb
         public DbSet<Topic> Topic { get; set; }
         public DbSet<Training> Training { get; set; }
         public DbSet<TrainingReview> TrainingReview { get; set; }
+        public DbSet<User> User { get; set; }
 
         public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options)
         {
-            
+
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-
-
             modelBuilder.Entity<Admin>().HasData(
             new Admin()
             {
@@ -39,7 +38,6 @@ namespace BearGoodbyeKolkhozProject.Data.ConnectDb
                 Password = "1000:WvGHoK1WF2vO/ZkCz8FcmEdWsULri96e:oYQNDwkRfTN2Sm1fY56gS/5esvc=",
                 Role = Role.Admin,
                 IsDeleted = false,
-
             }
             );
 
@@ -49,7 +47,6 @@ namespace BearGoodbyeKolkhozProject.Data.ConnectDb
             new Classroom() { Id = 2, Address = "пр. Ветеранов дом 8", City = "Санкт-Петербург", MembersCount = 25 },
             new Classroom() { Id = 3, Address = "ул. Пушкина дом 27", City = "Санкт-Петербург", MembersCount = 40 }
             );
-
         }
 
     }
