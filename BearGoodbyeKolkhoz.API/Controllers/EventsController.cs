@@ -49,42 +49,29 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
          
              return Ok(result);
          }
-         
-         ////api/events/
-         [HttpPost()]
-         [Authorize(Roles = "Admin")]
-        public ActionResult<EventUpdateInputModel> AddEvent([FromBody] EventUpdateInputModel eventOutputModel)
-         {
-         
-             EventModel entity = _mapperApi.Map<EventModel>(eventOutputModel);
-         
-             _service.AddEventFromClient(entity);
-         
-             return StatusCode(StatusCodes.Status201Created, entity);
-         
-         }
+                
          
          //api/events/
          [HttpPut()]
          [Authorize(Roles = "Admin")]
         public ActionResult<EventUpdateInputModel> UpdateEvent(int id, [FromBody] EventUpdateInputModel eventUpdateInputModel)
-         {
+        {
              EventModel entity = _mapperApi.Map<EventModel>(eventUpdateInputModel);
          
              _service.UpdateEvent(id, entity);
          
              return Ok(entity);
-         }
+        }
          
          //api/events/
          [HttpDelete("{id}")]
          [Authorize(Roles = "Admin")]
         public ActionResult<EventUpdateInputModel> DeleteEvent(int id)
-         {
+        {
              _service.DeleteEvent(id);
          
              return NoContent();
-         }
+        }
         
     }
 }

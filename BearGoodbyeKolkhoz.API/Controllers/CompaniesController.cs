@@ -33,7 +33,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
 
         //api/companies/
         [HttpGet]
-        [Authorize(Roles = "Admin, Company")]
+        [Authorize(Roles = "Admin")]
         public ActionResult<List<CompanyOutputModel>> GetCompanies()
         {
             var entity = _companyService.GetCompanies();
@@ -47,7 +47,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
 
         //api/companies/
         [HttpGet("{id}")]
-        [Authorize(Roles = "Admin, Company")]
+        [Authorize(Roles = "Admin")]
         public ActionResult<CompanyOutputModel> GetCompanyById(int id)
         {
             var entity = _companyService.GetCompanyById(id);
@@ -61,6 +61,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
 
         //api/companies/
         [HttpPost()]
+        [Authorize(Roles = "Admin")]
         public ActionResult<CompanyInsertInputModel> RegistrationCompany([FromBody] CompanyInsertInputModel companyInsertInputModel)
         {
 
@@ -74,6 +75,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         }
         //api/companies/
         [HttpPut()]
+        [Authorize(Roles = "Company")]
         public ActionResult<CompanyUpdateInputModel> UpdateCompany([FromBody] CompanyUpdateInputModel companyUpdateInputModel)
         {
             CompanyModel model = _mapperApi.Map<CompanyModel>(companyUpdateInputModel);
@@ -83,7 +85,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
             return Ok(model);
 
         }
-        [HttpPut("{id}")]
+        [HttpPatch("{id}")]
         public ActionResult<CompanyOutputModel> UpdateCompany(int id, bool isDel)
         {
             _companyService.UpdateCompany(id, isDel);
@@ -100,32 +102,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
 
             return NoContent();
         }
-
-        //api/contactlecturer/
-        [HttpPost("{LecturerId}")]
-        public ActionResult<ContactLecturerInsertInputModel> AddContactLecturerValueApi    // Данный метод позволяет компании ставить оценку Лектору за проведенное мероприятие
-            ([FromBody] ContactLecturerInsertInputModel contactLecturerInsertInputModel)
-        {
-            ContactLecturerModel model = _mapperApi.Map<ContactLecturerModel>(contactLecturerInsertInputModel);
-
-            _contactLecturerService.AddContactLecturerValue(model);
-
-            return StatusCode(StatusCodes.Status201Created, model);
-        }
-
-        //api/contactlecturer/
-        [HttpPut("{LecturerId}")]
-        public ActionResult<ContactLecturerInsertInputModel> UpdateContactLecturerValueApi   // Данный метод позволяет компании изменить оценку Лектору за проведенное мероприятие
-            ([FromBody] ContactLecturerInsertInputModel contactLecturerInsertInputModel)
-        {
-            ContactLecturerModel entity = _mapperApi.Map<ContactLecturerModel>(contactLecturerInsertInputModel);
-
-            _contactLecturerService.UpdateContactLecturerValue(entity);
-
-            return Ok(entity);
-
-
-        }
+       
 
         [HttpPut("{id}/password")]
         public ActionResult<ChangePasswordInputModel> UpdatePasswordCompanyById(int id, [FromBody] ChangePasswordInputModel newItem)
