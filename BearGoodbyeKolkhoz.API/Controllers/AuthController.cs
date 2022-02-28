@@ -19,7 +19,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
 
         [HttpPost("login")]
         [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
-        [SwaggerOperation("Authentication\\Authorization")]
+        [SwaggerOperation("Authentication")]
         public ActionResult Login([FromBody] AuthInputModel auth)
         {
             var token = _authService.GetToken(auth.Email, auth.Password, auth.Role);

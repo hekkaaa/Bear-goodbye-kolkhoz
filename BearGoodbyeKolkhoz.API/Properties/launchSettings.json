@@ -61,7 +61,6 @@
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
         "BEAR_CONNECTION_STRING": "Data Source=localhost,1434;Database=Newtest;Trusted_Connection=False;User ID=SA;Password=Qwerty123"
-        //"BEAR_CONNECTION_STRING": "Data Source=LAPTOP-6F8LE3JH\\SQLEXPRESSDEV;Initial Catalog=Newtest;Integrated Security=True"
       }
     },
     "Ilya Launch Config": {
