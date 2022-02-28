@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using BearGoodbyeKolkhozProject.API.Configuration.ExceptionResponse;
 using BearGoodbyeKolkhozProject.API.Models.InputModels;
 using BearGoodbyeKolkhozProject.API.Models.OutputModels;
 using BearGoodbyeKolkhozProject.Business.Models;
@@ -7,6 +8,7 @@ using BearGoodbyeKolkhozProject.Business.Services;
 using BearGoodbyeKolkhozProject.Business.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel;
 
 namespace BearGoodbyeKolkhozProject.API.Controllers
 {
@@ -34,6 +36,10 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         //api/companies/
         [HttpGet]
         [Authorize(Roles = "Admin")]
+        [ProducesResponseType(typeof(CompanyOutputModel),StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ExceptionResponse), StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(typeof(ExceptionResponse), StatusCodes.Status404NotFound)]
+        [Description("Get companies")]
         public ActionResult<List<CompanyOutputModel>> GetCompanies()
         {
             var entity = _companyService.GetCompanies();
@@ -48,6 +54,10 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         //api/companies/
         [HttpGet("{id}")]
         [Authorize(Roles = "Admin")]
+        [ProducesResponseType(typeof(CompanyOutputModel), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ExceptionResponse), StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(typeof(ExceptionResponse), StatusCodes.Status404NotFound)]
+        [Description("Get company by id")]
         public ActionResult<CompanyOutputModel> GetCompanyById(int id)
         {
             var entity = _companyService.GetCompanyById(id);
@@ -61,7 +71,12 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
 
         //api/companies/
         [HttpPost()]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Company")]
+        [ProducesResponseType(typeof(CompanyOutputModel), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(ExceptionResponse),StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(typeof(ExceptionResponse),StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ValidationExceptionResponse),StatusCodes.Status422UnprocessableEntity)]
+        [Description("Add one company")]
         public ActionResult<CompanyInsertInputModel> RegistrationCompany([FromBody] CompanyInsertInputModel companyInsertInputModel)
         {
 
@@ -76,6 +91,11 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         //api/companies/
         [HttpPut()]
         [Authorize(Roles = "Company")]
+        [ProducesResponseType(typeof(CompanyOutputModel), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ExceptionResponse), StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(typeof(ExceptionResponse), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ValidationExceptionResponse), StatusCodes.Status422UnprocessableEntity)]
+        [Description("Update company")]
         public ActionResult<CompanyUpdateInputModel> UpdateCompany([FromBody] CompanyUpdateInputModel companyUpdateInputModel)
         {
             CompanyModel model = _mapperApi.Map<CompanyModel>(companyUpdateInputModel);
@@ -86,6 +106,11 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
 
         }
         [HttpPatch("{id}")]
+        [Authorize(Roles = "Admin")]
+        //[ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(typeof(ExceptionResponse), StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(typeof(ExceptionResponse), StatusCodes.Status404NotFound)]
+        [Description("Soft deleted")]
         public ActionResult<CompanyOutputModel> UpdateCompany(int id, bool isDel)
         {
             _companyService.UpdateCompany(id, isDel);
@@ -95,6 +120,11 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         }
         //api/companies/
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(typeof(ExceptionResponse), StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(typeof(ExceptionResponse), StatusCodes.Status404NotFound)]
+        [Description("Deleted company")]
         public ActionResult<CompanyUpdateInputModel> DeleteCompany(int id)
         {
 
@@ -105,6 +135,12 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
        
 
         [HttpPut("{id}/password")]
+        [Authorize(Roles = "Admin,Company")]
+        [ProducesResponseType(typeof(CompanyOutputModel), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ExceptionResponse), StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(typeof(ExceptionResponse), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ValidationExceptionResponse), StatusCodes.Status422UnprocessableEntity)]
+        [Description("Update password company by id")]
         public ActionResult<ChangePasswordInputModel> UpdatePasswordCompanyById(int id, [FromBody] ChangePasswordInputModel newItem)
         {
             CompanyModel model = _mapperApi.Map<CompanyModel>(newItem);

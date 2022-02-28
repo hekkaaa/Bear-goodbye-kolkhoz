@@ -8,25 +8,26 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BearGoodbyeKolkhozProject.API.Controllers
 {
-    [Route("api/classroom")]
+    
+    [Route("api/admin")]
     [ApiController]
     [Authorize(Roles = "Admin")]
-    public class ClassroomController : Controller
+    public class AdminsController : Controller
     {
-        private readonly IClassroomService _service;
+        private readonly IAdminService _service;
         private readonly IMapper _mapper;
 
-        public ClassroomController(IClassroomService classroomService, IMapper mapper)
+        public AdminsController(IAdminService adminService, IMapper mapper)
         {
-            _service = classroomService;
+            _service = adminService;
             _mapper = mapper;
         }
 
         [HttpGet("{id}")]
-        public ActionResult<ClassroomOutputModel> GetClassroomById(int id)
+        public ActionResult<AdminOutputModel> GetAdminById(int id)
         {
-            var model = _service.GetClassroomById(id);
-            var res = _mapper.Map<ClassroomOutputModel>(model);
+            var model = _service.GetAdminById(id);
+            var res = _mapper.Map<AdminOutputModel>(model);
 
             if (res == null)
             {
@@ -37,10 +38,11 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
                 return Ok(res);
             }
         }
+
         [HttpGet]
-        public ActionResult<List<ClassroomOutputModel>> GetClassroomAll()
+        public ActionResult<List<AdminOutputModel>> GetAdminAll()
         {
-            var res = _service.GetClassroomAll();
+            var res = _service.GetAdminAll();
 
             if (res == null)
             {
@@ -53,14 +55,14 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         }
 
         [HttpPost]
-        public ActionResult<int> AddNewClassroom(ClassroomInsertInputModel newItem)
+        public ActionResult<int> AddNewAdmin(AdminInsertInputModel newItem)
         {
-            var model = _mapper.Map<ClassroomModel>(newItem);
-            var res = _service.AddNewClassroom(model);
+            var model = _mapper.Map<AdminModel>(newItem);
+            var res = _service.AddNewAdmin(model);
 
             if (res == null)
             {
-                return NotFound($"Failed to create new location. | Не удалось создать новое место.");
+                return NotFound($"Failed to create new user. | Неудалось создать нового пользователя.");
             }
             else
             {
@@ -69,16 +71,23 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         }
 
         [HttpDelete("{id}")]
-        public ActionResult<bool> DeleteClassroomById(int id)
+        public ActionResult<bool> DeleteAdminById(int id)
         {
-            return Ok(_service.DeleteClassroom(id));
+            return Ok(_service.DeleteAdmin(id));
         }
 
         [HttpPut("{id}")]
-        public ActionResult<bool> UpdateClassroom(int id, [FromBody] ClassroomIUpdateInputModel newItem)
+        public ActionResult<bool> UpdateAdmin(int id, [FromBody] AdminUpdateInputModel newItem)
         {
-            var model = _mapper.Map<ClassroomModel>(newItem);
-            var res = _service.UpdateClassroomInfo(id, model);
+            var model = _mapper.Map<AdminModel>(newItem);
+            var res = _service.UpdateAdminInfo(id, model);
+            return Ok(res);
+        }
+
+        [HttpPut("{id}/password")]
+        public ActionResult<bool> ChangePasswordAdminById(int id, [FromBody] ChangePasswordInputModel newItem)
+        {
+            var res = _service.ChangeAdminPassword(id, newItem.Password);
             return Ok(res);
         }
     }
