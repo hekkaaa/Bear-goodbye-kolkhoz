@@ -26,6 +26,7 @@ namespace BearGoodbyeKolkhozProject.API.Extensions
             services.AddScoped<IClassroomService, ClassroomService>();
             services.AddScoped<IClientService, ClientService>();
             services.AddScoped<ITopicService, TopicService>();
+            services.AddScoped<IAuthService, AuthService>();
 
         }
 
@@ -43,7 +44,7 @@ namespace BearGoodbyeKolkhozProject.API.Extensions
             repository.AddScoped<IClientRepository, ClientRepository>();
             repository.AddScoped<IClientRepository, ClientRepository>();
             repository.AddScoped<ITopicRepository, TopicRepository>();
-            repository.AddScoped<IAuthService, AuthService>();
+            repository.AddScoped<IUserRepository, UserRepository>();
         }
 
         public static void RegisterSwaggerAuth(this IServiceCollection swagger)
