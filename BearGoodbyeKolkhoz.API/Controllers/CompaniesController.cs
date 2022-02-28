@@ -12,7 +12,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
 {
 
     [ApiController]
-    [Route("api/[controller]")]    
+    [Route("api/company")]    
     public class CompaniesController : Controller
     {
         private readonly ICompanyService _companyService;
@@ -32,7 +32,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
 
 
         //api/companies/
-        [HttpGet("(id/companies/)")]
+        [HttpGet]
         [Authorize(Roles = "Admin, Company")]
         public ActionResult<List<CompanyOutputModel>> GetCompanies()
         {
@@ -83,7 +83,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
             return Ok(model);
 
         }
-        [HttpPut("{id}/company/")]
+        [HttpPut("{id}")]
         public ActionResult<CompanyOutputModel> UpdateCompany(int id, bool isDel)
         {
             _companyService.UpdateCompany(id, isDel);
@@ -92,7 +92,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
 
         }
         //api/companies/
-        [HttpDelete("{id}/company/")]
+        [HttpDelete("{id}")]
         public ActionResult<CompanyUpdateInputModel> DeleteCompany(int id)
         {
 

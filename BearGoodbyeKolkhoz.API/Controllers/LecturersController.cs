@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace BearGoodbyeKolkhozProject.API.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/lecturer")]
     public class LecturersController : Controller
     {
         private readonly ILecturerService _service;
@@ -35,7 +35,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
             return Ok(result);
         }
 
-        [HttpPatch("{id}/delete")]
+        [HttpPatch("{id}")]
         public ActionResult DeleteLecturerById(int id)
         {
             _service.DeleteLecturerById(id);
@@ -66,7 +66,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
             return NoContent();
         }
 
-        [HttpPost("{id}/training")]
+        [HttpPost("add-training")]
         public ActionResult AddTraining(int id, int trainingId)
         {
             _service.AddTraining(id, trainingId);
