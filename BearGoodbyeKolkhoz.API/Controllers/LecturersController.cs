@@ -55,7 +55,6 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         }
 
         [HttpPost()]
-        
         public ActionResult LecturerRegistration([FromBody] LecturerRegistrationInputModel model)
         {
             LecturerModel entity = _mapper.Map<LecturerModel>(model);
@@ -78,7 +77,12 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
             return StatusCode(StatusCodes.Status201Created);
         }
 
-        //api/contactlecturer/
+        //[HttpDelete("delete_training")]
+        //public ActionResult DeleteTraining()
+        //{
+        //    _service.DeleteTraining(id);
+        //}
+
         [HttpPost("{LecturerId}")]
         public ActionResult<ContactLecturerInsertInputModel> AddContactLecturerValueApi    // Данный метод позволяет компании ставить оценку Лектору за проведенное мероприятие
             ([FromBody] ContactLecturerInsertInputModel contactLecturerInsertInputModel)
@@ -90,7 +94,6 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
             return StatusCode(StatusCodes.Status201Created, model);
         }
 
-        //api/contactlecturer/
         [HttpPut("{LecturerId}")]
         public ActionResult<ContactLecturerInsertInputModel> UpdateContactLecturerValueApi   // Данный метод позволяет компании изменить оценку Лектору за проведенное мероприятие
             ([FromBody] ContactLecturerInsertInputModel contactLecturerInsertInputModel)

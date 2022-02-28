@@ -7,6 +7,7 @@ using BearGoodbyeKolkhozProject.Data.Enums;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
+using BearGoodbyeKolkhozProject.API.Extensions;
 
 namespace BearGoodbyeKolkhozProject.API.Controllers
 {
@@ -62,7 +63,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         [Authorize(Roles = "Client")]
         public ActionResult AddReviewToTraining(int id, [FromBody] TrainingReviewInsertInputModel trainingReview)
         {
-            var clientId = GetClientIdFromToken();
+            var clientId = HttpContext.GetClientIdFromToken();
 
             _service.AddReviewToTraining(id, clientId, _mapper.Map<TrainingReviewModel>(trainingReview));
             
@@ -100,23 +101,10 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         [Authorize(Roles = "Client, Company")]
         public ActionResult<bool> SugnUp(int id)
         {
-            var clientId = GetClientIdFromToken();
+            var clientId = HttpContext.GetClientIdFromToken();
             var res = _eventService.SignUp(id, clientId);
 
             return Ok(res);
-        }
-
-        private int GetClientIdFromToken()
-        {
-            var identity = HttpContext.User.Identity as ClaimsIdentity;
-
-            if (identity != null)
-            {
-                var clientId = Convert.ToInt32(identity
-                    .FindFirst(@"http://schemas.microsoft.com/ws/2008/06/identity/claims/userdata").Value);
-                return clientId;
-            }
-            throw new HttpRequestException();
         }
     }
 }
