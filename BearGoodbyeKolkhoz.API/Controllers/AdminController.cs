@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace BearGoodbyeKolkhozProject.API.Controllers
 {
     
-    [Route("api/admins")]
+    [Route("api/admin")]
     [ApiController]
     [Authorize(Roles = "Admin")]
     public class AdminController : Controller
@@ -39,7 +39,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
             }
         }
 
-        [HttpGet("all")]
+        [HttpGet]
         public ActionResult<List<AdminOutputModel>> GetAdminAll()
         {
             var res = _service.GetAdminAll();
@@ -70,7 +70,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
             }
         }
 
-        [HttpDelete("{id}/delete")]
+        [HttpDelete("{id}")]
         public ActionResult<bool> DeleteAdminById(int id)
         {
             return Ok(_service.DeleteAdmin(id));

@@ -133,5 +133,86 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
 
 
         }
+
+        [TestCaseSource(typeof(UpdateCompanyTestCaseSourceTwo))]
+        public void UpdateCompanyTestTwo(Company company, Company updateCompany, Company expected)
+        {
+            //given
+            CompanyRepository companyRepository = new CompanyRepository(_context);
+            _context.Company.Add(company);
+            _context.SaveChanges();
+
+            //when
+            companyRepository.UpdateCompany(updateCompany.Id, updateCompany.IsDeleted);
+            var actual = _context.Company.FirstOrDefault(c => c.Id == company.Id);
+
+            _context.SaveChanges();
+            //then
+            Assert.IsTrue(expected.Id == actual.Id);
+            Assert.IsNotNull(expected);
+            Assert.AreEqual(expected.Name, actual.Name);
+            Assert.AreEqual(expected.PhoneNumber, actual.PhoneNumber);
+            Assert.AreEqual(expected.Tin, actual.Tin);
+            Assert.AreEqual(expected.Email, actual.Email);
+            Assert.AreEqual(expected.Password, actual.Password);
+            Assert.AreEqual(expected.IsDeleted, actual.IsDeleted);
+
+
+        }
+
+        [TestCaseSource(typeof(ChangePasswordCompanyTestCaseSource))]
+
+        public void ChangePasswordCompanyTest(Company company, string Password, Company expected)
+        {
+            //given
+            CompanyRepository companyRepository = new CompanyRepository(_context);
+            _context.Company.Add(company);
+            _context.SaveChanges();
+
+            //when
+            companyRepository.ChangePasswordCompany(Password, company);
+            var actual = _context.Company.FirstOrDefault(c => c.Id == company.Id);
+            _context.SaveChanges();
+
+
+            //then
+            Assert.IsTrue(expected.Id == actual.Id);
+            Assert.IsNotNull(expected);
+            Assert.AreEqual(expected.Name, actual.Name);
+            Assert.AreEqual(expected.PhoneNumber, actual.PhoneNumber);
+            Assert.AreEqual(expected.Tin, actual.Tin);
+            Assert.AreEqual(expected.Email, actual.Email);
+            Assert.AreEqual(expected.Password, actual.Password);
+            Assert.AreEqual(expected.IsDeleted, actual.IsDeleted);
+        }
+
+        [TestCaseSource(typeof(LoginTestCaseSource))]
+
+        public void LodinTest(Company company, string login, Company expected)
+        {
+            //given
+            CompanyRepository companyRepository = new CompanyRepository(_context);
+            _context.Company.Add(company);
+            _context.SaveChanges();
+
+            //when
+
+            companyRepository.Login(login);
+            var actual = _context.Company.FirstOrDefault(c => c.Email == company.Email);
+            _context.SaveChanges();
+
+            //then
+
+            Assert.IsTrue(expected.Id == actual.Id);
+            Assert.IsNotNull(expected);
+            Assert.AreEqual(expected.Name, actual.Name);
+            Assert.AreEqual(expected.PhoneNumber, actual.PhoneNumber);
+            Assert.AreEqual(expected.Tin, actual.Tin);
+            Assert.AreEqual(expected.Email, actual.Email);
+            Assert.AreEqual(expected.Password, actual.Password);
+            Assert.AreEqual(expected.IsDeleted, actual.IsDeleted);
+
+
+        }
     }
 }
