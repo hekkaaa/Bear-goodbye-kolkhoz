@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
 using BearGoodbyeKolkhozProject.API.Models;
+using BearGoodbyeKolkhozProject.API.Models.InputModels;
 using BearGoodbyeKolkhozProject.Business.Interface;
 using BearGoodbyeKolkhozProject.Business.Models;
+using BearGoodbyeKolkhozProject.Business.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BearGoodbyeKolkhozProject.API.Controllers
@@ -11,10 +13,13 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
     public class LecturersController : Controller
     {
         private readonly ILecturerService _service;
+        private IContactLecturerService _contactLecturerService;
         private IMapper _mapper;
+        
 
-        public LecturersController(ILecturerService lecturerService, IMapper mapper)
+        public LecturersController(ILecturerService lecturerService, IMapper mapper, IContactLecturerService contactLecturerService)
         {
+            _contactLecturerService = contactLecturerService;
             _service = lecturerService;
             _mapper = mapper;
         }
@@ -71,6 +76,32 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         {
             _service.AddTraining(id, trainingId);
             return StatusCode(StatusCodes.Status201Created);
+        }
+
+        //api/contactlecturer/
+        [HttpPost("{LecturerId}")]
+        public ActionResult<ContactLecturerInsertInputModel> AddContactLecturerValueApi    // Данный метод позволяет компании ставить оценку Лектору за проведенное мероприятие
+            ([FromBody] ContactLecturerInsertInputModel contactLecturerInsertInputModel)
+        {
+            ContactLecturerModel model = _mapper.Map<ContactLecturerModel>(contactLecturerInsertInputModel);
+
+            _contactLecturerService.AddContactLecturerValue(model);
+
+            return StatusCode(StatusCodes.Status201Created, model);
+        }
+
+        //api/contactlecturer/
+        [HttpPut("{LecturerId}")]
+        public ActionResult<ContactLecturerInsertInputModel> UpdateContactLecturerValueApi   // Данный метод позволяет компании изменить оценку Лектору за проведенное мероприятие
+            ([FromBody] ContactLecturerInsertInputModel contactLecturerInsertInputModel)
+        {
+            ContactLecturerModel entity = _mapper.Map<ContactLecturerModel>(contactLecturerInsertInputModel);
+
+            _contactLecturerService.UpdateContactLecturerValue(entity);
+
+            return Ok(entity);
+
+
         }
     }
 }
