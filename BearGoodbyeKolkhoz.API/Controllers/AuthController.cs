@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace BearGoodbyeKolkhozProject.API.Controllers
 {
     [ApiController]
-    [Route("auth/[controller]")]
+    [Route("api/auth")]
     [AllowAnonymous]
     public class AuthController : Controller
     {
@@ -19,7 +19,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         [HttpPost("login")]
         public ActionResult Login([FromBody] AuthInputModel auth)
         {
-            var token = _authService.GetToken(auth.Email, auth.Password, auth.Role);
+            var token = _authService.GetToken(auth.Email, auth.Password);
             return Json(token);
         }
     }
