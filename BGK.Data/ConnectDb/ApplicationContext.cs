@@ -26,13 +26,6 @@ namespace BearGoodbyeKolkhozProject.Data.ConnectDb
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //modelBuilder.Entity<User>()
-            //   .ToTable("User")
-            //   .HasDiscriminator<Role>("Role")
-            //   .HasValue<Admin>(Role.Admin)
-            //   .HasValue<Client>(Role.Client)
-            //   .HasValue<Lecturer>(Role.Lecturer);
-
             modelBuilder.Entity<Admin>().HasData(
             new Admin()
             {
