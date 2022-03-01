@@ -132,14 +132,14 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         [HttpPatch("{id}")]
         [Authorize(Roles = "Admin")]
         [SwaggerOperation("Soft delete training. Roles: Admin")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status403Forbidden)]
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status503ServiceUnavailable)]
         public ActionResult DeleteTraining(int id)
         {
             _service.DeleteTraining(id);
-            return Ok("Тренинг успешно удален");
+            return NoContent();
         }
 
         [HttpPost("{id}/signup")]
