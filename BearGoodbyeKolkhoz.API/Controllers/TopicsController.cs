@@ -46,7 +46,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         public ActionResult GetTopics()
         {
             var models = _service.GetTopics();
-            return Ok(_mapper.Map<List<TrainingOutputModel>>(models));
+            return Ok(_mapper.Map<List<TopicOutputModel>>(models));
         }
 
         [HttpPost]
@@ -60,7 +60,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         {
             var topic = _mapper.Map<TopicModel>(topicInputModel);
             _service.AddTopic(topic);
-            return Ok("Новый интерес успешно добавлен");
+            return Ok("Новая тема успешно добавлена");
         }
 
         [HttpPut("{id}")]
@@ -75,7 +75,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
             var topic = _mapper.Map<TopicModel>(topicUpdate);
             _service.UpdateTopic(topic, id);
 
-            return Ok("Интерес успешно обновлён");
+            return Ok("Тема успешно обновлена");
         }
 
         [HttpPatch("{id}")]
@@ -85,7 +85,6 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status409Conflict)]
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status503ServiceUnavailable)]
-
         public ActionResult DeleteTraining(int id)
         {
             var topic = _service.GetTopicById(id);
