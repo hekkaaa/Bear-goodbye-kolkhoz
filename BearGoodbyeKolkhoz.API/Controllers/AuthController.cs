@@ -2,6 +2,7 @@
 using BearGoodbyeKolkhozProject.Business.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace BearGoodbyeKolkhozProject.API.Controllers
 {
@@ -17,6 +18,8 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         }
 
         [HttpPost("login")]
+        [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
+        [SwaggerOperation("Authentication")]
         public ActionResult Login([FromBody] AuthInputModel auth)
         {
             var token = _authService.GetToken(auth.Email, auth.Password);

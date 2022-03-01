@@ -4,7 +4,8 @@ using BearGoodbyeKolkhozProject.API.Infrastructure;
 using BearGoodbyeKolkhozProject.Business.Configuration;
 using BearGoodbyeKolkhozProject.Data.ConnectDb;
 using Microsoft.EntityFrameworkCore;
-
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.OpenApi.Models;
 
 const string? _connString = "BEAR_CONNECTION_STRING";
 

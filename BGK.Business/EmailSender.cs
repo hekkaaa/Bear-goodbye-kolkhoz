@@ -26,6 +26,7 @@ namespace BearGoodbyeKolkhozProject.Business
             //client.EnableSsl = true;
             client.UseDefaultCredentials = false;
             client.Credentials = basicCredential1;
+
             try
             {
                 client.Send(message);

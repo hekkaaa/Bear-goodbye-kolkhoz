@@ -1,10 +1,13 @@
 ﻿using AutoMapper;
+using BearGoodbyeKolkhozProject.API.Models.ExceptionModel;
 using BearGoodbyeKolkhozProject.API.Models.InputModels;
 using BearGoodbyeKolkhozProject.API.Models.OutputModels;
 using BearGoodbyeKolkhozProject.Business.Models;
 using BearGoodbyeKolkhozProject.Business.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
+using System.ComponentModel;
 
 namespace BearGoodbyeKolkhozProject.API.Controllers
 {
@@ -12,6 +15,8 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
     [Route("api/admin")]
     [ApiController]
     [Authorize(Roles = "Admin")]
+    [SwaggerTag("The controller can be used after authentication/authorization under the role of Admin")]
+
     public class AdminController : Controller
     {
         private readonly IAdminService _service;
@@ -24,6 +29,11 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         }
 
         [HttpGet("{id}")]
+        [ProducesResponseType(typeof(AdminOutputModel), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status503ServiceUnavailable)]
+        [SwaggerOperation("Show info Admin")]
         public ActionResult<AdminOutputModel> GetAdminById(int id)
         {
             var model = _service.GetAdminById(id);
@@ -39,7 +49,12 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
             }
         }
 
-        [HttpGet]
+        [HttpGet("all")]
+        [ProducesResponseType(typeof(List<AdminOutputModel>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status503ServiceUnavailable)]
+        [SwaggerOperation(Summary = "Show list of all admins")]
         public ActionResult<List<AdminOutputModel>> GetAdminAll()
         {
             var res = _service.GetAdminAll();
@@ -55,7 +70,13 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         }
 
         [HttpPost]
-        public ActionResult<int> AddNewAdmin(AdminInsertInputModel newItem)
+        [ProducesResponseType(typeof(AdminCreateOutputModel), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status409Conflict)]
+        [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status503ServiceUnavailable)]
+        [SwaggerOperation("Add new Admin")]
+        public ActionResult<AdminCreateOutputModel> AddNewAdmin(AdminInsertInputModel newItem)
         {
             var model = _mapper.Map<AdminModel>(newItem);
             var res = _service.AddNewAdmin(model);
@@ -66,17 +87,27 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
             }
             else
             {
-                return Ok(res);
+                return StatusCode(StatusCodes.Status201Created, new AdminCreateOutputModel { createId = res });
             }
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("{id}/delete")]
+        [ProducesResponseType(typeof(bool), StatusCodes.Status204NoContent)]
+        [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status503ServiceUnavailable)]
+        [SwaggerOperation("Delete Admin")]
         public ActionResult<bool> DeleteAdminById(int id)
         {
             return Ok(_service.DeleteAdmin(id));
         }
 
         [HttpPut("{id}")]
+        [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status503ServiceUnavailable)]
+        [SwaggerOperation("Edit Admin")]
         public ActionResult<bool> UpdateAdmin(int id, [FromBody] AdminUpdateInputModel newItem)
         {
             var model = _mapper.Map<AdminModel>(newItem);
@@ -84,7 +115,12 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
             return Ok(res);
         }
 
-        [HttpPut("{id}/password")]
+        [HttpPatch("{id}/password")]
+        [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status503ServiceUnavailable)]
+        [SwaggerOperation("Edit password")]
         public ActionResult<bool> ChangePasswordAdminById(int id, [FromBody] ChangePasswordInputModel newItem)
         {
             var res = _service.ChangeAdminPassword(id, newItem.Password);
