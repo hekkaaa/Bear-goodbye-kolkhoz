@@ -30,11 +30,6 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
                 .ToList();
         }
 
-        public List<Training> GetTrainingByLecturerId(int id)
-        {
-            return _context.Lecturer.FirstOrDefault(l => l.Id == id).Trainings.ToList();
-        }
-
         public void AddLecturer(Lecturer model)
         {
             model.Role = Role.Lecturer;

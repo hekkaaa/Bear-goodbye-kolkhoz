@@ -44,6 +44,16 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
             return Ok(result);
         }
 
+        [HttpGet("/trainings")]
+        [Authorize(Roles = "Lecturer")]
+        public ActionResult<TrainingOutputModel> GetTrainingByLecturerId()
+        {
+            int id = HttpContext.GetUserIdFromToken();
+            var trainings = _service.GetTrainingByLecturerId(id);
+
+            return Ok(trainings);
+        }
+
         [HttpPatch("{id}")]
         [Authorize(Roles = "Admin, Lecturer")]
         public ActionResult DeleteLecturerById(int id)
