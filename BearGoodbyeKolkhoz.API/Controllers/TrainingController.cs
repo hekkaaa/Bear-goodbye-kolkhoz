@@ -108,6 +108,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         {
             var training = _mapper.Map<TrainingModel>(trainingUpdateInputModel);
             _service.UpdateTraining(id, training);
+
             return Ok();
         }
 
