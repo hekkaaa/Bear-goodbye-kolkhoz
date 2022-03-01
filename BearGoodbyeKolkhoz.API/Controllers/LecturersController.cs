@@ -27,6 +27,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         }
 
         [HttpGet()]
+        [AllowAnonymous]
         public ActionResult<List<LecturerOutputModel>> GetLecturers()
         {
             var lecturers = _service.GetLecturers();
@@ -35,6 +36,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         }
 
         [HttpGet("{id}")]
+        [AllowAnonymous]
         public ActionResult<LecturerOutputModel> GetLecturerById(int id)
         {
             var entity = _service.GetLecturerById(id);
@@ -51,6 +53,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         }
 
         [HttpPatch("{id}/recover")]
+        [Authorize(Roles = "Admin")]
         public ActionResult RecoverLecturerById(int id)
         {
             _service.RecoverLecturerById(id);
@@ -58,6 +61,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         }
 
         [HttpPost()]
+        [AllowAnonymous]
         public ActionResult LecturerRegistration([FromBody] RegistrationInputModel model)
         {
             LecturerModel entity = _mapper.Map<LecturerModel>(model);
@@ -66,6 +70,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize(Roles = "Lecturer")]
         public ActionResult UpdateLecturer(int id, [FromBody] UpdateInputModel model)
         {
             var entity = _mapper.Map<LecturerModel>(model);
@@ -92,7 +97,8 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         }
 
         [HttpPost("{LecturerId}")]
-        public ActionResult<ContactLecturerInsertInputModel> AddContactLecturerValueApi    // Данный метод позволяет компании ставить оценку Лектору за проведенное мероприятие
+        [Authorize(Roles = "Lecturer")]
+        public ActionResult<ContactLecturerInsertInputModel> AddContactLecturerValueApi
             ([FromBody] ContactLecturerInsertInputModel contactLecturerInsertInputModel)
         {
             ContactLecturerModel model = _mapper.Map<ContactLecturerModel>(contactLecturerInsertInputModel);
@@ -103,7 +109,8 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         }
 
         [HttpPut("{LecturerId}")]
-        public ActionResult<ContactLecturerInsertInputModel> UpdateContactLecturerValueApi   // Данный метод позволяет компании изменить оценку Лектору за проведенное мероприятие
+        [Authorize(Roles = "Lecturer")]
+        public ActionResult<ContactLecturerInsertInputModel> UpdateContactLecturerValueApi
             ([FromBody] ContactLecturerInsertInputModel contactLecturerInsertInputModel)
         {
             ContactLecturerModel entity = _mapper.Map<ContactLecturerModel>(contactLecturerInsertInputModel);
@@ -111,8 +118,6 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
             _contactLecturerService.UpdateContactLecturerValue(entity);
 
             return Ok(entity);
-
-
         }
     }
 }
