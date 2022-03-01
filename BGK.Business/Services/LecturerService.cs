@@ -22,11 +22,12 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             _mapper = mapper;
         }
 
-        public void RegistrationLecturer(LecturerModel model)
+        public int RegistrationLecturer(LecturerModel model)
         {
             var entity = _mapper.Map<Lecturer>(model);
             entity.Password = PasswordHash.HashPassword(model.Password);
-            _lecturerRepo.AddLecturer(entity);
+            
+            return _lecturerRepo.AddLecturer(entity);
         }
 
         public void DeleteLecturerById(int id)
