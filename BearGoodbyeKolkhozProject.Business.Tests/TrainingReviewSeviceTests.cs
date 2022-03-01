@@ -17,9 +17,6 @@ namespace BearGoodbyeKolkhozProject.Business.Tests
     public class TrainingReviewSeviceTests
     {
         private TrainingReviewService _service;
-        private ApplicationContext _context;
-        private TrainingReviewRepository _trainingRepository;
-        private TestData _testData;
         private IMapper _mapper;
 
 
