@@ -71,7 +71,6 @@ namespace BearGoodbyeKolkhozProject.Business.Tests
             Assert.AreEqual(actual.Email, company.Email);
             Assert.AreEqual(actual.PhoneNumber, company.PhoneNumber);
             Assert.AreEqual(actual.Tin, company.Tin);
-            Assert.AreEqual(actual.Password, company.Password);
             Assert.AreEqual(actual.IsDeleted, company.IsDeleted);
 
         }
