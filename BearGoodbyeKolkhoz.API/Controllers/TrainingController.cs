@@ -70,7 +70,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         [HttpPost("{id}/topic/{topicId}")]
         [Authorize(Roles = "Admin")]
         [SwaggerOperation("Get all trainings. Roles: Admin")]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status403Forbidden)]
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status409Conflict)]
@@ -101,7 +101,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         [HttpPut("{id}")]
         [Authorize(Roles = "Admin")]
         [SwaggerOperation("Update training. Roles: Admin")]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status403Forbidden)]
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status409Conflict)]
@@ -111,7 +111,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
             var training = _mapper.Map<TrainingModel>(trainingUpdateInputModel);
             _service.UpdateTraining(id, training);
 
-            return NoContent();
+            return Ok();
         }
 
         [HttpPost]
@@ -132,7 +132,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         [HttpPatch("{id}")]
         [Authorize(Roles = "Admin")]
         [SwaggerOperation("Soft delete training. Roles: Admin")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status403Forbidden)]
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status503ServiceUnavailable)]

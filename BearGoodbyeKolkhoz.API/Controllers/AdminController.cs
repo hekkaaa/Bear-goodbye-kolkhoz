@@ -92,7 +92,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         }
 
         [HttpDelete("{id}/delete")]
-        [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(bool), StatusCodes.Status204NoContent)]
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status403Forbidden)]
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status503ServiceUnavailable)]
@@ -115,7 +115,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
             return Ok(res);
         }
 
-        [HttpPut("{id}/password")]
+        [HttpPatch("{id}/password")]
         [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status403Forbidden)]
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status404NotFound)]

@@ -30,7 +30,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status403Forbidden)]
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status503ServiceUnavailable)]
-        [SwaggerOperation("Show info classroom")]
+        [SwaggerOperation("Show info Classroom")]
         public ActionResult<ClassroomOutputModel> GetClassroomById(int id)
         {
             var model = _service.GetClassroomById(id);
@@ -87,7 +87,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         }
 
         [HttpDelete("{id}")]
-        [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(bool), StatusCodes.Status204NoContent)]
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status403Forbidden)]
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status503ServiceUnavailable)]
