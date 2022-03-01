@@ -8,7 +8,7 @@ using BearGoodbyeKolkhozProject.Data.Entities;
 using BearGoodbyeKolkhozProject.Data.Repositories;
 using Moq;
 using NUnit.Framework;
-
+using System.Collections.Generic;
 
 namespace BearGoodbyeKolkhozProject.Business.Tests
 {
@@ -32,9 +32,11 @@ namespace BearGoodbyeKolkhozProject.Business.Tests
             Mock<IClientRepository> clientRepository = new Mock<IClientRepository>();
             Mock<ITopicRepository> topicRepository = new Mock<ITopicRepository>();
             Mock<ITrainingReviewRepository> trainingReviewRepository = new Mock<ITrainingReviewRepository>();
+
             //when
             TrainingService _service = new TrainingService(trainingRepository.Object, _mapper, clientRepository.Object, trainingReviewRepository.Object, topicRepository.Object);
             var act = _service.GetTrainingModelById(id);
+
             //then
             Assert.IsTrue(act.Id == expected.Id);
             Assert.IsTrue(act.Name == expected.Name);
@@ -44,67 +46,83 @@ namespace BearGoodbyeKolkhozProject.Business.Tests
             Assert.IsTrue(act.Topics.Count == 1);
         }
 
-        //[Test]
-        //public void GetTrainingByIdNegativeTests()
-        //{
-        //    //given
-        //    //when
-        //    //then
-        //    Assert.Throws<RepositoryException>(() => _service.GetTrainingModelById(5));
-        //}
+        [TestCaseSource(typeof(GetTrainingByIdTestCaseSource))]
+        public void GetTrainingByIdNegativeTests(Training entity, TrainingModel expected, int id)
+        {
+            //given
+            Mock<ITrainingRepository> trainingRepository = new Mock<ITrainingRepository>();
+            id = 1024;
+            trainingRepository.Setup(t => t.GetTrainingById(id)).Returns(entity);
+            Mock<IClientRepository> clientRepository = new Mock<IClientRepository>();
+            Mock<ITopicRepository> topicRepository = new Mock<ITopicRepository>();
+            Mock<ITrainingReviewRepository> trainingReviewRepository = new Mock<ITrainingReviewRepository>();
+            //when
+            TrainingService _service = new TrainingService(trainingRepository.Object, _mapper, clientRepository.Object, trainingReviewRepository.Object, topicRepository.Object);
 
-        //[Test]
-        //public void GetTrainingsByTopicTests()
-        //{
-        //    //given
-        //    var topic = new TopicModel { Id = 666, Name = "Gop-stop" };
-        //    var training = _testData.GetTrainingModel();
-        //    training.Topics.Add(topic);
-        //    _service.AddTraining(training);
-        //    //when
-        //    var act = _service.GetTrainingModelByTopic(topic);
-        //    //then
-        //    Assert.IsTrue(act.Count == 1);
-        //    Assert.IsTrue(act[0].Name == training.Name);
-        //    Assert.IsTrue(act[0].Description == training.Description);
-        //}
+            //then
+            Assert.Throws<NotFoundException>(() => _service.GetTrainingModelById(5));
+        }
 
-        //[Test]
-        //public void GetTrainingByTopicNegativeTests()
-        //{
-        //    //given
-        //    var topicModel = _testData.GetTopicModel();
+        [TestCaseSource(typeof(GetTrainingByTopicTestCaseSource))]
+        public void GetTrainingsByTopicTests(List<Training> entity, TrainingModel expected, TopicModel topicModel, Topic topicEntity )
+        {
+            //given
+            Mock<ITrainingRepository> trainingRepository = new Mock<ITrainingRepository>();
+            Mock<IClientRepository> clientRepository = new Mock<IClientRepository>();
+            Mock<ITopicRepository> topicRepository = new Mock<ITopicRepository>();
+            Mock<ITrainingReviewRepository> trainingReviewRepository = new Mock<ITrainingReviewRepository>();
 
-        //    //when
-        //    //then
-        //    Assert.Throws<RepositoryException>(() => _service.GetTrainingModelByTopic(topicModel));
-        //}
+            topicRepository.Setup(t => t.GetTopicById(topicEntity.Id)).Returns(topicEntity);
+            trainingRepository.Setup(t => t.GetTrainingsByTopic(topicEntity)).Returns(entity);
 
-        //[Test]
-        //public void UpdateTrainingByIdTests()
-        //{
-        //    //given
-        //    var oldTraining = _testData.GetTrainingModel();
-        //    _service.AddTraining(oldTraining);
+            //when
+            TrainingService _service = new TrainingService(trainingRepository.Object, _mapper, clientRepository.Object, trainingReviewRepository.Object, topicRepository.Object);
+            var act = _service.GetTrainingModelByTopic(topicModel);
 
-        //    var newTraining = new TrainingModel
-        //    {
-        //        Id = oldTraining.Id,
-        //        Name = "kokoko",
-        //        Description = "chotko",
-        //        Duration = 30,
-        //        MembersCount = 30
-        //    };
-        //    //when
-        //    _service.UpdateTraining(oldTraining.Id, newTraining);
-        //    var act = _service.GetTrainingModelById(oldTraining.Id);
-        //    //then
-        //    Assert.IsTrue(act.Name == "kokoko");
-        //    Assert.IsTrue(act.Description == "chotko");
-        //    Assert.IsTrue(act.Duration == 30);
-        //    Assert.IsTrue(act.MembersCount == 30);
-        //    Assert.IsTrue(act.IsDeleted == false);
-        //}
+            //then
+            Assert.IsTrue(act.Count == 2);
+            Assert.IsTrue(act[0].Name == expected.Name);
+            Assert.IsTrue(act[0].Description == expected.Description);
+        }
+
+        [TestCaseSource(typeof(GetTrainingByTopicTestCaseSource))]
+        public void GetTrainingByTopicNegativeTests(List<Training> entity, TrainingModel expected, TopicModel topicModel, Topic topicEntity)
+        {
+            //given
+            Mock<ITrainingRepository> trainingRepository = new Mock<ITrainingRepository>();
+            Mock<IClientRepository> clientRepository = new Mock<IClientRepository>();
+            Mock<ITopicRepository> topicRepository = new Mock<ITopicRepository>();
+            Mock<ITrainingReviewRepository> trainingReviewRepository = new Mock<ITrainingReviewRepository>();
+
+            topicRepository.Setup(t => t.GetTopicById(42)).Returns(topicEntity);
+            trainingRepository.Setup(t => t.GetTrainingsByTopic(topicEntity)).Returns(entity);
+
+            //when
+            TrainingService _service = new TrainingService(trainingRepository.Object, _mapper, clientRepository.Object, trainingReviewRepository.Object, topicRepository.Object);
+
+            //then
+            Assert.Throws<NotFoundException>(() => _service.GetTrainingModelByTopic(topicModel));
+        }
+
+        [TestCaseSource(typeof(UpdateTrainingByIdTestCaseSource))]
+        public void UpdateTrainingByIdTests(Training training, TrainingModel trainingModel)
+        {
+            //given
+            Mock<ITrainingRepository> trainingRepository = new Mock<ITrainingRepository>();
+            Mock<IClientRepository> clientRepository = new Mock<IClientRepository>();
+            Mock<ITopicRepository> topicRepository = new Mock<ITopicRepository>();
+            Mock<ITrainingReviewRepository> trainingReviewRepository = new Mock<ITrainingReviewRepository>();
+
+            trainingRepository.Setup(t => t.GetTrainingById(training.Id)).Returns(training);
+            trainingRepository.Setup(t => t.UpdateTraining(It.IsAny<Training>()));
+
+            //when
+            TrainingService _service = new TrainingService(trainingRepository.Object, _mapper, clientRepository.Object, trainingReviewRepository.Object, topicRepository.Object);
+            _service.UpdateTraining(training.Id, trainingModel);
+
+            //then
+            trainingRepository.Verify(tr => tr.UpdateTraining(It.IsAny<Training>()), Times.Once);
+        }
 
         //[Test]
         //public void UpdateTrainingByIdNegativeTests()
