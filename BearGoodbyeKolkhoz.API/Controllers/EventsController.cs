@@ -15,6 +15,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
 {
     [ApiController]
     [Route("api/event")]
+    [SwaggerTag("The controller can be used after authentication/authorization under the role of Admin")]
     public class EventsController : Controller
     {   
          private readonly IEventService _service;
@@ -34,7 +35,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         [ProducesResponseType(typeof(CompanyOutputModel), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ExceptionResponse), StatusCodes.Status403Forbidden)]
         [ProducesResponseType(typeof(ExceptionResponse), StatusCodes.Status404NotFound)]
-        [Description("Get events")]
+        [SwaggerOperation("Get events")]
         public ActionResult<List<EventOutputModel>> GetEvents()
         {
              var entity = _service.GetEvents();
@@ -52,7 +53,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         [ProducesResponseType(typeof(CompanyOutputModel), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ExceptionResponse), StatusCodes.Status403Forbidden)]
         [ProducesResponseType(typeof(ExceptionResponse), StatusCodes.Status404NotFound)]
-        [Description("Get event by id")]
+        [SwaggerOperation("Get event by id")]
         public ActionResult<EventOutputModel> GetEventById(int id)
         {
              var entity = _service.GetEventById(id);
@@ -72,7 +73,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         [ProducesResponseType(typeof(ExceptionResponse), StatusCodes.Status403Forbidden)]
         [ProducesResponseType(typeof(ExceptionResponse), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ValidationExceptionResponse), StatusCodes.Status422UnprocessableEntity)]
-        [Description("Update event")]
+        [SwaggerOperation("Update event")]
         public ActionResult<EventUpdateInputModel> UpdateEvent(int id, [FromBody] EventUpdateInputModel eventUpdateInputModel)
         {
             EventModel entity = _mapperApi.Map<EventModel>(eventUpdateInputModel);
@@ -87,7 +88,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(typeof(ExceptionResponse), StatusCodes.Status403Forbidden)]
         [ProducesResponseType(typeof(ExceptionResponse), StatusCodes.Status404NotFound)]
-        [Description("Deleted event")]
+        [SwaggerOperation("Deleted event")]
         [Authorize(Roles = "Admin")]
         public ActionResult<EventUpdateInputModel> DeleteEvent(int id)
         {
