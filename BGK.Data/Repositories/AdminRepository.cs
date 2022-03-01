@@ -19,7 +19,6 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
         }
         public List<Admin> GetAdminAll()
         {
-            //return _db.Admin.Where(a => !a.IsDeleted).ToList();
             return _db.Admin.ToList();
         }
         public bool UpdateAdminInfo(Admin oldItem, Admin newItem)
