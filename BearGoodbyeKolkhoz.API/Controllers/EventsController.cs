@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using BearGoodbyeKolkhozProject.API.Configuration.ExceptionResponse;
 using Swashbuckle.AspNetCore.Annotations;
+using System.ComponentModel;
 
 namespace BearGoodbyeKolkhozProject.API.Controllers
 {
