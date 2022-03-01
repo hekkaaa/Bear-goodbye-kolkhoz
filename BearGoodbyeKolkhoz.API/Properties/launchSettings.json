@@ -60,7 +60,7 @@
       "applicationUrl": "https://localhost:7151;http://localhost:5151",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
-        "BEAR_CONNECTION_STRING": "Data Source=LAPTOP-6F8LE3JH\\SQLEXPRESSDEV;Initial Catalog=Newtest;Integrated Security=True"
+        "BEAR_CONNECTION_STRING": "Data Source=localhost,1434;Database=Newtest;Trusted_Connection=False;User ID=SA;Password=Qwerty123"
       }
     },
     "Ilya Launch Config": {

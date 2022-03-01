@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
+using BearGoodbyeKolkhozProject.API.Models.ExceptionModel;
 using BearGoodbyeKolkhozProject.API.Models.InputModels;
 using BearGoodbyeKolkhozProject.API.Models.OutputModels;
+using BearGoodbyeKolkhozProject.Business.Interface;
 using BearGoodbyeKolkhozProject.Business.Models;
 using BearGoodbyeKolkhozProject.Business.Interface;
 using Microsoft.AspNetCore.Mvc;
@@ -72,11 +74,11 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         [Description("Update event")]
         public ActionResult<EventUpdateInputModel> UpdateEvent(int id, [FromBody] EventUpdateInputModel eventUpdateInputModel)
         {
-             EventModel entity = _mapperApi.Map<EventModel>(eventUpdateInputModel);
-         
-             _service.UpdateEvent(id, entity);
-         
-             return Ok(entity);
+            EventModel entity = _mapperApi.Map<EventModel>(eventUpdateInputModel);
+
+            _service.UpdateEvent(id, entity);
+
+            return Ok(entity);
         }
          
          //api/events/
@@ -88,10 +90,10 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         [Authorize(Roles = "Admin")]
         public ActionResult<EventUpdateInputModel> DeleteEvent(int id)
         {
-             _service.DeleteEvent(id);
-         
-             return NoContent();
+            _service.DeleteEvent(id);
+
+            return NoContent();
         }
-        
+
     }
 }
