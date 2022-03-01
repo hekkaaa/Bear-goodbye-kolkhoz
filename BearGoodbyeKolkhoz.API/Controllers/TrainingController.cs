@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using Swashbuckle.AspNetCore.Annotations;
 using BearGoodbyeKolkhozProject.API.Models.ExceptionModel;
+using BearGoodbyeKolkhozProject.API.Extensions;
 
 namespace BearGoodbyeKolkhozProject.API.Controllers
 {
@@ -91,7 +92,9 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status503ServiceUnavailable)]
         public ActionResult AddReviewToTraining(int id, [FromBody] TrainingReviewInsertInputModel trainingReview)
         {
-            var clientId = GetClientIdFromToken();
+
+            var clientId = HttpContext.GetUserIdFromToken();
+
             _service.AddReviewToTraining(id, clientId, _mapper.Map<TrainingReviewModel>(trainingReview));
             return Ok("Новый обзор на тренинг успешно добавлен");
         }
@@ -150,23 +153,10 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status503ServiceUnavailable)]
         public ActionResult<bool> SugnUp(int id)
         {
-            var clientId = GetClientIdFromToken();
+            var clientId = HttpContext.GetUserIdFromToken();
             var res = _eventService.SignUp(id, clientId);
 
             return Ok(res);
-        }
-
-        private int GetClientIdFromToken()
-        {
-            var identity = HttpContext.User.Identity as ClaimsIdentity;
-
-            if (identity != null)
-            {
-                var clientId = Convert.ToInt32(identity
-                    .FindFirst(@"http://schemas.microsoft.com/ws/2008/06/identity/claims/userdata").Value);
-                return clientId;
-            }
-            throw new HttpRequestException();
         }
     }
 }
