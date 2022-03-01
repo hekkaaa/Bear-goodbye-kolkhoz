@@ -26,17 +26,16 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         }
 
         [HttpPost()]
-        [ProducesResponseType(typeof(ClientModel), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(int), StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status409Conflict)]
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status503ServiceUnavailable)]
         [SwaggerOperation("Add new Client")]
         [AllowAnonymous]
-    
         public ActionResult ClientRegistration([FromBody] RegistrationInputModel model)
         {
             ClientModel entity = _mapper.Map<ClientModel>(model);
-            _service.RegistrationClient(entity);
-            return StatusCode(StatusCodes.Status201Created, entity);
+            
+            return StatusCode(StatusCodes.Status201Created, _service.RegistrationClient(entity));
         }
 
         [HttpGet()]

@@ -18,11 +18,12 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
             return res;
         }
 
-        public void AddClient(Client client)
+        public int AddClient(Client client)
         {
             client.Role = Role.Client;
             _db.Client.Add(client);
             _db.SaveChanges();
+            return client.Id;
         }
 
         public bool UpdateClientInfo(Client client, Client newInfo)
