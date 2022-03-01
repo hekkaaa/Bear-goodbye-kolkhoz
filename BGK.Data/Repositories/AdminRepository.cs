@@ -60,7 +60,7 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
         {
             var res = _db.Admin.FirstOrDefault(x => x.Id == id);
 
-            res.IsDeleted = true;
+            res.IsDeleted = false;
             _db.SaveChanges();
             return true;
         }

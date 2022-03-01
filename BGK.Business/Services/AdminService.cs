@@ -78,6 +78,20 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             }
         }
 
+        public bool RestoreAdmin(int id)
+        {
+            var item = _repository.GetAdminById(id);
+
+            if (item == null)
+            {
+                throw new EntryPointNotFoundException("Нет пользователя по указанному Id");
+            }
+            else
+            {
+                return _repository.RecoverAdminById(item.Id);
+            }
+        }
+
         public bool UpdateAdminInfo(int id, AdminModel newItem)
         {
             var existingAdmin = _repository.GetAdminById(id);
