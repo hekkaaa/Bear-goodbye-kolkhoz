@@ -117,19 +117,27 @@ namespace BearGoodbyeKolkhozProject.Business.Services
                 _eventRepository.SignUp(client, even);
                 return true;
             }
+            if (training.Lecturer == null)
+            {
+                throw new NotFoundException("Для данного тренинга нет лектора!");
+            }
+           
 
             return true;
         }
 
         private void InitEvent(Training training, Client client)
         {
+           
             var newEvent = new Event()
             {
                 Training = training,
                 Clients = new List<Client> { client }
             };
 
+
             _eventRepository.AddEvent(newEvent);
+
         }
 
         private void AssignData(Training training, Client client, Event even)
