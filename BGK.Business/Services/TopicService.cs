@@ -39,7 +39,7 @@ namespace BearGoodbyeKolkhozProject.Business.Services
         {
             if (model is null)
             {
-                throw new Exception($"Передана не верная модель: {model}");
+                throw new Exception($"Передана неверная модель: {model}");
             }
 
             var topic = _mapper.Map<Topic>(model);
@@ -49,6 +49,12 @@ namespace BearGoodbyeKolkhozProject.Business.Services
         public void UpdateTopic(TopicModel model, int id)
         {
             var topic = _mapper.Map<Topic>(model);
+
+            if (topic is null)
+            {
+                throw new NotFoundException($"Нет темы c id = {model.Id}");
+            }
+
             _topicRepo.UpdateTopic(topic, id);
         }
 
