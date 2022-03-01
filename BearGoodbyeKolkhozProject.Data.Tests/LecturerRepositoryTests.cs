@@ -135,5 +135,20 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
             //then
             Assert.AreEqual(expected, actual);
         }
+
+        [TestCaseSource(typeof(GetTrainingByLecturerIdTestCaseSource))]
+        public void GetTrainingByLecturerId(Lecturer lecturer, List<Training> expected)
+        {
+            //given 
+            LecturerRepository lecturerRepository = new LecturerRepository(_context);
+            _context.Lecturer.Add(lecturer);
+            _context.SaveChanges();
+
+            //when
+            var actual = lecturerRepository.GetTrainingByLecturerId(lecturer.Id);
+
+            //then
+            CollectionAssert.AreEqual(expected, actual);
+        }
     }
 }

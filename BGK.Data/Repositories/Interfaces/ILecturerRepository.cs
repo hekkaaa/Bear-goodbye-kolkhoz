@@ -13,5 +13,6 @@ namespace BearGoodbyeKolkhozProject.Data.Interfaces
         void ChangeDeleteStatusById(Lecturer lecturer, bool IsDeleted);
         List<Lecturer> GetLecturerByTrainingId(int trainingId);
         int GetEventsCount(Lecturer lecturer);
+        List<Training> GetTrainingByLecturerId(int id);
     }
 }
