@@ -70,7 +70,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         [HttpPost("{id}/topic/{topicId}")]
         [Authorize(Roles = "Admin")]
         [SwaggerOperation("Get all trainings. Roles: Admin")]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status403Forbidden)]
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status409Conflict)]
@@ -78,7 +78,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         public ActionResult AddTopicToTraning(int id, int topicId)
         {
             _service.AddTopicToTraining(id, topicId);
-            return StatusCode(StatusCodes.Status204NoContent, "Новый интерес у тренинга успешно добавлен");
+            return StatusCode(StatusCodes.Status201Created, "Новый интерес у тренинга успешно добавлен");
         }
 
         [HttpPost("{id}/review")]
