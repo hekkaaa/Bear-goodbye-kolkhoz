@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using BearGoodbyeKolkhozProject.API.Models.ExceptionModel;
 using BearGoodbyeKolkhozProject.API.Models.InputModels;
 using BearGoodbyeKolkhozProject.API.Models.OutputModels;
 using BearGoodbyeKolkhozProject.Business.Models;
@@ -23,6 +24,10 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         }
 
         [HttpGet("{id}")]
+        [ProducesResponseType(typeof(ClassroomOutputModel), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status503ServiceUnavailable)]
         public ActionResult<ClassroomOutputModel> GetClassroomById(int id)
         {
             var model = _service.GetClassroomById(id);
@@ -38,6 +43,10 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
             }
         }
         [HttpGet]
+        [ProducesResponseType(typeof(List<ClassroomOutputModel>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status503ServiceUnavailable)]
         public ActionResult<List<ClassroomOutputModel>> GetClassroomAll()
         {
             var res = _service.GetClassroomAll();
@@ -53,6 +62,10 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         }
 
         [HttpPost]
+        [ProducesResponseType(typeof(int), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status503ServiceUnavailable)]
         public ActionResult<int> AddNewClassroom(ClassroomInsertInputModel newItem)
         {
             var model = _mapper.Map<ClassroomModel>(newItem);
@@ -69,12 +82,20 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         }
 
         [HttpDelete("{id}")]
+        [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status503ServiceUnavailable)]
         public ActionResult<bool> DeleteClassroomById(int id)
         {
             return Ok(_service.DeleteClassroom(id));
         }
 
         [HttpPut("{id}")]
+        [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status503ServiceUnavailable)]
         public ActionResult<bool> UpdateClassroom(int id, [FromBody] ClassroomIUpdateInputModel newItem)
         {
             var model = _mapper.Map<ClassroomModel>(newItem);
