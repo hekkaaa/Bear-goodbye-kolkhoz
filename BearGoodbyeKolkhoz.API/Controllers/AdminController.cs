@@ -33,7 +33,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status403Forbidden)]
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status503ServiceUnavailable)]
-        [SwaggerOperation("Show info admin")]
+        [SwaggerOperation("Show info Admin")]
         public ActionResult<AdminOutputModel> GetAdminById(int id)
         {
             var model = _service.GetAdminById(id);
@@ -87,7 +87,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
             }
             else
             {
-                return Ok(new AdminCreateOutputModel { createId = res });
+                return StatusCode(StatusCodes.Status201Created, new AdminCreateOutputModel { createId = res });
             }
         }
 
