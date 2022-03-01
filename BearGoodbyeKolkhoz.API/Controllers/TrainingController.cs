@@ -84,7 +84,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         [HttpPost("{id}/review")]
         [Authorize(Roles = "Client")]
         [SwaggerOperation("Add review to training. Roles: client")]
-        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status403Forbidden)]
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status409Conflict)]
@@ -92,16 +92,14 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         public ActionResult AddReviewToTraining(int id, [FromBody] TrainingReviewInsertInputModel trainingReview)
         {
             var clientId = GetClientIdFromToken();
-
             _service.AddReviewToTraining(id, clientId, _mapper.Map<TrainingReviewModel>(trainingReview));
-            
-            return StatusCode(StatusCodes.Status201Created, "Новый обзор на тренинг успешно добавлен");
+            return Ok("Новый обзор на тренинг успешно добавлен");
         }
 
         [HttpPut("{id}")]
         [Authorize(Roles = "Admin")]
         [SwaggerOperation("Update training. Roles: Admin")]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status403Forbidden)]
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status409Conflict)]
@@ -110,14 +108,13 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         {
             var training = _mapper.Map<TrainingModel>(trainingUpdateInputModel);
             _service.UpdateTraining(id, training);
-
-            return NoContent();
+            return Ok();
         }
 
         [HttpPost]
         [Authorize(Roles = "Admin")]
         [SwaggerOperation("Add new training. Roles: Admin")]
-        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status403Forbidden)]
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status409Conflict)]
@@ -126,7 +123,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         {
             var training = _mapper.Map<TrainingModel>(trainingInputModel);
             _service.AddTraining(training);
-            return StatusCode(StatusCodes.Status201Created, "Тренинг успешно добавлен");
+            return Ok("Тренинг успешно добавлен");
         }
 
         [HttpPatch("{id}")]
