@@ -77,12 +77,13 @@ namespace BearGoodbyeKolkhozProject.Business.Services
         public void DeleteTraining(int id, int trainingId)
         {
             var training = _trainingRepo.GetTrainingById(trainingId);
+            var lecturer = _lecturerRepo.GetLecturerById(id);
             if (training is null)
             {
                 throw new NotFoundException($"Нет треннинга c id = {id}");
             }
 
-            _lecturerRepo.DeleteTraining(id, training);
+            _lecturerRepo.DeleteTraining(lecturer, training);
         }
 
         public void UpdateLecturer(int id, LecturerModel model)
