@@ -8,15 +8,13 @@ using BearGoodbyeKolkhozProject.Business.Services;
 using BearGoodbyeKolkhozProject.Business.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Swashbuckle.AspNetCore.Annotations;
 using System.ComponentModel;
 
 namespace BearGoodbyeKolkhozProject.API.Controllers
 {
 
     [ApiController]
-    [Route("api/company")]
-    [SwaggerTag("The controller can be used after authentication/authorization under the role of Admin and Company")]
+    [Route("api/company")]    
     public class CompaniesController : Controller
     {
         private readonly ICompanyService _companyService;
@@ -41,7 +39,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         [ProducesResponseType(typeof(CompanyOutputModel),StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ExceptionResponse), StatusCodes.Status403Forbidden)]
         [ProducesResponseType(typeof(ExceptionResponse), StatusCodes.Status404NotFound)]
-        [SwaggerOperation("Get companies")]
+        [Description("Get companies")]
         public ActionResult<List<CompanyOutputModel>> GetCompanies()
         {
             var entity = _companyService.GetCompanies();
@@ -59,7 +57,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         [ProducesResponseType(typeof(CompanyOutputModel), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ExceptionResponse), StatusCodes.Status403Forbidden)]
         [ProducesResponseType(typeof(ExceptionResponse), StatusCodes.Status404NotFound)]
-        [SwaggerOperation("Get company by id")]
+        [Description("Get company by id")]
         public ActionResult<CompanyOutputModel> GetCompanyById(int id)
         {
             var entity = _companyService.GetCompanyById(id);
@@ -78,7 +76,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         [ProducesResponseType(typeof(ExceptionResponse),StatusCodes.Status403Forbidden)]
         [ProducesResponseType(typeof(ExceptionResponse),StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ValidationExceptionResponse),StatusCodes.Status422UnprocessableEntity)]
-        [SwaggerOperation("Add one company")]
+        [Description("Add one company")]
         public ActionResult<CompanyInsertInputModel> RegistrationCompany([FromBody] CompanyInsertInputModel companyInsertInputModel)
         {
 
@@ -97,7 +95,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         [ProducesResponseType(typeof(ExceptionResponse), StatusCodes.Status403Forbidden)]
         [ProducesResponseType(typeof(ExceptionResponse), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ValidationExceptionResponse), StatusCodes.Status422UnprocessableEntity)]
-        [SwaggerOperation("Update company")]
+        [Description("Update company")]
         public ActionResult<CompanyUpdateInputModel> UpdateCompany([FromBody] CompanyUpdateInputModel companyUpdateInputModel)
         {
             CompanyModel model = _mapperApi.Map<CompanyModel>(companyUpdateInputModel);
@@ -112,7 +110,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         //[ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(typeof(ExceptionResponse), StatusCodes.Status403Forbidden)]
         [ProducesResponseType(typeof(ExceptionResponse), StatusCodes.Status404NotFound)]
-        [SwaggerOperation("Soft deleted")]
+        [Description("Soft deleted")]
         public ActionResult<CompanyOutputModel> UpdateCompany(int id, bool isDel)
         {
             _companyService.UpdateCompany(id, isDel);
@@ -126,7 +124,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(typeof(ExceptionResponse), StatusCodes.Status403Forbidden)]
         [ProducesResponseType(typeof(ExceptionResponse), StatusCodes.Status404NotFound)]
-        [SwaggerOperation("Deleted company")]
+        [Description("Deleted company")]
         public ActionResult<CompanyUpdateInputModel> DeleteCompany(int id)
         {
 
@@ -142,7 +140,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         [ProducesResponseType(typeof(ExceptionResponse), StatusCodes.Status403Forbidden)]
         [ProducesResponseType(typeof(ExceptionResponse), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ValidationExceptionResponse), StatusCodes.Status422UnprocessableEntity)]
-        [SwaggerOperation("Update password company by id")]
+        [Description("Update password company by id")]
         public ActionResult<ChangePasswordInputModel> UpdatePasswordCompanyById(int id, [FromBody] ChangePasswordInputModel newItem)
         {
             CompanyModel model = _mapperApi.Map<CompanyModel>(newItem);
