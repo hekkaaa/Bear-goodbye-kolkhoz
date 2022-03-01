@@ -82,7 +82,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         }
 
         [HttpDelete("delete_training/{id}")]
-        [Authorize(Roles = "Lecturer")]
+        [Authorize(Roles = "Lecturer, Admin")]
         public ActionResult DeleteTraining(int id)
         {
             int lecturerId = HttpContext.GetUserIdFromToken();
