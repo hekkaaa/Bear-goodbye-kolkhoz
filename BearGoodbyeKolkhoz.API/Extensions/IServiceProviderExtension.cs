@@ -52,7 +52,13 @@ namespace BearGoodbyeKolkhozProject.API.Extensions
             swagger.AddSwaggerGen(opt =>
             {   
                 opt.EnableAnnotations();
-                opt.SwaggerDoc("v1", new OpenApiInfo { Title = "MyAPI", Version = "v1" });
+                opt.SwaggerDoc("v1", new OpenApiInfo { Title = "MyAPI", Version = "v1",
+                    Contact = new OpenApiContact
+                    {
+                        Name = "Git Repository",
+                        Url = new Uri("https://github.com/hekkaaa/Bear-goodbye-kolkhoz"),
+                    }
+                });
                 opt.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
                     In = ParameterLocation.Header,
