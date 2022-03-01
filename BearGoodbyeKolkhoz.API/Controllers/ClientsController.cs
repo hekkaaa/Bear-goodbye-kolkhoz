@@ -31,7 +31,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status503ServiceUnavailable)]
         [SwaggerOperation("Add new Client")]
         [AllowAnonymous]
-    
+
         public ActionResult ClientRegistration([FromBody] RegistrationInputModel model)
         {
             ClientModel entity = _mapper.Map<ClientModel>(model);
@@ -86,7 +86,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         [SwaggerOperation("Edit info Client")]
         [Authorize(Roles = "Admin")]
         public ActionResult<bool> DeleteAndBanUserById(int id)
-        {   
+        {
             return Ok(_service.DeleteClient(id));
         }
 

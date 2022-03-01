@@ -67,8 +67,8 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             if (company == null)
                 throw new NotFoundException("Такой Компании не существует.");
 
-            var entity = _mapper.Map <Company> (companyModel);
-          
+            var entity = _mapper.Map<Company>(companyModel);
+
             _companyRepository.UpdateCompany(entity);
 
         }
@@ -84,7 +84,7 @@ namespace BearGoodbyeKolkhozProject.Business.Services
 
             _companyRepository.DeleteCompany(id);
 
-            
+
         }
 
         public void UpdateCompany(int id, bool isDel)

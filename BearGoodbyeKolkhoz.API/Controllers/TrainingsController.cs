@@ -1,15 +1,14 @@
 ﻿using AutoMapper;
+using BearGoodbyeKolkhozProject.API.Extensions;
 using BearGoodbyeKolkhozProject.API.Models;
-using BearGoodbyeKolkhozProject.Business.Models;
+using BearGoodbyeKolkhozProject.API.Models.ExceptionModel;
 using BearGoodbyeKolkhozProject.Business.Interface;
+using BearGoodbyeKolkhozProject.Business.Models;
 using BearGoodbyeKolkhozProject.Business.Services;
-using BearGoodbyeKolkhozProject.Data.Enums;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
-using BearGoodbyeKolkhozProject.API.Models.ExceptionModel;
 using Swashbuckle.AspNetCore.Annotations;
-using BearGoodbyeKolkhozProject.API.Extensions;
+using System.Security.Claims;
 
 namespace BearGoodbyeKolkhozProject.API.Controllers
 {

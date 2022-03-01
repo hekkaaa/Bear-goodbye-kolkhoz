@@ -3,7 +3,6 @@ using BearGoodbyeKolkhozProject.Data.Entities;
 using BearGoodbyeKolkhozProject.Data.Repositories;
 using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
-using System.Collections.Generic;
 
 namespace BearGoodbyeKolkhozProject.Data.Tests
 {

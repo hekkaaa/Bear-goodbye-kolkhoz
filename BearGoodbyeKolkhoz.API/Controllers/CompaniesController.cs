@@ -4,7 +4,6 @@ using BearGoodbyeKolkhozProject.API.Models.InputModels;
 using BearGoodbyeKolkhozProject.API.Models.OutputModels;
 using BearGoodbyeKolkhozProject.Business.Models;
 using BearGoodbyeKolkhozProject.Business.Processor;
-using BearGoodbyeKolkhozProject.Business.Services;
 using BearGoodbyeKolkhozProject.Business.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -14,7 +13,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
 {
 
     [ApiController]
-    [Route("api/company")]    
+    [Route("api/company")]
     public class CompaniesController : Controller
     {
         private readonly ICompanyService _companyService;
@@ -36,7 +35,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         //api/companies/
         [HttpGet]
         [Authorize(Roles = "Admin")]
-        [ProducesResponseType(typeof(CompanyOutputModel),StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(CompanyOutputModel), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ExceptionResponse), StatusCodes.Status403Forbidden)]
         [ProducesResponseType(typeof(ExceptionResponse), StatusCodes.Status404NotFound)]
         [Description("Get companies")]
@@ -73,9 +72,9 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         [HttpPost()]
         [Authorize(Roles = "Company")]
         [ProducesResponseType(typeof(CompanyOutputModel), StatusCodes.Status201Created)]
-        [ProducesResponseType(typeof(ExceptionResponse),StatusCodes.Status403Forbidden)]
-        [ProducesResponseType(typeof(ExceptionResponse),StatusCodes.Status404NotFound)]
-        [ProducesResponseType(typeof(ValidationExceptionResponse),StatusCodes.Status422UnprocessableEntity)]
+        [ProducesResponseType(typeof(ExceptionResponse), StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(typeof(ExceptionResponse), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ValidationExceptionResponse), StatusCodes.Status422UnprocessableEntity)]
         [Description("Add one company")]
         public ActionResult<CompanyInsertInputModel> RegistrationCompany([FromBody] CompanyInsertInputModel companyInsertInputModel)
         {
@@ -132,7 +131,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
 
             return NoContent();
         }
-       
+
 
         [HttpPut("{id}/password")]
         [Authorize(Roles = "Admin,Company")]
@@ -149,4 +148,4 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         }
     }
 
-}       
+}

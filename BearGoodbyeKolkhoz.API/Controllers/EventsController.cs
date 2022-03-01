@@ -1,14 +1,11 @@
 ﻿using AutoMapper;
-using BearGoodbyeKolkhozProject.API.Models.ExceptionModel;
+using BearGoodbyeKolkhozProject.API.Configuration.ExceptionResponse;
 using BearGoodbyeKolkhozProject.API.Models.InputModels;
 using BearGoodbyeKolkhozProject.API.Models.OutputModels;
 using BearGoodbyeKolkhozProject.Business.Interface;
 using BearGoodbyeKolkhozProject.Business.Models;
-using BearGoodbyeKolkhozProject.Business.Interface;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
-using BearGoodbyeKolkhozProject.API.Configuration.ExceptionResponse;
-using Swashbuckle.AspNetCore.Annotations;
+using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel;
 
 namespace BearGoodbyeKolkhozProject.API.Controllers
@@ -16,19 +13,19 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
     [ApiController]
     [Route("api/event")]
     public class EventsController : Controller
-    {   
-         private readonly IEventService _service;
-         
-         private IMapper _mapperApi;
-         
-         public EventsController(IEventService eventService, IMapper mapper)
-         {
-             _service = eventService;
-         
-             _mapperApi = mapper;
-         }
-         
-         //api/events/
+    {
+        private readonly IEventService _service;
+
+        private IMapper _mapperApi;
+
+        public EventsController(IEventService eventService, IMapper mapper)
+        {
+            _service = eventService;
+
+            _mapperApi = mapper;
+        }
+
+        //api/events/
         [HttpGet]
         [Authorize(Roles = "Admin")]
         [ProducesResponseType(typeof(CompanyOutputModel), StatusCodes.Status200OK)]
@@ -37,16 +34,16 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         [Description("Get events")]
         public ActionResult<List<EventOutputModel>> GetEvents()
         {
-             var entity = _service.GetEvents();
-         
-             var result = _mapperApi.Map<List<EventOutputModel>>(entity);
-         
-             if (result == null) return NotFound($"Нет данных");
-         
-             return Ok(result);
+            var entity = _service.GetEvents();
+
+            var result = _mapperApi.Map<List<EventOutputModel>>(entity);
+
+            if (result == null) return NotFound($"Нет данных");
+
+            return Ok(result);
         }
-         
-         //api/events/
+
+        //api/events/
         [HttpGet("{id}")]
         [Authorize(Roles = "Admin")]
         [ProducesResponseType(typeof(CompanyOutputModel), StatusCodes.Status200OK)]
@@ -55,17 +52,17 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         [Description("Get event by id")]
         public ActionResult<EventOutputModel> GetEventById(int id)
         {
-             var entity = _service.GetEventById(id);
-         
-             var result = _mapperApi.Map<EventOutputModel>(entity);
-         
-             if (result == null) return NotFound($"Нет данных");
-         
-             return Ok(result);
+            var entity = _service.GetEventById(id);
+
+            var result = _mapperApi.Map<EventOutputModel>(entity);
+
+            if (result == null) return NotFound($"Нет данных");
+
+            return Ok(result);
         }
-                
-         
-         //api/events/
+
+
+        //api/events/
         [HttpPut()]
         [Authorize(Roles = "Admin")]
         [ProducesResponseType(typeof(EventUpdateInputModel), StatusCodes.Status200OK)]
@@ -81,8 +78,8 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
 
             return Ok(entity);
         }
-         
-         //api/events/
+
+        //api/events/
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(typeof(ExceptionResponse), StatusCodes.Status403Forbidden)]

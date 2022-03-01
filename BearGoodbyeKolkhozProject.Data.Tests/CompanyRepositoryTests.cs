@@ -5,15 +5,12 @@ using BearGoodbyeKolkhozProject.Data.Tests.TestCaseSources.CompanyTestCaseSource
 using BearGoodbyeKolkhozProject.Data.Tests.TestCaseSources.CompanyTestCaseSourse;
 using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BearGoodbyeKolkhozProject.Data.Tests
 {
-    public class CompanyRepositoryTests 
+    public class CompanyRepositoryTests
     {
         private ApplicationContext _context;
 
@@ -45,7 +42,7 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
             var actual = _companyRepository.GetCompanyById(company.Id);
 
             //then
-           
+
             Assert.IsTrue(expected.Id == actual.Id);
             Assert.IsNotNull(expected);
             Assert.AreEqual(expected.Name, actual.Name);
@@ -103,7 +100,7 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
 
             //then
 
-            
+
             Assert.AreEqual(expected, actual);
 
         }
