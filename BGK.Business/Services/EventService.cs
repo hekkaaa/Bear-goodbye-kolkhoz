@@ -107,6 +107,10 @@ namespace BearGoodbyeKolkhozProject.Business.Services
                 AssignData(training, client, even);
 
                 _eventRepository.SignUp(client, even);
+                if(even.Classroom == null)
+                {
+                    throw new NotFoundException("Для данного тренинга нет кабинета");
+                }
 
                 // EmailSender() - отправка EMAIL по всем участникам.
 
