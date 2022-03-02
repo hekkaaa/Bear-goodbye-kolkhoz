@@ -139,40 +139,5 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
 
             return NoContent();
         }
-
-        [HttpPost("{LecturerId}")]
-        [Authorize(Roles = "Lecturer")]
-        [ProducesResponseType(typeof(ContactLecturerInsertInputModel), StatusCodes.Status204NoContent)]
-        [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status403Forbidden)]
-        [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status404NotFound)]
-        [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status503ServiceUnavailable)]
-        [SwaggerOperation("Add Contact Lector. Roles: Lecturer")]
-
-        public ActionResult<ContactLecturerInsertInputModel> AddContactLecturerValueApi
-            ([FromBody] ContactLecturerInsertInputModel contactLecturerInsertInputModel)
-        {
-            ContactLecturerModel model = _mapper.Map<ContactLecturerModel>(contactLecturerInsertInputModel);
-
-            _contactLecturerService.AddContactLecturerValue(model);
-
-            return StatusCode(StatusCodes.Status201Created, model);
-        }
-
-        [HttpPut("{LecturerId}")]
-        [Authorize(Roles = "Lecturer")]
-        [ProducesResponseType(typeof(ContactLecturerInsertInputModel), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status403Forbidden)]
-        [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status404NotFound)]
-        [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status503ServiceUnavailable)]
-        [SwaggerOperation("Edit Lecturer. Roles: Lecturer")]
-        public ActionResult<ContactLecturerInsertInputModel> UpdateContactLecturerValueApi
-            ([FromBody] ContactLecturerInsertInputModel contactLecturerInsertInputModel)
-        {
-            ContactLecturerModel entity = _mapper.Map<ContactLecturerModel>(contactLecturerInsertInputModel);
-
-            _contactLecturerService.UpdateContactLecturerValue(entity);
-
-            return Ok(entity);
-        }
     }
 }
