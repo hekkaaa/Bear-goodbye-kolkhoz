@@ -59,11 +59,13 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         }
 
         [HttpGet("/trainings")]
+        [Authorize(Roles = "Lecturer")]
         [ProducesResponseType(typeof(List<TrainingOutputModel>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status403Forbidden)]
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status503ServiceUnavailable)]
-        [Authorize(Roles = "Lecturer")]
+        [SwaggerOperation("Show list trainings for Lecturer. Roles: Lecturer")]
+        
         public ActionResult<List<TrainingOutputModel>> GetTrainingByLecturerId()
         {
             int id = HttpContext.GetUserIdFromToken();

@@ -71,12 +71,12 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
 
         //api/companies/
         [HttpPost()]
-        [Authorize(Roles = "Company")]
+        [AllowAnonymous]
         [ProducesResponseType(typeof(CompanyOutputModel), StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(ExceptionResponse), StatusCodes.Status403Forbidden)]
         [ProducesResponseType(typeof(ExceptionResponse), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ValidationExceptionResponse), StatusCodes.Status422UnprocessableEntity)]
-        [SwaggerOperation("Add one company. Roles: Company")]
+        [SwaggerOperation("Add one company. Roles: AllowAnonymous")]
 
         public ActionResult<CompanyInsertInputModel> RegistrationCompany([FromBody] CompanyInsertInputModel companyInsertInputModel)
         {
