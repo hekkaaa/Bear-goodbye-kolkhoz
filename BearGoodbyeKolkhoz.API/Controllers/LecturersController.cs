@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
+using BearGoodbyeKolkhozProject.API.Configuration.ExceptionResponse;
 using BearGoodbyeKolkhozProject.API.Extensions;
 using BearGoodbyeKolkhozProject.API.Models;
+using BearGoodbyeKolkhozProject.API.Models.ExceptionModel;
 using BearGoodbyeKolkhozProject.API.Models.InputModels;
 using BearGoodbyeKolkhozProject.Business.Interface;
 using BearGoodbyeKolkhozProject.Business.Models;
@@ -42,6 +44,20 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
             var entity = _service.GetLecturerById(id);
             var result = _mapper.Map<LecturerOutputModel>(entity);
             return Ok(result);
+        }
+
+        [HttpGet("/trainings")]
+        [ProducesResponseType(typeof(List<TrainingOutputModel>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status503ServiceUnavailable)]
+        [Authorize(Roles = "Lecturer")]
+        public ActionResult<List<TrainingOutputModel>> GetTrainingByLecturerId()
+        {
+            int id = HttpContext.GetUserIdFromToken();
+            var trainings = _service.GetTrainingByLecturerId(id);
+
+            return Ok(trainings);
         }
 
         [HttpPatch("{id}")]

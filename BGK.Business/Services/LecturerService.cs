@@ -115,5 +115,17 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             List<Lecturer> lecturers = _lecturerRepo.GetLecturers();
             return _mapper.Map<List<LecturerModel>>(lecturers);
         }
+
+        public List<TrainingModel> GetTrainingByLecturerId(int id)
+        {
+            var entity = _lecturerRepo.GetLecturerById(id);
+            if (entity is null)
+            {
+                throw new NotFoundException($"Нет лектора c id = {id}");
+            }
+
+            List<TrainingModel> trainings = _mapper.Map<List<TrainingModel>>(entity.Trainings);
+            return trainings;
+        }
     }
 }

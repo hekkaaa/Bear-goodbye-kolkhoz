@@ -12,5 +12,6 @@ namespace BearGoodbyeKolkhozProject.Business.Interface
         void UpdateLecturer(int id, LecturerModel model);
         void DeleteLecturerById(int id);
         void RecoverLecturerById(int id);
+        List<TrainingModel> GetTrainingByLecturerId(int id);
     }
 }
