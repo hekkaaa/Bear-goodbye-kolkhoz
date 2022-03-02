@@ -26,6 +26,7 @@ namespace BearGoodbyeKolkhozProject.API.Extensions
             services.AddScoped<IClassroomService, ClassroomService>();
             services.AddScoped<IClientService, ClientService>();
             services.AddScoped<ITopicService, TopicService>();
+            services.AddScoped<IAuthService, AuthService>();
 
         }
 
@@ -43,14 +44,21 @@ namespace BearGoodbyeKolkhozProject.API.Extensions
             repository.AddScoped<IClientRepository, ClientRepository>();
             repository.AddScoped<IClientRepository, ClientRepository>();
             repository.AddScoped<ITopicRepository, TopicRepository>();
-            repository.AddScoped<IAuthService, AuthService>();
+            repository.AddScoped<IUserRepository, UserRepository>();
         }
 
         public static void RegisterSwaggerAuth(this IServiceCollection swagger)
         {
             swagger.AddSwaggerGen(opt =>
-            {
-                opt.SwaggerDoc("v1", new OpenApiInfo { Title = "MyAPI", Version = "v1" });
+            {   
+                opt.EnableAnnotations();
+                opt.SwaggerDoc("v1", new OpenApiInfo { Title = "MyAPI", Version = "v1",
+                    Contact = new OpenApiContact
+                    {
+                        Name = "Git Repository",
+                        Url = new Uri("https://github.com/hekkaaa/Bear-goodbye-kolkhoz"),
+                    }
+                });
                 opt.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
                     In = ParameterLocation.Header,

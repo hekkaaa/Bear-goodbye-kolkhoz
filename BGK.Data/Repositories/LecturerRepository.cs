@@ -15,15 +15,6 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
             _context = context;
         }
 
-        public Lecturer Login(string email)
-        {
-            Lecturer lecturer = _context.Lecturer
-                .Where(l => l.Email == email)
-                .FirstOrDefault();
-
-            return lecturer;
-        }
-
         public Lecturer GetLecturerById(int id) =>
             _context.Lecturer.FirstOrDefault(L => L.Id == id);
 
@@ -39,16 +30,16 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
                 .ToList();
         }
 
-        public void AddLecturer(Lecturer model)
+        public int AddLecturer(Lecturer model)
         {
             model.Role = Role.Lecturer;
             _context.Lecturer.Add(model);
             _context.SaveChanges();
+            return model.Id;
         }
 
         public void UpdateLecturer(Lecturer lecturer, Lecturer model)
         {
-
             lecturer.BirthDay = model.BirthDay;
             lecturer.Name = model.Name;
             lecturer.LastName = model.LastName;
@@ -64,10 +55,9 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
             _context.SaveChanges();
         }
 
-        public void DeleteTraining(int lecturerId, Training training)
+        public void DeleteTraining(Lecturer lecturer, Training training)
         {
-            var entity = GetLecturerById(lecturerId);
-            entity.Trainings.Remove(training);
+            lecturer.Trainings.Remove(training);
             _context.SaveChanges();
         }
 

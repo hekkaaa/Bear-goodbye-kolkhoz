@@ -45,35 +45,35 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
             Assert.AreEqual(virtualData.City, act.City);
         }
 
-        [Test]
-        public void GetClassroomAllTests()
-        {
-            //given
-            var virtualData = _testData.GetTestClassroomAll();
+        //[Test]
+        //public void GetClassroomAllTests()
+        //{
+        //    //given
+        //    var virtualData = _testData.GetTestClassroomAll();
 
-            // наполняем тестовый БД подкготовленными данными.
-            for (int i = 0; i < virtualData.Count; i++)
-            {
-                _context.Add(virtualData[i]);
-            }
-            _context.SaveChanges();
+        //    // наполняем тестовый БД подкготовленными данными.
+        //    for (int i = 0; i < virtualData.Count; i++)
+        //    {
+        //        _context.Add(virtualData[i]);
+        //    }
+        //    _context.SaveChanges();
 
-            //when
-            var act = _adminRepository.GetClassroomsAll();
+        //    //when
+        //    var act = _adminRepository.GetClassroomsAll();
 
 
-            //then
-            Assert.AreEqual(virtualData.Count, act.Count);
-            Assert.IsNotNull(act[0]);
+        //    //then
+        //    Assert.AreEqual(virtualData.Count, act.Count);
+        //    Assert.IsNotNull(act[0]);
 
-            for (int i = 0; i < act.Count; i++)
-            {
-                Assert.AreEqual(virtualData[i].Id, act[i].Id);
-                Assert.AreEqual(virtualData[i].City, act[i].City);
-                Assert.AreEqual(virtualData[i].Address, act[i].Address);
-                Assert.AreEqual(virtualData[i].MembersCount, act[i].MembersCount);
-            }
-        }
+        //    for (int i = 0; i < act.Count; i++)
+        //    {
+        //        Assert.AreEqual(virtualData[i].Id, act[i].Id);
+        //        Assert.AreEqual(virtualData[i].City, act[i].City);
+        //        Assert.AreEqual(virtualData[i].Address, act[i].Address);
+        //        Assert.AreEqual(virtualData[i].MembersCount, act[i].MembersCount);
+        //    }
+        //}
         [Test]
         public void AddNewClassroomTests()
         {

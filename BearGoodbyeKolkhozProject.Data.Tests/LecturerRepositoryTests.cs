@@ -81,7 +81,7 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
             _context.SaveChanges();
 
             //when
-            lecturerRepository.DeleteTraining(lecturer.Id, training);
+            lecturerRepository.DeleteTraining(lecturer, training);
             var actual = _context.Lecturer.FirstOrDefault(l => l.Id == lecturer.Id);
 
             //then
