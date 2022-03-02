@@ -54,14 +54,8 @@ namespace BearGoodbyeKolkhozProject.Business.Services
         }
 
 
-        public void AddEventFromCompany(EventModel eventModel)
+        public void AddEvent(EventModel eventModel)
         {
-            _eventRepository.AddEvent(_mapper.Map<Event>(eventModel));
-        }
-
-        public void AddEventFromClient(EventModel eventModel)
-        {
-
             _eventRepository.AddEvent(_mapper.Map<Event>(eventModel));
         }
 
