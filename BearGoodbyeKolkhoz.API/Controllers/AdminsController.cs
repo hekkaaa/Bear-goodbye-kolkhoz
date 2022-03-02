@@ -114,6 +114,18 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
             return Ok(res);
         }
 
+        [HttpPut("{id}/restore")]
+        [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status503ServiceUnavailable)]
+        [SwaggerOperation("Restore delete Admin")]
+        [Authorize(Roles = "Admin")]
+        public ActionResult<bool> RestoreAdminById(int id)
+        {
+            return Ok(_service.RestoreAdmin(id));
+        }
+
         [HttpPatch("{id}/password")]
         [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status403Forbidden)]
