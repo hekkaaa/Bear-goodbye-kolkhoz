@@ -81,8 +81,8 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         public ActionResult LecturerRegistration([FromBody] RegistrationInputModel model)
         {
             LecturerModel entity = _mapper.Map<LecturerModel>(model);
-            _service.RegistrationLecturer(entity);
-            return StatusCode(StatusCodes.Status201Created, entity);
+            
+            return StatusCode(StatusCodes.Status201Created, _service.RegistrationLecturer(entity));
         }
 
         [HttpPut("{id}")]
