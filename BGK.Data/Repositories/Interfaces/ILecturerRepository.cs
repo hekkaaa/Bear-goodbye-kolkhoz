@@ -4,7 +4,7 @@ namespace BearGoodbyeKolkhozProject.Data.Interfaces
 {
     public interface ILecturerRepository
     {
-        void AddLecturer(Lecturer model);
+        int AddLecturer(Lecturer model);
         void AddTraining(Lecturer lecturer, Training training);
         void DeleteTraining(Lecturer lecturer, Training model);
         Lecturer GetLecturerById(int id);

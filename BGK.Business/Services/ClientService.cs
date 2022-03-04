@@ -17,7 +17,7 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             _mapper = mapper;
         }
 
-        public void RegistrationClient(ClientModel model)
+        public int RegistrationClient(ClientModel model)
         {
             bool res = CheckDublicateEmailAddClient(model.Email);
 
@@ -29,9 +29,8 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             {
                 var entity = _mapper.Map<Client>(model);
                 entity.Password = PasswordHash.HashPassword(model.Password);
-                _clientRepo.AddClient(entity);
+                return _clientRepo.AddClient(entity);
             }
-
         }
 
         public ClientModel GetClientById(int id)

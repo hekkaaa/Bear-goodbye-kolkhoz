@@ -30,11 +30,12 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
                 .ToList();
         }
 
-        public void AddLecturer(Lecturer model)
+        public int AddLecturer(Lecturer model)
         {
             model.Role = Role.Lecturer;
             _context.Lecturer.Add(model);
             _context.SaveChanges();
+            return model.Id;
         }
 
         public void UpdateLecturer(Lecturer lecturer, Lecturer model)

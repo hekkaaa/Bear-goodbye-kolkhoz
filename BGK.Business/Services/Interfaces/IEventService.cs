@@ -4,8 +4,7 @@ namespace BearGoodbyeKolkhozProject.Business.Interface
 {
     public interface IEventService
     {
-        void AddEventFromClient(EventModel eventModel);
-        void AddEventFromCompany(EventModel eventModel);
+        void AddEvent(EventModel eventModel);
         void DeleteEvent(int id);
         EventModel GetEventById(int id);
         List<EventModel> GetEvents();

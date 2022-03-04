@@ -45,7 +45,7 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             var mappedCompany = new Company
             {
                 Email = companyModel.Email,
-                Password = companyModel.Password,
+                Password = PasswordHash.HashPassword(companyModel.Password),
                 Name = companyModel.Name,
                 PhoneNumber = companyModel.PhoneNumber,
                 Tin = companyModel.Tin,

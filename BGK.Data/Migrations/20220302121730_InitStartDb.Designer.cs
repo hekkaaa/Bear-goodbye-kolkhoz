@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BearGoodbyeKolkhozProject.Data.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20220226162505_new-tables")]
-    partial class newtables
+    [Migration("20220302121730_InitStartDb")]
+    partial class InitStartDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,62 +23,6 @@ namespace BearGoodbyeKolkhozProject.Data.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
-
-            modelBuilder.Entity("BearGoodbyeKolkhozProject.Data.Entities.Admin", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("BirthDay")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Gender")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("LastName")
-                        .HasMaxLength(40)
-                        .HasColumnType("nvarchar(40)");
-
-                    b.Property<string>("Name")
-                        .HasMaxLength(40)
-                        .HasColumnType("nvarchar(40)");
-
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Role")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Admin");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            BirthDay = "01.01.2000",
-                            Email = "Admin@mail.ru",
-                            Gender = 1,
-                            IsDeleted = false,
-                            LastName = "Admin",
-                            Name = "Admin",
-                            Password = "1000:WvGHoK1WF2vO/ZkCz8FcmEdWsULri96e:oYQNDwkRfTN2Sm1fY56gS/5esvc=",
-                            Role = 1
-                        });
-                });
 
             modelBuilder.Entity("BearGoodbyeKolkhozProject.Data.Entities.Classroom", b =>
                 {
@@ -129,50 +73,6 @@ namespace BearGoodbyeKolkhozProject.Data.Migrations
                             IsDeleted = false,
                             MembersCount = 40
                         });
-                });
-
-            modelBuilder.Entity("BearGoodbyeKolkhozProject.Data.Entities.Client", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("BirthDay")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("Gender")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("LastName")
-                        .HasMaxLength(40)
-                        .HasColumnType("nvarchar(40)");
-
-                    b.Property<string>("Name")
-                        .HasMaxLength(40)
-                        .HasColumnType("nvarchar(40)");
-
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PhoneNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Role")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Client");
                 });
 
             modelBuilder.Entity("BearGoodbyeKolkhozProject.Data.Entities.Company", b =>
@@ -272,46 +172,6 @@ namespace BearGoodbyeKolkhozProject.Data.Migrations
                     b.HasIndex("TrainingId");
 
                     b.ToTable("Event");
-                });
-
-            modelBuilder.Entity("BearGoodbyeKolkhozProject.Data.Entities.Lecturer", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("BirthDay")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Gender")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("LastName")
-                        .HasMaxLength(40)
-                        .HasColumnType("nvarchar(40)");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Role")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Lecturer");
                 });
 
             modelBuilder.Entity("BearGoodbyeKolkhozProject.Data.Entities.LecturerReview", b =>
@@ -443,6 +303,46 @@ namespace BearGoodbyeKolkhozProject.Data.Migrations
                     b.ToTable("TrainingReview");
                 });
 
+            modelBuilder.Entity("BearGoodbyeKolkhozProject.Data.Entities.User", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("BirthDay")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Gender")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("LastName")
+                        .HasMaxLength(40)
+                        .HasColumnType("nvarchar(40)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Role")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("User");
+                });
+
             modelBuilder.Entity("ClientEvent", b =>
                 {
                     b.Property<int>("ClientsId")
@@ -503,10 +403,48 @@ namespace BearGoodbyeKolkhozProject.Data.Migrations
                     b.ToTable("TopicTraining");
                 });
 
+            modelBuilder.Entity("BearGoodbyeKolkhozProject.Data.Entities.Admin", b =>
+                {
+                    b.HasBaseType("BearGoodbyeKolkhozProject.Data.Entities.User");
+
+                    b.ToTable("Admin");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            BirthDay = "01.01.2000",
+                            Email = "Admin@mail.ru",
+                            Gender = 1,
+                            IsDeleted = false,
+                            LastName = "Admin",
+                            Name = "Admin",
+                            Password = "1000:WvGHoK1WF2vO/ZkCz8FcmEdWsULri96e:oYQNDwkRfTN2Sm1fY56gS/5esvc=",
+                            Role = 1
+                        });
+                });
+
+            modelBuilder.Entity("BearGoodbyeKolkhozProject.Data.Entities.Client", b =>
+                {
+                    b.HasBaseType("BearGoodbyeKolkhozProject.Data.Entities.User");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.ToTable("Client");
+                });
+
+            modelBuilder.Entity("BearGoodbyeKolkhozProject.Data.Entities.Lecturer", b =>
+                {
+                    b.HasBaseType("BearGoodbyeKolkhozProject.Data.Entities.User");
+
+                    b.ToTable("Lecturer");
+                });
+
             modelBuilder.Entity("BearGoodbyeKolkhozProject.Data.Entities.ContactLecturer", b =>
                 {
                     b.HasOne("BearGoodbyeKolkhozProject.Data.Entities.Lecturer", "Lecturer")
-                        .WithMany()
+                        .WithMany("ContactLecturer")
                         .HasForeignKey("LecturerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -649,11 +587,31 @@ namespace BearGoodbyeKolkhozProject.Data.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("BearGoodbyeKolkhozProject.Data.Entities.Admin", b =>
+                {
+                    b.HasOne("BearGoodbyeKolkhozProject.Data.Entities.User", null)
+                        .WithOne()
+                        .HasForeignKey("BearGoodbyeKolkhozProject.Data.Entities.Admin", "Id")
+                        .OnDelete(DeleteBehavior.ClientCascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("BearGoodbyeKolkhozProject.Data.Entities.Client", b =>
                 {
-                    b.Navigation("LecturerReviews");
+                    b.HasOne("BearGoodbyeKolkhozProject.Data.Entities.User", null)
+                        .WithOne()
+                        .HasForeignKey("BearGoodbyeKolkhozProject.Data.Entities.Client", "Id")
+                        .OnDelete(DeleteBehavior.ClientCascade)
+                        .IsRequired();
+                });
 
-                    b.Navigation("TrainingReviews");
+            modelBuilder.Entity("BearGoodbyeKolkhozProject.Data.Entities.Lecturer", b =>
+                {
+                    b.HasOne("BearGoodbyeKolkhozProject.Data.Entities.User", null)
+                        .WithOne()
+                        .HasForeignKey("BearGoodbyeKolkhozProject.Data.Entities.Lecturer", "Id")
+                        .OnDelete(DeleteBehavior.ClientCascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("BearGoodbyeKolkhozProject.Data.Entities.Company", b =>
@@ -663,18 +621,27 @@ namespace BearGoodbyeKolkhozProject.Data.Migrations
                     b.Navigation("TrainingReviews");
                 });
 
-            modelBuilder.Entity("BearGoodbyeKolkhozProject.Data.Entities.Lecturer", b =>
-                {
-                    b.Navigation("Events");
-
-                    b.Navigation("LecturerReviews");
-                });
-
             modelBuilder.Entity("BearGoodbyeKolkhozProject.Data.Entities.Training", b =>
                 {
                     b.Navigation("Event");
 
                     b.Navigation("TrainingReviews");
+                });
+
+            modelBuilder.Entity("BearGoodbyeKolkhozProject.Data.Entities.Client", b =>
+                {
+                    b.Navigation("LecturerReviews");
+
+                    b.Navigation("TrainingReviews");
+                });
+
+            modelBuilder.Entity("BearGoodbyeKolkhozProject.Data.Entities.Lecturer", b =>
+                {
+                    b.Navigation("ContactLecturer");
+
+                    b.Navigation("Events");
+
+                    b.Navigation("LecturerReviews");
                 });
 #pragma warning restore 612, 618
         }

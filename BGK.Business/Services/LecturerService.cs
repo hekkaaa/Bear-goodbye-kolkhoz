@@ -22,11 +22,12 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             _mapper = mapper;
         }
 
-        public void RegistrationLecturer(LecturerModel model)
+        public int RegistrationLecturer(LecturerModel model)
         {
             var entity = _mapper.Map<Lecturer>(model);
             entity.Password = PasswordHash.HashPassword(model.Password);
-            _lecturerRepo.AddLecturer(entity);
+            
+            return _lecturerRepo.AddLecturer(entity);
         }
 
         public void DeleteLecturerById(int id)
@@ -114,6 +115,18 @@ namespace BearGoodbyeKolkhozProject.Business.Services
         {
             List<Lecturer> lecturers = _lecturerRepo.GetLecturers();
             return _mapper.Map<List<LecturerModel>>(lecturers);
+        }
+
+        public List<TrainingModel> GetTrainingByLecturerId(int id)
+        {
+            var entity = _lecturerRepo.GetLecturerById(id);
+            if (entity is null)
+            {
+                throw new NotFoundException($"Нет лектора c id = {id}");
+            }
+
+            List<TrainingModel> trainings = _mapper.Map<List<TrainingModel>>(entity.Trainings);
+            return trainings;
         }
     }
 }

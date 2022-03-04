@@ -4,7 +4,7 @@ namespace BearGoodbyeKolkhozProject.Business.Services
 {
     public interface IClientService
     {
-        void RegistrationClient(ClientModel model);
+        int RegistrationClient(ClientModel model);
         void ChangePasswordClient(int id, string password);
         bool DeleteClient(int id);
         bool RestoreClient(int id);

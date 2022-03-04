@@ -150,7 +150,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status409Conflict)]
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status503ServiceUnavailable)]
-        public ActionResult<bool> SugnUp(int id)
+        public ActionResult<bool> SignUp(int id)
         {
             var clientId = HttpContext.GetUserIdFromToken();
             var res = _eventService.SignUp(id, clientId);
