@@ -3,6 +3,7 @@ using BearGoodbyeKolkhozProject.Data.Entities;
 using BearGoodbyeKolkhozProject.Data.Repositories;
 using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
+using System;
 using System.Collections.Generic;
 
 namespace BearGoodbyeKolkhozProject.Data.Tests
@@ -96,7 +97,7 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
                 newVirtualData.Name = "Генрих";
                 newVirtualData.LastName = "Ардамонов";
                 newVirtualData.Gender = Enums.Gender.Male;
-                newVirtualData.BirthDay = "02-12-1780";
+                newVirtualData.BirthDay = new DateTime(1780, 12, 02);
 
             }
             var act = _adminRepository.UpdateAdminInfo(newVirtualData, virtualData);

@@ -60,7 +60,7 @@ namespace BearGoodbyeKolkhozProject.Business.Tests
             var even = new EventModel
             {
                 Id = 1,
-                StartDate = "03.03.2022",
+                StartDate = new DateTime(2022, 03, 03),
                 Company = new CompanyModel
                 {
                     Id = 3,
@@ -84,7 +84,7 @@ namespace BearGoodbyeKolkhozProject.Business.Tests
                     Name = "Семен",
                     Email = "qwe@mail.ru",
                     LastName = "Семенов",
-                    BirthDay = "03.03.1993",
+                    BirthDay = new DateTime(1993, 03, 03),
                     Gender = Data.Enums.Gender.Male,
                     Password = "12345"
 
@@ -112,7 +112,7 @@ namespace BearGoodbyeKolkhozProject.Business.Tests
             var even = new EventModel
             {
                 Id = 1,
-                StartDate = "03.03.2022",
+                StartDate = new DateTime(2022, 03, 03),
 
             };
 
@@ -121,7 +121,7 @@ namespace BearGoodbyeKolkhozProject.Business.Tests
             var even1 = new EventModel
             {
                 Id = 2,
-                StartDate = "04.04.2012",
+                StartDate = new DateTime(2012, 04, 04),
 
             };
 
@@ -130,7 +130,7 @@ namespace BearGoodbyeKolkhozProject.Business.Tests
             var even2 = new EventModel
             {
                 Id = 3,
-                StartDate = "05.05.2010",
+                StartDate = new DateTime(2010, 05, 05),
 
             };
 
@@ -142,18 +142,18 @@ namespace BearGoodbyeKolkhozProject.Business.Tests
 
             List<EventModel> expected = new List<EventModel> { new EventModel {
                 Id = 1,
-                StartDate = "03.03.2022",
+                StartDate = new DateTime(2022, 03, 03),
 
             }
             ,new EventModel
             {
                 Id = 2,
-                StartDate = "04.04.2012",
+                StartDate = new DateTime(2012, 04, 04),
             }
             ,new EventModel
             {
                 Id = 3,
-                StartDate = "05.05.2010",
+                StartDate = new DateTime(2010, 05, 05),
             } };
 
             //when
@@ -174,7 +174,7 @@ namespace BearGoodbyeKolkhozProject.Business.Tests
             var even = new EventModel
             {
                 Id = 1,
-                StartDate = "03.03.2022",
+                StartDate = new DateTime(2022, 03, 03),
 
             };
 
@@ -183,7 +183,7 @@ namespace BearGoodbyeKolkhozProject.Business.Tests
             var eventUpdate = new EventModel
             {
                 Id = 1,
-                StartDate = "04.03.2022",
+                StartDate = new DateTime(2022, 03, 04),
             };
 
             //when
@@ -192,7 +192,7 @@ namespace BearGoodbyeKolkhozProject.Business.Tests
             var expected = new EventModel
             {
                 Id = 1,
-                StartDate = "04.03.2022",
+                StartDate = new DateTime(2022, 03, 04),
             };
 
             var actual = _service.GetEventById(eventUpdate.Id);
@@ -210,7 +210,7 @@ namespace BearGoodbyeKolkhozProject.Business.Tests
             var even = new EventModel
             {
                 Id = 1,
-                StartDate = "03.03.2022",
+                StartDate = new DateTime(2022, 03, 03),
 
             };
 

@@ -33,7 +33,7 @@ namespace BearGoodbyeKolkhozProject.Data.ConnectDb
                 Name = "Admin",
                 LastName = "Admin",
                 Gender = Gender.Male,
-                BirthDay = "01.01.2000",
+                BirthDay = new DateTime(2000, 01, 01),
                 Email = "Admin@mail.ru",
                 Password = "1000:WvGHoK1WF2vO/ZkCz8FcmEdWsULri96e:oYQNDwkRfTN2Sm1fY56gS/5esvc=",
                 Role = Role.Admin,

@@ -119,7 +119,7 @@ namespace BearGoodbyeKolkhozProject.Business.Services
         //удолить после проверки
         public void SendEmail()
         {
-            EventModel em = new EventModel { StartDate = "20.05.01" };
+            EventModel em = new EventModel { StartDate = new DateTime(2000, 05, 01) };
             _emailSender.SendEmail("ff", "ff", em);
         }
     }

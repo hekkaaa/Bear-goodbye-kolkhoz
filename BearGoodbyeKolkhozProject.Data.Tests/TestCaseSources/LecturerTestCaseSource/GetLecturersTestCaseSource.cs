@@ -1,4 +1,5 @@
 ﻿using BearGoodbyeKolkhozProject.Data.Entities;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -13,7 +14,7 @@ namespace BearGoodbyeKolkhozProject.Data.Tests.TestCaseSources.LecturerTestCaseS
                 LastName = "Azarov",
                 Password = "qwe",
                 Email = "123qwe@mail.com",
-                BirthDay = "12.12.1999",
+                BirthDay = new DateTime(1999, 12, 12),
                 Gender = Enums.Gender.Male,
                 Trainings = new List<Training>{
                     new Training {
@@ -27,7 +28,7 @@ namespace BearGoodbyeKolkhozProject.Data.Tests.TestCaseSources.LecturerTestCaseS
                 Name = "Slava",
                 LastName = "Azarov",
                 Password = "asd",
-                BirthDay = "12.12.2004",
+                BirthDay = new DateTime(2004, 12, 12),
                 Email = "123qwe@mail.com",
                 Gender = Enums.Gender.Male}
             , new Lecturer {
@@ -35,7 +36,7 @@ namespace BearGoodbyeKolkhozProject.Data.Tests.TestCaseSources.LecturerTestCaseS
                 LastName = "asd",
                 Email = "123qwe@mail.com",
                 Password = "123",
-                BirthDay = "11.22.1234",
+                BirthDay = new DateTime(1234, 11, 12),
                 Gender = Enums.Gender.Other,
                 IsDeleted = true}
             };
@@ -45,7 +46,7 @@ namespace BearGoodbyeKolkhozProject.Data.Tests.TestCaseSources.LecturerTestCaseS
                 Name = "Roma",
                 LastName = "Azarov",
                 Password = "qwe",
-                BirthDay = "12.12.1999",
+                BirthDay = new DateTime(1999, 12, 12),
                 Email = "123qwe@mail.com",
                 Gender = Enums.Gender.Male,
                 Trainings = new List<Training>{
@@ -62,7 +63,7 @@ namespace BearGoodbyeKolkhozProject.Data.Tests.TestCaseSources.LecturerTestCaseS
                 Name = "Slava",
                 LastName = "Azarov",
                 Password = "asd",
-                BirthDay = "12.12.2004",
+                BirthDay = new DateTime(2004, 12, 12),
                 Email = "123qwe@mail.com",
                 Gender = Enums.Gender.Male}
             };

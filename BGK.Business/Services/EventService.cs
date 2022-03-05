@@ -182,7 +182,7 @@ namespace BearGoodbyeKolkhozProject.Business.Services
         private void SetEventData(Classroom classroom, Lecturer lecturer, DateTime date, Event even)
         {
             even.Classroom = classroom;
-            even.StartDate = date.ToString();
+            even.StartDate = date;
             even.Lecturer = lecturer;
 
             _eventRepository.UpdateEvent(even);
