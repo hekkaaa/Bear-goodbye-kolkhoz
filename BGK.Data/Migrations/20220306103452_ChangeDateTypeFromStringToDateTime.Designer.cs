@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BearGoodbyeKolkhozProject.Data.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20220305231340_ChangetDateTypoFromStringToDateTime")]
-    partial class ChangetDateTypoFromStringToDateTime
+    [Migration("20220306103452_ChangeDateTypeFromStringToDateTime")]
+    partial class ChangeDateTypeFromStringToDateTime
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

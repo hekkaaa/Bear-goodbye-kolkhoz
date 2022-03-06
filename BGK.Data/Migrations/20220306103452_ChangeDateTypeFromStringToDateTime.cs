@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace BearGoodbyeKolkhozProject.Data.Migrations
 {
-    public partial class ChangetDateTypoFromStringToDateTime : Migration
+    public partial class ChangeDateTypeFromStringToDateTime : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
