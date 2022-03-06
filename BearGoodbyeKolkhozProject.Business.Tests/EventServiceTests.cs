@@ -3,9 +3,12 @@ using BearGoodbyeKolkhozProject.Business.Configuration;
 using BearGoodbyeKolkhozProject.Business.Models;
 using BearGoodbyeKolkhozProject.Business.Services;
 using BearGoodbyeKolkhozProject.Data.ConnectDb;
+using BearGoodbyeKolkhozProject.Data.Entities;
 using BearGoodbyeKolkhozProject.Data.Enums;
+using BearGoodbyeKolkhozProject.Data.Interfaces;
 using BearGoodbyeKolkhozProject.Data.Repositories;
 using Microsoft.EntityFrameworkCore;
+using Moq;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
@@ -226,8 +229,5 @@ namespace BearGoodbyeKolkhozProject.Business.Tests
             //then
             Assert.AreEqual(expected, actual);
         }
-
- 
     }
-    
 }

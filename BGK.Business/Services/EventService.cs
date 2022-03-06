@@ -74,12 +74,32 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             _eventRepository.DeleteEvent(even);
         }
 
-        private void CheckExistsOrRaiseException(object test, int id)
+
+        public List<EventModel> GetCompletedEventsByLecturerId(int id)
         {
-            if (test is null)
+            var lecturer = _lecturerRepository.GetLecturerById(id);
+            if (lecturer is null)
             {
-                throw new NotFoundException($"Не найдено в базе данных объекта с ID {id}");
+                throw new NotFoundException($"Нет тренера с id = {id}");
             }
+
+            var events = _eventRepository.GetCompletedEventsByLecturer(lecturer, DateTime.Now);
+
+            return _mapper.Map<List<EventModel>>(events);
+        }
+
+        public List<EventModel> GetAttendedEventsByClientId(int id)
+        {
+            var client = _clientRepository.GetClientById(id);
+
+            if (client is null)
+            {
+                throw new NotFoundException($"Нет клиента с id = {id}");
+            }
+
+            var events = _eventRepository.GetAttendedEventsByClient(client, DateTime.Now);
+
+            return _mapper.Map<List<EventModel>>(events);
         }
 
         public bool SignUp(int trainingId, int clientId)
@@ -113,6 +133,13 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             }
 
             return true;
+        }
+        private void CheckExistsOrRaiseException(object test, int id)
+        {
+            if (test is null)
+            {
+                throw new NotFoundException($"Не найдено в базе данных объекта с ID {id}");
+            }
         }
 
         private void InitEvent(Training training, Client client)
