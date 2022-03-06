@@ -43,7 +43,7 @@ namespace BearGoodbyeKolkhozProject.API.Configuration.ExceptionResponse
 
         private int GetValidationCode(string errorMessage)
         {
-            throw new NotImplementedException();
+            throw new NotImplementedException(errorMessage);
         }
     }
 }
