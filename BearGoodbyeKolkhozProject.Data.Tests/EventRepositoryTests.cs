@@ -1,15 +1,10 @@
 ﻿using BearGoodbyeKolkhozProject.Data.ConnectDb;
 using BearGoodbyeKolkhozProject.Data.Entities;
 using BearGoodbyeKolkhozProject.Data.Repositories;
-using BearGoodbyeKolkhozProject.Data.Tests.TestCaseSources.CompanyTestCaseSourse;
 using BearGoodbyeKolkhozProject.Data.Tests.TestCaseSources.EventTestCaseSource;
 using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BearGoodbyeKolkhozProject.Data.Tests
 {
@@ -49,7 +44,7 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
             Assert.AreEqual(expected, actual);
         }
 
-       
+
 
         [TestCaseSource(typeof(DeleteEventTestCaseSource))]
         public void DeleteEventTest(Event even, Event expected)
@@ -69,6 +64,6 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
 
         }
 
-       
+
     }
 }

@@ -1,7 +1,6 @@
 ﻿using BearGoodbyeKolkhozProject.Business.Configuration;
 using BearGoodbyeKolkhozProject.Business.Exceptions;
 using BearGoodbyeKolkhozProject.Data.Entities;
-using BearGoodbyeKolkhozProject.Data.Interfaces;
 using BearGoodbyeKolkhozProject.Data.Repositories;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -26,7 +25,7 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             {
                 throw new NotFoundException($"Нет пользователя с email = {email}");
             }
-            if(entity.IsDeleted == true)
+            if (entity.IsDeleted == true)
             {
                 throw new UserIsBlockException("User deleted or blocked | Пользователь удален или заблокирован");
             }
@@ -38,7 +37,7 @@ namespace BearGoodbyeKolkhozProject.Business.Services
                 new Claim(ClaimTypes.UserData, entity.Id.ToString()),
                 new Claim(ClaimTypes.Role, entity.Role.ToString())
             };
-            
+
 
             var jwt = new JwtSecurityToken(
                             issuer: AuthOptions.Issuer,

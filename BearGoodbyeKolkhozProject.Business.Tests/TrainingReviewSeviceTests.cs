@@ -3,13 +3,11 @@ using BearGoodbyeKolkhozProject.Business.Configuration;
 using BearGoodbyeKolkhozProject.Business.Exceptions;
 using BearGoodbyeKolkhozProject.Business.Models;
 using BearGoodbyeKolkhozProject.Business.Services;
-using BearGoodbyeKolkhozProject.Data.ConnectDb;
-using BearGoodbyeKolkhozProject.Data.Repositories;
-using Microsoft.EntityFrameworkCore;
-using NUnit.Framework;
-using Moq;
 using BearGoodbyeKolkhozProject.Business.Tests.TestCaseSource.TraningTestCaseSource;
 using BearGoodbyeKolkhozProject.Data.Entities;
+using BearGoodbyeKolkhozProject.Data.Repositories;
+using Moq;
+using NUnit.Framework;
 using System.Collections.Generic;
 
 namespace BearGoodbyeKolkhozProject.Business.Tests
@@ -17,9 +15,6 @@ namespace BearGoodbyeKolkhozProject.Business.Tests
     public class TrainingReviewSeviceTests
     {
         private TrainingReviewService _service;
-        private ApplicationContext _context;
-        private TrainingReviewRepository _trainingRepository;
-        private TestData _testData;
         private IMapper _mapper;
 
 
@@ -56,7 +51,7 @@ namespace BearGoodbyeKolkhozProject.Business.Tests
             //when
             TrainingReviewService trainingReviewService = new TrainingReviewService(_trainingReviewRepository.Object, _mapper);
             trainingReviewService.UpdateTrainingReview(original.Id, update);
-            
+
             //then
             _trainingReviewRepository.Verify(tr => tr.UpdateTrainingReview(It.IsAny<TrainingReview>()), Times.Once);
         }
@@ -73,7 +68,7 @@ namespace BearGoodbyeKolkhozProject.Business.Tests
             TrainingReviewService trainingReviewService = new TrainingReviewService(_trainingReviewRepository.Object, _mapper);
 
             //then
-            Assert.Throws<BusinessException>(() => trainingReviewService.UpdateTrainingReview(666,update));
+            Assert.Throws<BusinessException>(() => trainingReviewService.UpdateTrainingReview(666, update));
         }
 
         [TestCaseSource(typeof(GetTrainingReviewByIdTestCaseSource))]
@@ -106,7 +101,7 @@ namespace BearGoodbyeKolkhozProject.Business.Tests
             Assert.Throws<BusinessException>(() => trainingReviewService.GetTrainingReviewModelById(666));
         }
 
-        [TestCaseSource(typeof(GetTrainingReviewsTestCaseSource))]      
+        [TestCaseSource(typeof(GetTrainingReviewsTestCaseSource))]
         public void GetTrainingReviewModelsTests(List<TrainingReview> trainingReviews, List<TrainingReviewModel> expected)
         {
             //given

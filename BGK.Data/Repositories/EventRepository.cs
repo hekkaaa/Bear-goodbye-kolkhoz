@@ -1,11 +1,6 @@
 ﻿using BearGoodbyeKolkhozProject.Data.ConnectDb;
 using BearGoodbyeKolkhozProject.Data.Entities;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BearGoodbyeKolkhozProject.Data.Repositories
 {
@@ -71,7 +66,7 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
             return even;
         }
 
-        public List<Event> GetClosedRegEvents() => 
+        public List<Event> GetClosedRegEvents() =>
             _context.Event.Where(e => e.StartDate != null).ToList();
     }
 }

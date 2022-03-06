@@ -33,7 +33,7 @@ builder.Services.AddMvc()
         options.InvalidModelStateResponseFactory = context =>
         {
             var exc = new ValidationExceptionResponse(context.ModelState);
-            return  new UnprocessableEntityObjectResult(exc);
+            return new UnprocessableEntityObjectResult(exc);
         };
     });
 

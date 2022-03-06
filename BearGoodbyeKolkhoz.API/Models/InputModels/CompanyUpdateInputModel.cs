@@ -6,5 +6,5 @@
         public int Tin { get; set; }
         public string PhoneNumber { get; set; }
     }
-        
+
 }

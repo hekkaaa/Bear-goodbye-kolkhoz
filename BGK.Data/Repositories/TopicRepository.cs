@@ -22,9 +22,9 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
         {
             return _context.Topic.Where(t => t.Training.Any(t => !t.IsDeleted && t.Id == id)).ToList();
         }
-           
-        
- 
+
+
+
         public void AddTopic(Topic model)
         {
             _context.Topic.Add(model);

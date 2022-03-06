@@ -27,8 +27,8 @@ namespace BearGoodbyeKolkhozProject.API.Configuration.ExceptionResponse
         {
             Code = ValidationCode;
             Message = MessageValidation;
-            
-            foreach(var state in modelState)
+
+            foreach (var state in modelState)
             {
                 if (state.Value.Errors.Count == 0)
                     continue;

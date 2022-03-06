@@ -3,7 +3,7 @@ using System.Collections;
 
 namespace BearGoodbyeKolkhozProject.Data.Tests.TestCaseSources.EventTestCaseSource
 {
-    public class AddEventTestCaseSource :IEnumerable
+    public class AddEventTestCaseSource : IEnumerable
     {
         public IEnumerator GetEnumerator()
         {
@@ -39,7 +39,7 @@ namespace BearGoodbyeKolkhozProject.Data.Tests.TestCaseSources.EventTestCaseSour
             };
 
 
-                yield return new object[] { even };
+            yield return new object[] { even };
 
 
 

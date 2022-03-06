@@ -20,7 +20,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         private readonly ILecturerService _service;
         private IContactLecturerService _contactLecturerService;
         private IMapper _mapper;
-        
+
 
         public LecturersController(ILecturerService lecturerService, IMapper mapper, IContactLecturerService contactLecturerService)
         {
