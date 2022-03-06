@@ -51,7 +51,7 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             return _mapper.Map<List<ClientModel>>(clients);
         }
 
-        public void UpdateClientInfo(int id, ClientModel updateModel)
+        public bool UpdateClientInfo(int id, ClientModel updateModel)
         {
             var client = _clientRepo.GetClientById(id);
 
@@ -61,7 +61,7 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             }
 
             var updateClient = _mapper.Map<Client>(updateModel);
-            _clientRepo.UpdateClientInfo(client, updateClient);
+            return _clientRepo.UpdateClientInfo(client, updateClient);
         }
 
         public bool DeleteClient(int id)
