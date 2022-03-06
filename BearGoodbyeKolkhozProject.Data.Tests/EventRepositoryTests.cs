@@ -65,10 +65,43 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
 
             //then
             Assert.AreEqual(expected, actual);
-
-
         }
 
-       
+        [TestCaseSource(typeof(GetCompletedEventsByLecturerTestCaseSource))]
+        public void GetCompletedEventsByLecturerIdTest(Lecturer lecturer
+            , List<Event> events
+            , DateTime date
+            , List<Event> expected)
+        {
+            //given
+            EventRepository eventRepository = new EventRepository(_context);
+            _context.Event.AddRange(events);
+            _context.SaveChanges();
+
+            //when
+            var actual = eventRepository.GetCompletedEventsByLecturer(lecturer, date);
+
+            //then
+            Assert.AreEqual(expected.Count, actual.Count);
+            CollectionAssert.AreEqual(expected, actual);
+        }
+
+        [TestCaseSource(typeof(GetAttendedEventsByClientTestCaseSource))]
+        public void GetAttendedEventsByClientTest(Client client
+            , List<Event> events
+            , DateTime date
+            , List<Event> expected)
+        {
+            EventRepository eventRepository = new EventRepository(_context);
+            _context.Event.AddRange(events);
+            _context.SaveChanges();
+
+            //when
+            var actual = eventRepository.GetAttendedEventsByClient(client, date);
+
+            //then
+            Assert.AreEqual(expected.Count, actual.Count);
+            CollectionAssert.AreEqual(expected, actual);
+        }
     }
 }
