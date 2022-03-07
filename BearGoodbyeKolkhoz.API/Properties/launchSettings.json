@@ -39,7 +39,7 @@
       "launchUrl": "swagger",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Production",
-        "BEAR_CONNECTION_STRING": "Data Source=80.78.240.16;Initial Catalog=BearDB;Persis Security Info = True;User ID = student; Password = qwe!23"
+        "BEAR_CONNECTION_STRING": "Server=80.78.240.16;Initial Catalog=BearDB; User ID = student; Password = qwe!23"
       }
     },
     "Roma": {

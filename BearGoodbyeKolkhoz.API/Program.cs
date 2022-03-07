@@ -14,7 +14,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 var connString = builder.Configuration.GetValue<string>(_connString);
 builder.Services.AddDbContext<ApplicationContext>(op =>
-            op.UseSqlServer(connString));
+            op.UseLazyLoadingProxies().UseSqlServer(connString));
 
 // Add services to the container.
 
