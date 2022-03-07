@@ -100,8 +100,8 @@ namespace BearGoodbyeKolkhozProject.Data.Migrations
                     b.Property<int>("Role")
                         .HasColumnType("int");
 
-                    b.Property<int>("Tin")
-                        .HasColumnType("int");
+                    b.Property<long>("Tin")
+                        .HasColumnType("bigint");
 
                     b.HasKey("Id");
 

@@ -38,27 +38,22 @@ namespace BearGoodbyeKolkhozProject.Business.Services
 
         }
 
-        public void RegistrationCompany(CompanyModel companyModel)
+        public int RegistrationCompany(CompanyModel companyModel)
         {
-            companyModel.Password = PasswordHash.HashPassword(companyModel.Password);
+            bool res = CheckDublicateEmailAddCompany(companyModel.Email);
 
-            var mappedCompany = new Company
+            if (res)
             {
-                Email = companyModel.Email,
-                Password = PasswordHash.HashPassword(companyModel.Password),
-                Name = companyModel.Name,
-                PhoneNumber = companyModel.PhoneNumber,
-                Tin = companyModel.Tin,
-                IsDeleted = companyModel.IsDeleted
-            };
+                throw new DuplicateException("User with this Email already exists | Пользователь с таким Email уже существует ");
+            }
+            else
+            {
+                companyModel.Password = PasswordHash.HashPassword(companyModel.Password);
+                var item = _mapper.Map<Company>(companyModel);
 
-            mappedCompany.Role = Data.Enums.Role.Company;
-
-            _companyRepository.RegistrationCompany(_mapper.Map<Company>(mappedCompany));
-
-
+                return _companyRepository.RegistrationCompany(_mapper.Map<Company>(item));
+            }
         }
-
 
         public void UpdateCompany(CompanyModel companyModel)
         {
@@ -67,8 +62,8 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             if (company == null)
                 throw new NotFoundException("Такой Компании не существует.");
 
-            var entity = _mapper.Map <Company> (companyModel);
-          
+            var entity = _mapper.Map<Company>(companyModel);
+
             _companyRepository.UpdateCompany(entity);
 
         }
@@ -84,7 +79,7 @@ namespace BearGoodbyeKolkhozProject.Business.Services
 
             _companyRepository.DeleteCompany(id);
 
-            
+
         }
 
         public void UpdateCompany(int id, bool isDel)
@@ -110,6 +105,17 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             _companyRepository.ChangePasswordCompany(hashPassword, company);
         }
 
+        private bool CheckDublicateEmailAddCompany(string email)
+        {
+            List<Company>? allList = _companyRepository.GetCompanies();
+            Company? res = allList.FirstOrDefault(a => a.Email == email);
+
+            if (res == null)
+            {
+                return false;
+            }
+            return true;
+        }
 
     }
 }

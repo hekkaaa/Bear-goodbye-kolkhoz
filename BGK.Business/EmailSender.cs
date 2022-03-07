@@ -1,9 +1,8 @@
 ﻿
-using System.Text;
-using System.IO;
+using BearGoodbyeKolkhozProject.Business.Models;
 using System.Net;
 using System.Net.Mail;
-using BearGoodbyeKolkhozProject.Business.Models;
+using System.Text;
 
 namespace BearGoodbyeKolkhozProject.Business
 {

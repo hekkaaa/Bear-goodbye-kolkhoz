@@ -90,7 +90,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         [SwaggerOperation("Delete Client. Roles: Admin")]
         
         public ActionResult<bool> DeleteAndBanUserById(int id)
-        {   
+        {
             return Ok(_service.DeleteClient(id));
         }
 

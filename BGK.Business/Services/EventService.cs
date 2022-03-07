@@ -1,10 +1,10 @@
 using AutoMapper;
 using BearGoodbyeKolkhozProject.Business.Exceptions;
-using BearGoodbyeKolkhozProject.Business.Models;
 using BearGoodbyeKolkhozProject.Business.Interface;
+using BearGoodbyeKolkhozProject.Business.Models;
 using BearGoodbyeKolkhozProject.Data.Entities;
-using BearGoodbyeKolkhozProject.Data.Repositories;
 using BearGoodbyeKolkhozProject.Data.Interfaces;
+using BearGoodbyeKolkhozProject.Data.Repositories;
 
 namespace BearGoodbyeKolkhozProject.Business.Services
 {
@@ -137,7 +137,7 @@ namespace BearGoodbyeKolkhozProject.Business.Services
 
                 return true;
             }
-            else if(even.Clients.Count < training.MembersCount && !IsDuplicateRegistration(even, clientId))
+            else if (even.Clients.Count < training.MembersCount && !IsDuplicateRegistration(even, clientId))
             {
                 _eventRepository.SignUp(client, even);
                 return true;
@@ -287,10 +287,10 @@ namespace BearGoodbyeKolkhozProject.Business.Services
                 {
                     if (classroom == even.Classroom)
                     {
-                        if (!classroomWorks.ContainsKey(classroom)) 
+                        if (!classroomWorks.ContainsKey(classroom))
                             classroomWorks[classroom] = new List<DateTime> {
                                 Convert.ToDateTime(Convert.ToDateTime(even.StartDate).ToString("dd.MM.yyyy"))};
-                       
+
                         else
                             classroomWorks[classroom]
                                 .Add(Convert.ToDateTime(Convert.ToDateTime(even.StartDate).ToString("dd.MM.yyyy")));

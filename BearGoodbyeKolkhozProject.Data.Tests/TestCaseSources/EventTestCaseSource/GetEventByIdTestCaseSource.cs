@@ -40,7 +40,11 @@ namespace BearGoodbyeKolkhozProject.Data.Tests.TestCaseSources.EventTestCaseSour
                 },
             };
 
-                var expected = new Event
+            var expected = new Event
+            {
+                Id = even.Id,
+                StartDate = "03.03.2022",
+                Company = new Company
                 {
                     Id = even.Id,
                     StartDate = new DateTime(2022, 03, 03),
@@ -68,12 +72,12 @@ namespace BearGoodbyeKolkhozProject.Data.Tests.TestCaseSources.EventTestCaseSour
                         Gender = Enums.Gender.Male,
                         Password = "12345"
 
-                    }
-                };
+                }
+            };
 
             yield return new object[] { even, expected };
         }
     }
 
-    
+
 }

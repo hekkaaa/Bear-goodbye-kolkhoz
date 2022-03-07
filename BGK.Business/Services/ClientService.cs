@@ -73,7 +73,7 @@ namespace BearGoodbyeKolkhozProject.Business.Services
                 throw new NotFoundException($"нет клиента с id = {id}");
             }
 
-           return _clientRepo.ChangeDeleteStatusById(client);
+            return _clientRepo.ChangeDeleteStatusById(client);
         }
 
         public bool RestoreClient(int id)
@@ -91,7 +91,7 @@ namespace BearGoodbyeKolkhozProject.Business.Services
         public void ChangePasswordClient(int id, string password)
         {
             var client = _clientRepo.GetClientById(id);
-            
+
             if (client is null)
             {
                 throw new NotFoundException($"нет клиента с id = {id}");
