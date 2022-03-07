@@ -105,7 +105,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         [HttpGet("completed-events")]
         [Authorize(Roles = "Lecturer")]
         [SwaggerOperation("Allows the lecturer to see all the events held by him. Roles: Lecturer")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(CompletedEventsOutputModel), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ExceptionResponse), StatusCodes.Status403Forbidden)]
         [ProducesResponseType(typeof(ExceptionResponse), StatusCodes.Status404NotFound)]
         public ActionResult GetCompletedEvents()
@@ -119,7 +119,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         [HttpGet("attended-events")]
         [Authorize(Roles = "Client")]
         [SwaggerOperation("Allows the client to see all the events he visited. Roles: Client")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(CompletedEventsOutputModel), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ExceptionResponse), StatusCodes.Status403Forbidden)]
         [ProducesResponseType(typeof(ExceptionResponse), StatusCodes.Status404NotFound)]
         public ActionResult GetAttendedEvents()
