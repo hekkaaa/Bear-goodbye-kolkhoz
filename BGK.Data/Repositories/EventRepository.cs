@@ -25,7 +25,7 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
                 .Include(c => c.Classroom)
                 .Include(co => co.Company)
                 .Include(cl => cl.Clients)
-                //.Include(l => l.Lecturer) // 
+                .Include(l => l.Lecturer) // 
                 .FirstOrDefault(c => c.Id == id);
         }
 
