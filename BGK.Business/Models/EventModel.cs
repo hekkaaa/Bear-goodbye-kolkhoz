@@ -11,5 +11,6 @@
         public List<ClientModel>? Clients { get; set; }
         public TrainingModel? Training { get; set; }
         public int? Price { get; set; }
+        public string? Name { get; set; }
     }
 }

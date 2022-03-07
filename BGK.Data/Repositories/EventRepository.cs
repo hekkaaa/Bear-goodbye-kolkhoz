@@ -66,7 +66,7 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
         }
 
         public List<Event> GetClosedRegEvents() => 
-            _context.Event.Where(e => e.StartDate != null).Include(e => e.Clients).ToList();
+            _context.Event.Include(t => t.Training).Where(e => e.StartDate != null).Include(e => e.Clients).ToList();
 
         public List<Event> GetCompletedEventsByLecturer(Lecturer lecturer, DateTime date)
         {

@@ -84,10 +84,16 @@ namespace BearGoodbyeKolkhozProject.Business.Services
 
             var events = _eventRepository.GetCompletedEventsByLecturer(lecturer, DateTime.Now);
             var eventModels = _mapper.Map<List<EventModel>>(events);
+           
+            if(eventModels.Count is 0)
+            {
+                throw new BusinessException("The lecturer does not conduct any events | Лектор не проводит ни один евент");
+            }
 
             foreach(EventModel model in eventModels)
             {
                 model.Price = (model.Training.Price * 60) / 100;
+                model.Name = model.Training.Name;
             }
 
             return eventModels;
@@ -108,6 +114,7 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             foreach (EventModel model in eventModels)
             {
                 model.Price = (model.Training.Price);
+                model.Name = model.Training.Name;
             }
 
             return eventModels;

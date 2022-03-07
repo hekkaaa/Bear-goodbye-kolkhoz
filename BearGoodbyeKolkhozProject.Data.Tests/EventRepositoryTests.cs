@@ -4,6 +4,8 @@ using BearGoodbyeKolkhozProject.Data.Repositories;
 using BearGoodbyeKolkhozProject.Data.Tests.TestCaseSources.EventTestCaseSource;
 using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace BearGoodbyeKolkhozProject.Data.Tests
