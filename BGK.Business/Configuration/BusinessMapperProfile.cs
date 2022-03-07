@@ -20,6 +20,7 @@ namespace BearGoodbyeKolkhozProject.Business.Configuration
 
             CreateMap<ContactLecturer, ContactLecturerModel>().ReverseMap();
 
+
             CreateMap<Training, TrainingModel>().ReverseMap();
             CreateMap<TrainingReview, TrainingReviewModel>().ReverseMap();
             CreateMap<ClientModel, Client>().ReverseMap();

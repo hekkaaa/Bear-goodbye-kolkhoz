@@ -29,7 +29,9 @@ namespace BearGoodbyeKolkhozProject.API
             CreateMap<TrainingModel, TrainingOutputModel>();
             CreateMap<TrainingUpdateInputModel, TrainingModel>();
             CreateMap<TrainingInsertInputModel, TrainingModel>();
-            
+            CreateMap<EventModel, CompletedEventsOutputModel>();
+
+
             CreateMap<TopicModel, TopicOutputModel>();
             CreateMap<TopicUpdateInputModel, TopicModel>();
 

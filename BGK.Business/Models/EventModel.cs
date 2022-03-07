@@ -9,6 +9,7 @@
         public LecturerModel? Lecturer { get; set; }
         public bool IsDeleted { get; set; }
         public List<ClientModel>? Clients { get; set; }
-
+        public TrainingModel? Training { get; set; }
+        public int? Price { get; set; }
     }
 }

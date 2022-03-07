@@ -30,7 +30,6 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
             _context.Event.Add(even);
 
             _context.SaveChanges();
-
         }
 
         public void UpdateEvent(Event even)

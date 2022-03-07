@@ -74,7 +74,6 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             _eventRepository.DeleteEvent(even);
         }
 
-
         public List<EventModel> GetCompletedEventsByLecturerId(int id)
         {
             var lecturer = _lecturerRepository.GetLecturerById(id);
@@ -84,8 +83,14 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             }
 
             var events = _eventRepository.GetCompletedEventsByLecturer(lecturer, DateTime.Now);
+            var eventModels = _mapper.Map<List<EventModel>>(events);
 
-            return _mapper.Map<List<EventModel>>(events);
+            foreach(EventModel model in eventModels)
+            {
+                model.Price = (model.Training.Price * 60) / 100;
+            }
+
+            return eventModels;
         }
 
         public List<EventModel> GetAttendedEventsByClientId(int id)
@@ -98,8 +103,14 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             }
 
             var events = _eventRepository.GetAttendedEventsByClient(client, DateTime.Now);
+            var eventModels = _mapper.Map<List<EventModel>>(events);
 
-            return _mapper.Map<List<EventModel>>(events);
+            foreach (EventModel model in eventModels)
+            {
+                model.Price = (model.Training.Price);
+            }
+
+            return eventModels;
         }
 
         public bool SignUp(int trainingId, int clientId)
