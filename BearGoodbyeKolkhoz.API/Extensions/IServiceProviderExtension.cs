@@ -27,6 +27,7 @@ namespace BearGoodbyeKolkhozProject.API.Extensions
             services.AddScoped<IClientService, ClientService>();
             services.AddScoped<ITopicService, TopicService>();
             services.AddScoped<IAuthService, AuthService>();
+            services.AddScoped<IUserService, UserService>();
 
         }
 
