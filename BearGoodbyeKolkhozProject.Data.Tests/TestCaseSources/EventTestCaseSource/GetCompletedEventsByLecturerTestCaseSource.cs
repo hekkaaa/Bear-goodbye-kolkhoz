@@ -21,6 +21,16 @@ namespace BearGoodbyeKolkhozProject.Data.Tests.TestCaseSources.EventTestCaseSour
                 Gender = Gender.Male,
             };
 
+            Training training = new Training()
+            {
+                Id = 1,
+                Name = "Name",
+                MembersCount = 1,
+                Duration = 1,
+                Price = 1000,
+                IsDeleted = false
+            };
+
             Classroom classroom = new Classroom()
             {
                 MembersCount = 8,
@@ -35,6 +45,7 @@ namespace BearGoodbyeKolkhozProject.Data.Tests.TestCaseSources.EventTestCaseSour
                     Id = 1,
                     StartDate = new DateTime(2022, 03, 03),
 
+                    Training = training,
                     Classroom = classroom,
                     Lecturer = lecturer
                 },
@@ -43,6 +54,7 @@ namespace BearGoodbyeKolkhozProject.Data.Tests.TestCaseSources.EventTestCaseSour
                     Id = 2,
                     StartDate = new DateTime(2022, 03, 05),
 
+                    Training = training,
                     Classroom = classroom,
                     Lecturer = lecturer
                 },
@@ -85,6 +97,7 @@ namespace BearGoodbyeKolkhozProject.Data.Tests.TestCaseSources.EventTestCaseSour
                     Id = 1,
                     StartDate = new DateTime(2022, 03, 03),
 
+                    Training = training,
                     Classroom = classroom,
                     Lecturer = lecturer
                 },
@@ -93,6 +106,7 @@ namespace BearGoodbyeKolkhozProject.Data.Tests.TestCaseSources.EventTestCaseSour
                     Id = 2,
                     StartDate = new DateTime(2022, 03, 05),
 
+                    Training = training,
                     Classroom = classroom,
                     Lecturer = lecturer
                 }

@@ -24,6 +24,16 @@ namespace BearGoodbyeKolkhozProject.Data.Tests.TestCaseSources.EventTestCaseSour
                 Gender = Enums.Gender.Male,
             };
 
+            Training training = new Training()
+            {
+                Id = 1,
+                Name = "Name",
+                MembersCount = 1,
+                Duration = 1,
+                Price = 1000,
+                IsDeleted = false
+            };
+
             Lecturer lecturer = new Lecturer()
             {
                 Id = 1,
@@ -49,6 +59,7 @@ namespace BearGoodbyeKolkhozProject.Data.Tests.TestCaseSources.EventTestCaseSour
                     Id = 1,
                     StartDate = new DateTime(2022, 03, 10),
 
+                    Training = training,
                     Classroom = classroom,
                     Lecturer = lecturer,
                     Clients = new List<Client>(){ client }
@@ -58,6 +69,7 @@ namespace BearGoodbyeKolkhozProject.Data.Tests.TestCaseSources.EventTestCaseSour
                     Id = 2,
                     StartDate = new DateTime(2022, 03, 05),
 
+                    Training = training,
                     Classroom = classroom,
                     Lecturer = lecturer,
                     Clients = new List<Client>(){ client }
@@ -67,6 +79,7 @@ namespace BearGoodbyeKolkhozProject.Data.Tests.TestCaseSources.EventTestCaseSour
                     Id = 3,
                     StartDate = new DateTime(2022, 03, 05),
 
+                    Training = training,
                     Classroom = new Classroom
                     {
                         MembersCount = 8,
@@ -89,6 +102,7 @@ namespace BearGoodbyeKolkhozProject.Data.Tests.TestCaseSources.EventTestCaseSour
                     Id = 4,
                     StartDate = new DateTime(2022, 03, 10),
 
+                    Training = training,
                     Classroom = classroom,
                     Lecturer = lecturer
                 }
@@ -101,6 +115,7 @@ namespace BearGoodbyeKolkhozProject.Data.Tests.TestCaseSources.EventTestCaseSour
                     Id = 2,
                     StartDate = new DateTime(2022, 03, 05),
 
+                    Training = training,
                     Classroom = classroom,
                     Lecturer = lecturer,
                     Clients = new List<Client>(){ client }
