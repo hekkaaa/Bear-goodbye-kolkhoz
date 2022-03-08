@@ -14,7 +14,7 @@ using Swashbuckle.AspNetCore.Annotations;
 namespace BearGoodbyeKolkhozProject.API.Controllers
 {
     [ApiController]
-    [Route("api/lecturer")]
+    [Route("api/lecturers")]
     public class LecturersController : Controller
     {
         private readonly ILecturerService _service;

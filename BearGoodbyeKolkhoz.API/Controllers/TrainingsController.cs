@@ -13,7 +13,7 @@ using System.Security.Claims;
 namespace BearGoodbyeKolkhozProject.API.Controllers
 {
     [ApiController]
-    [Route("api/training")]
+    [Route("api/trainings")]
     [SwaggerTag("This controller allows you to manipulate trainings and everything related to it.")]
     public class TrainingsController : Controller
     {

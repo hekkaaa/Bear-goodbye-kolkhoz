@@ -12,7 +12,7 @@ using Swashbuckle.AspNetCore.Annotations;
 namespace BearGoodbyeKolkhozProject.API.Controllers
 {
     [ApiController]
-    [Route("api/client")]
+    [Route("api/clients")]
     [SwaggerTag("The controller can be used after authentication/authorization under the role of Admin/Client and Anonymous.")]
 
     public class ClientsController : Controller

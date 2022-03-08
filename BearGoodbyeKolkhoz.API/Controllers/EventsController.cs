@@ -12,7 +12,7 @@ using System.ComponentModel;
 namespace BearGoodbyeKolkhozProject.API.Controllers
 {
     [ApiController]
-    [Route("api/event")]
+    [Route("api/events")]
     [SwaggerTag("The controller can be used after authentication/authorization under the role of Admin")]
 
     public class EventsController : Controller

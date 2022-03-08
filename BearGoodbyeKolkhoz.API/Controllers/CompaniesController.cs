@@ -13,7 +13,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
 {
 
     [ApiController]
-    [Route("api/company")]
+    [Route("api/companies")]
     public class CompaniesController : Controller
     {
         private readonly ICompanyService _companyService;
