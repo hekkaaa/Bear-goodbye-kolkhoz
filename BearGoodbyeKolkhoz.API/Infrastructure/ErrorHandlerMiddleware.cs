@@ -33,6 +33,10 @@ namespace BearGoodbyeKolkhozProject.API.Infrastructure
                 // ошибка когда БД вообще отсуствует или миграция иная на БД и стобцы не сходятся.
                 await ConstructResponse(context, HttpStatusCode.ServiceUnavailable, message: "База данных недоступна");
             }
+            catch(UnexpectedErrorServerException error)
+            {
+                await ConstructResponse(context, HttpStatusCode.InternalServerError, error.Message);
+            }
             catch (NotFoundException error)
             {
                 await ConstructResponse(context, HttpStatusCode.Forbidden, error.Message);
