@@ -28,7 +28,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         [HttpPut("self")]
         [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status404NotFound)]
-        [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status503ServiceUnavailable)]
+        [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status500InternalServerError)]
         [SwaggerOperation("Self-Delete/Ban Account. Roles: Client, Company, Lecturer")]
         [Authorize(Roles = "Client, Company, Lecturer")]
         public ActionResult<bool> DeleteAccountUser()
@@ -40,7 +40,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         [HttpPut("{email}/restore")]
         [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status404NotFound)]
-        [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status503ServiceUnavailable)]
+        [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status500InternalServerError)]
         [SwaggerOperation("Restore User. Roles: Admin")]
         [Authorize(Roles = "Admin")]
         public ActionResult<bool> RestoreUserById(string email)
@@ -51,7 +51,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         [HttpPut("{id}/delete-ban")]
         [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status404NotFound)]
-        [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status503ServiceUnavailable)]
+        [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status500InternalServerError)]
         [SwaggerOperation("Delete/ban. Roles: Admin")]
         [Authorize(Roles = "Admin")]
         public ActionResult<bool> RestoreAdminById(int id)

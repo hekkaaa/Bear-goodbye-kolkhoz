@@ -33,14 +33,6 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
             return true;
         }
 
-        public bool DeleteAdminById(int item)
-        {
-            var res = _db.Admin.FirstOrDefault(x => x.Id == item);
-            res.IsDeleted = true;
-            _db.SaveChanges();
-            return true;
-        }
-
         public int AddNewAdmin(Admin newItem)
         {
             _db.Admin.Add(newItem);
@@ -51,15 +43,6 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
         public bool ChangePasswordAdmin(string password, Admin admin)
         {
             admin.Password = password;
-            _db.SaveChanges();
-            return true;
-        }
-
-        public bool RecoverAdminById(int id)
-        {
-            var res = _db.Admin.FirstOrDefault(x => x.Id == id);
-
-            res.IsDeleted = false;
             _db.SaveChanges();
             return true;
         }

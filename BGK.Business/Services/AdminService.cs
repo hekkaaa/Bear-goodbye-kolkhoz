@@ -64,34 +64,6 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             }
         }
 
-        public bool DeleteAdmin(int id)
-        {
-            var item = _repository.GetAdminById(id);
-
-            if (item == null)
-            {
-                throw new NotFoundException("Нет пользователя по указанному Id");
-            }
-            else
-            {
-                return _repository.DeleteAdminById(item.Id);
-            }
-        }
-
-        public bool RestoreAdmin(int id)
-        {
-            var item = _repository.GetAdminById(id);
-
-            if (item == null)
-            {
-                throw new NotFoundException("Нет пользователя по указанному Id");
-            }
-            else
-            {
-                return _repository.RecoverAdminById(item.Id);
-            }
-        }
-
         public bool UpdateAdminInfo(int id, AdminModel newItem)
         {
             var existingAdmin = _repository.GetAdminById(id);
