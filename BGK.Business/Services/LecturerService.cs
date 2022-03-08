@@ -30,7 +30,7 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             return _lecturerRepo.AddLecturer(entity);
         }
 
-        public void DeleteLecturerById(int id)
+        public bool DeleteLecturerById(int id)
         {
             var lecturer = _lecturerRepo.GetLecturerById(id);
             if (lecturer is null)
@@ -39,7 +39,9 @@ namespace BearGoodbyeKolkhozProject.Business.Services
 
             }
 
-            _lecturerRepo.ChangeDeleteStatusById(lecturer, true);
+            var res = _lecturerRepo.ChangeDeleteStatusById(lecturer, true);
+
+            return res;
         }
 
         public void RecoverLecturerById(int id)

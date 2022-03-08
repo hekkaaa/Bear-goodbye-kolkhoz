@@ -10,7 +10,7 @@ namespace BearGoodbyeKolkhozProject.Business.Interface
         List<LecturerModel> GetLecturers();
         int RegistrationLecturer(LecturerModel model);
         void UpdateLecturer(int id, LecturerModel model);
-        void DeleteLecturerById(int id);
+        bool DeleteLecturerById(int id);
         void RecoverLecturerById(int id);
         List<TrainingModel> GetTrainingByLecturerId(int id);
     }
