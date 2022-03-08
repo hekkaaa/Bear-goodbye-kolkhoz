@@ -53,7 +53,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
             return Ok(result);
         }
 
-        [HttpGet("Info")]
+        [HttpGet("info")]
         [Authorize(Roles = "Client")]
         [ProducesResponseType(typeof(ClientOutputModel), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status404NotFound)]
