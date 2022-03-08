@@ -74,11 +74,13 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
             return Ok(trainings);
         }
 
+
         [HttpPatch("self")]
         [Authorize(Roles = "Lecturer")]
         [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status403Forbidden)]
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status409Conflict)]
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status503ServiceUnavailable)]
         [SwaggerOperation("Self-deletion/ban Lecturer`s. Roles: Lecturer")]
         public ActionResult DeleteLecturer()
@@ -103,15 +105,15 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
 
         [HttpPatch("{id}/recover")]
         [Authorize(Roles = "Admin")]
-        [ProducesResponseType(typeof(ActionResult), StatusCodes.Status204NoContent)]
+        [ProducesResponseType(typeof(ActionResult), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status403Forbidden)]
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status409Conflict)]
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status503ServiceUnavailable)]
         [SwaggerOperation("Recover Lecturer. Roles: Admin")]
-        public ActionResult RecoverLecturerById(int id)
+        public ActionResult<bool> RecoverLecturerById(int id)
         {
-            _service.RecoverLecturerById(id);
-            return NoContent();
+            return Ok(_service.RecoverLecturerById(id));
         }
 
         [HttpPost()]

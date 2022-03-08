@@ -38,21 +38,41 @@ namespace BearGoodbyeKolkhozProject.Business.Services
                 throw new NotFoundException($"Нет лектора c id = {id}");
 
             }
+            if(lecturer.IsDeleted == true)
+            {
+                throw new DuplicateException("The user has already been deleted/banned.");
+            }
 
             var res = _lecturerRepo.ChangeDeleteStatusById(lecturer, true);
-
+            
+            if(res == null)
+            {
+                throw new UnexpectedErrorServerException("Unexpected status error: isDeleted ");
+            }
+            
             return res;
         }
 
-        public void RecoverLecturerById(int id)
+        public bool RecoverLecturerById(int id)
         {
             var lecturer = _lecturerRepo.GetLecturerById(id);
             if (lecturer is null)
             {
                 throw new NotFoundException($"Нет лектора c id = {id}");
             }
+            if (lecturer.IsDeleted == false)
+            {
+                throw new DuplicateException("The user has NOT been blocked.");
+            }
 
-            _lecturerRepo.ChangeDeleteStatusById(lecturer, false);
+            var res = _lecturerRepo.ChangeDeleteStatusById(lecturer, false);
+
+            if (res == null)
+            {
+                throw new UnexpectedErrorServerException("Unexpected status error: isDeleted ");
+            }
+
+            return res;
         }
 
         public void AddTraining(int id, int trainingId)
