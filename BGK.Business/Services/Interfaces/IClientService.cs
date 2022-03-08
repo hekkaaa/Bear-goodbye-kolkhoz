@@ -10,6 +10,6 @@ namespace BearGoodbyeKolkhozProject.Business.Services
         bool RestoreClient(int id);
         ClientModel GetClientById(int id);
         List<ClientModel> GetClients();
-        void UpdateClientInfo(int id, ClientModel updateModel);
+        bool UpdateClientInfo(int id, ClientModel updateModel);
     }
 }

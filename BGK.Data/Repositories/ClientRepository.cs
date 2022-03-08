@@ -31,6 +31,7 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
             client.Name = newInfo.Name;
             client.LastName = newInfo.LastName;
             client.BirthDay = newInfo.BirthDay;
+            client.Gender = newInfo.Gender;
 
             _db.SaveChanges();
             return true;
