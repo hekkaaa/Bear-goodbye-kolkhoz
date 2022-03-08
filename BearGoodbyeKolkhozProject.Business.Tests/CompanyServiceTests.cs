@@ -182,7 +182,7 @@ namespace BearGoodbyeKolkhozProject.Business.Tests
                 IsDeleted = true
             };
             //when
-            _service.UpdateCompany(updateCompany.Id, updateCompany.IsDeleted);
+            _service.DeleteCompany(updateCompany.Id);
 
             var actual = _service.GetCompanyById(updateCompany.Id);
             //then

@@ -107,19 +107,21 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
             return Ok(model);
 
         }
-        [HttpPatch("{id}")]
-        [Authorize(Roles = "Admin")]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
-        [ProducesResponseType(typeof(ExceptionResponse), StatusCodes.Status403Forbidden)]
-        [ProducesResponseType(typeof(ExceptionResponse), StatusCodes.Status404NotFound)]
-        [SwaggerOperation("Delete Company. Roles: Admin")]
-        public ActionResult<CompanyOutputModel> UpdateCompany(int id, bool isDel)
-        {
-            _companyService.UpdateCompany(id, isDel);
 
-            return NoContent();
+        //[HttpPatch("{id}")]
+        //[Authorize(Roles = "Admin")]
+        //[ProducesResponseType(StatusCodes.Status204NoContent)]
+        //[ProducesResponseType(typeof(ExceptionResponse), StatusCodes.Status403Forbidden)]
+        //[ProducesResponseType(typeof(ExceptionResponse), StatusCodes.Status404NotFound)]
+        //[SwaggerOperation("Delete Company. Roles: Admin")]
+        //public ActionResult<CompanyOutputModel> UpdateCompany(int id, bool isDel)
+        //{
+        //    _companyService.UpdateCompany(id, isDel);
 
-        }
+        //    return NoContent();
+
+        //}
+
         //api/companies/
         [HttpDelete("{id}")]
         [Authorize(Roles = "Admin")]

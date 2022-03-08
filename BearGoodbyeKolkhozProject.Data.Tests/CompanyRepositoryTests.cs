@@ -87,7 +87,7 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
         }
 
         [TestCaseSource(typeof(DeleteCompanyTestCaseSource))]
-        public void DeleteCompanyTest(Company company1, Company expected)
+        public void DeleteCompanyTest(Company company1)
         {
             //given
             CompanyRepository companyRepository = new CompanyRepository(_context);
@@ -95,13 +95,13 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
             _context.SaveChanges();
 
             //when
-            companyRepository.DeleteCompany(company1.Id);
+            companyRepository.UpdateCompany(company1.Id, true);
             var actual = _context.Company.FirstOrDefault(c => c.Id == company1.Id);
 
             //then
 
 
-            Assert.AreEqual(expected, actual);
+            Assert.IsTrue(actual.IsDeleted == true);
 
         }
 

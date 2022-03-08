@@ -10,6 +10,6 @@ namespace BearGoodbyeKolkhozProject.Business.Processor
         CompanyModel GetCompanyById(int id);
         void UpdateCompany(CompanyModel companyModel);
         void UpdatePasswordCompany(int id, string password);
-        void UpdateCompany(int id, bool isDel);
+        void RestoreCompany(int id);
     }
 }

@@ -77,20 +77,32 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             if (company == null)
                 throw new NotFoundException("Такой Компании не существует.");
 
-            _companyRepository.DeleteCompany(id);
+            _companyRepository.UpdateCompany(id, true);
 
 
-        }
-
-        public void UpdateCompany(int id, bool isDel)
+        } 
+        
+        public void RestoreCompany(int id)
         {
             var company = _companyRepository.GetCompanyById(id);
 
             if (company == null)
                 throw new NotFoundException("Такой Компании не существует.");
 
-            _companyRepository.UpdateCompany(id, isDel);
+            _companyRepository.UpdateCompany(id, false);
+
+
         }
+
+        //public void UpdateCompany(int id, bool isDel) //этот метод нужно удалить?
+        //{
+        //    var company = _companyRepository.GetCompanyById(id);
+
+        //    if (company == null)
+        //        throw new NotFoundException("Такой Компании не существует.");
+
+        //    _companyRepository.UpdateCompany(id, isDel);
+        //}
 
         public void UpdatePasswordCompany(int id, string password)
         {
