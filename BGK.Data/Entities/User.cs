@@ -14,7 +14,7 @@ namespace BearGoodbyeKolkhozProject.Data.Entities
         public Gender Gender { get; set; }
         public Role Role { get; set; }
         public bool IsDeleted { get; set; }
-        public string? BirthDay { get; set; }
+        public DateTime? BirthDay { get; set; }
 
     }
 }

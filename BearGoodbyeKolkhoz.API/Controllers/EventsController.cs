@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
 using BearGoodbyeKolkhozProject.API.Configuration.ExceptionResponse;
+using BearGoodbyeKolkhozProject.API.Extensions;
+using BearGoodbyeKolkhozProject.API.Models;
 using BearGoodbyeKolkhozProject.API.Models.InputModels;
 using BearGoodbyeKolkhozProject.API.Models.OutputModels;
 using BearGoodbyeKolkhozProject.Business.Interface;
@@ -54,7 +56,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         [ProducesResponseType(typeof(ExceptionResponse), StatusCodes.Status403Forbidden)]
         [ProducesResponseType(typeof(ExceptionResponse), StatusCodes.Status404NotFound)]
         [SwaggerOperation("Get Event by id. Roles: Admin")]
-      
+
         public ActionResult<EventOutputModel> GetEventById(int id)
         {
             var entity = _service.GetEventById(id);
@@ -75,7 +77,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         [ProducesResponseType(typeof(ExceptionResponse), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ValidationExceptionResponse), StatusCodes.Status422UnprocessableEntity)]
         [SwaggerOperation("Update Event. Roles: Admin")]
- 
+
         public ActionResult<EventUpdateInputModel> UpdateEvent(int id, [FromBody] EventUpdateInputModel eventUpdateInputModel)
         {
             EventModel entity = _mapperApi.Map<EventModel>(eventUpdateInputModel);
@@ -92,7 +94,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         [ProducesResponseType(typeof(ExceptionResponse), StatusCodes.Status403Forbidden)]
         [ProducesResponseType(typeof(ExceptionResponse), StatusCodes.Status404NotFound)]
         [SwaggerOperation("Deleted Event. Roles: Admin")]
-       
+
         public ActionResult<EventUpdateInputModel> DeleteEvent(int id)
         {
             _service.DeleteEvent(id);
@@ -100,5 +102,32 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
             return NoContent();
         }
 
+        [HttpGet("completed-events")]
+        [Authorize(Roles = "Lecturer")]
+        [SwaggerOperation("Allows the lecturer to see all the events held by him. Roles: Lecturer")]
+        [ProducesResponseType(typeof(CompletedEventsOutputModel), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ExceptionResponse), StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(typeof(ExceptionResponse), StatusCodes.Status404NotFound)]
+        public ActionResult GetCompletedEvents()
+        {
+            int id = HttpContext.GetUserIdFromToken();
+            var events = _service.GetCompletedEventsByLecturerId(id);
+
+            return Ok(_mapperApi.Map<List<CompletedEventsOutputModel>>(events));
+        }
+
+        [HttpGet("attended-events")]
+        [Authorize(Roles = "Client")]
+        [SwaggerOperation("Allows the client to see all the events he visited. Roles: Client")]
+        [ProducesResponseType(typeof(CompletedEventsOutputModel), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ExceptionResponse), StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(typeof(ExceptionResponse), StatusCodes.Status404NotFound)]
+        public ActionResult GetAttendedEvents()
+        {
+            int id = HttpContext.GetUserIdFromToken();
+            var events = _service.GetAttendedEventsByClientId(id);
+
+            return Ok(_mapperApi.Map<List<CompletedEventsOutputModel>>(events));
+        }
     }
 }

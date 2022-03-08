@@ -1,4 +1,5 @@
 ﻿using BearGoodbyeKolkhozProject.Data.Entities;
+using System;
 using System.Collections;
 
 
@@ -11,7 +12,7 @@ namespace BearGoodbyeKolkhozProject.Data.Tests.TestCaseSources.EventTestCaseSour
             var even = new Event
             {
                 Id = 1,
-                StartDate = "03.03.2022",
+                StartDate = new DateTime(2022, 03, 03),
                 Company = new Company
                 {
                     Id = 1,
@@ -32,7 +33,7 @@ namespace BearGoodbyeKolkhozProject.Data.Tests.TestCaseSources.EventTestCaseSour
                 {
                     Name = "Семен",
                     LastName = "Семенов",
-                    BirthDay = "03.03.1993",
+                    BirthDay = new DateTime(1933, 03, 03),
                     Gender = Enums.Gender.Male,
                     Password = "12345"
 
@@ -41,8 +42,8 @@ namespace BearGoodbyeKolkhozProject.Data.Tests.TestCaseSources.EventTestCaseSour
 
             var expected = new Event
             {
-                Id = even.Id,
-                StartDate = "03.03.2022",
+                Id = 1,
+                StartDate = new DateTime(2022, 03, 03),
                 Company = new Company
                 {
                     Id = 1,
@@ -63,11 +64,11 @@ namespace BearGoodbyeKolkhozProject.Data.Tests.TestCaseSources.EventTestCaseSour
                 {
                     Name = "Семен",
                     LastName = "Семенов",
-                    BirthDay = "03.03.1993",
+                    BirthDay = new DateTime(1933, 03, 03),
                     Gender = Enums.Gender.Male,
                     Password = "12345"
 
-                }
+                },
             };
 
             yield return new object[] { even, expected };
