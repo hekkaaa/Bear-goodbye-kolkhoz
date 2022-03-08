@@ -61,10 +61,11 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
             _context.SaveChanges();
         }
 
-        public void ChangeDeleteStatusById(Lecturer lecturer, bool isDeleted)
+        public bool ChangeDeleteStatusById(Lecturer lecturer, bool isDeleted)
         {
             lecturer.IsDeleted = isDeleted;
             _context.SaveChanges();
+            return true;
         }
 
         public int GetEventsCount(Lecturer lecturer)
