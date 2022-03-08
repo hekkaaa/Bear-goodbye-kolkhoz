@@ -13,7 +13,7 @@ using System.Security.Claims;
 namespace BearGoodbyeKolkhozProject.API.Controllers
 {
     [ApiController]
-    [Route("api/training")]
+    [Route("api/trainings")]
     [SwaggerTag("This controller allows you to manipulate trainings and everything related to it.")]
     public class TrainingsController : Controller
     {
@@ -69,7 +69,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
 
         [HttpPost("{id}/topic/{topicId}")]
         [Authorize(Roles = "Admin")]
-        [SwaggerOperation("Get all trainings. Roles: Admin")]
+        [SwaggerOperation("Add topic to training. Roles: Admin")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status403Forbidden)]
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status404NotFound)]
