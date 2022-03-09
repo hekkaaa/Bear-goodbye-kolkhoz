@@ -40,27 +40,6 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
 
         }
 
-        public void UpdateCompany(int id, bool isDel)
-        {
-
-            var entity = GetCompanyById(id);
-
-            entity.IsDeleted = isDel;
-
-            _context.SaveChanges();
-
-        }
-
-        public void DeleteCompany(int id)
-        {
-            var entity = GetCompanyById(id);
-
-            _context.Company.Remove(entity);
-
-            _context.SaveChanges();
-
-        }
-
         public void ChangePasswordCompany(string password, Company company)
         {
             company.Password = password;

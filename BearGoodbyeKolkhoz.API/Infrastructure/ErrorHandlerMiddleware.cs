@@ -37,6 +37,10 @@ namespace BearGoodbyeKolkhozProject.API.Infrastructure
             {
                 await ConstructResponse(context, HttpStatusCode.InternalServerError, error.Message);
             }
+            catch(InvalidOperationException error)
+            {
+                await ConstructResponse(context, HttpStatusCode.InternalServerError, error.Message);
+            }
             catch (NotFoundException error)
             {
                 await ConstructResponse(context, HttpStatusCode.Forbidden, error.Message);
