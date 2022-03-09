@@ -128,17 +128,20 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
             return NoContent();
         }
 
-        [HttpPost("/{id}/training/{trainingId}")]
+        [HttpPost("training/{trainingId}")]
         [Authorize(Roles = "Lecturer")]
-        [ProducesResponseType(typeof(ActionResult), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(bool), StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status403Forbidden)]
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status409Conflict)]
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status503ServiceUnavailable)]
         [SwaggerOperation("Add traning Lector. Roles: Lecturer")]
-        public ActionResult AddTraining(int id, int trainingId)
+        public ActionResult<bool> AddTraining(int trainingId)
         {
-            _service.AddTraining(id, trainingId);
-            return StatusCode(StatusCodes.Status201Created);
+            int id = HttpContext.GetUserIdFromToken();
+            var res = _service.AddTraining(id, trainingId);
+           
+            return StatusCode(StatusCodes.Status201Created, res);
         }
 
         [HttpDelete("delete_training/{id}")]
