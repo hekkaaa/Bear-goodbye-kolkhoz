@@ -96,31 +96,5 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
             _service.ChangePasswordClient(id, newItem.Password);
             return Ok();
         }
-
-        [HttpPatch("{id}")]
-        [Authorize(Roles = "Admin")]
-        [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status403Forbidden)]
-        [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status404NotFound)]
-        [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status503ServiceUnavailable)]
-        [SwaggerOperation("Delete Client. Roles: Admin")]
-        
-        public ActionResult<bool> DeleteAndBanUserById(int id)
-        {
-            return Ok(_service.DeleteClient(id));
-        }
-
-        [HttpPut("{id}/restore")]
-        [Authorize(Roles = "Admin")]
-        [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status403Forbidden)]
-        [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status404NotFound)]
-        [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status503ServiceUnavailable)]
-        [SwaggerOperation("Restore ban/delete Client. Roles: Admin")]
-        
-        public ActionResult<bool> RestoreUserById(int id)
-        {
-            return Ok(_service.RestoreClient(id));
-        }
     }
 }
