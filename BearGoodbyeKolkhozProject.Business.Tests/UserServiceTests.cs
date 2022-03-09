@@ -58,6 +58,42 @@ namespace BearGoodbyeKolkhozProject.Business.Tests
             Assert.IsTrue(actual);
         }
 
+        [TestCaseSource(typeof(DeleteUserByIdTestCaseSource))]
+        public void GetUserByEmailNotFoundExceptionNegativeTests(List<Client> user, Client expected)
+        {
+            //given
+            foreach (var client in user)
+            {
+                _context.Client.Add(client);
+            }
+
+            _context.SaveChanges();
+
+            //when
+            UserService userService = new UserService(_userRepository, _mapper);
+
+            //then
+            Assert.Throws<NotFoundException>(() => userService.DeleteUserById(12));
+        }
+
+        [TestCaseSource(typeof(DeleteUserByIdTestCaseSource))]
+        public void GetUserByEmailDuplicateExceptionNegativeTests(List<Client> user, Client expected)
+        {
+            //given
+            foreach (var client in user)
+            {
+                _context.Client.Add(client);
+            }
+
+            _context.SaveChanges();
+
+            //when
+            UserService userService = new UserService(_userRepository, _mapper);
+
+            //then
+            Assert.Throws<DuplicateException>(() => userService.DeleteUserById(1));
+        }
+
         [TestCaseSource(typeof(RecoverUserByEmailTestCaseSource))]
         public void RecoverUserByEmailTests(List<Client> user, Client expected)
         {
