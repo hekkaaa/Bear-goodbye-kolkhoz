@@ -4,11 +4,7 @@ using BearGoodbyeKolkhozProject.Data.Repositories;
 using BearGoodbyeKolkhozProject.Data.Tests.TestCaseSources.UserTestCaseSource;
 using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BearGoodbyeKolkhozProject.Data.Tests
 {
@@ -32,14 +28,14 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
 
 
         [TestCaseSource(typeof(GetUserByEmailTestCaseSource))]
-        public void GetUserByEmailTest(List<Client> user, Client expected)
+        public void GetUserByEmailTests(List<Client> user, Client expected)
         {
             //given
             foreach (var item in user)
             {
                 _context.Client.Add(item);
             }
-            
+
             _context.SaveChanges();
 
             //when
@@ -53,12 +49,11 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
             Assert.AreEqual(expected.LastName, actual.LastName);
             Assert.AreEqual(expected.Gender, actual.Gender);
             Assert.AreEqual(expected.BirthDay, actual.BirthDay);
-           
         }
 
 
         [TestCaseSource(typeof(GetUserByIdTestCaseSource))]
-        public void GetUserByIdTest(List<Client> user, Client expected)
+        public void GetUserByIdTests(List<Client> user, Client expected)
         {
             foreach (var item in user)
             {
@@ -78,11 +73,10 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
             Assert.AreEqual(expected.LastName, actual.LastName);
             Assert.AreEqual(expected.Gender, actual.Gender);
             Assert.AreEqual(expected.BirthDay, actual.BirthDay);
-           
         }
 
         [TestCaseSource(typeof(ChangeDeleteStatusUserTestCaseSource))]
-        public void ChangeDeleteStatusUser(Lecturer user, Lecturer expected)
+        public void ChangeDeleteStatusUserTests(Lecturer user, Lecturer expected)
         {
 
             _context.User.Add(user);
