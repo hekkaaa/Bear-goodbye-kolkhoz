@@ -10,7 +10,7 @@ using Swashbuckle.AspNetCore.Annotations;
 namespace BearGoodbyeKolkhozProject.API.Controllers
 {
     [ApiController]
-    [Route("api/topic")]
+    [Route("api/topics")]
     [Authorize(Roles = "Admin")]
     [SwaggerTag("This controller allows you to manipulate topics and everything related to it.")]
     public class TopicsController : Controller

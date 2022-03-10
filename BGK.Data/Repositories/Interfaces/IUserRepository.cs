@@ -4,6 +4,8 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
 {
     public interface IUserRepository
     {
-        User GetUserByEmail(string email);
+        bool ChangeDeleteStatusUser(User item, bool isDeleted);
+        User? GetUserByEmail(string email);
+        User? GetUserById(int Id);
     }
 }

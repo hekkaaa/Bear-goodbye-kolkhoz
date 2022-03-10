@@ -1,10 +1,10 @@
 using AutoMapper;
 using BearGoodbyeKolkhozProject.Business.Exceptions;
-using BearGoodbyeKolkhozProject.Business.Models;
 using BearGoodbyeKolkhozProject.Business.Interface;
+using BearGoodbyeKolkhozProject.Business.Models;
 using BearGoodbyeKolkhozProject.Data.Entities;
-using BearGoodbyeKolkhozProject.Data.Repositories;
 using BearGoodbyeKolkhozProject.Data.Interfaces;
+using BearGoodbyeKolkhozProject.Data.Repositories;
 
 namespace BearGoodbyeKolkhozProject.Business.Services
 {
@@ -74,12 +74,50 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             _eventRepository.DeleteEvent(even);
         }
 
-        private void CheckExistsOrRaiseException(object test, int id)
+        public List<EventModel> GetCompletedEventsByLecturerId(int id)
         {
-            if (test is null)
+            var lecturer = _lecturerRepository.GetLecturerById(id);
+            if (lecturer is null)
             {
-                throw new NotFoundException($"Не найдено в базе данных объекта с ID {id}");
+                throw new NotFoundException($"Нет тренера с id = {id}");
             }
+
+            var events = _eventRepository.GetCompletedEventsByLecturer(lecturer, DateTime.Now);
+            var eventModels = _mapper.Map<List<EventModel>>(events);
+           
+            if(eventModels.Count is 0)
+            {
+                throw new BusinessException("The lecturer does not conduct any events | Лектор не проводит ни один евент");
+            }
+
+            foreach(EventModel model in eventModels)
+            {
+                model.Price = (model.Training.Price * 60) / 100;
+                model.Name = model.Training.Name;
+            }
+
+            return eventModels;
+        }
+
+        public List<EventModel> GetAttendedEventsByClientId(int id)
+        {
+            var client = _clientRepository.GetClientById(id);
+
+            if (client is null)
+            {
+                throw new NotFoundException($"Нет клиента с id = {id}");
+            }
+
+            var events = _eventRepository.GetAttendedEventsByClient(client, DateTime.Now);
+            var eventModels = _mapper.Map<List<EventModel>>(events);
+
+            foreach (EventModel model in eventModels)
+            {
+                model.Price = (model.Training.Price);
+                model.Name = model.Training.Name;
+            }
+
+            return eventModels;
         }
 
         public bool SignUp(int trainingId, int clientId)
@@ -106,13 +144,20 @@ namespace BearGoodbyeKolkhozProject.Business.Services
 
                 return true;
             }
-            else if(even.Clients.Count < training.MembersCount && !IsDuplicateRegistration(even, clientId))
+            else if (even.Clients.Count < training.MembersCount && !IsDuplicateRegistration(even, clientId))
             {
                 _eventRepository.SignUp(client, even);
                 return true;
             }
 
             return true;
+        }
+        private void CheckExistsOrRaiseException(object test, int id)
+        {
+            if (test is null)
+            {
+                throw new NotFoundException($"Не найдено в базе данных объекта с ID {id}");
+            }
         }
 
         private void InitEvent(Training training, Client client)
@@ -182,7 +227,7 @@ namespace BearGoodbyeKolkhozProject.Business.Services
         private void SetEventData(Classroom classroom, Lecturer lecturer, DateTime date, Event even)
         {
             even.Classroom = classroom;
-            even.StartDate = date.ToString();
+            even.StartDate = date;
             even.Lecturer = lecturer;
 
             _eventRepository.UpdateEvent(even);
@@ -249,10 +294,10 @@ namespace BearGoodbyeKolkhozProject.Business.Services
                 {
                     if (classroom == even.Classroom)
                     {
-                        if (!classroomWorks.ContainsKey(classroom)) 
+                        if (!classroomWorks.ContainsKey(classroom))
                             classroomWorks[classroom] = new List<DateTime> {
                                 Convert.ToDateTime(Convert.ToDateTime(even.StartDate).ToString("dd.MM.yyyy"))};
-                       
+
                         else
                             classroomWorks[classroom]
                                 .Add(Convert.ToDateTime(Convert.ToDateTime(even.StartDate).ToString("dd.MM.yyyy")));
