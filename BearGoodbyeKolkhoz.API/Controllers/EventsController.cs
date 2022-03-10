@@ -31,10 +31,10 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         //api/events/
         [HttpGet]
         [Authorize(Roles = "Admin")]
-        [ProducesResponseType(typeof(CompanyOutputModel), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(List<EventOutputModel>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ExceptionResponse), StatusCodes.Status403Forbidden)]
         [ProducesResponseType(typeof(ExceptionResponse), StatusCodes.Status404NotFound)]
-        [SwaggerOperation("Get Events. Roles: Admin")]
+        [SwaggerOperation("Get list Events. Roles: Admin")]
 
         public ActionResult<List<EventOutputModel>> GetEvents()
         {
@@ -50,7 +50,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         //api/events/
         [HttpGet("{id}")]
         [Authorize(Roles = "Admin")]
-        [ProducesResponseType(typeof(CompanyOutputModel), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(EventOutputModel), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ExceptionResponse), StatusCodes.Status403Forbidden)]
         [ProducesResponseType(typeof(ExceptionResponse), StatusCodes.Status404NotFound)]
         [SwaggerOperation("Get Event by id. Roles: Admin")]

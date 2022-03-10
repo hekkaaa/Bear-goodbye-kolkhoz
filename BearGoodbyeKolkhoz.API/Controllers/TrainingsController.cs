@@ -56,7 +56,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
             return Ok(_mapper.Map<List<TrainingOutputModel>>(models));
         }
 
-        [HttpGet("by-topic/{topicInputModel.Name}")]
+        [HttpGet("by-topic/{topicId}")]
         [SwaggerOperation("Get training by topic (hashtag). Roles: all")]
         [ProducesResponseType(typeof(List<TrainingOutputModel>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status403Forbidden)]
@@ -70,8 +70,9 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
 
         [HttpPost("{id}/topic/{topicId}")]
         [Authorize(Roles = "Admin")]
-        [SwaggerOperation("Get all trainings. Roles: Admin")]
-        [ProducesResponseType(StatusCodes.Status201Created)]
+
+        [SwaggerOperation("Add topic to training. Roles: Admin")]
+        [ProducesResponseType(typeof(string),StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status403Forbidden)]
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status409Conflict)]
@@ -85,7 +86,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         [HttpPost("{id}/review")]
         [Authorize(Roles = "Client")]
         [SwaggerOperation("Add review to training. Roles: client")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(string),StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status403Forbidden)]
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status409Conflict)]
@@ -133,14 +134,14 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         [HttpPatch("{id}")]
         [Authorize(Roles = "Admin")]
         [SwaggerOperation("Soft delete training. Roles: Admin")]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(typeof(bool),StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status403Forbidden)]
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status503ServiceUnavailable)]
-        public ActionResult DeleteTraining(int id)
+        public ActionResult<bool> DeleteTraining(int id)
         {
-            _service.DeleteTraining(id);
-            return NoContent();
+            var res = _service.DeleteTraining(id);
+            return Ok(res);
         }
 
         [HttpPost("{id}/signup")]
@@ -157,19 +158,6 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
             var res = _eventService.SignUp(id, clientId);
 
             return Ok(res);
-        }
-
-        private int GetClientIdFromToken()
-        {
-            var identity = HttpContext.User.Identity as ClaimsIdentity;
-
-            if (identity != null)
-            {
-                var clientId = Convert.ToInt32(identity
-                    .FindFirst(@"http://schemas.microsoft.com/ws/2008/06/identity/claims/userdata").Value);
-                return clientId;
-            }
-            throw new HttpRequestException();
         }
     }
 }

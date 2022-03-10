@@ -4,6 +4,7 @@ using BearGoodbyeKolkhozProject.API.Extensions;
 using BearGoodbyeKolkhozProject.API.Models;
 using BearGoodbyeKolkhozProject.API.Models.ExceptionModel;
 using BearGoodbyeKolkhozProject.API.Models.InputModels;
+using BearGoodbyeKolkhozProject.API.Models.OutputModels;
 using BearGoodbyeKolkhozProject.Business.Interface;
 using BearGoodbyeKolkhozProject.Business.Models;
 using BearGoodbyeKolkhozProject.Business.Services.Interfaces;
@@ -58,7 +59,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
             return Ok(result);
         }
 
-        [HttpGet("/trainings")]
+        [HttpGet("trainings")]
         [Authorize(Roles = "Lecturer")]
         [ProducesResponseType(typeof(List<TrainingOutputModel>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status403Forbidden)]
@@ -102,16 +103,16 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
 
         [HttpPost()]
         [AllowAnonymous]
-        [ProducesResponseType(typeof(ActionResult), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(UserCreateOutputModel), StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status403Forbidden)]
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status503ServiceUnavailable)]
         [SwaggerOperation("Registration new Lecturer. Roles: AllowAnonymous")]
-        public ActionResult LecturerRegistration([FromBody] RegistrationInputModel model)
+        public ActionResult<UserCreateOutputModel> LecturerRegistration([FromBody] RegistrationInputModel model)
         {
             LecturerModel entity = _mapper.Map<LecturerModel>(model);
-            
-            return StatusCode(StatusCodes.Status201Created, _service.RegistrationLecturer(entity));
+            var res = _service.RegistrationLecturer(entity);
+            return StatusCode(StatusCodes.Status201Created, new UserCreateOutputModel{ createId = res });
         }
 
         [HttpPut("{id}")]
