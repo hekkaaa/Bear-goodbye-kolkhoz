@@ -117,7 +117,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         [HttpPost]
         [Authorize(Roles = "Admin")]
         [SwaggerOperation("Add new training. Roles: Admin")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(string),StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status403Forbidden)]
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status409Conflict)]
@@ -126,7 +126,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         {
             var training = _mapper.Map<TrainingModel>(trainingInputModel);
             _service.AddTraining(training);
-            return Ok("Тренинг успешно добавлен");
+            return StatusCode(StatusCodes.Status201Created, "Тренинг успешно добавлен");
         }
 
         [HttpPatch("{id}")]
