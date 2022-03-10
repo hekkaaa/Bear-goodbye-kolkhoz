@@ -27,7 +27,6 @@ namespace BearGoodbyeKolkhozProject.API.Extensions
             services.AddScoped<IClientService, ClientService>();
             services.AddScoped<ITopicService, TopicService>();
             services.AddScoped<IAuthService, AuthService>();
-            services.AddScoped<IUserService, UserService>();
 
         }
 
@@ -51,12 +50,9 @@ namespace BearGoodbyeKolkhozProject.API.Extensions
         public static void RegisterSwaggerAuth(this IServiceCollection swagger)
         {
             swagger.AddSwaggerGen(opt =>
-            {
+            {   
                 opt.EnableAnnotations();
-                opt.SwaggerDoc("v1", new OpenApiInfo
-                {
-                    Title = "MyAPI",
-                    Version = "v1",
+                opt.SwaggerDoc("v1", new OpenApiInfo { Title = "MyAPI", Version = "v1",
                     Contact = new OpenApiContact
                     {
                         Name = "Git Repository",

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace BearGoodbyeKolkhozProject.Data.Tests.TestCaseSources.CompanyTestCaseSource
 {
-    public class GetCompaniesTestCaseSource : IEnumerable
+    public class GetCompaniesTestCaseSource :IEnumerable
     {
         public IEnumerator GetEnumerator()
         {

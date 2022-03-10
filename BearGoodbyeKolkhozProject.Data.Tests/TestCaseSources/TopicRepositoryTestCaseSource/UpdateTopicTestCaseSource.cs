@@ -14,7 +14,7 @@ namespace BearGoodbyeKolkhozProject.Data.Tests.TestCaseSources.TopicRepositoryTe
                 Name = "qwertyui",
                 IsDeleted = false,
                 Training = new List<Training>()
-                {
+                {   
                     new Training()
                     {
                          Id = 101,
@@ -23,7 +23,7 @@ namespace BearGoodbyeKolkhozProject.Data.Tests.TestCaseSources.TopicRepositoryTe
                     Price = 1000,
                     IsDeleted = false
                     }
-
+                   
                 }
             };
 

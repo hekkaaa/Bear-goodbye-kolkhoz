@@ -1,6 +1,6 @@
 ﻿namespace BearGoodbyeKolkhozProject.Business.Exceptions
 {
-    public class NotAuthorizedException : Exception
+    public class NotAuthorizedException :Exception
     {
         public NotAuthorizedException(string message) : base(message)
         {

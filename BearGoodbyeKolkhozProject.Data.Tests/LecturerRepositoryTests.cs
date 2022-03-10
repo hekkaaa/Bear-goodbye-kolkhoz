@@ -88,6 +88,22 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
             Assert.AreEqual(expected, actual);
         }
 
+        [TestCaseSource(typeof(ChangeDeleteStatusByIdTestCaseSource))]
+        public void ChangeDeleteStatusByIdTest(Lecturer lecturer, Lecturer expected)
+        {
+            //given
+            LecturerRepository lecturerRepository = new LecturerRepository(_context);
+            _context.Lecturer.Add(lecturer);
+            _context.SaveChanges();
+
+            //when
+            lecturerRepository.ChangeDeleteStatusById(lecturer, true);
+            var actual = _context.Lecturer.FirstOrDefault(l => l.Id == lecturer.Id);
+
+            //then
+            Assert.AreEqual(expected, actual);
+        }
+
         [TestCaseSource(typeof(AddTrainingTestCaseSource))]
         public void AddTrainingTest(Lecturer lecturer, Lecturer expected, Training training)
         {

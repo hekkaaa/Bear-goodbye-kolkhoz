@@ -30,11 +30,33 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             return _lecturerRepo.AddLecturer(entity);
         }
 
-        public bool AddTraining(int id, int trainingId)
+        public void DeleteLecturerById(int id)
+        {
+            var lecturer = _lecturerRepo.GetLecturerById(id);
+            if (lecturer is null)
+            {
+                throw new NotFoundException($"Нет лектора c id = {id}");
+
+            }
+
+            _lecturerRepo.ChangeDeleteStatusById(lecturer, true);
+        }
+
+        public void RecoverLecturerById(int id)
+        {
+            var lecturer = _lecturerRepo.GetLecturerById(id);
+            if (lecturer is null)
+            {
+                throw new NotFoundException($"Нет лектора c id = {id}");
+            }
+
+            _lecturerRepo.ChangeDeleteStatusById(lecturer, false);
+        }
+
+        public void AddTraining(int id, int trainingId)
         {
             var training = _trainingRepo.GetTrainingById(trainingId);
-            var lecturer = _lecturerRepo.GetLecturerByIdAndIncludeTraning(id);
-       
+            var lecturer = _lecturerRepo.GetLecturerById(id);
 
             if (training is null)
             {
@@ -45,14 +67,12 @@ namespace BearGoodbyeKolkhozProject.Business.Services
                 throw new NotFoundException($"Нет лектора c id = {id}");
             }
 
-            CheckDublicateAddTraining(lecturer, training.Id);
-
             if (lecturer.Trainings is null)
             {
                 lecturer.Trainings = new List<Training>();
             }
 
-            return _lecturerRepo.AddTraining(lecturer, training);
+            _lecturerRepo.AddTraining(lecturer, training);
         }
 
         public void DeleteTraining(int id, int trainingId)
@@ -107,18 +127,6 @@ namespace BearGoodbyeKolkhozProject.Business.Services
 
             List<TrainingModel> trainings = _mapper.Map<List<TrainingModel>>(entity.Trainings);
             return trainings;
-        }
-
-        private void CheckDublicateAddTraining(Lecturer lector, int traningid)
-        {   
-            foreach(var i in lector.Trainings)
-            {
-                if (i.Id == traningid)
-                {
-                    throw new DuplicateException($"Лектор уже записан на указанный тренинг = {traningid}");
-                }
-
-            }
         }
     }
 }

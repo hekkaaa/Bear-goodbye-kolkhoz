@@ -3,7 +3,6 @@ using BearGoodbyeKolkhozProject.Data.Entities;
 using BearGoodbyeKolkhozProject.Data.Repositories;
 using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
-using System;
 using System.Collections.Generic;
 
 namespace BearGoodbyeKolkhozProject.Data.Tests
@@ -65,6 +64,24 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
         }
 
         [Test]
+        public void DeleteAdminByIdTests()
+        {
+            //given
+            var virtualData = _testData.GetTestAdmin();
+            _context.Add(virtualData);
+            _context.SaveChanges();
+
+            //when
+            var act = _adminRepository.DeleteAdminById(virtualData.Id);
+            var postAct = _adminRepository.GetAdminById(virtualData.Id);
+
+            //then
+            Assert.IsNotNull(act);
+            Assert.AreEqual(true, act);
+            Assert.AreEqual(true, postAct.IsDeleted);
+        }
+
+        [Test]
         public void UpdateAdminTests()
         {
             //given
@@ -79,7 +96,7 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
                 newVirtualData.Name = "Генрих";
                 newVirtualData.LastName = "Ардамонов";
                 newVirtualData.Gender = Enums.Gender.Male;
-                newVirtualData.BirthDay = new DateTime(1780, 12, 02);
+                newVirtualData.BirthDay = "02-12-1780";
 
             }
             var act = _adminRepository.UpdateAdminInfo(newVirtualData, virtualData);
@@ -112,6 +129,24 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
             Assert.IsNotNull(act);
             Assert.IsTrue(act);
             Assert.AreEqual(newVirtualData.Password, postAct.Password);
+        }
+
+        [Test]
+        public void RecoverAdminByIdTests()
+        {
+            //given
+            var virtualData = _testData.GetTestAdmin();
+            _context.Add(virtualData);
+            _context.SaveChanges();
+
+            //when
+            var act = _adminRepository.RecoverAdminById(virtualData.Id);
+            var postAct = _adminRepository.GetAdminById(virtualData.Id);
+
+            //then
+            Assert.IsNotNull(act);
+            Assert.IsTrue(act);
+            Assert.AreEqual(true, postAct.IsDeleted);
         }
 
     }

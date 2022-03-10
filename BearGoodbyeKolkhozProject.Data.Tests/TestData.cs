@@ -1,5 +1,4 @@
 ﻿using BearGoodbyeKolkhozProject.Data.Entities;
-using System;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -13,7 +12,7 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
             {
                 Name = "Sacha",
                 LastName = "Vygrebyuk",
-                BirthDay = new DateTime(2003, 07, 22),
+                BirthDay = "22.07.2003",
                 Email = "jjj@jjj.jjj",
                 Password = "********",
                 Gender = Enums.Gender.Male,
@@ -77,7 +76,7 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
                 Name = "Генадий",
                 LastName = "Тряпкин",
                 Gender = Enums.Gender.Male,
-                BirthDay = new DateTime(1988, 04, 29),
+                BirthDay = "1988-04-29",
                 Email = "ILoveBeer@ya.ru",
                 Password = "228_nanosim",
                 IsDeleted = false
@@ -93,7 +92,7 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
                 Name = "Генадий",
                 LastName = "Тряпкин",
                 Gender = Enums.Gender.Male,
-                BirthDay = new DateTime(1988, 04, 29),
+                BirthDay = "1988-04-29",
                 Email = "ILoveBeer@ya.ru",
                 Password = "228_nanosim",
                 IsDeleted = true },
@@ -104,7 +103,7 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
                 Name = "Валерий",
                 LastName = "Меладзе",
                 Gender = Enums.Gender.Male,
-                BirthDay = new DateTime(1968, 10, 09),
+                BirthDay = "1968-10-09",
                 Email = "qwert1@ya.ru",
                 Password = "kssdfn314",
                 IsDeleted = false
@@ -116,7 +115,7 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
                 Name = "Валерия",
                 LastName = "Новодворская",
                 Gender = Enums.Gender.Female,
-                BirthDay = new DateTime(1950, 11, 10),
+                BirthDay = "1950-11-10",
                 Email = "jjjjres@ya.ru",
                 Password = "fmpamfpqm1",
                 IsDeleted = false
@@ -129,7 +128,7 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
                 Name = "Генадий",
                 LastName = "Тряпкин",
                 Gender = Enums.Gender.Male,
-                BirthDay = new DateTime(1988, 04, 29),
+                BirthDay = "1988-04-29",
                 Email = "ILoveBeer@ya.ru",
                 Password = "228_nanosim",
                 IsDeleted = true },
@@ -140,7 +139,7 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
                 Name = "Валерий",
                 LastName = "Меладзе",
                 Gender = Enums.Gender.Male,
-                BirthDay = new DateTime(1968, 10, 09),
+                BirthDay = "1968-10-09",
                 Email = "qwert1@ya.ru",
                 Password = "kssdfn314",
                 IsDeleted = false
@@ -152,7 +151,7 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
                 Name = "Валерия",
                 LastName = "Новодворская",
                 Gender = Enums.Gender.Female,
-                BirthDay = new DateTime(1950, 11, 10),
+                BirthDay = "1950-11-10",
                 Email = "jjjjres@ya.ru",
                 Password = "fmpamfpqm1",
                 IsDeleted = false
@@ -171,7 +170,7 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
                 Name = "Вова",
                 LastName = "Бородин",
                 Gender = Enums.Gender.Male,
-                BirthDay = new DateTime(1951, 11, 08),
+                BirthDay = "1951-11-08",
                 Email = "mnamny@yes.ru",
                 Password = "ningse56asdS",
 

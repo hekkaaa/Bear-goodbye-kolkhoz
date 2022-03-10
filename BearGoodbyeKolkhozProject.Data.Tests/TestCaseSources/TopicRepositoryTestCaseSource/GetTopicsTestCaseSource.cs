@@ -16,7 +16,7 @@ namespace BearGoodbyeKolkhozProject.Data.Tests.TestCaseSources.TopicRepositoryTe
                     Name = "name",
                     IsDeleted = false,
                     Training = new List<Training>()
-                    {
+                    {  
                         new Training()
                         {
                               Id = 100,
@@ -25,7 +25,7 @@ namespace BearGoodbyeKolkhozProject.Data.Tests.TestCaseSources.TopicRepositoryTe
                         Price = 1200,
                         IsDeleted = false
                         }
-
+                      
                     }
                 },
                 new Topic()
@@ -34,7 +34,7 @@ namespace BearGoodbyeKolkhozProject.Data.Tests.TestCaseSources.TopicRepositoryTe
                     Name = "eman",
                     IsDeleted = false,
                     Training = new List<Training>()
-                    {
+                    {   
                         new Training()
                         {
                             Id = 101,
@@ -43,7 +43,7 @@ namespace BearGoodbyeKolkhozProject.Data.Tests.TestCaseSources.TopicRepositoryTe
                         Price = 1200,
                         IsDeleted = false
                         }
-
+                        
                     }
                 },
             };
@@ -75,7 +75,7 @@ namespace BearGoodbyeKolkhozProject.Data.Tests.TestCaseSources.TopicRepositoryTe
                     Name = "name",
                     IsDeleted = true,
                     Training = new List<Training>()
-                    {
+                    {   
                         new Training()
                         {
                             Id = 100,
@@ -84,7 +84,7 @@ namespace BearGoodbyeKolkhozProject.Data.Tests.TestCaseSources.TopicRepositoryTe
                             Price = 1200,
                             IsDeleted = false
                         }
-
+                        
                     }
                 },
                 new Topic()
@@ -93,7 +93,7 @@ namespace BearGoodbyeKolkhozProject.Data.Tests.TestCaseSources.TopicRepositoryTe
                     Name = "eman",
                     IsDeleted = false,
                     Training = new List<Training>()
-                    {
+                    {   
                         new Training()
                         {
                              Id = 101,
@@ -102,7 +102,7 @@ namespace BearGoodbyeKolkhozProject.Data.Tests.TestCaseSources.TopicRepositoryTe
                             Price = 1200,
                             IsDeleted = false
                         }
-
+                       
                     }
                 },
             };

@@ -12,7 +12,5 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
         void SignUp(Client client, Event even);
         Event GetEventsByTrainingId(int trainingId);
         List<Event> GetClosedRegEvents();
-        List<Event> GetCompletedEventsByLecturer(Lecturer lecturer, DateTime date);
-        List<Event> GetAttendedEventsByClient(Client client, DateTime date);
     }
 }

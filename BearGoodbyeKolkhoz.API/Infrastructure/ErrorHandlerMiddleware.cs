@@ -29,17 +29,9 @@ namespace BearGoodbyeKolkhozProject.API.Infrastructure
                 await ConstructResponse(context, HttpStatusCode.BadRequest, error.Message);
             }
             catch (Microsoft.Data.SqlClient.SqlException)
-            {
+            {   
                 // ошибка когда БД вообще отсуствует или миграция иная на БД и стобцы не сходятся.
                 await ConstructResponse(context, HttpStatusCode.ServiceUnavailable, message: "База данных недоступна");
-            }
-            catch(UnexpectedErrorServerException error)
-            {
-                await ConstructResponse(context, HttpStatusCode.InternalServerError, error.Message);
-            }
-            catch(InvalidOperationException error)
-            {
-                await ConstructResponse(context, HttpStatusCode.InternalServerError, error.Message);
             }
             catch (NotFoundException error)
             {
@@ -53,11 +45,11 @@ namespace BearGoodbyeKolkhozProject.API.Infrastructure
             {
                 await ConstructResponse(context, HttpStatusCode.Forbidden, error.Message);
             }
-            catch (DuplicateException error)
+            catch(DuplicateException error)
             {
                 await ConstructResponse(context, HttpStatusCode.Conflict, error.Message);
             }
-            catch (UserIsBlockException error)
+            catch(UserIsBlockException error)
             {
                 await ConstructResponse(context, HttpStatusCode.Forbidden, error.Message);
             }
@@ -76,7 +68,7 @@ namespace BearGoodbyeKolkhozProject.API.Infrastructure
             context.Response.ContentType = "application/json";
             context.Response.StatusCode = (int)code;
 
-            var updateModel = new ExceptionOutputModel { Code = (int)code, Message = message };
+            var updateModel = new ExceptionOutputModel{ Code = (int)code, Message = message};
 
             var result = JsonSerializer.Serialize(updateModel);
             await context.Response.WriteAsync(result);

@@ -49,6 +49,6 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
             return training.Id;
         }
 
-
+    
     }
 }

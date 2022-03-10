@@ -1,6 +1,10 @@
 ﻿using BearGoodbyeKolkhozProject.Data.Entities;
 using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace BearGoodbyeKolkhozProject.Data.Tests.TestCaseSources.CompanyTestCaseSourse
 {
@@ -11,10 +15,10 @@ namespace BearGoodbyeKolkhozProject.Data.Tests.TestCaseSources.CompanyTestCaseSo
             var even = new Event
             {
                 Id = 1,
-                StartDate = new DateTime(2022, 03, 03),
+                StartDate = "03.03.2022",
                 Company = new Company
                 {
-
+                    
                     Name = "OOO Ivan",
                     Email = "qwe@mail.ru",
                     PhoneNumber = "123456789",
@@ -24,17 +28,17 @@ namespace BearGoodbyeKolkhozProject.Data.Tests.TestCaseSources.CompanyTestCaseSo
 
                 Classroom = new Classroom
                 {
-
+                    
                     MembersCount = 10,
                     City = "Санк-Петербург",
                     Address = "ул.Вавилова,д.6,оф.17"
                 },
                 Lecturer = new Lecturer
                 {
-
+                    
                     Name = "Семен",
                     LastName = "Семенов",
-                    BirthDay = new DateTime(1993, 03, 03),
+                    BirthDay = "03.03.1993",
                     Gender = Enums.Gender.Male,
                     Password = "12345"
 
@@ -46,10 +50,10 @@ namespace BearGoodbyeKolkhozProject.Data.Tests.TestCaseSources.CompanyTestCaseSo
             var updateEvent = new Event
             {
                 Id = 1,
-                StartDate = new DateTime(2022, 03, 04),
+                StartDate = "04.03.2022",
                 Company = new Company
                 {
-
+                    
                     Name = "OOO Oleg",
                     Email = "oleg@mail.ru",
                     PhoneNumber = "987654321",
@@ -65,10 +69,10 @@ namespace BearGoodbyeKolkhozProject.Data.Tests.TestCaseSources.CompanyTestCaseSo
                 },
                 Lecturer = new Lecturer
                 {
-
+                    
                     Name = "Семен",
                     LastName = "Семенов",
-                    BirthDay = new DateTime(1993, 03, 03),
+                    BirthDay = "03.03.1993",
                     Gender = Enums.Gender.Male,
                     Password = "12345"
 
@@ -78,10 +82,10 @@ namespace BearGoodbyeKolkhozProject.Data.Tests.TestCaseSources.CompanyTestCaseSo
             var expected = new Event
             {
                 Id = 1,
-                StartDate = new DateTime(2022, 03, 04),
+                StartDate = "04.03.2022",
                 Company = new Company
                 {
-
+                    
                     Name = "OOO Oleg",
                     Email = "oleg@mail.ru",
                     PhoneNumber = "987654321",
@@ -97,10 +101,10 @@ namespace BearGoodbyeKolkhozProject.Data.Tests.TestCaseSources.CompanyTestCaseSo
                 },
                 Lecturer = new Lecturer
                 {
-
+                    
                     Name = "Семен",
                     LastName = "Семенов",
-                    BirthDay = new DateTime(1993, 03, 03),
+                    BirthDay = "03.03.1993",
                     Gender = Enums.Gender.Male,
                     Password = "12345"
 
