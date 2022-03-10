@@ -89,18 +89,19 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
             return StatusCode(StatusCodes.Status201Created, new UserCreateOutputModel{ createId = res });
         }
 
-        [HttpPut("{id}")]
+        [HttpPut]
         [Authorize(Roles = "Lecturer")]
-        [ProducesResponseType(typeof(ActionResult), StatusCodes.Status204NoContent)]
+        [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status403Forbidden)]
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status503ServiceUnavailable)]
         [SwaggerOperation("Edit info Lecturer. Roles: Lecturer")]
-        public ActionResult UpdateLecturer(int id, [FromBody] UpdateInputModel model)
+        public ActionResult<bool> UpdateLecturer([FromBody] UpdateInputModel model)
         {
+            int id = HttpContext.GetUserIdFromToken();
             var entity = _mapper.Map<LecturerModel>(model);
             _service.UpdateLecturer(id, entity);
-            return NoContent();
+            return Ok(true);
         }
 
         [HttpPost("training/{trainingId}")]
