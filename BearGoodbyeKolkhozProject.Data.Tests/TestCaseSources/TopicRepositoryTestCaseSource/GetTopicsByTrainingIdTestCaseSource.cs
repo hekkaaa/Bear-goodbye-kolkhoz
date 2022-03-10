@@ -9,7 +9,7 @@ namespace BearGoodbyeKolkhozProject.Data.Tests.TestCaseSources.TopicRepositoryTe
         public IEnumerator GetEnumerator()
         {
             var training = new List<Training>()
-            {
+            {   
                 new Training()
                 {
                      Id = 100,
@@ -18,7 +18,7 @@ namespace BearGoodbyeKolkhozProject.Data.Tests.TestCaseSources.TopicRepositoryTe
                 Price = 1200,
                 IsDeleted = false
                 }
-
+               
             };
 
             var topics = new List<Topic>
@@ -43,7 +43,7 @@ namespace BearGoodbyeKolkhozProject.Data.Tests.TestCaseSources.TopicRepositoryTe
                     Name = "qwertyui",
                     IsDeleted = false,
                     Training = new List<Training>()
-                    {
+                    {   
                         new Training()
                         {
                              Id = 101,
@@ -52,7 +52,7 @@ namespace BearGoodbyeKolkhozProject.Data.Tests.TestCaseSources.TopicRepositoryTe
                         Price = 1000,
                         IsDeleted = false
                         }
-
+                       
                     }
                 }
             };

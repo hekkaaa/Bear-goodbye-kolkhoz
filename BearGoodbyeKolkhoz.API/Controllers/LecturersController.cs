@@ -15,13 +15,13 @@ using Swashbuckle.AspNetCore.Annotations;
 namespace BearGoodbyeKolkhozProject.API.Controllers
 {
     [ApiController]
-    [Route("api/lecturers")]
+    [Route("api/lecturer")]
     public class LecturersController : Controller
     {
         private readonly ILecturerService _service;
         private IContactLecturerService _contactLecturerService;
         private IMapper _mapper;
-
+        
 
         public LecturersController(ILecturerService lecturerService, IMapper mapper, IContactLecturerService contactLecturerService)
         {
@@ -75,6 +75,32 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
             return Ok(trainings);
         }
 
+        [HttpPatch("{id}")]
+        [Authorize(Roles = "Admin, Lecturer")]
+        [ProducesResponseType(typeof(ActionResult), StatusCodes.Status204NoContent)]
+        [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status503ServiceUnavailable)]
+        [SwaggerOperation("Delete/Ban Lecturer. Roles: Admin, Lecturer")]
+        public ActionResult DeleteLecturerById(int id)
+        {
+            _service.DeleteLecturerById(id);
+            return NoContent();
+        }
+
+        [HttpPatch("{id}/recover")]
+        [Authorize(Roles = "Admin")]
+        [ProducesResponseType(typeof(ActionResult), StatusCodes.Status204NoContent)]
+        [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status503ServiceUnavailable)]
+        [SwaggerOperation("Recover Lecturer. Roles: Admin")]
+        public ActionResult RecoverLecturerById(int id)
+        {
+            _service.RecoverLecturerById(id);
+            return NoContent();
+        }
+
         [HttpPost()]
         [AllowAnonymous]
         [ProducesResponseType(typeof(UserCreateOutputModel), StatusCodes.Status201Created)]
@@ -103,20 +129,17 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
             return NoContent();
         }
 
-        [HttpPost("training/{trainingId}")]
+        [HttpPost("/{id}/training/{trainingId}")]
         [Authorize(Roles = "Lecturer")]
-        [ProducesResponseType(typeof(bool), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(ActionResult), StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status403Forbidden)]
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status404NotFound)]
-        [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status409Conflict)]
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status503ServiceUnavailable)]
         [SwaggerOperation("Add traning Lector. Roles: Lecturer")]
-        public ActionResult<bool> AddTraining(int trainingId)
+        public ActionResult AddTraining(int id, int trainingId)
         {
-            int id = HttpContext.GetUserIdFromToken();
-            var res = _service.AddTraining(id, trainingId);
-           
-            return StatusCode(StatusCodes.Status201Created, res);
+            _service.AddTraining(id, trainingId);
+            return StatusCode(StatusCodes.Status201Created);
         }
 
         [HttpDelete("delete_training/{id}")]

@@ -4,12 +4,14 @@ namespace BearGoodbyeKolkhozProject.Business.Interface
 {
     public interface ILecturerService
     {
-        bool AddTraining(int id, int trainingId);
+        void AddTraining(int id, int trainingId);
         void DeleteTraining(int id, int trainingId);
         LecturerModel GetLecturerById(int id);
         List<LecturerModel> GetLecturers();
         int RegistrationLecturer(LecturerModel model);
         void UpdateLecturer(int id, LecturerModel model);
+        void DeleteLecturerById(int id);
+        void RecoverLecturerById(int id);
         List<TrainingModel> GetTrainingByLecturerId(int id);
     }
 }

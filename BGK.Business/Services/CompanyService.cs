@@ -38,22 +38,27 @@ namespace BearGoodbyeKolkhozProject.Business.Services
 
         }
 
-        public int RegistrationCompany(CompanyModel companyModel)
+        public void RegistrationCompany(CompanyModel companyModel)
         {
-            bool res = CheckDublicateEmailAddCompany(companyModel.Email);
+            companyModel.Password = PasswordHash.HashPassword(companyModel.Password);
 
-            if (res)
+            var mappedCompany = new Company
             {
-                throw new DuplicateException("User with this Email already exists | Пользователь с таким Email уже существует ");
-            }
-            else
-            {
-                companyModel.Password = PasswordHash.HashPassword(companyModel.Password);
-                var item = _mapper.Map<Company>(companyModel);
+                Email = companyModel.Email,
+                Password = PasswordHash.HashPassword(companyModel.Password),
+                Name = companyModel.Name,
+                PhoneNumber = companyModel.PhoneNumber,
+                Tin = companyModel.Tin,
+                IsDeleted = companyModel.IsDeleted
+            };
 
-                return _companyRepository.RegistrationCompany(_mapper.Map<Company>(item));
-            }
+            mappedCompany.Role = Data.Enums.Role.Company;
+
+            _companyRepository.RegistrationCompany(_mapper.Map<Company>(mappedCompany));
+
+
         }
+
 
         public void UpdateCompany(CompanyModel companyModel)
         {
@@ -62,11 +67,36 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             if (company == null)
                 throw new NotFoundException("Такой Компании не существует.");
 
-            var entity = _mapper.Map<Company>(companyModel);
-
+            var entity = _mapper.Map <Company> (companyModel);
+          
             _companyRepository.UpdateCompany(entity);
 
         }
+
+
+
+        public void DeleteCompany(int id)
+        {
+            var company = _companyRepository.GetCompanyById(id);
+
+            if (company == null)
+                throw new NotFoundException("Такой Компании не существует.");
+
+            _companyRepository.DeleteCompany(id);
+
+            
+        }
+
+        public void UpdateCompany(int id, bool isDel)
+        {
+            var company = _companyRepository.GetCompanyById(id);
+
+            if (company == null)
+                throw new NotFoundException("Такой Компании не существует.");
+
+            _companyRepository.UpdateCompany(id, isDel);
+        }
+
         public void UpdatePasswordCompany(int id, string password)
         {
             var company = _companyRepository.GetCompanyById(id);
@@ -80,17 +110,6 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             _companyRepository.ChangePasswordCompany(hashPassword, company);
         }
 
-        private bool CheckDublicateEmailAddCompany(string email)
-        {
-            List<Company>? allList = _companyRepository.GetCompanies();
-            Company? res = allList.FirstOrDefault(a => a.Email == email);
-
-            if (res == null)
-            {
-                return false;
-            }
-            return true;
-        }
 
     }
 }
