@@ -16,6 +16,9 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
         }
 
         public Lecturer GetLecturerById(int id) =>
+            _context.Lecturer.FirstOrDefault(L => L.Id == id);
+
+        public Lecturer GetLecturerByIdAndIncludeTraning(int id) =>
             _context.Lecturer.Include(x => x.Trainings).FirstOrDefault(L => L.Id == id);
 
         public List<Lecturer> GetLecturers() =>

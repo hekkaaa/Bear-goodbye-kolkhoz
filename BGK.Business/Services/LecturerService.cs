@@ -33,7 +33,7 @@ namespace BearGoodbyeKolkhozProject.Business.Services
         public bool AddTraining(int id, int trainingId)
         {
             var training = _trainingRepo.GetTrainingById(trainingId);
-            var lecturer = _lecturerRepo.GetLecturerById(id);
+            var lecturer = _lecturerRepo.GetLecturerByIdAndIncludeTraning(id);
        
 
             if (training is null)
