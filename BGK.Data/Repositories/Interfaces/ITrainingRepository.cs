@@ -10,6 +10,6 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
         List<Training> GetTrainingsByTopic(Topic topic);
         void UpdateTraining(Training training);
         void UpdateTraining(Training training, bool IsDeleted);
-        
+
     }
 }

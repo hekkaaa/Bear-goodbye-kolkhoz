@@ -11,7 +11,7 @@ using Swashbuckle.AspNetCore.Annotations;
 namespace BearGoodbyeKolkhozProject.API.Controllers
 {
 
-    [Route("api/admin")]
+    [Route("api/admins")]
     [ApiController]
     [Authorize(Roles = "Admin")]
     [SwaggerTag("The controller can be used after authentication/authorization under the role of Admin")]
@@ -90,40 +90,17 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
             }
         }
 
-        [HttpDelete("{id}/delete")]
-        [ProducesResponseType(typeof(bool), StatusCodes.Status204NoContent)]
-        [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status403Forbidden)]
-        [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status404NotFound)]
-        [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status503ServiceUnavailable)]
-        [SwaggerOperation("Delete Admin")]
-        public ActionResult<bool> DeleteAdminById(int id)
-        {
-            return Ok(_service.DeleteAdmin(id));
-        }
-
         [HttpPut("{id}")]
         [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status403Forbidden)]
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status503ServiceUnavailable)]
-        [SwaggerOperation("Edit Admin")]
+        [SwaggerOperation("Edit info Admin")]
         public ActionResult<bool> UpdateAdmin(int id, [FromBody] AdminUpdateInputModel newItem)
         {
             var model = _mapper.Map<AdminModel>(newItem);
             var res = _service.UpdateAdminInfo(id, model);
             return Ok(res);
-        }
-
-        [HttpPut("{id}/restore")]
-        [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status403Forbidden)]
-        [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status404NotFound)]
-        [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status503ServiceUnavailable)]
-        [SwaggerOperation("Restore delete Admin")]
-        [Authorize(Roles = "Admin")]
-        public ActionResult<bool> RestoreAdminById(int id)
-        {
-            return Ok(_service.RestoreAdmin(id));
         }
 
         [HttpPatch("{id}/password")]

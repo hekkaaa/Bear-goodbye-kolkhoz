@@ -1,4 +1,5 @@
 ﻿using BearGoodbyeKolkhozProject.Data.Entities;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -14,7 +15,7 @@ namespace BearGoodbyeKolkhozProject.Data.Tests.TestCaseSources.LecturerTestCaseS
                 Name = "Roma",
                 LastName = "Azarov",
                 Password = "qwe",
-                BirthDay = "12.12.1999",
+                BirthDay = new DateTime(1999, 12, 12),
                 Email = "123qwe@mail.com",
                 Gender = Enums.Gender.Male,
                 IsDeleted = false,
@@ -27,7 +28,7 @@ namespace BearGoodbyeKolkhozProject.Data.Tests.TestCaseSources.LecturerTestCaseS
                 Name = "Amor",
                 LastName = "Voraza",
                 Password = "ewq",
-                BirthDay = "21.01.2000",
+                BirthDay = new DateTime(2000, 01, 21),
                 Email = "123qwe@mail.com",
                 Gender = Enums.Gender.Other,
                 IsDeleted = false,
@@ -40,7 +41,7 @@ namespace BearGoodbyeKolkhozProject.Data.Tests.TestCaseSources.LecturerTestCaseS
                 Name = "Amor",
                 LastName = "Voraza",
                 Password = "qwe",
-                BirthDay = "21.01.2000",
+                BirthDay = new DateTime(2000, 01, 21),
                 Email = "123qwe@mail.com",
                 Gender = Enums.Gender.Other,
                 IsDeleted = false,
@@ -55,7 +56,7 @@ namespace BearGoodbyeKolkhozProject.Data.Tests.TestCaseSources.LecturerTestCaseS
                 Name = "Roma",
                 LastName = "Azarov",
                 Password = "qwe",
-                BirthDay = "12.12.1999",
+                BirthDay = new DateTime(1999, 12, 12),
                 Email = "123qwe@mail.com",
                 Gender = Enums.Gender.Male,
                 IsDeleted = false,

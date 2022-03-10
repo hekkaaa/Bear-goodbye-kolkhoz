@@ -32,7 +32,7 @@ namespace BearGoodbyeKolkhozProject.Business.Services
         }
 
         public List<AdminModel> GetAdminAll()
-        {   
+        {
             var res = _mapper.Map<List<AdminModel>>(_repository.GetAdminAll());
 
             if (res == null)
@@ -58,37 +58,9 @@ namespace BearGoodbyeKolkhozProject.Business.Services
                 newItem.Password = PasswordHash.HashPassword(newItem.Password);
                 var item = _mapper.Map<Admin>(newItem);
                 item.Role = Data.Enums.Role.Admin;
-                item.IsDeleted = false; 
+                item.IsDeleted = false;
 
                 return _repository.AddNewAdmin(item);
-            }
-        }
-
-        public bool DeleteAdmin(int id)
-        {
-            var item = _repository.GetAdminById(id);
-
-            if (item == null)
-            {
-                throw new NotFoundException("Нет пользователя по указанному Id");
-            }
-            else
-            {
-                return _repository.DeleteAdminById(item.Id);
-            }
-        }
-
-        public bool RestoreAdmin(int id)
-        {
-            var item = _repository.GetAdminById(id);
-
-            if (item == null)
-            {
-                throw new NotFoundException("Нет пользователя по указанному Id");
-            }
-            else
-            {
-                return _repository.RecoverAdminById(item.Id);
             }
         }
 
@@ -100,11 +72,11 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             {
                 throw new NotFoundException("The object with the specified id does not exist | Обьекта с указанным id не существет");
             }
-            
-            if(existingAdmin.Email != newItem.Email)
+
+            if (existingAdmin.Email != newItem.Email)
             {
                 bool res = CheckDublicateEmailUpdateAdmin(id, newItem.Email);
-                if(res) throw new DuplicateException("User with this Email already exists | Пользователь с таким Email уже существует ");
+                if (res) throw new DuplicateException("User with this Email already exists | Пользователь с таким Email уже существует ");
             }
 
             var modifiedAdmin = _mapper.Map<Admin>(newItem);
@@ -114,7 +86,7 @@ namespace BearGoodbyeKolkhozProject.Business.Services
         public bool ChangeAdminPassword(int id, string password)
         {
             var admin = _repository.GetAdminById(id);
-            
+
             if (admin is null)
             {
                 throw new NotFoundException($"Нет клиента с id = {id}");
@@ -139,10 +111,10 @@ namespace BearGoodbyeKolkhozProject.Business.Services
         private bool CheckDublicateEmailUpdateAdmin(int id, string email)
         {
             var allList = _repository.GetAdminAll();
-            
-            var res = allList.Where(a => a.Email == email).Where(x=>x.Id < id || x.Id > id).Count();
 
-            if(res != 0)
+            var res = allList.Where(a => a.Email == email).Where(x => x.Id < id || x.Id > id).Count();
+
+            if (res != 0)
             {
                 return true;
             }

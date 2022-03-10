@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using BearGoodbyeKolkhozProject.API.Extensions;
 using BearGoodbyeKolkhozProject.API.Models;
 using BearGoodbyeKolkhozProject.API.Models.ExceptionModel;
 using BearGoodbyeKolkhozProject.API.Models.InputModels;
@@ -11,7 +12,7 @@ using Swashbuckle.AspNetCore.Annotations;
 namespace BearGoodbyeKolkhozProject.API.Controllers
 {
     [ApiController]
-    [Route("api/client")]
+    [Route("api/clients")]
     [SwaggerTag("The controller can be used after authentication/authorization under the role of Admin/Client and Anonymous.")]
 
     public class ClientsController : Controller
@@ -39,7 +40,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
             return StatusCode(StatusCodes.Status201Created, _service.RegistrationClient(entity));
         }
 
-        [HttpGet()]
+        [HttpGet]
         [Authorize(Roles = "Admin")]
         [ProducesResponseType(typeof(List<ClientOutputModel>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status503ServiceUnavailable)]
@@ -52,19 +53,34 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
             return Ok(result);
         }
 
-        [HttpPut("/{id}")]
+        [HttpGet("info")]
         [Authorize(Roles = "Client")]
-        [ProducesResponseType(typeof(ActionResult), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(typeof(ClientOutputModel), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status503ServiceUnavailable)]
-        [SwaggerOperation("Show info Client. Roles: Client")]
+        [SwaggerOperation("Show info Client")]
         
-        public ActionResult UpdateClient(int id, [FromBody] UpdateInputModel model)
+        public ActionResult<ClientOutputModel> GetClientsById()
         {
+            var clientId = HttpContext.GetUserIdFromToken();
+            var clients = _service.GetClientById(clientId);
+            var result = _mapper.Map<ClientOutputModel>(clients);
+            return Ok(result);
+        }
+
+        [HttpPut]
+        [Authorize(Roles = "Client")]
+        [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status503ServiceUnavailable)]
+        [SwaggerOperation("Update info Client. Roles: Client")]
+        
+        public ActionResult<bool> UpdateClient([FromBody] ClientInputModel model)
+        {
+            var clientId = HttpContext.GetUserIdFromToken();
             var entity = _mapper.Map<ClientModel>(model);
-            _service.UpdateClientInfo(id, entity);
-            return Ok();
+            var res = _service.UpdateClientInfo(clientId, entity);
+            return Ok(res);
         }
 
         [HttpPut("{id}/password")]
@@ -79,32 +95,6 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         {
             _service.ChangePasswordClient(id, newItem.Password);
             return Ok();
-        }
-
-        [HttpPut("{id}")]
-        [Authorize(Roles = "Admin")]
-        [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status403Forbidden)]
-        [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status404NotFound)]
-        [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status503ServiceUnavailable)]
-        [SwaggerOperation("Delete Client. Roles: Admin")]
-        
-        public ActionResult<bool> DeleteAndBanUserById(int id)
-        {   
-            return Ok(_service.DeleteClient(id));
-        }
-
-        [HttpPut("{id}/restore")]
-        [Authorize(Roles = "Admin")]
-        [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status403Forbidden)]
-        [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status404NotFound)]
-        [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status503ServiceUnavailable)]
-        [SwaggerOperation("Restore ban/delete Client. Roles: Admin")]
-        
-        public ActionResult<bool> RestoreUserById(int id)
-        {
-            return Ok(_service.RestoreClient(id));
         }
     }
 }
