@@ -69,13 +69,13 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         }
 
         [HttpPost]
-        [ProducesResponseType(typeof(AdminCreateOutputModel), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(UserCreateOutputModel), StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status403Forbidden)]
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status409Conflict)]
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status503ServiceUnavailable)]
         [SwaggerOperation("Add new Admin")]
-        public ActionResult<AdminCreateOutputModel> AddNewAdmin(AdminInsertInputModel newItem)
+        public ActionResult<UserCreateOutputModel> AddNewAdmin(AdminInsertInputModel newItem)
         {
             var model = _mapper.Map<AdminModel>(newItem);
             var res = _service.AddNewAdmin(model);
@@ -86,7 +86,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
             }
             else
             {
-                return StatusCode(StatusCodes.Status201Created, new AdminCreateOutputModel { createId = res });
+                return StatusCode(StatusCodes.Status201Created, new UserCreateOutputModel { createId = res });
             }
         }
 

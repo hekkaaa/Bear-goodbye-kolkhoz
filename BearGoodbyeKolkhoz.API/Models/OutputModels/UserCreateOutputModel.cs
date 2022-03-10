@@ -1,6 +1,6 @@
 ﻿namespace BearGoodbyeKolkhozProject.API.Models.OutputModels
 {
-    public class AdminCreateOutputModel
+    public class UserCreateOutputModel
     {
         public int createId { get; set; }
     }
