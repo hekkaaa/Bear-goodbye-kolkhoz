@@ -1,10 +1,14 @@
-﻿using BearGoodbyeKolkhozProject.Business.Models;
+﻿
+
+using AutoMapper;
+using BearGoodbyeKolkhozProject.Business.Configuration;
+using BearGoodbyeKolkhozProject.Business.Models;
 using BearGoodbyeKolkhozProject.Data.Entities;
 using System.Collections;
 
 namespace BearGoodbyeKolkhozProject.Business.Tests.TestCaseSource.TraningTestCaseSource
 {
-    public class GetTrainingReviewByIdTestCaseSource : IEnumerable
+    public class DeleteTrainingReviewByIdTestCaseSource : IEnumerable
     {
         public IEnumerator GetEnumerator()
         {
@@ -15,17 +19,10 @@ namespace BearGoodbyeKolkhozProject.Business.Tests.TestCaseSource.TraningTestCas
                 Mark = 666,
                 Text = "xxx",
             };
-
-            var expected = new TrainingReviewModel
-            {
-                Id = 666,
-                Mark = 666,
-                Text = "xxx",
-            };
-
+            
             int id = 666;
-
-            yield return new object[] { entity, expected, id };
+         
+            yield return new object[] { entity, id };
 
         }
     }

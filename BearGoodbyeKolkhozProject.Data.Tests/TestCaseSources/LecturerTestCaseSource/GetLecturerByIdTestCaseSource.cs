@@ -1,5 +1,4 @@
 ﻿using BearGoodbyeKolkhozProject.Data.Entities;
-using System;
 using System.Collections;
 
 namespace BearGoodbyeKolkhozProject.Data.Tests.TestCaseSources.LecturerTestCaseSource
@@ -15,7 +14,7 @@ namespace BearGoodbyeKolkhozProject.Data.Tests.TestCaseSources.LecturerTestCaseS
                 LastName = "Azarov",
                 Email = "123qwe@mail.com",
                 Password = "qwe",
-                BirthDay = new DateTime(1999, 12, 12),
+                BirthDay = "12.12.1999",
                 Gender = Enums.Gender.Male,
             };
 
@@ -26,7 +25,7 @@ namespace BearGoodbyeKolkhozProject.Data.Tests.TestCaseSources.LecturerTestCaseS
                 LastName = "Azarov",
                 Email = "123qwe@mail.com",
                 Password = "qwe",
-                BirthDay = new DateTime(1999, 12, 12),
+                BirthDay = "12.12.1999",
                 Gender = Enums.Gender.Male,
             };
             yield return new object[] { lecturer, expected };

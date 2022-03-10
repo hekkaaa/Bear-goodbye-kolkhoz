@@ -1,4 +1,8 @@
-﻿using BearGoodbyeKolkhozProject.Business.Models;
+﻿
+
+using AutoMapper;
+using BearGoodbyeKolkhozProject.Business.Configuration;
+using BearGoodbyeKolkhozProject.Business.Models;
 using BearGoodbyeKolkhozProject.Data.Entities;
 using System.Collections;
 using System.Collections.Generic;
@@ -43,7 +47,7 @@ namespace BearGoodbyeKolkhozProject.Business.Tests.TestCaseSource.TraningTestCas
 
             };
 
-            yield return new object[] { trainingReviews, expected };
+            yield return new object[] { trainingReviews, expected};
 
         }
     }

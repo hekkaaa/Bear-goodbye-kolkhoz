@@ -3,7 +3,7 @@ using System.Collections;
 
 namespace BearGoodbyeKolkhozProject.Data.Tests.TestCaseSources.CompanyTestCaseSource
 {
-    public class GetCompanyByIdTestCaseSource : IEnumerable
+    public class GetCompanyByIdTestCaseSource :IEnumerable
     {
         public IEnumerator GetEnumerator()
         {

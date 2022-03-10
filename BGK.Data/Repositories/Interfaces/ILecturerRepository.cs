@@ -5,12 +5,12 @@ namespace BearGoodbyeKolkhozProject.Data.Interfaces
     public interface ILecturerRepository
     {
         int AddLecturer(Lecturer model);
-        bool AddTraining(Lecturer lecturer, Training training);
+        void AddTraining(Lecturer lecturer, Training training);
         void DeleteTraining(Lecturer lecturer, Training model);
         Lecturer GetLecturerById(int id);
-        Lecturer GetLecturerByIdAndIncludeTraning(int id);
         List<Lecturer> GetLecturers();
         void UpdateLecturer(Lecturer lecturer, Lecturer model);
+        void ChangeDeleteStatusById(Lecturer lecturer, bool IsDeleted);
         List<Lecturer> GetLecturerByTrainingId(int trainingId);
         int GetEventsCount(Lecturer lecturer);
     }

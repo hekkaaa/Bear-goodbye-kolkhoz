@@ -30,7 +30,7 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             var training = _repository.GetTrainingById(id);
 
             if (training == null)
-                throw new NotFoundException("Такого тренинга не найдено!");
+                throw new BusinessException("Такого тренинга не найдено!");
 
             var trainingEntity = _mapper.Map<Training>(trainingModel);
             trainingEntity.Id = id;
@@ -41,7 +41,7 @@ namespace BearGoodbyeKolkhozProject.Business.Services
         {
             var trainingEntity = _repository.GetTrainingById(id);
             if (trainingEntity == null)
-                throw new NotFoundException("Такого тренинга не найдено!");
+                throw new BusinessException("Такого тренинга не найдено!");
             return _mapper.Map<TrainingModel>(trainingEntity);
         }
 
@@ -53,11 +53,7 @@ namespace BearGoodbyeKolkhozProject.Business.Services
 
         public List<TrainingModel> GetTrainingModelByTopic(TopicModel topicModel)
         {
-            var topic = _topicRepository.GetTopicById(topicModel.Id);
-            if (topic == null)
-                throw new NotFoundException("Такого интереса не существует");
-
-            var trainingEntityList = _repository.GetTrainingsByTopic(topic);
+            var trainingEntityList = _repository.GetTrainingsByTopic((_mapper.Map<Topic>(topicModel)));
             return _mapper.Map<List<TrainingModel>>(trainingEntityList);
         }
 
@@ -71,16 +67,16 @@ namespace BearGoodbyeKolkhozProject.Business.Services
         {
             var trainingEntity = _repository.GetTrainingById(id);
             if (trainingEntity == null)
-                throw new NotFoundException("Такого тренинга не найдено!");
+                throw new BusinessException("Такого тренинга не найдено!");
             _repository.UpdateTraining(_mapper.Map<Training>(trainingEntity), true);
         }
 
-        public void RestoreTraining(int id)
+        public void RestoreTraining(TrainingModel trainingModel)
         {
-            var trainingEntity = _repository.GetTrainingById(id);
+            var trainingEntity = _repository.GetTrainingById(trainingModel.Id);
             if (trainingEntity == null)
-                throw new NotFoundException("Такого тренинга не найдено!");
-            _repository.UpdateTraining(trainingEntity, false);
+                throw new BusinessException("Такого тренинга не найдено!");
+            _repository.UpdateTraining(_mapper.Map<Training>(trainingModel), false);
         }
 
         public void AddTopicToTraining(int id, int topicId)
@@ -99,12 +95,12 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             var training = _repository.GetTrainingById(trainingId);
 
             if (training == null)
-                throw new NotFoundException("Такого тренинга не найдено!");
+                throw new BusinessException("Такого тренинга не найдено!");
 
             var client = _clientRepository.GetClientById(clientId);
 
             if (client == null)
-                throw new NotFoundException("Такого клиента нет!");
+                throw new BusinessException("Такого клиента нет!");
 
             var trainingReviewEntity = _mapper.Map<TrainingReview>(trainingReview);
             trainingReviewEntity.Client = client;
@@ -123,7 +119,7 @@ namespace BearGoodbyeKolkhozProject.Business.Services
         //удолить после проверки
         public void SendEmail()
         {
-            EventModel em = new EventModel { StartDate = new DateTime(2000, 05, 01) };
+            EventModel em = new EventModel { StartDate = "20.05.01" };
             _emailSender.SendEmail("ff", "ff", em);
         }
     }

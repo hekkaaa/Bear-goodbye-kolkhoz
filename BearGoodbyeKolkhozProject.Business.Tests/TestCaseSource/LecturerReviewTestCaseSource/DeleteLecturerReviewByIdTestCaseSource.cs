@@ -1,6 +1,5 @@
 ﻿using BearGoodbyeKolkhozProject.Data.Entities;
 using BearGoodbyeKolkhozProject.Data.Enums;
-using System;
 using System.Collections;
 
 namespace BearGoodbyeKolkhozProject.Business.Tests.TestCaseSource.LecturerReviewTestCaseSource
@@ -15,7 +14,7 @@ namespace BearGoodbyeKolkhozProject.Business.Tests.TestCaseSource.LecturerReview
                 Name = "qwe123",
                 LastName = "321ewq",
                 Gender = Gender.Male,
-                BirthDay = new DateTime(2000, 11, 11),
+                BirthDay = "11.11.2000",
                 Email = "123qwe@mail.com",
                 PhoneNumber = "77777777777",
                 Password = "qwe!23",
@@ -28,7 +27,7 @@ namespace BearGoodbyeKolkhozProject.Business.Tests.TestCaseSource.LecturerReview
                 Name = "Roma",
                 LastName = "Azarov",
                 Password = "qwe",
-                BirthDay = new DateTime(1999, 12, 12),
+                BirthDay = "12.12.1999",
                 Gender = Gender.Male,
             };
 

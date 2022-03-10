@@ -31,8 +31,21 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
             client.Name = newInfo.Name;
             client.LastName = newInfo.LastName;
             client.BirthDay = newInfo.BirthDay;
-            client.Gender = newInfo.Gender;
 
+            _db.SaveChanges();
+            return true;
+        }
+
+        public bool ChangeDeleteStatusById(Client client)
+        {
+            client.IsDeleted = true;
+            _db.SaveChanges();
+            return true;
+        }
+
+        public bool ChangeRestoreStatusById(Client client)
+        {
+            client.IsDeleted = false;
             _db.SaveChanges();
             return true;
         }

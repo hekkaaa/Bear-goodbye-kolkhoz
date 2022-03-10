@@ -6,8 +6,11 @@ using BearGoodbyeKolkhozProject.Data.ConnectDb;
 using BearGoodbyeKolkhozProject.Data.Repositories;
 using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace BearGoodbyeKolkhozProject.Business.Tests
 {
@@ -120,6 +123,80 @@ namespace BearGoodbyeKolkhozProject.Business.Tests
         }
 
         [Test]
+        public void DeleteCompanyTest()
+        {
+            //given
+            var company = new CompanyModel
+            {
+                Id = 1,
+                Name = "OOO Ivan",
+                Email = "qwe@mail",
+                PhoneNumber = "1234567",
+                Tin = 123234,
+                Password = "1234",
+                IsDeleted = false
+            };
+
+            _service.RegistrationCompany(company);
+
+
+            CompanyModel expected = null;
+
+
+            //when
+            _service.DeleteCompany(company.Id);
+
+            var actual = _context.Company.FirstOrDefault(c => c.Id == company.Id); ;
+            //then
+            Assert.AreEqual(expected, actual);
+        }
+
+        [Test]
+        public void UpdateCompanyIsDelTest()
+        {
+            //given
+            var company = new CompanyModel
+            {
+                Id = 1,
+                Name = "OOO Ivan",
+                Email = "qwe@mail",
+                PhoneNumber = "1234567",
+                Tin = 123234,
+                Password = "1234",
+                IsDeleted = false
+            };
+
+            _service.RegistrationCompany(company);
+
+            var updateCompany = new CompanyModel
+            {
+                Id = 1,
+                IsDeleted = true
+            };
+
+            var expected = new CompanyModel
+            {
+                Id = 1,
+                Name = "OOO Ivan",
+                Email = "qwe@mail",
+                PhoneNumber = "1234567",
+                Tin = 123234,
+                Password = "1234",
+                IsDeleted = true
+            };
+            //when
+            _service.UpdateCompany(updateCompany.Id, updateCompany.IsDeleted);
+
+            var actual = _service.GetCompanyById(updateCompany.Id);
+            //then
+            Assert.IsTrue(actual.Id == expected.Id);
+            Assert.IsNotNull(company);
+            Assert.AreEqual(actual.Name, expected.Name);
+            Assert.AreEqual(actual.PhoneNumber, expected.PhoneNumber);
+            Assert.AreEqual(actual.Tin, expected.Tin);
+        }
+
+        [Test]
         public void UpdatePasswordCompanyTest()
         {
             //given
@@ -136,7 +213,7 @@ namespace BearGoodbyeKolkhozProject.Business.Tests
 
             _service.RegistrationCompany(company);
 
-            var upPass = new CompanyModel
+            var upPass= new CompanyModel
             {
                 Id = 1,
                 Password = "8989qwe",
@@ -181,7 +258,7 @@ namespace BearGoodbyeKolkhozProject.Business.Tests
             };
 
             _service.RegistrationCompany(company1);
-
+          
 
             var company2 = new CompanyModel
             {

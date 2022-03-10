@@ -18,9 +18,6 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
         public Lecturer GetLecturerById(int id) =>
             _context.Lecturer.FirstOrDefault(L => L.Id == id);
 
-        public Lecturer GetLecturerByIdAndIncludeTraning(int id) =>
-            _context.Lecturer.Include(x => x.Trainings).FirstOrDefault(L => L.Id == id);
-
         public List<Lecturer> GetLecturers() =>
             _context.Lecturer.Where(l => !l.IsDeleted).ToList();
 
@@ -51,18 +48,22 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
             _context.SaveChanges();
         }
 
-        public bool AddTraining(Lecturer lecturer, Training training)
+        public void AddTraining(Lecturer lecturer, Training training)
         {
             lecturer.Trainings.Add(training);
 
             _context.SaveChanges();
-
-            return true;
         }
 
         public void DeleteTraining(Lecturer lecturer, Training training)
         {
             lecturer.Trainings.Remove(training);
+            _context.SaveChanges();
+        }
+
+        public void ChangeDeleteStatusById(Lecturer lecturer, bool isDeleted)
+        {
+            lecturer.IsDeleted = isDeleted;
             _context.SaveChanges();
         }
 

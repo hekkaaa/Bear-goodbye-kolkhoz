@@ -3,7 +3,6 @@ using BearGoodbyeKolkhozProject.Data.Entities;
 using BearGoodbyeKolkhozProject.Data.Repositories;
 using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
-using System;
 using System.Linq;
 
 namespace BearGoodbyeKolkhozProject.Data.Tests
@@ -50,7 +49,7 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
                 {
                     Name = "Sacha",
                     LastName = "Vygrebyuk",
-                    BirthDay = new DateTime(2003, 07, 22),
+                    BirthDay = "22.07.2003",
                     Email = "jjj@jjj.jjj",
                     Password = "********",
                     Gender = Enums.Gender.Male,

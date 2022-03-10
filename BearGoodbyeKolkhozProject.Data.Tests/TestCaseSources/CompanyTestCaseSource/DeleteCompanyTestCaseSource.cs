@@ -3,7 +3,7 @@ using System.Collections;
 
 namespace BearGoodbyeKolkhozProject.Data.Tests.TestCaseSources.CompanyTestCaseSourse
 {
-    public class DeleteCompanyTestCaseSource : IEnumerable
+    public class DeleteCompanyTestCaseSource: IEnumerable
     {
         public IEnumerator GetEnumerator()
         {
@@ -24,6 +24,6 @@ namespace BearGoodbyeKolkhozProject.Data.Tests.TestCaseSources.CompanyTestCaseSo
             yield return new object[] { company, expected };
 
 
-        }
+       }
     }
 }

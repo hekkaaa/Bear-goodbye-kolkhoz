@@ -1,4 +1,8 @@
-﻿using BearGoodbyeKolkhozProject.Business.Models;
+﻿
+
+using AutoMapper;
+using BearGoodbyeKolkhozProject.Business.Configuration;
+using BearGoodbyeKolkhozProject.Business.Models;
 using BearGoodbyeKolkhozProject.Data.Entities;
 using System.Collections;
 
@@ -15,14 +19,14 @@ namespace BearGoodbyeKolkhozProject.Business.Tests.TestCaseSource.TraningTestCas
                 Mark = 666,
                 Text = "xxx",
             };
-
+            
             var updateModel = new TrainingReviewModel
             {
                 Mark = 5,
                 Text = "hren",
             };
 
-            yield return new object[] { trainingReviewModel, updateModel };
+            yield return new object[] { trainingReviewModel, updateModel};
 
         }
     }

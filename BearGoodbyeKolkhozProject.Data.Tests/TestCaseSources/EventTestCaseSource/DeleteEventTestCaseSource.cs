@@ -1,6 +1,10 @@
 ﻿using BearGoodbyeKolkhozProject.Data.Entities;
 using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace BearGoodbyeKolkhozProject.Data.Tests.TestCaseSources.EventTestCaseSource
 {
@@ -11,7 +15,7 @@ namespace BearGoodbyeKolkhozProject.Data.Tests.TestCaseSources.EventTestCaseSour
             var even = new Event
             {
                 Id = 1,
-                StartDate = new DateTime(2022, 03, 03),
+                StartDate = "03.03.2022",
                 Company = new Company
                 {
                     Name = "OOO Ivan",
@@ -32,13 +36,13 @@ namespace BearGoodbyeKolkhozProject.Data.Tests.TestCaseSources.EventTestCaseSour
                     Name = "Семен",
                     LastName = "Семенов",
                     Email = "lector@mail.ru",
-                    BirthDay = new DateTime(1993, 03, 03),
+                    BirthDay = "03.03.1993",
                     Gender = Enums.Gender.Male,
                     Password = "12345"
 
                 },
 
-
+                
 
 
             };
