@@ -22,9 +22,9 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
             var entity = GetValueContactLecturerById(сontactLecturer.Id);
 
             entity.Value = сontactLecturer.Value;
-            
+
             _context.SaveChanges();
-   
+
         }
 
         public void UpdateContactLecturerValueRepo(ContactLecturer contactLecturer)
@@ -32,7 +32,7 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
             var entity = GetValueContactLecturerById(contactLecturer.Id);
 
             entity.Value = contactLecturer.Value;
-            
+
             _context.SaveChanges();
         }
 

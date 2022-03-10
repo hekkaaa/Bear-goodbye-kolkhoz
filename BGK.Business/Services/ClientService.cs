@@ -51,7 +51,7 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             return _mapper.Map<List<ClientModel>>(clients);
         }
 
-        public void UpdateClientInfo(int id, ClientModel updateModel)
+        public bool UpdateClientInfo(int id, ClientModel updateModel)
         {
             var client = _clientRepo.GetClientById(id);
 
@@ -61,37 +61,13 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             }
 
             var updateClient = _mapper.Map<Client>(updateModel);
-            _clientRepo.UpdateClientInfo(client, updateClient);
-        }
-
-        public bool DeleteClient(int id)
-        {
-            var client = _clientRepo.GetClientById(id);
-
-            if (client is null)
-            {
-                throw new NotFoundException($"нет клиента с id = {id}");
-            }
-
-           return _clientRepo.ChangeDeleteStatusById(client);
-        }
-
-        public bool RestoreClient(int id)
-        {
-            var client = _clientRepo.GetClientById(id);
-
-            if (client is null)
-            {
-                throw new NotFoundException($"нет клиента с id = {id}");
-            }
-
-            return _clientRepo.ChangeRestoreStatusById(client);
+            return _clientRepo.UpdateClientInfo(client, updateClient);
         }
 
         public void ChangePasswordClient(int id, string password)
         {
             var client = _clientRepo.GetClientById(id);
-            
+
             if (client is null)
             {
                 throw new NotFoundException($"нет клиента с id = {id}");

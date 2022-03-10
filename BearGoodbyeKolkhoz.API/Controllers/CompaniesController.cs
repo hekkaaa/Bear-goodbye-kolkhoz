@@ -13,7 +13,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
 {
 
     [ApiController]
-    [Route("api/company")]
+    [Route("api/companies")]
     public class CompaniesController : Controller
     {
         private readonly ICompanyService _companyService;
@@ -72,20 +72,21 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         //api/companies/
         [HttpPost()]
         [AllowAnonymous]
-        [ProducesResponseType(typeof(CompanyOutputModel), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(int), StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(ExceptionResponse), StatusCodes.Status403Forbidden)]
         [ProducesResponseType(typeof(ExceptionResponse), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ExceptionResponse), StatusCodes.Status409Conflict)]
         [ProducesResponseType(typeof(ValidationExceptionResponse), StatusCodes.Status422UnprocessableEntity)]
         [SwaggerOperation("Add one company. Roles: AllowAnonymous")]
 
-        public ActionResult<CompanyInsertInputModel> RegistrationCompany([FromBody] CompanyInsertInputModel companyInsertInputModel)
+        public ActionResult<int> RegistrationCompany([FromBody] CompanyInsertInputModel companyInsertInputModel)
         {
 
             CompanyModel entity = _mapperApi.Map<CompanyModel>(companyInsertInputModel);
 
-            _companyService.RegistrationCompany(entity);
+            var res = _companyService.RegistrationCompany(entity);
 
-            return StatusCode(StatusCodes.Status201Created, entity);
+            return StatusCode(StatusCodes.Status201Created, res);
 
 
         }
@@ -106,36 +107,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
             return Ok(model);
 
         }
-        [HttpPatch("{id}")]
-        [Authorize(Roles = "Admin")]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
-        [ProducesResponseType(typeof(ExceptionResponse), StatusCodes.Status403Forbidden)]
-        [ProducesResponseType(typeof(ExceptionResponse), StatusCodes.Status404NotFound)]
-        [SwaggerOperation("Delete Company. Roles: Admin")]
-        public ActionResult<CompanyOutputModel> UpdateCompany(int id, bool isDel)
-        {
-            _companyService.UpdateCompany(id, isDel);
-
-            return NoContent();
-
-        }
-        //api/companies/
-        [HttpDelete("{id}")]
-        [Authorize(Roles = "Admin")]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
-        [ProducesResponseType(typeof(ExceptionResponse), StatusCodes.Status403Forbidden)]
-        [ProducesResponseType(typeof(ExceptionResponse), StatusCodes.Status404NotFound)]
-        [SwaggerOperation("Deleted Company. Roles: Admin")]
-
-        public ActionResult<CompanyUpdateInputModel> DeleteCompany(int id)
-        {
-
-            _companyService.DeleteCompany(id);
-
-            return NoContent();
-        }
-
-
+   
         [HttpPut("{id}/password")]
         [Authorize(Roles = "Admin,Company")]
         [ProducesResponseType(typeof(CompanyOutputModel), StatusCodes.Status200OK)]
