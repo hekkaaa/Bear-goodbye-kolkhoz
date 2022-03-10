@@ -10,7 +10,6 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace BearGoodbyeKolkhozProject.API.Controllers
 {
-
     [Route("api/admins")]
     [ApiController]
     [Authorize(Roles = "Admin")]
