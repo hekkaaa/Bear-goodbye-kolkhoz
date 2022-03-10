@@ -50,13 +50,13 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
             return Ok(result);
         }
 
-        //api/companies/
+        //api/companies/{id}
         [HttpGet("{id}")]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Company")]
         [ProducesResponseType(typeof(CompanyOutputModel), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ExceptionResponse), StatusCodes.Status403Forbidden)]
         [ProducesResponseType(typeof(ExceptionResponse), StatusCodes.Status404NotFound)]
-        [SwaggerOperation("Get company by id. Roles: Admin")]
+        [SwaggerOperation("Get company by id. Roles: Company")]
 
         public ActionResult<CompanyOutputModel> GetCompanyById(int id)
         {
