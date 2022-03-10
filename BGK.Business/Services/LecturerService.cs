@@ -30,7 +30,7 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             return _lecturerRepo.AddLecturer(entity);
         }
 
-        public void AddTraining(int id, int trainingId)
+        public bool AddTraining(int id, int trainingId)
         {
             var training = _trainingRepo.GetTrainingById(trainingId);
             var lecturer = _lecturerRepo.GetLecturerById(id);
