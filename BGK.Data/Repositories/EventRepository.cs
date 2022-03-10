@@ -14,8 +14,15 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
             this._context = context;
         }
 
-        public Event GetEventById(int id) =>
-            _context.Event.Find(id);
+        public Event? GetEventById(int id) 
+        {
+            return _context.Event
+                .Include(c => c.Classroom)
+                .Include(co => co.Company)
+                .Include(cl => cl.Clients)
+                //.Include(l => l.Lecturer) // 
+                .FirstOrDefault(c => c.Id == id);
+        }
 
         public List<Event> GetEvents() =>
             _context.Event.Where(e => !e.IsDeleted).ToList();
