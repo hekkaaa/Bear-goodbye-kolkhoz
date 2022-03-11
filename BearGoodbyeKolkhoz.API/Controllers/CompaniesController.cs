@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using BearGoodbyeKolkhozProject.API.Configuration.ExceptionResponse;
+using BearGoodbyeKolkhozProject.API.Extensions;
 using BearGoodbyeKolkhozProject.API.Models.InputModels;
 using BearGoodbyeKolkhozProject.API.Models.OutputModels;
 using BearGoodbyeKolkhozProject.Business.Models;
@@ -101,26 +102,26 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         public ActionResult<CompanyUpdateInputModel> UpdateCompany([FromBody] CompanyUpdateInputModel companyUpdateInputModel)
         {
             CompanyModel model = _mapperApi.Map<CompanyModel>(companyUpdateInputModel);
-
+            model.Id = HttpContext.GetUserIdFromToken();
             _companyService.UpdateCompany(model);
 
             return Ok(model);
 
         }
    
-        [HttpPut("{id}/password")]
-        [Authorize(Roles = "Admin,Company")]
-        [ProducesResponseType(typeof(CompanyOutputModel), StatusCodes.Status200OK)]
+        [HttpPut("password")]
+        [Authorize(Roles = "Company")]
+        [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ExceptionResponse), StatusCodes.Status403Forbidden)]
         [ProducesResponseType(typeof(ExceptionResponse), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ValidationExceptionResponse), StatusCodes.Status422UnprocessableEntity)]
-        [SwaggerOperation("Update password Company by id. Roles: Admin,Company")]
+        [SwaggerOperation("Update password Company by id. Roles: Company")]
 
-        public ActionResult<ChangePasswordInputModel> UpdatePasswordCompanyById(int id, [FromBody] ChangePasswordInputModel newItem)
+        public ActionResult<bool> UpdatePasswordCompanyById([FromBody] ChangePasswordInputModel newItem)
         {
-            CompanyModel model = _mapperApi.Map<CompanyModel>(newItem);
-            _companyService.UpdatePasswordCompany(id, model.Password);
-            return Ok(model);
+            var id = HttpContext.GetUserIdFromToken();
+            var res = _companyService.UpdatePasswordCompany(id, newItem.Password);
+            return Ok(res);
         }
     }
 

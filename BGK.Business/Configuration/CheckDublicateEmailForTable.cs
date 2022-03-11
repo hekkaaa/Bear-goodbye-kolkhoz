@@ -18,19 +18,5 @@ namespace BearGoodbyeKolkhozProject.Business.Configuration
                 throw new DuplicateException("User with this Email already exists | Пользователь с таким Email уже существует.");
             }
         }
-
-        public static bool CheckDublicateEmailForTableCompany(string email, ICompanyRepository _repository)
-        {
-            var res = _repository.GetCompanyByEmail(email);
-
-            if (res is null)
-            {
-                return false;
-            }
-            else
-            {
-                throw new DuplicateException("User with this Email already exists | Пользователь с таким Email уже существует.");
-            }
-        }
     }
 }

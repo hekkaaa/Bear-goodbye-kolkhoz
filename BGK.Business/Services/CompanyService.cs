@@ -12,10 +12,12 @@ namespace BearGoodbyeKolkhozProject.Business.Services
     {
 
         private readonly ICompanyRepository? _companyRepository;
+        private readonly IUserRepository? _userRepository;
         private readonly IMapper _mapper;
-        public CompanyService(ICompanyRepository companyRepository,IMapper mapper)
+        public CompanyService(ICompanyRepository companyRepository,IUserRepository userRepository,IMapper mapper)
         {
             _companyRepository = companyRepository;
+            _userRepository = userRepository;
             _mapper = mapper;
         }
 
@@ -39,7 +41,7 @@ namespace BearGoodbyeKolkhozProject.Business.Services
 
         public int RegistrationCompany(CompanyModel companyModel)
         {
-            CheckDublicateEmailForTable.CheckDublicateEmailForTableCompany(companyModel.Email, _companyRepository);
+            CheckDublicateEmailForTable.CheckDublicateEmailForTableUser(companyModel.Email, _userRepository);
 
             companyModel.Password = PasswordHash.HashPassword(companyModel.Password);
             var item = _mapper.Map<Company>(companyModel);
@@ -60,7 +62,7 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             _companyRepository.UpdateCompany(entity);
 
         }
-        public void UpdatePasswordCompany(int id, string password)
+        public bool UpdatePasswordCompany(int id, string password)
         {
             var company = _companyRepository.GetCompanyById(id);
 
@@ -70,7 +72,7 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             }
 
             string hashPassword = PasswordHash.HashPassword(password);
-            _companyRepository.ChangePasswordCompany(hashPassword, company);
+            return _companyRepository.ChangePasswordCompany(hashPassword, company);
         }
     }
 }

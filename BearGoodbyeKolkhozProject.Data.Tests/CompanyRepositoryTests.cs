@@ -29,31 +29,6 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
 
         }
 
-        [TestCaseSource(typeof(GetCompanyByEmailTestCaseSource))]
-        public void GetCompanyByEmailTests(List<Company> companies, Company expected)
-        {
-            //given
-            foreach (var item in companies)
-            {
-                _context.Company.Add(item);
-            }
-
-            _context.SaveChanges();
-
-            //when
-            CompanyRepository companiesRepository = new CompanyRepository(_context);
-
-            var actual = companiesRepository.GetCompanyByEmail(expected.Email);
-
-            //then
-            Assert.IsNotNull(actual);
-            Assert.AreEqual(expected.Email, actual.Email);
-            Assert.AreEqual(expected.Password, actual.Password);
-            Assert.AreEqual(expected.Name, actual.Name);
-            Assert.AreEqual(expected.Tin, actual.Tin);
-        }
-
-
         [TestCaseSource(typeof(GetCompanyByIdTestCaseSource))]
         public void GetCompanyByIdTest(Company company, Company expected)
         {
