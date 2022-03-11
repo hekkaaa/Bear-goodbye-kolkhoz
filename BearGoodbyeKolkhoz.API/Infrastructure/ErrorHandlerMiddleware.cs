@@ -43,7 +43,7 @@ namespace BearGoodbyeKolkhozProject.API.Infrastructure
             }
             catch (NotFoundException error)
             {
-                await ConstructResponse(context, HttpStatusCode.Forbidden, error.Message);
+                await ConstructResponse(context, HttpStatusCode.BadRequest, error.Message);
             }
             catch (NoRoleException error)
             {
