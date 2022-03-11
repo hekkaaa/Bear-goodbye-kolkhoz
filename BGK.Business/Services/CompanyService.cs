@@ -12,9 +12,8 @@ namespace BearGoodbyeKolkhozProject.Business.Services
     {
 
         private readonly ICompanyRepository? _companyRepository;
-
-        private IMapper _mapper;
-        public CompanyService(ICompanyRepository companyRepository, IMapper mapper)
+        private readonly IMapper _mapper;
+        public CompanyService(ICompanyRepository companyRepository,IMapper mapper)
         {
             _companyRepository = companyRepository;
             _mapper = mapper;
@@ -40,19 +39,13 @@ namespace BearGoodbyeKolkhozProject.Business.Services
 
         public int RegistrationCompany(CompanyModel companyModel)
         {
-            bool res = CheckDublicateEmailAddCompany(companyModel.Email);
+            CheckDublicateEmailForTable.CheckDublicateEmailForTableCompany(companyModel.Email, _companyRepository);
 
-            if (res)
-            {
-                throw new DuplicateException("User with this Email already exists | Пользователь с таким Email уже существует ");
-            }
-            else
-            {
-                companyModel.Password = PasswordHash.HashPassword(companyModel.Password);
-                var item = _mapper.Map<Company>(companyModel);
+            companyModel.Password = PasswordHash.HashPassword(companyModel.Password);
+            var item = _mapper.Map<Company>(companyModel);
 
-                return _companyRepository.RegistrationCompany(_mapper.Map<Company>(item));
-            }
+            return _companyRepository.RegistrationCompany(_mapper.Map<Company>(item));
+          
         }
 
         public void UpdateCompany(CompanyModel companyModel)
@@ -79,18 +72,5 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             string hashPassword = PasswordHash.HashPassword(password);
             _companyRepository.ChangePasswordCompany(hashPassword, company);
         }
-
-        private bool CheckDublicateEmailAddCompany(string email)
-        {
-            List<Company>? allList = _companyRepository.GetCompanies();
-            Company? res = allList.FirstOrDefault(a => a.Email == email);
-
-            if (res == null)
-            {
-                return false;
-            }
-            return true;
-        }
-
     }
 }

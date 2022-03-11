@@ -21,6 +21,9 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
             return company.Id;
         }
 
+        public Company? GetCompanyByEmail(string email) =>
+           _context.Company.FirstOrDefault(x => x.Email == email);
+
         public List<Company> GetCompanies() =>
             _context.Company.Where(c => !c.IsDeleted).ToList();
 
