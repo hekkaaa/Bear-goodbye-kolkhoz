@@ -63,43 +63,41 @@ namespace BearGoodbyeKolkhozProject.Business.Services
         {
             Event oldItemEvent = _eventRepository.GetEventById(id);
 
-            if (oldItemEvent is null)
+            if (oldItemEvent is null || oldItemEvent.IsDeleted == true)
             {
-                throw new NotFoundException($"Не найдено в базе данных Event с ID {id}");
+                throw new NotFoundException($"Не найдено в базе данных Event с ID {id}. Возможно Event удален");
             }
             
             Lecturer checkLector = _lecturerRepository.GetLecturerById(eventModel.Lecturer.Id);
 
             if (checkLector is null || checkLector.IsDeleted == true)
             {   
-                throw new NotFoundException($"Не найдено в базе лектора с ID {id}. Возможно Лектор удален.");
+                throw new NotFoundException($"Не найдено в базе лектора с ID {eventModel.Lecturer.Id}. Возможно Лектор удален.");
             }
 
             Training checktraning = _trainingRepository.GetTrainingById(eventModel.Training.Id);
 
             if(checktraning is null || checktraning.IsDeleted == true)
             {
-                throw new NotFoundException($"Не найдено в базе Тренинга с ID {id}. Возможно Тренинг удален.");
+                throw new NotFoundException($"Не найдено в базе Тренинга с ID {eventModel.Training.Id}. Возможно Тренинг удален.");
             }
             
             Classroom checkClassroom = _classroomRepository.GetClassroomById(eventModel.Classroom.Id);
 
-            if (checkClassroom is null || checktraning.IsDeleted == true)
+            if (checkClassroom is null || checkClassroom.IsDeleted == true)
             { 
             
-                throw new NotFoundException($"Не найдено в базе Classroom с ID {id}. Возможно Classroom удален.");
+                throw new NotFoundException($"Не найдено в базе Classroom с ID {eventModel.Classroom.Id}. Возможно Classroom удален.");
             }
 
             Event testEvent = new Event
             {
-                Id = oldItemEvent.Id,
+                Id = eventModel.Id,
                 StartDate = eventModel.StartDate,
                 Training = checktraning,
                 Lecturer = checkLector,
                 Classroom = checkClassroom
             };
-
-            Event newitemEvent = _mapper.Map<Event>(eventModel);
 
             bool res = _eventRepository.PartialUpdateEvent(oldItemEvent, testEvent);
 
