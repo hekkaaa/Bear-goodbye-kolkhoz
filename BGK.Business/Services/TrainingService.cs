@@ -67,12 +67,15 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             return _repository.AddTraining(trainingEntity);
         }
 
-        public void DeleteTraining(int id)
+        public bool DeleteTraining(int id)
         {
             var trainingEntity = _repository.GetTrainingById(id);
             if (trainingEntity == null)
+            {
                 throw new NotFoundException("Такого тренинга не найдено!");
-            _repository.UpdateTraining(_mapper.Map<Training>(trainingEntity), true);
+            }
+                
+            return _repository.UpdateTraining(_mapper.Map<Training>(trainingEntity), true);
         }
 
         public void RestoreTraining(int id)
@@ -123,7 +126,7 @@ namespace BearGoodbyeKolkhozProject.Business.Services
         //удолить после проверки
         public void SendEmail()
         {
-            EventModel em = new EventModel { StartDate = "20.05.01" };
+            EventModel em = new EventModel { StartDate = new DateTime(2000, 05, 01) };
             _emailSender.SendEmail("ff", "ff", em);
         }
     }

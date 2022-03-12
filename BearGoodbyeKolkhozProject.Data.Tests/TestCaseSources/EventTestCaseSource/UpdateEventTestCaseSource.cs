@@ -1,4 +1,5 @@
 ﻿using BearGoodbyeKolkhozProject.Data.Entities;
+using System;
 using System.Collections;
 
 namespace BearGoodbyeKolkhozProject.Data.Tests.TestCaseSources.CompanyTestCaseSourse
@@ -10,7 +11,7 @@ namespace BearGoodbyeKolkhozProject.Data.Tests.TestCaseSources.CompanyTestCaseSo
             var even = new Event
             {
                 Id = 1,
-                StartDate = "03.03.2022",
+                StartDate = new DateTime(2022, 03, 03),
                 Company = new Company
                 {
 
@@ -33,7 +34,7 @@ namespace BearGoodbyeKolkhozProject.Data.Tests.TestCaseSources.CompanyTestCaseSo
 
                     Name = "Семен",
                     LastName = "Семенов",
-                    BirthDay = "03.03.1993",
+                    BirthDay = new DateTime(1993, 03, 03),
                     Gender = Enums.Gender.Male,
                     Password = "12345"
 
@@ -45,7 +46,7 @@ namespace BearGoodbyeKolkhozProject.Data.Tests.TestCaseSources.CompanyTestCaseSo
             var updateEvent = new Event
             {
                 Id = 1,
-                StartDate = "04.03.2022",
+                StartDate = new DateTime(2022, 03, 04),
                 Company = new Company
                 {
 
@@ -67,7 +68,7 @@ namespace BearGoodbyeKolkhozProject.Data.Tests.TestCaseSources.CompanyTestCaseSo
 
                     Name = "Семен",
                     LastName = "Семенов",
-                    BirthDay = "03.03.1993",
+                    BirthDay = new DateTime(1993, 03, 03),
                     Gender = Enums.Gender.Male,
                     Password = "12345"
 
@@ -77,7 +78,7 @@ namespace BearGoodbyeKolkhozProject.Data.Tests.TestCaseSources.CompanyTestCaseSo
             var expected = new Event
             {
                 Id = 1,
-                StartDate = "04.03.2022",
+                StartDate = new DateTime(2022, 03, 04),
                 Company = new Company
                 {
 
@@ -99,7 +100,7 @@ namespace BearGoodbyeKolkhozProject.Data.Tests.TestCaseSources.CompanyTestCaseSo
 
                     Name = "Семен",
                     LastName = "Семенов",
-                    BirthDay = "03.03.1993",
+                    BirthDay = new DateTime(1993, 03, 03),
                     Gender = Enums.Gender.Male,
                     Password = "12345"
 

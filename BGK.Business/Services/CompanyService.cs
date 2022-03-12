@@ -67,31 +67,6 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             _companyRepository.UpdateCompany(entity);
 
         }
-
-
-
-        public void DeleteCompany(int id)
-        {
-            var company = _companyRepository.GetCompanyById(id);
-
-            if (company == null)
-                throw new NotFoundException("Такой Компании не существует.");
-
-            _companyRepository.DeleteCompany(id);
-
-
-        }
-
-        public void UpdateCompany(int id, bool isDel)
-        {
-            var company = _companyRepository.GetCompanyById(id);
-
-            if (company == null)
-                throw new NotFoundException("Такой Компании не существует.");
-
-            _companyRepository.UpdateCompany(id, isDel);
-        }
-
         public void UpdatePasswordCompany(int id, string password)
         {
             var company = _companyRepository.GetCompanyById(id);

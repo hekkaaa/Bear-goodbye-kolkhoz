@@ -13,7 +13,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
 {
 
     [ApiController]
-    [Route("api/company")]
+    [Route("api/companies")]
     public class CompaniesController : Controller
     {
         private readonly ICompanyService _companyService;
@@ -50,13 +50,13 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
             return Ok(result);
         }
 
-        //api/companies/
+        //api/companies/{id}
         [HttpGet("{id}")]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Company")]
         [ProducesResponseType(typeof(CompanyOutputModel), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ExceptionResponse), StatusCodes.Status403Forbidden)]
         [ProducesResponseType(typeof(ExceptionResponse), StatusCodes.Status404NotFound)]
-        [SwaggerOperation("Get company by id. Roles: Admin")]
+        [SwaggerOperation("Get company by id. Roles: Company")]
 
         public ActionResult<CompanyOutputModel> GetCompanyById(int id)
         {
@@ -107,36 +107,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
             return Ok(model);
 
         }
-        [HttpPatch("{id}")]
-        [Authorize(Roles = "Admin")]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
-        [ProducesResponseType(typeof(ExceptionResponse), StatusCodes.Status403Forbidden)]
-        [ProducesResponseType(typeof(ExceptionResponse), StatusCodes.Status404NotFound)]
-        [SwaggerOperation("Delete Company. Roles: Admin")]
-        public ActionResult<CompanyOutputModel> UpdateCompany(int id, bool isDel)
-        {
-            _companyService.UpdateCompany(id, isDel);
-
-            return NoContent();
-
-        }
-        //api/companies/
-        [HttpDelete("{id}")]
-        [Authorize(Roles = "Admin")]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
-        [ProducesResponseType(typeof(ExceptionResponse), StatusCodes.Status403Forbidden)]
-        [ProducesResponseType(typeof(ExceptionResponse), StatusCodes.Status404NotFound)]
-        [SwaggerOperation("Deleted Company. Roles: Admin")]
-
-        public ActionResult<CompanyUpdateInputModel> DeleteCompany(int id)
-        {
-
-            _companyService.DeleteCompany(id);
-
-            return NoContent();
-        }
-
-
+   
         [HttpPut("{id}/password")]
         [Authorize(Roles = "Admin,Company")]
         [ProducesResponseType(typeof(CompanyOutputModel), StatusCodes.Status200OK)]

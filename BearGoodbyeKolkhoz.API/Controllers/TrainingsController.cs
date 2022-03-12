@@ -13,7 +13,7 @@ using System.Security.Claims;
 namespace BearGoodbyeKolkhozProject.API.Controllers
 {
     [ApiController]
-    [Route("api/training")]
+    [Route("api/trainings")]
     [SwaggerTag("This controller allows you to manipulate trainings and everything related to it.")]
     public class TrainingsController : Controller
     {
@@ -69,8 +69,8 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
 
         [HttpPost("{id}/topic/{topicId}")]
         [Authorize(Roles = "Admin")]
-        [SwaggerOperation("Get all trainings. Roles: Admin")]
-        [ProducesResponseType(StatusCodes.Status201Created)]
+        [SwaggerOperation("Add topic to training. Roles: Admin")]
+        [ProducesResponseType(typeof(string),StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status403Forbidden)]
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status409Conflict)]
@@ -84,7 +84,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         [HttpPost("{id}/review")]
         [Authorize(Roles = "Client")]
         [SwaggerOperation("Add review to training. Roles: client")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(string),StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status403Forbidden)]
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status409Conflict)]
@@ -117,7 +117,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         [HttpPost]
         [Authorize(Roles = "Admin")]
         [SwaggerOperation("Add new training. Roles: Admin")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(string),StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status403Forbidden)]
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status409Conflict)]
@@ -126,20 +126,20 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         {
             var training = _mapper.Map<TrainingModel>(trainingInputModel);
             _service.AddTraining(training);
-            return Ok("Тренинг успешно добавлен");
+            return StatusCode(StatusCodes.Status201Created, "Тренинг успешно добавлен");
         }
 
         [HttpPatch("{id}")]
         [Authorize(Roles = "Admin")]
         [SwaggerOperation("Soft delete training. Roles: Admin")]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(typeof(bool),StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status403Forbidden)]
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status503ServiceUnavailable)]
-        public ActionResult DeleteTraining(int id)
+        public ActionResult<bool> DeleteTraining(int id)
         {
-            _service.DeleteTraining(id);
-            return NoContent();
+            var res = _service.DeleteTraining(id);
+            return Ok(res);
         }
 
         [HttpPost("{id}/signup")]
@@ -156,19 +156,6 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
             var res = _eventService.SignUp(id, clientId);
 
             return Ok(res);
-        }
-
-        private int GetClientIdFromToken()
-        {
-            var identity = HttpContext.User.Identity as ClaimsIdentity;
-
-            if (identity != null)
-            {
-                var clientId = Convert.ToInt32(identity
-                    .FindFirst(@"http://schemas.microsoft.com/ws/2008/06/identity/claims/userdata").Value);
-                return clientId;
-            }
-            throw new HttpRequestException();
         }
     }
 }

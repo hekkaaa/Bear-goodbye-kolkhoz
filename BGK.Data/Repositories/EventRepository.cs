@@ -14,8 +14,15 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
             this._context = context;
         }
 
-        public Event GetEventById(int id) =>
-            _context.Event.Find(id);
+        public Event? GetEventById(int id) 
+        {
+            return _context.Event
+                .Include(c => c.Classroom)
+                .Include(co => co.Company)
+                .Include(cl => cl.Clients)
+                //.Include(l => l.Lecturer) // 
+                .FirstOrDefault(c => c.Id == id);
+        }
 
         public List<Event> GetEvents() =>
             _context.Event.Where(e => !e.IsDeleted).ToList();
@@ -25,7 +32,6 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
             _context.Event.Add(even);
 
             _context.SaveChanges();
-
         }
 
         public void UpdateEvent(Event even)
@@ -66,7 +72,23 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
             return even;
         }
 
-        public List<Event> GetClosedRegEvents() =>
-            _context.Event.Where(e => e.StartDate != null).ToList();
+        public List<Event> GetClosedRegEvents() => 
+            _context.Event.Include(t => t.Training).Where(e => e.StartDate != null).Include(e => e.Clients).ToList();
+
+        public List<Event> GetCompletedEventsByLecturer(Lecturer lecturer, DateTime date)
+        {
+            var completedLecturersEvents = GetClosedRegEvents()
+                .Where(e => e.Lecturer == lecturer && e.StartDate <= date).ToList();
+
+            return completedLecturersEvents;
+        }
+
+        public List<Event> GetAttendedEventsByClient(Client client, DateTime date)
+        {
+            var attendedClientsEvents = GetClosedRegEvents()
+                .Where(e => e.Clients.Contains(client) && e.StartDate <= date).ToList();
+
+            return attendedClientsEvents;
+        }
     }
 }

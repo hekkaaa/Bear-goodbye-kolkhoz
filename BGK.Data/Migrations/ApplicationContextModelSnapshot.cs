@@ -153,8 +153,8 @@ namespace BearGoodbyeKolkhozProject.Data.Migrations
                     b.Property<int?>("LecturerId")
                         .HasColumnType("int");
 
-                    b.Property<string>("StartDate")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<DateTime?>("StartDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("TrainingId")
                         .HasColumnType("int");
@@ -309,8 +309,8 @@ namespace BearGoodbyeKolkhozProject.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<string>("BirthDay")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<DateTime?>("BirthDay")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -411,7 +411,7 @@ namespace BearGoodbyeKolkhozProject.Data.Migrations
                         new
                         {
                             Id = 1,
-                            BirthDay = "01.01.2000",
+                            BirthDay = new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "Admin@mail.ru",
                             Gender = 1,
                             IsDeleted = false,
