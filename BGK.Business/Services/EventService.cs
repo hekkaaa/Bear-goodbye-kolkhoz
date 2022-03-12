@@ -21,13 +21,13 @@ namespace BearGoodbyeKolkhozProject.Business.Services
 
         private IMapper _mapper;
 
-        public EventService(IEventRepository eventRepository
-            , ITrainingRepository trainingRepo
-            , IClientRepository clientRepo
-            , ILecturerRepository lecturerRepo
-            , IClassroomRepository classroomRepo
-            , ICompanyRepository companyRepo
-            , IMapper mapper)
+        public EventService(IEventRepository eventRepository,
+            ITrainingRepository trainingRepo,
+            IClientRepository clientRepo,
+            ILecturerRepository lecturerRepo,
+            IClassroomRepository classroomRepo,
+            ICompanyRepository companyRepo,
+            IMapper mapper)
         {
             _companyRepository = companyRepo;
             _lecturerRepository = lecturerRepo;
@@ -61,10 +61,31 @@ namespace BearGoodbyeKolkhozProject.Business.Services
 
         public void UpdateEvent(int id, EventModel eventModel)
         {
-            var even = _eventRepository.GetEventById(id);
-            CheckExistsOrRaiseException(even, id);
+            Event oldItemEvent = _eventRepository.GetEventById(id);
 
-            _eventRepository.UpdateEvent(_mapper.Map<Event>(eventModel));
+            if (oldItemEvent is null)
+            {
+                throw new NotFoundException($"Не найдено в базе данных Event с ID {id}");
+            }
+            
+            Lecturer checkLector = _lecturerRepository.GetLecturerById(eventModel.Lecturer.Id);
+
+            if (checkLector is null || checkLector.IsDeleted == true)
+            {   
+                throw new NotFoundException($"Не найдено в базе лектора с ID {id}. Возможно Лектор удален.");
+            }
+
+            Training checktraning = _trainingRepository.GetTrainingById(eventModel.Training.Id);
+
+            if(checktraning is null || checktraning.IsDeleted == true)
+            {
+                throw new NotFoundException($"Не найдено в базе Тренинга с ID {id}. Возможно Тренинг удален.");
+            }
+
+            //CheckExistsOrRaiseException(even, id);
+            Event newitemEvent = _mapper.Map<Event>(eventModel);
+
+            _eventRepository.PartialUpdateEvent(oldItemEvent, newitemEvent);
         }
 
         public void DeleteEvent(int id)

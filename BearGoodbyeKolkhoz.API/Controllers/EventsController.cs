@@ -70,7 +70,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
 
 
         //api/events/
-        [HttpPut()]
+        [HttpPut("{id}")]
         [Authorize(Roles = "Admin")]
         [ProducesResponseType(typeof(EventUpdateInputModel), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ExceptionResponse), StatusCodes.Status403Forbidden)]
