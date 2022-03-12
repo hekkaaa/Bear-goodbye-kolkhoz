@@ -58,8 +58,9 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
             entity.StartDate = newEvent.StartDate;
             entity.Classroom = newEvent.Classroom;
             entity.Lecturer = newEvent.Lecturer;
+            entity.Training = newEvent.Training;
 
-            //_context.Event.Update(entity);
+            _context.Event.Update(entity);
 
             int res = _context.SaveChanges();
             if (res != 0)

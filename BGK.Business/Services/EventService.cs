@@ -59,7 +59,7 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             _eventRepository.AddEvent(_mapper.Map<Event>(eventModel));
         }
 
-        public void UpdateEvent(int id, EventModel eventModel)
+        public bool UpdateEvent(int id, EventModel eventModel)
         {
             Event oldItemEvent = _eventRepository.GetEventById(id);
 
@@ -81,11 +81,31 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             {
                 throw new NotFoundException($"Не найдено в базе Тренинга с ID {id}. Возможно Тренинг удален.");
             }
+            
+            Classroom checkClassroom = _classroomRepository.GetClassroomById(eventModel.Classroom.Id);
 
-            //CheckExistsOrRaiseException(even, id);
+            if (checkClassroom is null || checktraning.IsDeleted == true)
+            { 
+            
+                throw new NotFoundException($"Не найдено в базе Classroom с ID {id}. Возможно Classroom удален.");
+            }
+
+            Event testEvent = new Event
+            {
+                Id = oldItemEvent.Id,
+                StartDate = eventModel.StartDate,
+                Training = checktraning,
+                Lecturer = checkLector,
+                Classroom = checkClassroom
+            };
+
             Event newitemEvent = _mapper.Map<Event>(eventModel);
 
-            _eventRepository.PartialUpdateEvent(oldItemEvent, newitemEvent);
+            bool res = _eventRepository.PartialUpdateEvent(oldItemEvent, testEvent);
+
+            // тут в будущуем будет рассылка о изменении ивента для всех заинтересованных лиц.
+
+            return res;
         }
 
         public void DeleteEvent(int id)
