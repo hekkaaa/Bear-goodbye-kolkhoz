@@ -61,13 +61,9 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
             entity.Training = newEvent.Training;
 
             _context.Event.Update(entity);
-
-            int res = _context.SaveChanges();
-            if (res != 0)
-            {
-                return true;
-            }
-            return false;
+            _context.SaveChanges();
+          
+            return true;
         }
 
         public void DeleteEvent(Event even)
