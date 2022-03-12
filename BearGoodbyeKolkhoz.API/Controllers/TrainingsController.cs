@@ -56,14 +56,14 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         }
 
         [HttpGet("by-topic/{topicId}")]
-        [SwaggerOperation("Get training by topic (hashtag). Roles: all")]
+        [SwaggerOperation("Get training by topic (hashtag). Input topic id. Roles: all")]
         [ProducesResponseType(typeof(List<TrainingOutputModel>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status403Forbidden)]
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status503ServiceUnavailable)]
-        public ActionResult GetTrainingsByTopic(TopicInputModel topicInputModel)
+        public ActionResult GetTrainingsByTopic(int topicId)
         {
-            var model = _service.GetTrainingModelByTopic(_mapper.Map<TopicModel>(topicInputModel));
+            var model = _service.GetTrainingModelByTopic(topicId);
             return Ok(_mapper.Map<TrainingOutputModel>(model));
         }
 
