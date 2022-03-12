@@ -13,17 +13,21 @@ namespace BearGoodbyeKolkhozProject.Business.Services
     {
         private readonly ILecturerRepository _lecturerRepo;
         private readonly ITrainingRepository _trainingRepo;
+        private readonly IUserRepository _userRepository;
         private readonly IMapper _mapper;
 
-        public LecturerService(ILecturerRepository lecturerRepository, ITrainingRepository trainingRepository, IMapper mapper)
+        public LecturerService(ILecturerRepository lecturerRepository,IUserRepository userRepository ,ITrainingRepository trainingRepository, IMapper mapper)
         {
             _lecturerRepo = lecturerRepository;
             _trainingRepo = trainingRepository;
+            _userRepository = userRepository;
             _mapper = mapper;
         }
 
         public int RegistrationLecturer(LecturerModel model)
         {
+            CheckDublicateEmailForTable.CheckDublicateEmailForTableUser(model.Email, _userRepository);
+
             var entity = _mapper.Map<Lecturer>(model);
             entity.Password = PasswordHash.HashPassword(model.Password);
             

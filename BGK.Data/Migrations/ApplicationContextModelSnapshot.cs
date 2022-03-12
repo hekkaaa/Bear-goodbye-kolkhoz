@@ -73,41 +73,6 @@ namespace BearGoodbyeKolkhozProject.Data.Migrations
                         });
                 });
 
-            modelBuilder.Entity("BearGoodbyeKolkhozProject.Data.Entities.Company", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PhoneNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Role")
-                        .HasColumnType("int");
-
-                    b.Property<long>("Tin")
-                        .HasColumnType("bigint");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Company");
-                });
-
             modelBuilder.Entity("BearGoodbyeKolkhozProject.Data.Entities.ContactLecturer", b =>
                 {
                     b.Property<int>("Id")
@@ -432,6 +397,19 @@ namespace BearGoodbyeKolkhozProject.Data.Migrations
                     b.ToTable("Client");
                 });
 
+            modelBuilder.Entity("BearGoodbyeKolkhozProject.Data.Entities.Company", b =>
+                {
+                    b.HasBaseType("BearGoodbyeKolkhozProject.Data.Entities.User");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long>("Tin")
+                        .HasColumnType("bigint");
+
+                    b.ToTable("Company");
+                });
+
             modelBuilder.Entity("BearGoodbyeKolkhozProject.Data.Entities.Lecturer", b =>
                 {
                     b.HasBaseType("BearGoodbyeKolkhozProject.Data.Entities.User");
@@ -603,6 +581,15 @@ namespace BearGoodbyeKolkhozProject.Data.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("BearGoodbyeKolkhozProject.Data.Entities.Company", b =>
+                {
+                    b.HasOne("BearGoodbyeKolkhozProject.Data.Entities.User", null)
+                        .WithOne()
+                        .HasForeignKey("BearGoodbyeKolkhozProject.Data.Entities.Company", "Id")
+                        .OnDelete(DeleteBehavior.ClientCascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("BearGoodbyeKolkhozProject.Data.Entities.Lecturer", b =>
                 {
                     b.HasOne("BearGoodbyeKolkhozProject.Data.Entities.User", null)
@@ -610,13 +597,6 @@ namespace BearGoodbyeKolkhozProject.Data.Migrations
                         .HasForeignKey("BearGoodbyeKolkhozProject.Data.Entities.Lecturer", "Id")
                         .OnDelete(DeleteBehavior.ClientCascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("BearGoodbyeKolkhozProject.Data.Entities.Company", b =>
-                {
-                    b.Navigation("LecturerReviews");
-
-                    b.Navigation("TrainingReviews");
                 });
 
             modelBuilder.Entity("BearGoodbyeKolkhozProject.Data.Entities.Training", b =>
@@ -627,6 +607,13 @@ namespace BearGoodbyeKolkhozProject.Data.Migrations
                 });
 
             modelBuilder.Entity("BearGoodbyeKolkhozProject.Data.Entities.Client", b =>
+                {
+                    b.Navigation("LecturerReviews");
+
+                    b.Navigation("TrainingReviews");
+                });
+
+            modelBuilder.Entity("BearGoodbyeKolkhozProject.Data.Entities.Company", b =>
                 {
                     b.Navigation("LecturerReviews");
 

@@ -11,26 +11,22 @@ namespace BearGoodbyeKolkhozProject.Business.Services
     {
         private readonly IClientRepository _clientRepo;
         private readonly IMapper _mapper;
-        public ClientService(IClientRepository clientRepository, IMapper mapper)
+        private readonly IUserRepository _userRepository;
+        public ClientService(IClientRepository clientRepository,IUserRepository userRepository, IMapper mapper)
         {
             _clientRepo = clientRepository;
             _mapper = mapper;
+            _userRepository = userRepository;
         }
 
         public int RegistrationClient(ClientModel model)
         {
-            bool res = CheckDublicateEmailAddClient(model.Email);
-
-            if (res)
-            {
-                throw new DuplicateException("User with this Email already exists | Пользователь с таким Email уже существует ");
-            }
-            else
-            {
-                var entity = _mapper.Map<Client>(model);
-                entity.Password = PasswordHash.HashPassword(model.Password);
-                return _clientRepo.AddClient(entity);
-            }
+            CheckDublicateEmailForTable.CheckDublicateEmailForTableUser(model.Email, _userRepository);
+           
+            var entity = _mapper.Map<Client>(model);
+            entity.Password = PasswordHash.HashPassword(model.Password);
+            return _clientRepo.AddClient(entity);
+            
         }
 
         public ClientModel GetClientById(int id)
@@ -76,19 +72,6 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             string hashPassword = PasswordHash.HashPassword(password);
 
             _clientRepo.ChangePasswordClient(client, hashPassword);
-        }
-
-        private bool CheckDublicateEmailAddClient(string email)
-        {
-            var allList = _clientRepo.GetClients();
-
-            Client res = allList.FirstOrDefault(a => a.Email == email);
-
-            if (res == null)
-            {
-                return false;
-            }
-            return true;
         }
     }
 }

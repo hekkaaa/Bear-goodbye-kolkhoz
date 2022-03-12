@@ -13,7 +13,7 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
         }
         public int RegistrationCompany(Company company)
         {
-
+            company.Role = Enums.Role.Company;
             _context.Company.Add(company);
 
             _context.SaveChanges();
@@ -40,10 +40,11 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
 
         }
 
-        public void ChangePasswordCompany(string password, Company company)
+        public bool ChangePasswordCompany(string password, Company company)
         {
             company.Password = password;
             _context.SaveChanges();
+            return true;
         }
 
         public Company Login(string email)
