@@ -86,7 +86,6 @@ namespace BearGoodbyeKolkhozProject.Business.Services
 
             if (checkClassroom is null || checkClassroom.IsDeleted == true)
             { 
-            
                 throw new NotFoundException($"Не найдено в базе Classroom с ID {eventModel.Classroom.Id}. Возможно Classroom удален.");
             }
 

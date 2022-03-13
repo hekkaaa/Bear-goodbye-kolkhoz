@@ -100,5 +100,69 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
             Assert.AreEqual(expected.Count, actual.Count);
             CollectionAssert.AreEqual(expected, actual);
         }
+
+        [TestCaseSource(typeof(PartialUpdateEventTestCaseSource))]
+        public void PartialUpdateEventTest(
+            List<Training> mockTraining,
+            Client mockUser,
+            List<Lecturer> mockLector,
+            List<Classroom> mockClassrom, 
+            Event expected)
+        {
+            //given
+            TrainingRepository trainingRepository = new TrainingRepository(_context);
+            ClientRepository clientRepository = new ClientRepository(_context);
+            EventRepository eventRepository = new EventRepository(_context);
+            LecturerRepository lecturerRepository = new LecturerRepository(_context);
+            ClassroomRepository classroomRepository = new ClassroomRepository(_context);
+
+            
+            var idTraning = trainingRepository.AddTraining(mockTraining[0]);
+            var idLecturer = lecturerRepository.AddLecturer(mockLector[0]); 
+            var idClient = clientRepository.AddClient(mockUser);
+            var idClassroom = classroomRepository.AddNewClassroom(mockClassrom[0]);
+
+            _context.Event.Add(new Event 
+            {
+                IsDeleted=false,
+                StartDate = new DateTime(1999, 12, 12),
+                Training = trainingRepository.GetTrainingById(idTraning),
+                Lecturer = lecturerRepository.GetLecturerById(idLecturer),
+                Classroom = classroomRepository.GetClassroomById(idClassroom),
+        });
+
+            _context.SaveChanges(); // id 1.
+
+            var singUpEvent = eventRepository.GetEventById(1); // id 1 назначается по умолчанию.
+            var itemClient = clientRepository.GetClientById(idClient);
+            eventRepository.SignUp(itemClient, singUpEvent);
+
+            var oldEvent = eventRepository.GetEventById(singUpEvent.Id);
+
+            //when
+            
+            idTraning = trainingRepository.AddTraining(mockTraining[1]);
+            idLecturer = lecturerRepository.AddLecturer(mockLector[1]);
+            idClassroom = classroomRepository.AddNewClassroom(mockClassrom[1]);
+
+            Event newEvent = new Event()
+            {
+                StartDate = expected.StartDate,
+                Classroom = classroomRepository.GetClassroomById(idClassroom),
+                Training = trainingRepository.GetTrainingById(idTraning),
+                Lecturer = lecturerRepository.GetLecturerById(idLecturer)
+            };
+            eventRepository.PartialUpdateEvent(oldEvent, newEvent);
+
+            var actual = _context.Event.FirstOrDefault(c => c.Id == oldEvent.Id);
+
+            //then
+            Assert.IsNotNull(actual);
+            Assert.AreEqual(expected.Id, actual.Id);
+            Assert.AreEqual(expected.StartDate, actual.StartDate);
+            Assert.AreEqual(expected.Classroom.Id, actual.Classroom.Id);
+            Assert.AreEqual(expected.Training.Id, actual.Training.Id);
+            Assert.AreEqual(expected.Lecturer.Id, actual.Lecturer.Id);
+        }
     }
 }

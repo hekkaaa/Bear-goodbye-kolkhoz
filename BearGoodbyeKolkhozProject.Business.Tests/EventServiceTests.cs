@@ -2,6 +2,7 @@
 using BearGoodbyeKolkhozProject.Business.Configuration;
 using BearGoodbyeKolkhozProject.Business.Models;
 using BearGoodbyeKolkhozProject.Business.Services;
+using BearGoodbyeKolkhozProject.Business.Tests.TestCaseSource.EventServiceTestCaseSource;
 using BearGoodbyeKolkhozProject.Data.ConnectDb;
 using BearGoodbyeKolkhozProject.Data.Entities;
 using BearGoodbyeKolkhozProject.Data.Enums;
@@ -170,39 +171,33 @@ namespace BearGoodbyeKolkhozProject.Business.Tests
         }
 
 
-        [Test]
-        public void UpdateEvenTests()
+        [TestCaseSource(typeof(UpdateEventReviewTestCaseSource))]
+        public void UpdateEvenTests(
+            List<Training> mockTraining,
+            Client mockUser,
+            List<Lecturer> mockLector,
+            List<Classroom> mockClassrom,
+            Event expected)
         {
             //given
-            var even = new EventModel
-            {
-                Id = 1,
-                StartDate = new DateTime(2022, 03, 03),
 
-            };
+            _context.Client.Add(mockUser);
+            var s = _clientRepo.GetClients();
+       
+            ////when
+            //_service.UpdateEvent(eventUpdate.Id, eventUpdate);
 
-            _service.AddEvent(even);
+            //var expected = new EventModel
+            //{
+            //    Id = 1,
+            //    StartDate = new DateTime(2022, 03, 04),
+            //};
 
-            var eventUpdate = new EventModel
-            {
-                Id = 1,
-                StartDate = new DateTime(2022, 03, 04),
-            };
-
-            //when
-            _service.UpdateEvent(eventUpdate.Id, eventUpdate);
-
-            var expected = new EventModel
-            {
-                Id = 1,
-                StartDate = new DateTime(2022, 03, 04),
-            };
-
-            var actual = _service.GetEventById(eventUpdate.Id);
-            //then
-            Assert.IsTrue(actual.Id == expected.Id);
-            Assert.IsNotNull(actual);
-            Assert.AreEqual(actual.StartDate, expected.StartDate);
+            //var actual = _service.GetEventById(eventUpdate.Id);
+            ////then
+            //Assert.IsTrue(actual.Id == expected.Id);
+            //Assert.IsNotNull(actual);
+            //Assert.AreEqual(actual.StartDate, expected.StartDate);
 
         }
 
