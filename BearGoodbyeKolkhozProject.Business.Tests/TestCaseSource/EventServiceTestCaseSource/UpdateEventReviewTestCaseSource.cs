@@ -1,4 +1,5 @@
-﻿using BearGoodbyeKolkhozProject.Data.Entities;
+﻿using BearGoodbyeKolkhozProject.Business.Models;
+using BearGoodbyeKolkhozProject.Data.Entities;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -30,7 +31,7 @@ namespace BearGoodbyeKolkhozProject.Business.Tests.TestCaseSource.EventServiceTe
                     Id = 2,
                     Name = "Супер фронт",
                     Description = "AGAIN",
-                    Duration = 23,
+                    Duration = 2,
                     IsDeleted = false,
                     Price = 2000,
                     MembersCount = 1,
@@ -70,6 +71,8 @@ namespace BearGoodbyeKolkhozProject.Business.Tests.TestCaseSource.EventServiceTe
                     BirthDay = new DateTime(1999, 12, 12),
                     Email = "123qwe@mail.com",
                     Gender = Data.Enums.Gender.Male,
+                    Role = Data.Enums.Role.Lecturer,
+                    IsDeleted = false,
                 },
 
                 new Lecturer
@@ -81,7 +84,9 @@ namespace BearGoodbyeKolkhozProject.Business.Tests.TestCaseSource.EventServiceTe
                     BirthDay = new DateTime(1902, 01, 12),
                     Email = "ads@mail.com",
                     Gender = Data.Enums.Gender.Male,
-                }
+                     Role = Data.Enums.Role.Lecturer,
+                    IsDeleted = false,
+                },
             };
 
 
@@ -100,9 +105,15 @@ namespace BearGoodbyeKolkhozProject.Business.Tests.TestCaseSource.EventServiceTe
 
                     Address = "Бората 69",
                     City = "Астана",
-                    IsDeleted = false,
+                    IsDeleted = true,
                     MembersCount= 100,
                 }
+            };
+
+            EventModel newUpdateEvent = new EventModel
+            {
+                Id = 1,
+                StartDate = new DateTime(2022, 07, 06),
             };
 
 
@@ -145,7 +156,7 @@ namespace BearGoodbyeKolkhozProject.Business.Tests.TestCaseSource.EventServiceTe
                 }
             };
 
-            yield return new object[] { training, user, lector, classrom, expected };
+            yield return new object[] { training, user, lector, classrom, newUpdateEvent, expected };
         }
     }
 }

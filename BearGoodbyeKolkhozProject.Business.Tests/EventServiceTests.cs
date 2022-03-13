@@ -30,9 +30,11 @@ namespace BearGoodbyeKolkhozProject.Business.Tests
         private EventRepository _eventRepository;
         private TrainingRepository _trainingRepo;
         private ClientRepository _clientRepo;
-        private LecturerRepository _lecturerRepo;
+        private LecturerRepository _lecturerRepository;
         private ClassroomRepository _classroomRepo;
         private CompanyRepository _companyRepo;
+
+        private IMapper _mapper;
 
         [SetUp]
         public void Setup()
@@ -52,8 +54,12 @@ namespace BearGoodbyeKolkhozProject.Business.Tests
             var mapper = mockMapper.CreateMapper();
 
             _eventRepository = new EventRepository(_context);
-            _service = new EventService(_eventRepository, _trainingRepo, _clientRepo, _lecturerRepo, _classroomRepo, _companyRepo, mapper);
-
+            _service = new EventService(_eventRepository, _trainingRepo, _clientRepo, _lecturerRepository, _classroomRepo, _companyRepo, mapper);
+            _eventRepository = new EventRepository(_context);
+            _clientRepo = new ClientRepository(_context);
+            _classroomRepo = new ClassroomRepository(_context);
+            _trainingRepo = new TrainingRepository(_context);
+            _lecturerRepository = new LecturerRepository(_context);
         }
 
 
@@ -177,27 +183,56 @@ namespace BearGoodbyeKolkhozProject.Business.Tests
             Client mockUser,
             List<Lecturer> mockLector,
             List<Classroom> mockClassrom,
+            EventModel newUpdateEvent,
             Event expected)
         {
             //given
 
             _context.Client.Add(mockUser);
-            var s = _clientRepo.GetClients();
-       
+            _context.Classroom.AddRange(mockClassrom);
+            _context.Training.AddRange(mockTraining);
+            _context.Lecturer.AddRange(mockLector);
+            _context.SaveChanges();
+
+            _context.Event.Add(new Event
+            {
+                Id = 1,
+                IsDeleted = false,
+                StartDate = new DateTime(1999, 12, 12),
+                Training = _trainingRepo.GetTrainingById(mockTraining[0].Id),
+                Lecturer = _lecturerRepository.GetLecturerById(mockLector[0].Id),
+                Classroom = _classroomRepo.GetClassroomById(mockClassrom[0].Id),
+            });
+            _context.SaveChanges();
+
+            var singUpEvent = _eventRepository.GetEventById(1); // id 1 назначается по умолчанию.
+            Client itemClient = _clientRepo.GetClientById(mockUser.Id);
+
+            _eventRepository.SignUp(itemClient, singUpEvent);
+
             ////when
-            //_service.UpdateEvent(eventUpdate.Id, eventUpdate);
+            newUpdateEvent.Classroom = new ClassroomModel { Id = 2 };
+            newUpdateEvent.Training = new TrainingModel { Id = 2 };
+            newUpdateEvent.Lecturer = new LecturerModel { Id = 1 };
 
-            //var expected = new EventModel
-            //{
-            //    Id = 1,
-            //    StartDate = new DateTime(2022, 03, 04),
-            //};
+            EventModel AAAA = new EventModel
+            {
+                Id = 1,
+                StartDate = new DateTime(2022, 07, 06),
+                Classroom = new ClassroomModel { Id = 2 },
+                Lecturer = new LecturerModel { Id = 2 },
+                Training = new TrainingModel { Id = 2 },
+            };
+            _context.SaveChanges();
 
-            //var actual = _service.GetEventById(eventUpdate.Id);
-            ////then
-            //Assert.IsTrue(actual.Id == expected.Id);
-            //Assert.IsNotNull(actual);
-            //Assert.AreEqual(actual.StartDate, expected.StartDate);
+            //var ts = _service.UpdateEvent(1, AAAA);
+
+            var actual = _service.GetEventById(newUpdateEvent.Id);
+
+            //then
+            Assert.IsTrue(actual.Id == expected.Id);
+            Assert.IsNotNull(actual);
+           
 
         }
 

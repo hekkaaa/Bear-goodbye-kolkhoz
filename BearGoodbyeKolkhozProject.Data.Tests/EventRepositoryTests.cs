@@ -129,7 +129,7 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
                 Training = trainingRepository.GetTrainingById(idTraning),
                 Lecturer = lecturerRepository.GetLecturerById(idLecturer),
                 Classroom = classroomRepository.GetClassroomById(idClassroom),
-        });
+            });
 
             _context.SaveChanges(); // id 1.
 
