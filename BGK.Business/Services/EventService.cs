@@ -21,13 +21,13 @@ namespace BearGoodbyeKolkhozProject.Business.Services
 
         private IMapper _mapper;
 
-        public EventService(IEventRepository eventRepository
-            , ITrainingRepository trainingRepo
-            , IClientRepository clientRepo
-            , ILecturerRepository lecturerRepo
-            , IClassroomRepository classroomRepo
-            , ICompanyRepository companyRepo
-            , IMapper mapper)
+        public EventService(IEventRepository eventRepository,
+            ITrainingRepository trainingRepo,
+            IClientRepository clientRepo,
+            ILecturerRepository lecturerRepo,
+            IClassroomRepository classroomRepo,
+            ICompanyRepository companyRepo,
+            IMapper mapper)
         {
             _companyRepository = companyRepo;
             _lecturerRepository = lecturerRepo;
@@ -59,12 +59,50 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             _eventRepository.AddEvent(_mapper.Map<Event>(eventModel));
         }
 
-        public void UpdateEvent(int id, EventModel eventModel)
+        public bool UpdateEvent(int id, EventModel eventModel)
         {
-            var even = _eventRepository.GetEventById(id);
-            CheckExistsOrRaiseException(even, id);
+            Event oldItemEvent = _eventRepository.GetEventById(id);
 
-            _eventRepository.UpdateEvent(_mapper.Map<Event>(eventModel));
+            if (oldItemEvent is null || oldItemEvent.IsDeleted == true)
+            {
+                throw new NotFoundException($"Не найдено в базе данных Event с ID {id}. Возможно Event удален");
+            }
+            
+            Lecturer checkLector = _lecturerRepository.GetLecturerById(eventModel.Lecturer.Id);
+
+            if (checkLector is null || checkLector.IsDeleted == true)
+            {   
+                throw new NotFoundException($"Не найдено в базе лектора с ID {eventModel.Lecturer.Id}. Возможно Лектор удален.");
+            }
+
+            Training checktraning = _trainingRepository.GetTrainingById(eventModel.Training.Id);
+
+            if(checktraning is null || checktraning.IsDeleted == true)
+            {
+                throw new NotFoundException($"Не найдено в базе Тренинга с ID {eventModel.Training.Id}. Возможно Тренинг удален.");
+            }
+            
+            Classroom checkClassroom = _classroomRepository.GetClassroomById(eventModel.Classroom.Id);
+
+            if (checkClassroom is null || checkClassroom.IsDeleted == true)
+            { 
+                throw new NotFoundException($"Не найдено в базе Classroom с ID {eventModel.Classroom.Id}. Возможно Classroom удален.");
+            }
+
+            Event testEvent = new Event
+            {
+                Id = eventModel.Id,
+                StartDate = eventModel.StartDate,
+                Training = checktraning,
+                Lecturer = checkLector,
+                Classroom = checkClassroom
+            };
+
+            bool res = _eventRepository.PartialUpdateEvent(oldItemEvent, testEvent);
+
+            // тут в будущуем будет рассылка о изменении ивента для всех заинтересованных лиц.
+
+            return res;
         }
 
         public void DeleteEvent(int id)

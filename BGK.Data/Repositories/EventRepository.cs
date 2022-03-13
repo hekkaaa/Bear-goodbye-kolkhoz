@@ -50,6 +50,22 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
             _context.SaveChanges();
         }
 
+        public bool PartialUpdateEvent(Event oldEvent, Event newEvent)
+        {
+
+            var entity = _context.Event.FirstOrDefault(e => e.Id == oldEvent.Id);
+
+            entity.StartDate = newEvent.StartDate;
+            entity.Classroom = newEvent.Classroom;
+            entity.Lecturer = newEvent.Lecturer;
+            entity.Training = newEvent.Training;
+
+            _context.Event.Update(entity);
+            _context.SaveChanges();
+          
+            return true;
+        }
+
         public void DeleteEvent(Event even)
         {
             _context.Event.Remove(even);
