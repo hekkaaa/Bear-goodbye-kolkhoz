@@ -66,7 +66,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status503ServiceUnavailable)]
         [SwaggerOperation("Show list trainings for Lecturer. Roles: Lecturer")]
-        
+
         public ActionResult<List<TrainingOutputModel>> GetTrainingByLecturerId()
         {
             int id = HttpContext.GetUserIdFromToken();
@@ -86,7 +86,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         {
             LecturerModel entity = _mapper.Map<LecturerModel>(model);
             var res = _service.RegistrationLecturer(entity);
-            return StatusCode(StatusCodes.Status201Created, new UserCreateOutputModel{ createId = res });
+            return StatusCode(StatusCodes.Status201Created, new UserCreateOutputModel { createId = res });
         }
 
         [HttpPut]
@@ -116,7 +116,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         {
             int id = HttpContext.GetUserIdFromToken();
             var res = _service.AddTraining(id, trainingId);
-           
+
             return StatusCode(StatusCodes.Status201Created, res);
         }
 
@@ -134,6 +134,22 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
             _service.DeleteTraining(lecturerId, id);
 
             return NoContent();
+        }
+
+        [HttpPost("add-contact")]
+        public ActionResult AddContact(ContactLecturerInsertInputModel model)
+        {
+            int id = HttpContext.GetUserIdFromToken();
+            _contactLecturerService.AddContact(id, _mapper.Map<ContactLecturerModel>(model));
+
+            return Ok();
+        }
+
+        [HttpPatch("/contacts/{id}/")]
+        public ActionResult UpdateContacts(int id, ContactLecturerInsertInputModel model)
+        {
+            _contactLecturerService.UpdateContact(id, _mapper.Map<ContactLecturerModel>(model));
+            return Ok();
         }
     }
 }

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using BearGoodbyeKolkhozProject.Data.ConnectDb;
 using BearGoodbyeKolkhozProject.Data.Entities;
 using BearGoodbyeKolkhozProject.Data.Repositories;
