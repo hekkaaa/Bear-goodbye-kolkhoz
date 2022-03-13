@@ -19,18 +19,14 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
         }
 
         public ContactLecturer GetValueContactLecturerById(int id) =>
-            _context.ContactLecturer.Find(id);
+            _context.ContactLecturer.FirstOrDefault(cl => cl.Id == id);
 
 
-        public void UpdateContactLecturerValueRepo(ContactLecturer contactLecturer)
+        public void UpdateContact(ContactLecturer contactLecturer, ContactLecturer contact)
         {
-            var entity = GetValueContactLecturerById(contactLecturer.Id);
-
-            entity.Value = contactLecturer.Value;
-
+            contactLecturer.Value = contact.Value;
+            contactLecturer.ContactType = contact.ContactType;
             _context.SaveChanges();
         }
-
-
     }
 }

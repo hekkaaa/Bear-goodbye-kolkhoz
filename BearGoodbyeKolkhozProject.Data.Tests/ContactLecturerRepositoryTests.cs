@@ -42,5 +42,20 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
             //then
             Assert.AreEqual(expected, actual);
         }
+
+        [TestCaseSource(typeof(UpdateContactTestCaseSource))]
+        public void UpdateContact(ContactLecturer contact, ContactLecturer model, ContactLecturer expected)
+        {
+            //given
+            ContactLecturerRepository contactLecturerRepository = new ContactLecturerRepository(_context);
+
+            //when
+            _context.ContactLecturer.Add(contact);
+            contactLecturerRepository.UpdateContact(contact, model);
+            var actual = _context.ContactLecturer.FirstOrDefault(cl => cl.Id == contact.Id);
+
+            //then
+            Assert.AreEqual(expected, actual);
+        }
     }
 }

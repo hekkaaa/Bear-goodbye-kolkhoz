@@ -35,7 +35,7 @@ namespace BearGoodbyeKolkhozProject.Business.Services
 
             var mappedLecturer = new ContactLecturerModel { Value = сontactLecturerModel.Value };
 
-            _contactLecturerRepository.UpdateContactLecturerValueRepo(_mapper.Map<ContactLecturer>(mappedLecturer));
+            //_contactLecturerRepository.UpdateContact(_mapper.Map<ContactLecturer>(mappedLecturer));
 
         }
     }
