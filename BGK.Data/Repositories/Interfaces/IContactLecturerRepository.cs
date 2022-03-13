@@ -4,10 +4,8 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
 {
     public interface IContactLecturerRepository
     {
-        void AddContactLecturerValueRepo(ContactLecturer сontactLecturer);
-
+        void AddContact(ContactLecturer contact);
         void UpdateContactLecturerValueRepo(ContactLecturer contactLecturer);
-
         ContactLecturer GetValueContactLecturerById(int id);
     }
 }
