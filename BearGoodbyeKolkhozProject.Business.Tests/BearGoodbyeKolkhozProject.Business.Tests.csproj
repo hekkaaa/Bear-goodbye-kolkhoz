@@ -20,4 +20,8 @@
     <ProjectReference Include="..\BGK.Business\BearGoodbyeKolkhozProject.Business.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="TestCaseSource\LecturerTestCaseSource\" />
+  </ItemGroup>
+
 </Project>
