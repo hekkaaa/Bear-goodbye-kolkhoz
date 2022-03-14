@@ -70,21 +70,21 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
 
 
         //api/events/
-        [HttpPut()]
+        [HttpPut("{id}")]
         [Authorize(Roles = "Admin")]
-        [ProducesResponseType(typeof(EventUpdateInputModel), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ExceptionResponse), StatusCodes.Status403Forbidden)]
         [ProducesResponseType(typeof(ExceptionResponse), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ValidationExceptionResponse), StatusCodes.Status422UnprocessableEntity)]
         [SwaggerOperation("Update Event. Roles: Admin")]
 
-        public ActionResult<EventUpdateInputModel> UpdateEvent(int id, [FromBody] EventUpdateInputModel eventUpdateInputModel)
+        public ActionResult<bool> UpdateEvent(int id, [FromBody] EventUpdateInputModel eventUpdateInputModel)
         {
             EventModel entity = _mapperApi.Map<EventModel>(eventUpdateInputModel);
 
-            _service.UpdateEvent(id, entity);
+            bool res = _service.UpdateEvent(id, entity);
 
-            return Ok(entity);
+            return Ok(res);
         }
 
         //api/events/
