@@ -16,25 +16,25 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
 
         public Event? GetEventById(int id) 
         {
-            var item = _context.Event
+            var res = _context.Event
                .Include(c => c.Classroom)
                .Include(co => co.Company)
                .Include(cl => cl.Clients)
-               //.Include(ct => ct.Training)
+               .Include(ct => ct.Training)
                .Include(po => po.Lecturer)
-               //.Include(g => ((Event)g).Lecturer)
                .FirstOrDefault(c => c.Id == id);
 
-            var test1 = "asdasd";
-            //var s = _context.Event.Include(g => ((Event)g).Lecturer).FirstOrDefault(s => s.Id == id);
-            //var s1 = _context.Event.Include(g => g.Lecturer).FirstOrDefault(s => s.Id == id);
-
-            //item.Lecturer =
-            return item;
+            return res;
         }
 
         public List<Event> GetEvents() =>
-            _context.Event.Where(e => !e.IsDeleted).ToList();
+            _context.Event
+            .Include(c => c.Classroom)
+            .Include(co => co.Company)
+            .Include(cl => cl.Clients)
+            .Include(ct => ct.Training)
+            .Include(po => po.Lecturer)
+            .Where(e => !e.IsDeleted).ToList();
 
         public void AddEvent(Event even)
         {

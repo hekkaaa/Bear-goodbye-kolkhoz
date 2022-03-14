@@ -49,7 +49,8 @@ namespace BearGoodbyeKolkhozProject.API
             CreateMap<EventIdOutputInputModel, LecturerModel>().ReverseMap();
             CreateMap<EventIdOutputInputModel, ClientModel>().ReverseMap();
             CreateMap<EventIdOutputInputModel, EventModel>().ReverseMap();
-           
+            CreateMap<EventIdOutputInputModel, TrainingModel>().ReverseMap();
+
         }
     }
 

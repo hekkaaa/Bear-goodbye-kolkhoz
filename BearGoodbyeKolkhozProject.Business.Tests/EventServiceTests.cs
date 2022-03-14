@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using BearGoodbyeKolkhozProject.Business.Configuration;
+using BearGoodbyeKolkhozProject.Business.Exceptions;
 using BearGoodbyeKolkhozProject.Business.Models;
 using BearGoodbyeKolkhozProject.Business.Services;
 using BearGoodbyeKolkhozProject.Business.Tests.TestCaseSource.EventServiceTestCaseSource;
@@ -237,7 +238,7 @@ namespace BearGoodbyeKolkhozProject.Business.Tests
         }
 
         [Test]
-        public void DeleteEventTest()
+        public void DeleteEventNegativeTest()
         {
             //given
             var even = new EventModel
@@ -251,13 +252,9 @@ namespace BearGoodbyeKolkhozProject.Business.Tests
 
             //when
 
-            _service.DeleteEvent(even.Id);
-
-            EventModel expected = null;
-
-            var actual = _context.Event.FirstOrDefault(e => e.Id == even.Id); 
             //then
-            Assert.AreEqual(expected, actual);
+            Assert.Throws<NotFoundException>(()=> _service.DeleteEvent(even.Id));
+    
         }
     }
 }
