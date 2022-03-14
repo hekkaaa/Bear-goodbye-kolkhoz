@@ -149,6 +149,11 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             var events = _eventRepository.GetAttendedEventsByClient(client, DateTime.Now);
             var eventModels = _mapper.Map<List<EventModel>>(events);
 
+            if (eventModels.Count is 0)
+            {
+                throw new BusinessException("The user did not participate in trainings | Пользователь не учавствовал в тренингах");
+            }
+
             foreach (EventModel model in eventModels)
             {
                 model.Price = (model.Training.Price);
