@@ -41,7 +41,22 @@ namespace BearGoodbyeKolkhozProject.Business.Tests
             Assert.AreEqual(expected.LastName, actual.LastName);
             Assert.AreEqual(expected.Gender, actual.Gender);
             Assert.AreEqual(expected.BirthDay, actual.BirthDay);
+            _lecturerRepository.Verify(x => x.GetLecturerById(id), Times.Once);
+
         }
 
+        [TestCaseSource(typeof(GetLecturersTestCaseSource))]
+        public void GetLecturersTests()
+        {
+            //given
+
+
+            //when
+
+
+            //then
+
+
+        }
     }
 }
