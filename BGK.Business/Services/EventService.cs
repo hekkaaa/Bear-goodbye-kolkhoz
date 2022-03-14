@@ -166,6 +166,7 @@ namespace BearGoodbyeKolkhozProject.Business.Services
 
             CheckExistsOrRaiseException(training, trainingId);
             CheckExistsOrRaiseException(client, clientId);
+            CheckExistsDuplicateRegistrationOrRaiseException(even, client);
 
             if (even is null)
             {
@@ -196,6 +197,21 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             {
                 throw new NotFoundException($"Не найдено в базе данных объекта с ID {id}");
             }
+        }
+
+        private void CheckExistsDuplicateRegistrationOrRaiseException(Event even, Client idClient)
+        {
+            if (even is null)
+            {
+                return;
+            }
+            var t = even.Clients.FirstOrDefault(x=>x.Id == idClient.Id);
+
+            if(t != null)
+            {
+                throw new NotFoundException($"Клиент с ID {idClient.Id} уже записывался на этот тренинг! ");
+            }
+
         }
 
         private void InitEvent(Training training, Client client)
