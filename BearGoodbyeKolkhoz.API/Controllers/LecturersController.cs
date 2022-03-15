@@ -120,7 +120,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
             return StatusCode(StatusCodes.Status201Created, res);
         }
 
-        [HttpDelete("delete-training/{id}")]
+        [HttpPatch("trainings/{id}")]
         [Authorize(Roles = "Lecturer, Admin")]
         [ProducesResponseType(typeof(ActionResult), StatusCodes.Status204NoContent)]
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status403Forbidden)]
