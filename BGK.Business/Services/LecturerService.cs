@@ -124,5 +124,25 @@ namespace BearGoodbyeKolkhozProject.Business.Services
 
             }
         }
+
+        public bool DeleteLecturer(int id)
+        {
+            var entity = _lecturerRepo.GetLecturerById(id);
+            if (entity is null)
+            {
+                throw new NotFoundException($"Нет лектора c id = {id}");
+            }
+            return _lecturerRepo.UpdateLecturer(entity, true);
+        }
+
+        public bool RestoreLecturer(int id)
+        {
+            var entity = _lecturerRepo.GetLecturerById(id);
+            if (entity is null)
+            {
+                throw new NotFoundException($"Нет лектора c id = {id}");
+            }
+            return _lecturerRepo.UpdateLecturer(entity, false);
+        }
     }
 }

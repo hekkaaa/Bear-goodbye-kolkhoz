@@ -41,14 +41,22 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
             return model.Id;
         }
 
-        public void UpdateLecturer(Lecturer lecturer, Lecturer model)
+        public void UpdateLecturer(Lecturer lecturer, Lecturer updateLecturer)
         {
-            lecturer.BirthDay = model.BirthDay;
-            lecturer.Name = model.Name;
-            lecturer.LastName = model.LastName;
-            lecturer.Gender = model.Gender;
+            lecturer.BirthDay = updateLecturer.BirthDay;
+            lecturer.Name = updateLecturer.Name;
+            lecturer.LastName = updateLecturer.LastName;
+            lecturer.Gender = updateLecturer.Gender;
 
             _context.SaveChanges();
+        }
+
+        public bool UpdateLecturer(Lecturer lecturer, bool isDeleted)
+        {
+            var oldLecturer = GetLecturerById(lecturer.Id);
+            oldLecturer.IsDeleted = isDeleted;
+            _context.SaveChanges();
+            return true;
         }
 
         public bool AddTraining(Lecturer lecturer, Training training)
@@ -70,5 +78,7 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
         {
             return _context.Event.Where(e => e.Lecturer.Id == lecturer.Id).ToList().Count;
         }
+
+
     }
 }
