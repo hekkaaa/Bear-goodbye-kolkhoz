@@ -104,7 +104,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
             return Ok(true);
         }
 
-        [HttpPost("training/{trainingId}")]
+        [HttpPost("trainings/{trainingId}")]
         [Authorize(Roles = "Lecturer")]
         [ProducesResponseType(typeof(bool), StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status403Forbidden)]
@@ -120,7 +120,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
             return StatusCode(StatusCodes.Status201Created, res);
         }
 
-        [HttpDelete("delete_training/{id}")]
+        [HttpDelete("delete-training/{id}")]
         [Authorize(Roles = "Lecturer, Admin")]
         [ProducesResponseType(typeof(ActionResult), StatusCodes.Status204NoContent)]
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status403Forbidden)]
@@ -135,7 +135,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
             return NoContent();
         }
 
-        [HttpDelete("{id")]
+        [HttpDelete("{id}")]
         [Authorize(Roles = "Admin")]
         [ProducesResponseType(typeof(ActionResult), StatusCodes.Status204NoContent)]
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status403Forbidden)]
@@ -149,7 +149,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
             return NoContent();
         }
         
-        [HttpPatch("{id")]
+        [HttpPatch("{id}")]
         [Authorize(Roles = "Admin")]
         [ProducesResponseType(typeof(ActionResult), StatusCodes.Status204NoContent)]
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status403Forbidden)]
