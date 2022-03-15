@@ -127,8 +127,8 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         public ActionResult AddTraining([FromBody] TrainingInsertInputModel trainingInputModel)
         {
             var training = _mapper.Map<TrainingModel>(trainingInputModel);
-            _service.AddTraining(training);
-            return StatusCode(StatusCodes.Status201Created, "Тренинг успешно добавлен");
+
+            return StatusCode(StatusCodes.Status201Created, _service.AddTraining(training));
         }
 
         [HttpPatch("{id}")]
