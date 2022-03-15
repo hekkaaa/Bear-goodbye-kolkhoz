@@ -60,5 +60,12 @@ namespace BearGoodbyeKolkhozProject.Business.Services
 
             _repository.DeleteTrainingReview(id);
         }
+
+        public List<TrainingReviewModel> GetReviewsByTrainingId(int trainingId)
+        {
+            var trainingReviewEntity = _repository.GetReviewByTrainingId(trainingId);
+
+            return _mapper.Map<List<TrainingReviewModel>>(trainingReviewEntity);
+        }
     }
 }

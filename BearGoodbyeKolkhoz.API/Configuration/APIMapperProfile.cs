@@ -43,6 +43,7 @@ namespace BearGoodbyeKolkhozProject.API
             CreateMap<EventPartialUpdateInputModel, LecturerModel>().ReverseMap();
             CreateMap<EventPartialUpdateInputModel, ClassroomModel>().ReverseMap();
             CreateMap<EventPartialUpdateInputModel, TrainingModel>().ReverseMap();
+            CreateMap<TrainingReviewOutputModel, TrainingReviewModel>().ReverseMap();
         
             CreateMap<EventIdOutputInputModel, ClassroomModel>().ReverseMap();
             CreateMap<EventIdOutputInputModel, CompanyModel>().ReverseMap();

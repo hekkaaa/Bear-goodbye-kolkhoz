@@ -10,7 +10,6 @@
         public int Price { get; set; }
         public bool IsDeleted { get; set; }
 
-        public List<TrainingReviewOutputModel> TrainingReviews { get; set; }
         public List<TopicOutputModel> Topic { get; set; }
     }
 }
