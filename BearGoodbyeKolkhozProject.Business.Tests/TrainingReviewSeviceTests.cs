@@ -72,10 +72,8 @@ namespace BearGoodbyeKolkhozProject.Business.Tests
         }
 
         [TestCaseSource(typeof(GetTrainingReviewByIdTestCaseSource))]
-        [Test]
         public void GetTrainingReviewByIdTests(TrainingReview trainingReview, TrainingReviewModel expected, int id)
         {
-
             //given
             Mock<ITrainingReviewRepository> _trainingReviewRepository = new Mock<ITrainingReviewRepository>();
             _trainingReviewRepository.Setup(tr => tr.GetTrainingReviewById(id)).Returns(trainingReview);
@@ -147,6 +145,21 @@ namespace BearGoodbyeKolkhozProject.Business.Tests
 
             //then
             Assert.Throws<BusinessException>(() => trainingReviewService.DeleteTrainingReview(666));
+        }
+
+        [Test]
+        public void GetReviewByTrainingIdTest()
+        {
+            //given
+            Mock<ITrainingReviewRepository> _trainingReviewRepository = new Mock<ITrainingReviewRepository>();
+            _trainingReviewRepository.Setup(tr => tr.GetReviewByTrainingId(It.IsAny<int>())).Returns(It.IsAny<List<TrainingReview>>());
+
+            //when
+            TrainingReviewService trainingReviewService = new TrainingReviewService(_trainingReviewRepository.Object, _mapper);
+            List<TrainingReviewModel> actual = trainingReviewService.GetReviewsByTrainingId(It.IsAny<int>());
+
+            //then
+            _trainingReviewRepository.Verify(tr => tr.GetReviewByTrainingId(It.IsAny<int>()), Times.Once);
         }
 
     }

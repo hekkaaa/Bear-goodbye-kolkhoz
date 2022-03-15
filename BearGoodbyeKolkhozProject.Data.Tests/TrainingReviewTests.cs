@@ -1,9 +1,11 @@
 using BearGoodbyeKolkhozProject.Data.ConnectDb;
 using BearGoodbyeKolkhozProject.Data.Entities;
 using BearGoodbyeKolkhozProject.Data.Repositories;
+using BearGoodbyeKolkhozProject.Data.Tests.TestCaseSources.TrainingReviewTestCaseSource;
 using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace BearGoodbyeKolkhozProject.Data.Tests
@@ -154,6 +156,20 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
         }
 
 
+        [TestCaseSource(typeof(GetReviewByTrainingIdTestCaseSource))]
+        public void GetReviewByTrainingId(int trainingId, List<TrainingReview> reviews, List<TrainingReview> expected)
+        {
+            //given
+            _context.TrainingReview.AddRange(reviews);
+            _context.SaveChanges();
+
+            //when
+            var actual = _trainingReviewRepository.GetReviewByTrainingId(trainingId);
+
+            //then
+            Assert.AreEqual(expected.Count, actual.Count);
+            CollectionAssert.AreEqual(expected, actual);
+        }
 
     }
 }
