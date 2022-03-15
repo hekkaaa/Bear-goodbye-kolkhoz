@@ -37,7 +37,7 @@ namespace BearGoodbyeKolkhozProject.Business.Tests.TestCaseSource.LecturerReview
                 IsDeleted = false
             };
 
-            List<LecturerReview> reviews = new List<LecturerReview>()
+            List<LecturerReview> reviews = new()
             {
                 new LecturerReview()
                 {

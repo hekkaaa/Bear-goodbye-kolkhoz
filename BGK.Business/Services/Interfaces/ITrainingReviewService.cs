@@ -9,5 +9,6 @@ namespace BearGoodbyeKolkhozProject.Business.Services
         TrainingReviewModel GetTrainingReviewModelById(int id);
         List<TrainingReviewModel> GetTrainingReviewModels();
         void UpdateTrainingReview(int id, TrainingReviewModel trainingReviewModel);
+        List<TrainingReviewModel> GetReviewsByTrainingId(int trainingId);
     }
 }

@@ -19,12 +19,14 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
     {
         private readonly ITrainingService _service;
         private readonly IEventService _eventService;
+        private readonly ITrainingReviewService _trainingReviewService;
         private IMapper _mapper;
 
-        public TrainingsController(ITrainingService trainingService, IEventService eventService, IMapper mapper)
+        public TrainingsController(ITrainingService trainingService, ITrainingReviewService trainingReviewService, IEventService eventService, IMapper mapper)
         {
             _service = trainingService;
             _eventService = eventService;
+            _trainingReviewService = trainingReviewService;
             _mapper = mapper;
         }
 
@@ -125,8 +127,8 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         public ActionResult AddTraining([FromBody] TrainingInsertInputModel trainingInputModel)
         {
             var training = _mapper.Map<TrainingModel>(trainingInputModel);
-            _service.AddTraining(training);
-            return StatusCode(StatusCodes.Status201Created, "Тренинг успешно добавлен");
+
+            return StatusCode(StatusCodes.Status201Created, _service.AddTraining(training));
         }
 
         [HttpPatch("{id}")]
@@ -157,5 +159,15 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
 
             return Ok(res);
         }
+
+        [HttpGet("{id}/reviews")]
+        [AllowAnonymous]
+        [SwaggerOperation("Get all training reviews. Roles: AllowAnonymous")]
+        public ActionResult<List<TrainingReviewOutputModel>> GetReviewes(int id)
+        {
+            List<TrainingReviewModel> reviews = _trainingReviewService.GetReviewsByTrainingId(id);
+            return Ok(_mapper.Map<List<TrainingReviewOutputModel>>(reviews));
+        }
+
     }
 }

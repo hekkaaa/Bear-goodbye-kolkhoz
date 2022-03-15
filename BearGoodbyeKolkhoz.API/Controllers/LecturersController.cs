@@ -127,11 +127,38 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status503ServiceUnavailable)]
         [SwaggerOperation("Delete Traning. Roles: Lecturer, Admin")]
-
         public ActionResult DeleteTraining(int id)
         {
             int lecturerId = HttpContext.GetUserIdFromToken();
             _service.DeleteTraining(lecturerId, id);
+
+            return NoContent();
+        }
+
+        [HttpDelete("{id")]
+        [Authorize(Roles = "Admin")]
+        [ProducesResponseType(typeof(ActionResult), StatusCodes.Status204NoContent)]
+        [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status503ServiceUnavailable)]
+        [SwaggerOperation("Delete Lecturer. Roles: Admin")]
+        public ActionResult DeleteLecturer(int id)
+        {
+            _service.DeleteLecturer(id);
+
+            return NoContent();
+        }
+        
+        [HttpPatch("{id")]
+        [Authorize(Roles = "Admin")]
+        [ProducesResponseType(typeof(ActionResult), StatusCodes.Status204NoContent)]
+        [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status503ServiceUnavailable)]
+        [SwaggerOperation("Restore Lecturer. Roles: Admin")]
+        public ActionResult RestoreLecturer(int id)
+        {
+            _service.RestoreLecturer(id);
 
             return NoContent();
         }
