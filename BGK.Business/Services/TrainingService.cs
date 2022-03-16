@@ -51,9 +51,9 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             return _mapper.Map<List<TrainingModel>>(trainingEntityList);
         }
 
-        public List<TrainingModel> GetTrainingModelByTopic(TopicModel topicModel)
+        public List<TrainingModel> GetTrainingModelByTopic(int topicId)
         {
-            var topic = _topicRepository.GetTopicById(topicModel.Id);
+            var topic = _topicRepository.GetTopicById(topicId);
             if (topic == null)
                 throw new NotFoundException("Такого интереса не существует");
 

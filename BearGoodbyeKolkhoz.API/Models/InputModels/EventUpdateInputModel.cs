@@ -5,9 +5,9 @@ namespace BearGoodbyeKolkhozProject.API.Models.InputModels
     public class EventUpdateInputModel
     {
         public DateTime StartDate { get; set; }
-        public CompanyModel? Company { get; set; }
-        public ClassroomModel Classroom { get; set; }
-        public LecturerModel Lecturer { get; set; }
-        public List<ClientModel>? Clients { get; set; }
+        public EventPartialUpdateInputModel? Classroom { get; set; }
+        public EventPartialUpdateInputModel? Lecturer { get; set; }
+        public EventPartialUpdateInputModel? Training { get; set; }
+
     }
 }

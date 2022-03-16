@@ -14,7 +14,6 @@ namespace BearGoodbyeKolkhozProject.API
             CreateMap<CompanyUpdateInputModel, CompanyModel>().ReverseMap();
             CreateMap<CompanyOutputModel, CompanyModel>().ReverseMap();
             CreateMap<ContactLecturerInsertInputModel, ContactLecturerModel>().ReverseMap();
-
             CreateMap<RegistrationInputModel, LecturerModel>().ReverseMap();
             CreateMap<LecturerOutputModel, LecturerModel>().ReverseMap();
             CreateMap<UpdateInputModel, LecturerModel>().ReverseMap();
@@ -30,11 +29,8 @@ namespace BearGoodbyeKolkhozProject.API
             CreateMap<TrainingUpdateInputModel, TrainingModel>();
             CreateMap<TrainingInsertInputModel, TrainingModel>();
             CreateMap<EventModel, CompletedEventsOutputModel>();
-
-
             CreateMap<TopicModel, TopicOutputModel>();
             CreateMap<TopicUpdateInputModel, TopicModel>();
-
             CreateMap<AdminUpdateInputModel, AdminModel>();
             CreateMap<ChangePasswordInputModel, AdminModel>();
             CreateMap<ClassroomOutputModel, ClassroomModel>().ReverseMap();
@@ -44,6 +40,18 @@ namespace BearGoodbyeKolkhozProject.API
             CreateMap<ClientOutputModel, ClientModel>().ReverseMap();
             CreateMap<EventOutputModel, EventModel>().ReverseMap();
             CreateMap<EventUpdateInputModel, EventModel>().ReverseMap();
+            CreateMap<EventPartialUpdateInputModel, LecturerModel>().ReverseMap();
+            CreateMap<EventPartialUpdateInputModel, ClassroomModel>().ReverseMap();
+            CreateMap<EventPartialUpdateInputModel, TrainingModel>().ReverseMap();
+            CreateMap<TrainingReviewOutputModel, TrainingReviewModel>().ReverseMap();
+        
+            CreateMap<EventIdOutputInputModel, ClassroomModel>().ReverseMap();
+            CreateMap<EventIdOutputInputModel, CompanyModel>().ReverseMap();
+            CreateMap<EventIdOutputInputModel, LecturerModel>().ReverseMap();
+            CreateMap<EventIdOutputInputModel, ClientModel>().ReverseMap();
+            CreateMap<EventIdOutputInputModel, EventModel>().ReverseMap();
+            CreateMap<EventIdOutputInputModel, TrainingModel>().ReverseMap();
+
         }
     }
 

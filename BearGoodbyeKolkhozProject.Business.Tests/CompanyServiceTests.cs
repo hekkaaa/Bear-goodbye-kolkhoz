@@ -16,6 +16,7 @@ namespace BearGoodbyeKolkhozProject.Business.Tests
         private CompanyService _service;
         private ApplicationContext _context;
         private CompanyRepository _companyRepository;
+        private UserRepository _userRepository;
 
 
         [SetUp]
@@ -36,7 +37,8 @@ namespace BearGoodbyeKolkhozProject.Business.Tests
             var mapper = mockMapper.CreateMapper();
 
             _companyRepository = new CompanyRepository(_context);
-            _service = new CompanyService(_companyRepository, mapper);
+            _userRepository = new UserRepository(_context);
+            _service = new CompanyService(_companyRepository, _userRepository, mapper);
 
         }
 

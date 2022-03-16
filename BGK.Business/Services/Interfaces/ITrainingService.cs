@@ -8,7 +8,7 @@ namespace BearGoodbyeKolkhozProject.Business.Services
         bool DeleteTraining(int id);
         TrainingModel GetTrainingModelById(int id);
         List<TrainingModel> GetTrainingModels();
-        List<TrainingModel> GetTrainingModelByTopic(TopicModel topicModel);
+        List<TrainingModel> GetTrainingModelByTopic(int topicId);
         void UpdateTraining(int id, TrainingModel trainingModel);
         void AddTopicToTraining(int id, int topicId);
         void AddReviewToTraining(int id, int clientId, TrainingReviewModel trainingReview);

@@ -16,16 +16,25 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
 
         public Event? GetEventById(int id) 
         {
-            return _context.Event
-                .Include(c => c.Classroom)
-                .Include(co => co.Company)
-                .Include(cl => cl.Clients)
-                //.Include(l => l.Lecturer) // 
-                .FirstOrDefault(c => c.Id == id);
+            var res = _context.Event
+               .Include(c => c.Classroom)
+               .Include(co => co.Company)
+               .Include(cl => cl.Clients)
+               .Include(ct => ct.Training)
+               .Include(po => po.Lecturer)
+               .FirstOrDefault(c => c.Id == id);
+
+            return res;
         }
 
         public List<Event> GetEvents() =>
-            _context.Event.Where(e => !e.IsDeleted).ToList();
+            _context.Event
+            .Include(c => c.Classroom)
+            .Include(co => co.Company)
+            .Include(cl => cl.Clients)
+            .Include(ct => ct.Training)
+            .Include(po => po.Lecturer)
+            .Where(e => !e.IsDeleted).ToList();
 
         public void AddEvent(Event even)
         {
@@ -48,6 +57,22 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
             _context.Event.Update(entity);
 
             _context.SaveChanges();
+        }
+
+        public bool PartialUpdateEvent(Event oldEvent, Event newEvent)
+        {
+
+            var entity = _context.Event.FirstOrDefault(e => e.Id == oldEvent.Id);
+
+            entity.StartDate = newEvent.StartDate;
+            entity.Classroom = newEvent.Classroom;
+            entity.Lecturer = newEvent.Lecturer;
+            entity.Training = newEvent.Training;
+
+            _context.Event.Update(entity);
+            _context.SaveChanges();
+          
+            return true;
         }
 
         public void DeleteEvent(Event even)

@@ -1,4 +1,5 @@
-﻿using BearGoodbyeKolkhozProject.Business.Models;
+﻿using BearGoodbyeKolkhozProject.API.Models.InputModels;
+using BearGoodbyeKolkhozProject.Business.Models;
 
 namespace BearGoodbyeKolkhozProject.API.Models.OutputModels
 {
@@ -6,10 +7,11 @@ namespace BearGoodbyeKolkhozProject.API.Models.OutputModels
     {
         public int Id { get; set; }
         public DateTime StartDate { get; set; }
-        public CompanyModel? Company { get; set; }
-        public ClassroomModel Classroom { get; set; }
-        public LecturerModel Lecturer { get; set; }
-        public List<ClientModel>? Clients { get; set; }
+        public EventIdOutputInputModel? Company { get; set; }
+        public EventIdOutputInputModel? Training { get; set; }
+        public EventIdOutputInputModel? Classroom { get; set; }
+        public EventIdOutputInputModel Lecturer { get; set; }
+        public List<EventIdOutputInputModel>? Clients { get; set; }
 
     }
 }

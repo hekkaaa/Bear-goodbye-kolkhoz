@@ -77,7 +77,7 @@ namespace BearGoodbyeKolkhozProject.Business.Tests
 
             //when
             TrainingService _service = new TrainingService(trainingRepository.Object, _mapper, clientRepository.Object, trainingReviewRepository.Object, topicRepository.Object);
-            var act = _service.GetTrainingModelByTopic(topicModel);
+            var act = _service.GetTrainingModelByTopic(topicModel.Id);
 
             //then
             Assert.IsTrue(act.Count == 2);
@@ -101,7 +101,7 @@ namespace BearGoodbyeKolkhozProject.Business.Tests
             TrainingService _service = new TrainingService(trainingRepository.Object, _mapper, clientRepository.Object, trainingReviewRepository.Object, topicRepository.Object);
 
             //then
-            Assert.Throws<NotFoundException>(() => _service.GetTrainingModelByTopic(topicModel));
+            Assert.Throws<NotFoundException>(() => _service.GetTrainingModelByTopic(topicModel.Id));
         }
 
         [TestCaseSource(typeof(UpdateTrainingByIdTestCaseSource))]

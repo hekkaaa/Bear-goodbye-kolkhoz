@@ -4,8 +4,8 @@ namespace BearGoodbyeKolkhozProject.Business.Services.Interfaces
 {
     public interface IContactLecturerService
     {
-        void AddContactLecturerValue(ContactLecturerModel сontactLecturerModel);
+        void AddContact(int lecturerId, ContactLecturerModel сontactLecturerModel);
 
-        void UpdateContactLecturerValue(ContactLecturerModel сontactLecturerModel);
+        void UpdateContact(int id, ContactLecturerModel сontactLecturerModel);
     }
 }

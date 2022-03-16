@@ -29,7 +29,6 @@ namespace BearGoodbyeKolkhozProject.Data.Tests
 
         }
 
-
         [TestCaseSource(typeof(GetCompanyByIdTestCaseSource))]
         public void GetCompanyByIdTest(Company company, Company expected)
         {

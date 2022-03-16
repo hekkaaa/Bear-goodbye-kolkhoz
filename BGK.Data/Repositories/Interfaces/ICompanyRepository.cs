@@ -8,7 +8,7 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
         List<Company> GetCompanies();
         Company GetCompanyById(int id);
         void UpdateCompany(Company company);
-        void ChangePasswordCompany(string password, Company company);
+        bool ChangePasswordCompany(string password, Company company);
         Company Login(string email);
     }
 }

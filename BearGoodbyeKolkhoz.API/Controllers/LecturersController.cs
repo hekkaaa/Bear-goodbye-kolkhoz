@@ -66,7 +66,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status503ServiceUnavailable)]
         [SwaggerOperation("Show list trainings for Lecturer. Roles: Lecturer")]
-        
+
         public ActionResult<List<TrainingOutputModel>> GetTrainingByLecturerId()
         {
             int id = HttpContext.GetUserIdFromToken();
@@ -86,24 +86,25 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         {
             LecturerModel entity = _mapper.Map<LecturerModel>(model);
             var res = _service.RegistrationLecturer(entity);
-            return StatusCode(StatusCodes.Status201Created, new UserCreateOutputModel{ createId = res });
+            return StatusCode(StatusCodes.Status201Created, new UserCreateOutputModel { createId = res });
         }
 
-        [HttpPut("{id}")]
+        [HttpPut]
         [Authorize(Roles = "Lecturer")]
-        [ProducesResponseType(typeof(ActionResult), StatusCodes.Status204NoContent)]
+        [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status403Forbidden)]
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status503ServiceUnavailable)]
         [SwaggerOperation("Edit info Lecturer. Roles: Lecturer")]
-        public ActionResult UpdateLecturer(int id, [FromBody] UpdateInputModel model)
+        public ActionResult<bool> UpdateLecturer([FromBody] UpdateInputModel model)
         {
+            int id = HttpContext.GetUserIdFromToken();
             var entity = _mapper.Map<LecturerModel>(model);
             _service.UpdateLecturer(id, entity);
-            return NoContent();
+            return Ok(true);
         }
 
-        [HttpPost("training/{trainingId}")]
+        [HttpPost("trainings/{trainingId}")]
         [Authorize(Roles = "Lecturer")]
         [ProducesResponseType(typeof(bool), StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status403Forbidden)]
@@ -115,24 +116,67 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         {
             int id = HttpContext.GetUserIdFromToken();
             var res = _service.AddTraining(id, trainingId);
-           
+
             return StatusCode(StatusCodes.Status201Created, res);
         }
 
-        [HttpDelete("delete_training/{id}")]
+        [HttpPatch("trainings/{id}")]
         [Authorize(Roles = "Lecturer, Admin")]
         [ProducesResponseType(typeof(ActionResult), StatusCodes.Status204NoContent)]
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status403Forbidden)]
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status503ServiceUnavailable)]
         [SwaggerOperation("Delete Traning. Roles: Lecturer, Admin")]
-
         public ActionResult DeleteTraining(int id)
         {
             int lecturerId = HttpContext.GetUserIdFromToken();
             _service.DeleteTraining(lecturerId, id);
 
             return NoContent();
+        }
+
+        [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
+        [ProducesResponseType(typeof(ActionResult), StatusCodes.Status204NoContent)]
+        [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status503ServiceUnavailable)]
+        [SwaggerOperation("Delete Lecturer. Roles: Admin")]
+        public ActionResult DeleteLecturer(int id)
+        {
+            _service.DeleteLecturer(id);
+
+            return NoContent();
+        }
+        
+        [HttpPatch("{id}")]
+        [Authorize(Roles = "Admin")]
+        [ProducesResponseType(typeof(ActionResult), StatusCodes.Status204NoContent)]
+        [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status503ServiceUnavailable)]
+        [SwaggerOperation("Restore Lecturer. Roles: Admin")]
+        public ActionResult RestoreLecturer(int id)
+        {
+            _service.RestoreLecturer(id);
+
+            return NoContent();
+        }
+
+        [HttpPost("add-contact")]
+        public ActionResult AddContact(ContactLecturerInsertInputModel model)
+        {
+            int id = HttpContext.GetUserIdFromToken();
+            _contactLecturerService.AddContact(id, _mapper.Map<ContactLecturerModel>(model));
+
+            return Ok();
+        }
+
+        [HttpPatch("/contacts/{id}/")]
+        public ActionResult UpdateContacts(int id, ContactLecturerInsertInputModel model)
+        {
+            _contactLecturerService.UpdateContact(id, _mapper.Map<ContactLecturerModel>(model));
+            return Ok();
         }
     }
 }

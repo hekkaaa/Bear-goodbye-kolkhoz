@@ -3,6 +3,7 @@ using BearGoodbyeKolkhozProject.Business.Exceptions;
 using BearGoodbyeKolkhozProject.Business.Models;
 using BearGoodbyeKolkhozProject.Business.Services.Interfaces;
 using BearGoodbyeKolkhozProject.Data.Entities;
+using BearGoodbyeKolkhozProject.Data.Interfaces;
 using BearGoodbyeKolkhozProject.Data.Repositories;
 
 namespace BearGoodbyeKolkhozProject.Business.Services
@@ -10,32 +11,40 @@ namespace BearGoodbyeKolkhozProject.Business.Services
     public class ContactLecturerService : IContactLecturerService
     {
         private readonly IContactLecturerRepository _contactLecturerRepository;
-
+        private readonly ILecturerRepository _lecturerRepository;
         private IMapper _mapper;
 
-        public ContactLecturerService(IContactLecturerRepository contactLecturerRepository, IMapper mapper)
+        public ContactLecturerService(IContactLecturerRepository contactLecturerRepository, IMapper mapper, ILecturerRepository lecturerRepository)
         {
             _contactLecturerRepository = contactLecturerRepository;
+            _lecturerRepository = lecturerRepository;
             _mapper = mapper;
         }
 
-        public void AddContactLecturerValue(ContactLecturerModel сontactLecturerModel)
+        public void AddContact(int lecturerId, ContactLecturerModel сontactLecturerModel)
         {
-            var mappedLecturer = new ContactLecturerModel { Value = сontactLecturerModel.Value };
+            var contact = _mapper.Map<ContactLecturer>(сontactLecturerModel);
+            Lecturer lecturer = _lecturerRepository.GetLecturerById(lecturerId);
 
-            _contactLecturerRepository.AddContactLecturerValueRepo(_mapper.Map<ContactLecturer>(mappedLecturer));
+            if (lecturer is null)
+            {
+                throw new NotFoundException($"Нет тренера с id = {lecturerId}");
+            }
+
+            contact.Lecturer = lecturer;
+            _contactLecturerRepository.AddContact(contact);
         }
 
-        public void UpdateContactLecturerValue(ContactLecturerModel сontactLecturerModel)
+        public void UpdateContact(int id, ContactLecturerModel сontactLecturerModel)
         {
-            var contactLecturer = _contactLecturerRepository.GetValueContactLecturerById(сontactLecturerModel.Id);
+            var contact = _contactLecturerRepository.GetValueContactLecturerById(id);
 
-            if (contactLecturer == null)
-                throw new BusinessException("Такой значения не существует.");
+            if (contact is null)
+            {
+                throw new NotFoundException($"Нет контакта с id = {id}");
+            }
 
-            var mappedLecturer = new ContactLecturerModel { Value = сontactLecturerModel.Value };
-
-            _contactLecturerRepository.UpdateContactLecturerValueRepo(_mapper.Map<ContactLecturer>(mappedLecturer));
+            _contactLecturerRepository.UpdateContact(contact, _mapper.Map< ContactLecturer>(сontactLecturerModel));
 
         }
     }
