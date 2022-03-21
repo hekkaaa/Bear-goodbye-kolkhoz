@@ -60,18 +60,25 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             return _clientRepo.UpdateClientInfo(client, updateClient);
         }
 
-        public void ChangePasswordClient(int id, string password)
+        public void ChangePasswordClient(int id, string oldPassword, string newPassword)
         {
             var client = _clientRepo.GetClientById(id);
+
+            
+
+            if (!PasswordHash.ValidatePassword(oldPassword, client.Password))
+            {
+                throw new IncorrectPasswordException("Старый пароль введён неверно");
+            }
 
             if (client is null)
             {
                 throw new NotFoundException($"нет клиента с id = {id}");
             }
 
-            string hashPassword = PasswordHash.HashPassword(password);
+            string hashNewPassword = PasswordHash.HashPassword(newPassword);
 
-            _clientRepo.ChangePasswordClient(client, hashPassword);
+            _clientRepo.ChangePasswordClient(client, hashNewPassword);
         }
     }
 }
