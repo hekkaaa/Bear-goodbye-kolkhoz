@@ -9,6 +9,6 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
         bool UpdateClassroomInfo(Classroom oldItem, Classroom newInfo);
         int AddNewClassroom(Classroom newItem);
         List<Classroom> GetNeededClassroom(int sitCount);
-        bool UpdateClassroomInfo(Classroom oldItem, bool isDeleted)
+        bool UpdateClassroomInfo(Classroom oldItem, bool isDeleted);
     }
 }

@@ -94,15 +94,56 @@ namespace BearGoodbyeKolkhozProject.Business.Tests
             //given
             var entity = _classroomTestData.GetEntity();
             var model = _classroomTestData.GetModel();
-            _classroomRepository.Setup(c => c.GetClassroomById(entity.Id));
-            _classroomRepository.Setup(c => c.UpdateClassroomInfo(entity.Id, ));
+            _classroomRepository.Setup(c => c.GetClassroomById(entity.Id)).Returns(entity);
+            _classroomRepository.Setup(c => c.UpdateClassroomInfo(entity, true));
 
             //when
             ClassroomService service = new ClassroomService(_classroomRepository.Object, _mapper);
-            var actual = service.AddNewClassroom(model);
+            var actual = service.DeleteClassroom(model.Id);
 
             //then
-            _classroomRepository.Verify(c => c.AddNewClassroom(It.IsAny<Classroom>()), Times.Once);
+            _classroomRepository.Verify(c => c.GetClassroomById(entity.Id), Times.Once);
+            _classroomRepository.Verify(c => c.UpdateClassroomInfo(entity, true), Times.Once);
+        }
+        
+        [Test]
+        public void RestoreClassroomTests()
+        {
+            //given
+            var entity = _classroomTestData.GetEntity();
+            var model = _classroomTestData.GetModel();
+            _classroomRepository.Setup(c => c.GetClassroomById(entity.Id)).Returns(entity);
+            _classroomRepository.Setup(c => c.UpdateClassroomInfo(entity, false));
+
+            //when
+            ClassroomService service = new ClassroomService(_classroomRepository.Object, _mapper);
+            var actual = service.RestoreClassroom(model.Id);
+
+            //then
+            _classroomRepository.Verify(c => c.GetClassroomById(entity.Id), Times.Once);
+            _classroomRepository.Verify(c => c.UpdateClassroomInfo(entity, false), Times.Once);
+        }
+        
+        [Test]
+        public void UpdateClassroomInfoTests()
+        {
+            //given
+            var entity = _classroomTestData.GetEntity();
+            var newEntity = entity;
+            newEntity.City = "xxx";
+            var model = _classroomTestData.GetModel();
+            var newModel = model;
+            newModel.City = "xxx";
+            _classroomRepository.Setup(c => c.GetClassroomById(entity.Id)).Returns(entity);
+            _classroomRepository.Setup(c => c.UpdateClassroomInfo(It.IsAny<Classroom>(), It.IsAny<Classroom>()));
+
+            //when
+            ClassroomService service = new ClassroomService(_classroomRepository.Object, _mapper);
+            var actual = service.UpdateClassroomInfo(model.Id, newModel);
+
+            //then
+            _classroomRepository.Verify(c => c.GetClassroomById(entity.Id), Times.Once);
+            _classroomRepository.Verify(c => c.UpdateClassroomInfo(It.IsAny<Classroom>(), It.IsAny<Classroom>()), Times.Once);
         }
     }
 
