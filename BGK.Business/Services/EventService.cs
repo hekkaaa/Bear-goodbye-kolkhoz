@@ -109,7 +109,7 @@ namespace BearGoodbyeKolkhozProject.Business.Services
         {
             var even = _eventRepository.GetEventById(id);
             CheckExistsOrRaiseException(even, id);
-            _eventRepository.DeleteEvent(even);
+            _eventRepository.UpdateEvent(even, true);
         }
 
         public List<EventModel> GetCompletedEventsByLecturerId(int id)

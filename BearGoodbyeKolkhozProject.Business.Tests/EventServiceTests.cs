@@ -134,8 +134,24 @@ namespace BearGoodbyeKolkhozProject.Business.Tests
 
             //then
             _eventRepository.Verify(l => l.AddEvent(It.IsAny<Event>()), Times.Once);
-
         }
+
+        [Test]
+        public void DeleteEventTests()
+        {
+
+            //given
+            var entity = _eventTestData.GetEntity();
+            var model = _eventTestData.GetModel();
+            _eventRepository.Setup(er => er.AddEvent(It.IsAny<Event>()));
+
+            //when
+            _eventService.AddEvent(model);
+
+            //then
+            _eventRepository.Verify(l => l.AddEvent(It.IsAny<Event>()), Times.Once);
+        }
+
         //[Test]
         //public void DeleteEventNegativeTest()
         //{

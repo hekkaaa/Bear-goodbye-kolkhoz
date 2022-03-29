@@ -54,6 +54,14 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
             _context.Event.Update(entity);
             _context.SaveChanges();
         }
+        
+        public void UpdateEvent(Event even, bool isDeleted)
+        {
+            even.IsDeleted = isDeleted;
+
+            _context.Event.Update(even);
+            _context.SaveChanges();
+        }
 
         public bool PartialUpdateEvent(Event oldEvent, Event newEvent)
         {
