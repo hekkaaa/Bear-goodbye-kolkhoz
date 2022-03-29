@@ -37,7 +37,7 @@ namespace BearGoodbyeKolkhozProject.Business.Services
         {
             var res = _mapper.Map<List<AdminModel>>(_repository.GetAdminAll());
 
-            if (res == null)
+            if (res.Count == 0)
             {
                 throw new NotFoundException("Нет никаких пользователей в списке Администраторов");
             }
