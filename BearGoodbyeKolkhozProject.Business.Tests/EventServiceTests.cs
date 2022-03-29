@@ -4,6 +4,7 @@ using BearGoodbyeKolkhozProject.Business.Exceptions;
 using BearGoodbyeKolkhozProject.Business.Models;
 using BearGoodbyeKolkhozProject.Business.Services;
 using BearGoodbyeKolkhozProject.Business.Tests.TestCaseSource.EventServiceTestCaseSource;
+using BearGoodbyeKolkhozProject.Business.Tests.TestCaseSource.EventTestCaseSource;
 using BearGoodbyeKolkhozProject.Data.ConnectDb;
 using BearGoodbyeKolkhozProject.Data.Entities;
 using BearGoodbyeKolkhozProject.Data.Enums;
@@ -22,45 +23,31 @@ namespace BearGoodbyeKolkhozProject.Business.Tests
 {
     public class EventServiceTests
     {
-        private ApplicationContext  _context;
+        private readonly IMapper _mapper;
+        private Mock<IEventRepository> _eventRepository;
+        private Mock<ILecturerRepository> _lecturerRepository;
+        private Mock<ITrainingRepository> _trainingRepository;
+        private Mock<IClassroomRepository> _classroomRepository;
+        private Mock<ICompanyRepository> _companyRepository;
+        private Mock<IClientRepository> _clientRepository;
+        private EventTestData _eventTestData;
+        public EventServiceTests()
+        {
+            _eventRepository = new();
+            _mapper = new Mapper(new MapperConfiguration(cfg => cfg.AddProfile<BusinessMapperProfile>()));
+            _eventTestData = new();
+            _lecturerRepository = new();
+            _trainingRepository = new();
+            _classroomRepository = new();
+            _companyRepository = new();
+            _clientRepository = new();
+        }
 
-        private EventService _service;
-        private ClientService _serviceClient;
-        private TrainingService _trainingService;
-
-        private EventRepository _eventRepository;
-        private TrainingRepository _trainingRepo;
-        private ClientRepository _clientRepo;
-        private LecturerRepository _lecturerRepository;
-        private ClassroomRepository _classroomRepo;
-        private CompanyRepository _companyRepo;
-
-        private IMapper _mapper;
 
         [SetUp]
         public void Setup()
         {
-
-            var options = new DbContextOptionsBuilder<ApplicationContext>()
-               .UseInMemoryDatabase(databaseName: "Test")
-               .Options;
-            _context = new ApplicationContext(options);
-            _context.Database.EnsureDeleted();
-            _context.Database.EnsureCreated();
-
-            var mockMapper = new MapperConfiguration(cfg =>
-            {
-                cfg.AddProfile(new BusinessMapperProfile());
-            });
-            var mapper = mockMapper.CreateMapper();
-
-            _eventRepository = new EventRepository(_context);
-            _service = new EventService(_eventRepository, _trainingRepo, _clientRepo, _lecturerRepository, _classroomRepo, _companyRepo, mapper);
-            _eventRepository = new EventRepository(_context);
-            _clientRepo = new ClientRepository(_context);
-            _classroomRepo = new ClassroomRepository(_context);
-            _trainingRepo = new TrainingRepository(_context);
-            _lecturerRepository = new LecturerRepository(_context);
+                      
         }
 
 
@@ -68,50 +55,30 @@ namespace BearGoodbyeKolkhozProject.Business.Tests
         public void GetEventByIdTests()
         {
             //given
-            var even = new EventModel
-            {
-                Id = 1,
-                StartDate = new DateTime(2022, 03, 03),
-                Company = new CompanyModel
-                {
-                    Id = 3,
-                    Name = "OOO Ivan",
-                    Email = "qwe@mail.ru",
-                    PhoneNumber = "123456789",
-                    Tin = 123234,
-                    Password = "1234"
-                },
+            var entity = _eventTestData.GetEntity();
+            var expected = _eventTestData.GetModel();
+            _eventRepository.Setup(er => er.GetEventById(1)).Returns(entity);
 
-                Classroom = new ClassroomModel
-                {
-                    Id = 5,
-                    MembersCount = 10,
-                    City = "Санк-Петербург",
-                    Address = "ул.Вавилова,д.6,оф.17",
-                    IsDeleted = false
-                },
-                Lecturer = new LecturerModel
-                {
-                    Name = "Семен",
-                    Email = "qwe@mail.ru",
-                    LastName = "Семенов",
-                    BirthDay = new DateTime(1993, 03, 03),
-                    Gender = Data.Enums.Gender.Male,
-                    Password = "12345"
-
-                },
-            };
-
-            _service.AddEvent(even);
-            
             //when
-
-            var actual = _service.GetEventById(1);
+            var service = new 
+                EventService(
+                _eventRepository.Object,
+                _trainingRepository.Object, 
+                _clientRepository.Object,
+                _lecturerRepository.Object,
+                _classroomRepository.Object,
+                _companyRepository.Object,
+                _mapper);
+            var actual = service.GetEventById(1);
 
             //then
-            Assert.IsTrue(actual.Id == even.Id);
-            Assert.IsNotNull(even);
-            Assert.AreEqual(actual.StartDate, even.StartDate);
+            Assert.IsNotNull(actual.Training);
+            Assert.IsNotNull(actual.Classroom);
+            Assert.IsNotNull(actual.Lecturer);
+            Assert.AreEqual(actual.Id, expected.Id);
+            Assert.AreEqual(actual.StartDate, expected.StartDate);
+
+            _eventRepository.Verify(x => x.GetEventById(1), Times.Once);
 
         }
 
@@ -119,142 +86,84 @@ namespace BearGoodbyeKolkhozProject.Business.Tests
         [Test]
         public void GetEventsTests()
         {
+            
             //given
-            var even = new EventModel
-            {
-                Id = 1,
-                StartDate = new DateTime(2022, 03, 03),
-
-            };
-
-            _service.AddEvent(even);
-
-            var even1 = new EventModel
-            {
-                Id = 2,
-                StartDate = new DateTime(2012, 04, 04),
-
-            };
-
-            _service.AddEvent(even1);
-
-            var even2 = new EventModel
-            {
-                Id = 3,
-                StartDate = new DateTime(2010, 05, 05),
-
-            };
-
-            _service.AddEvent(even2);
+            var entity = _eventTestData.GetEntityList();
+            var expected = _eventTestData.GetModelList();
+            _eventRepository.Setup(er => er.GetEvents()).Returns(entity);
 
             //when
-
-            var actual = _service.GetEvents();
-
-            List<EventModel> expected = new List<EventModel> { new EventModel {
-                Id = 1,
-                StartDate = new DateTime(2022, 03, 03),
-
-            }
-            ,new EventModel
-            {
-                Id = 2,
-                StartDate = new DateTime(2012, 04, 04),
-            }
-            ,new EventModel
-            {
-                Id = 3,
-                StartDate = new DateTime(2010, 05, 05),
-            } };
-
-            //when
-            var act = _service.GetEvents();
+            var service = new
+                EventService(
+                _eventRepository.Object,
+                _trainingRepository.Object,
+                _clientRepository.Object,
+                _lecturerRepository.Object,
+                _classroomRepository.Object,
+                _companyRepository.Object,
+                _mapper);
+            var actual = service.GetEvents();
 
             //then
+            Assert.AreEqual(expected.Count, actual.Count);
 
-            Assert.IsTrue(expected.Count == act.Count);
-            Assert.IsNotNull(act);
-
-        }
-
-
-        [TestCaseSource(typeof(UpdateEventReviewTestCaseSource))]
-        public void UpdateEvenTests(
-            List<Training> mockTraining,
-            Client mockUser,
-            List<Lecturer> mockLector,
-            List<Classroom> mockClassrom,
-            EventModel newUpdateEvent,
-            Event expected)
-        {
-            //given
-
-            _context.Client.Add(mockUser);
-            _context.Classroom.AddRange(mockClassrom);
-            _context.Training.AddRange(mockTraining);
-            _context.Lecturer.AddRange(mockLector);
-            _context.SaveChanges();
-
-            _context.Event.Add(new Event
+            for (int i = 0; i < expected.Count; i++)
             {
-                Id = 1,
-                IsDeleted = false,
-                StartDate = new DateTime(1999, 12, 12),
-                Training = _trainingRepo.GetTrainingById(mockTraining[0].Id),
-                Lecturer = _lecturerRepository.GetLecturerById(mockLector[0].Id),
-                Classroom = _classroomRepo.GetClassroomById(mockClassrom[0].Id),
-            });
-            _context.SaveChanges();
-
-            var singUpEvent = _eventRepository.GetEventById(1); // id 1 назначается по умолчанию.
-            Client itemClient = _clientRepo.GetClientById(mockUser.Id);
-
-            _eventRepository.SignUp(itemClient, singUpEvent);
-
-            ////when
-            newUpdateEvent.Classroom = new ClassroomModel { Id = 2 };
-            newUpdateEvent.Training = new TrainingModel { Id = 2 };
-            newUpdateEvent.Lecturer = new LecturerModel { Id = 1 };
-
-            EventModel AAAA = new EventModel
-            {
-                Id = 1,
-                StartDate = new DateTime(2022, 07, 06),
-                Classroom = new ClassroomModel { Id = 2 },
-                Lecturer = new LecturerModel { Id = 2 },
-                Training = new TrainingModel { Id = 2 },
-            };
-            _context.SaveChanges();
-
-            //var ts = _service.UpdateEvent(1, AAAA);
-
-            var actual = _service.GetEventById(newUpdateEvent.Id);
-
-            //then
-            Assert.IsTrue(actual.Id == expected.Id);
-            Assert.IsNotNull(actual);
-           
+                Assert.AreEqual(expected[i].Id, actual[i].Id);
+            }
 
         }
 
         [Test]
-        public void DeleteEventNegativeTest()
+        public void UpdateEvenTests()
         {
             //given
-            var even = new EventModel
-            {
-                Id = 1,
-                StartDate = new DateTime(2022, 03, 03),
-
-            };
-
-            _service.AddEvent(even);
-
+            var entity = _eventTestData.GetEntity();
+            var model = _eventTestData.GetModel();
+            var lecturer = _eventTestData.GetLecturer();
+            var training = _eventTestData.GetTraining();
+            var classroom = _eventTestData.GetClassroom();
+            _eventRepository.Setup(er => er.GetEventById(entity.Id)).Returns(entity);
+            _lecturerRepository.Setup(l => l.GetLecturerById(1)).Returns(lecturer);
+            _trainingRepository.Setup(tr => tr.GetTrainingById(1)).Returns(training);
+            _classroomRepository.Setup(cr => cr.GetClassroomById(1)).Returns(classroom);
+            _eventRepository.Setup(er => er.PartialUpdateEvent(It.IsAny<Event>(), It.IsAny<Event>()));
+            
             //when
+            var service = new
+                EventService(
+                _eventRepository.Object,
+                _trainingRepository.Object,
+                _clientRepository.Object,
+                _lecturerRepository.Object,
+                _classroomRepository.Object,
+                _companyRepository.Object,
+                _mapper);
+            var actual = service.UpdateEvent(entity.Id, model);
 
             //then
-            Assert.Throws<NotFoundException>(()=> _service.DeleteEvent(even.Id));
-    
+            _eventRepository.Verify(l => l.GetEventById(entity.Id), Times.Once);
+            _eventRepository.Verify(l => l.PartialUpdateEvent(It.IsAny<Event>(), It.IsAny<Event>()), Times.Once);
         }
+
+        //[Test]
+        //public void DeleteEventNegativeTest()
+        //{
+        //    //given
+        //    var even = new EventModel
+        //    {
+        //        Id = 1,
+        //        StartDate = new DateTime(2022, 03, 03),
+
+        //    };
+
+        //    _service.AddEvent(even);
+
+        //    //when
+
+        //    //then
+        //    Assert.Throws<NotFoundException>(()=> _service.DeleteEvent(even.Id));
+
+        //}
     }
 }
