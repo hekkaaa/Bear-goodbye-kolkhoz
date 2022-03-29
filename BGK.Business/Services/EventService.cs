@@ -111,6 +111,13 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             CheckExistsOrRaiseException(even, id);
             _eventRepository.UpdateEvent(even, true);
         }
+        
+        public void RestoreEvent(int id)
+        {
+            var even = _eventRepository.GetEventById(id);
+            CheckExistsOrRaiseException(even, id);
+            _eventRepository.UpdateEvent(even, false);
+        }
 
         public List<EventModel> GetCompletedEventsByLecturerId(int id)
         {

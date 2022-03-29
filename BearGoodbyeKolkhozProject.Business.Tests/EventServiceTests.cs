@@ -78,6 +78,20 @@ namespace BearGoodbyeKolkhozProject.Business.Tests
         }
 
         [Test]
+        public void GetEventByIdNegativeIfEntityNotFoundTests()
+        {
+            //given
+            var entity = _eventTestData.GetEntity();
+            var expected = _eventTestData.GetModel();
+            _eventRepository.Setup(er => er.GetEventById(1));
+
+            //when
+
+            //then
+            Assert.Throws<NotFoundException>(() => _eventService.GetEventById(entity.Id));
+        }
+
+        [Test]
         public void GetEventsTests()
         {
 
@@ -120,6 +134,27 @@ namespace BearGoodbyeKolkhozProject.Business.Tests
             _eventRepository.Verify(l => l.GetEventById(entity.Id), Times.Once);
             _eventRepository.Verify(l => l.PartialUpdateEvent(It.IsAny<Event>(), It.IsAny<Event>()), Times.Once);
         }
+        
+        [Test]
+        public void UpdateEventNegativeIfEntityNotFoundTests()
+        {
+            //given
+            var entity = _eventTestData.GetEntity();
+            var model = _eventTestData.GetModel();
+            var lecturer = _eventTestData.GetLecturer();
+            var training = _eventTestData.GetTraining();
+            var classroom = _eventTestData.GetClassroom();
+            _eventRepository.Setup(er => er.GetEventById(entity.Id));
+            _lecturerRepository.Setup(l => l.GetLecturerById(1)).Returns(lecturer);
+            _trainingRepository.Setup(tr => tr.GetTrainingById(1)).Returns(training);
+            _classroomRepository.Setup(cr => cr.GetClassroomById(1)).Returns(classroom);
+            _eventRepository.Setup(er => er.PartialUpdateEvent(It.IsAny<Event>(), It.IsAny<Event>()));
+
+            //when
+
+            //then
+            Assert.Throws<NotFoundException>(() => _eventService.GetEventById(entity.Id));
+        }
 
         [Test]
         public void AddEventTests()
@@ -139,37 +174,65 @@ namespace BearGoodbyeKolkhozProject.Business.Tests
         [Test]
         public void DeleteEventTests()
         {
-
             //given
             var entity = _eventTestData.GetEntity();
             var model = _eventTestData.GetModel();
-            _eventRepository.Setup(er => er.AddEvent(It.IsAny<Event>()));
+            _eventRepository.Setup(er => er.GetEventById(entity.Id)).Returns(entity);
+            _eventRepository.Setup(er => er.UpdateEvent(It.IsAny<Event>(), true));
 
             //when
-            _eventService.AddEvent(model);
+            _eventService.DeleteEvent(model.Id);
 
             //then
-            _eventRepository.Verify(l => l.AddEvent(It.IsAny<Event>()), Times.Once);
+            _eventRepository.Verify(er => er.UpdateEvent(It.IsAny<Event>(), true), Times.Once);
+        }
+        
+        [Test]
+        public void DeleteEventNegativeIfEntityNotFoundTests()
+        {
+            //given
+            var entity = _eventTestData.GetEntity();
+            var model = _eventTestData.GetModel();
+            _eventRepository.Setup(er => er.GetEventById(entity.Id));
+            _eventRepository.Setup(er => er.UpdateEvent(It.IsAny<Event>(), true));
+
+            //when
+
+            //then
+            Assert.Throws<NotFoundException>(() => _eventService.DeleteEvent(model.Id));
         }
 
-        //[Test]
-        //public void DeleteEventNegativeTest()
-        //{
-        //    //given
-        //    var even = new EventModel
-        //    {
-        //        Id = 1,
-        //        StartDate = new DateTime(2022, 03, 03),
+        [Test]
+        public void RestoreEventTests()
+        {
+            //given
+            var entity = _eventTestData.GetEntity();
+            var model = _eventTestData.GetModel();
+            _eventRepository.Setup(er => er.GetEventById(entity.Id)).Returns(entity);
+            _eventRepository.Setup(er => er.UpdateEvent(It.IsAny<Event>(), false));
 
-        //    };
+            //when
+            _eventService.RestoreEvent(model.Id);
 
-        //    _service.AddEvent(even);
+            //then
+            _eventRepository.Verify(er => er.UpdateEvent(It.IsAny<Event>(), false), Times.Once);
+        }
 
-        //    //when
+        [Test]
+        public void RestoreEventNegativeIfEntityNotFoundTests()
+        {
+            //given
+            var entity = _eventTestData.GetEntity();
+            var model = _eventTestData.GetModel();
+            _eventRepository.Setup(er => er.GetEventById(entity.Id));
+            _eventRepository.Setup(er => er.UpdateEvent(It.IsAny<Event>(), true));
 
-        //    //then
-        //    Assert.Throws<NotFoundException>(()=> _service.DeleteEvent(even.Id));
+            //when
 
-        //}
+            //then
+            Assert.Throws<NotFoundException>(() => _eventService.RestoreEvent(model.Id));
+        }
+
+
     }
 }

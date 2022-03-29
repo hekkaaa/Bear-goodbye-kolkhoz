@@ -79,12 +79,6 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
             return true;
         }
 
-        public void DeleteEvent(Event even)
-        {
-            _context.Event.Remove(even);
-
-            _context.SaveChanges();
-        }
 
         public void SignUp(Client client, Event even)
         {
