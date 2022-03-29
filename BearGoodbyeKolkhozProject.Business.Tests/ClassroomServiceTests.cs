@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using BearGoodbyeKolkhozProject.Business.Configuration;
 using BearGoodbyeKolkhozProject.Business.Exceptions;
+using BearGoodbyeKolkhozProject.Business.Models;
 using BearGoodbyeKolkhozProject.Business.Services;
 using BearGoodbyeKolkhozProject.Business.Tests.TestCaseSource.ClassroomTestCaseSource;
 using BearGoodbyeKolkhozProject.Business.Tests.TestCaseSource.UserTestCaseSource;
@@ -17,16 +18,19 @@ namespace BearGoodbyeKolkhozProject.Business.Tests
     public class ClassroomServiceTests
     {
 
-        private readonly IMapper _mapper;
+        private IMapper _mapper;
         private Mock<IClassroomRepository> _classroomRepository;
         private ClassroomTestData _classroomTestData;
+        private ClassroomService _service;
 
-
-        public ClassroomServiceTests()
+        [SetUp]
+        public void Setup()
         {
             _mapper = new Mapper(new MapperConfiguration(cfg => cfg.AddProfile<BusinessMapperProfile>()));
             _classroomRepository = new Mock<IClassroomRepository>();
             _classroomTestData = new ClassroomTestData();
+            _service = new ClassroomService(_classroomRepository.Object, _mapper);
+
         }
 
         [Test]
@@ -38,8 +42,7 @@ namespace BearGoodbyeKolkhozProject.Business.Tests
             _classroomRepository.Setup(c => c.GetClassroomById(entity.Id)).Returns(entity);
 
             //when
-            ClassroomService service = new ClassroomService(_classroomRepository.Object, _mapper);
-            var actual = service.GetClassroomById(entity.Id);
+            var actual = _service.GetClassroomById(entity.Id);
 
             //then
             Assert.AreEqual(actual.Id, expectedModel.Id);
@@ -47,6 +50,20 @@ namespace BearGoodbyeKolkhozProject.Business.Tests
             Assert.AreEqual(actual.Address, expectedModel.Address);
             Assert.AreEqual(actual.IsDeleted, expectedModel.IsDeleted);
             _classroomRepository.Verify(c => c.GetClassroomById(entity.Id), Times.Once);
+        }
+        
+        [Test]
+        public void GetClassroomByIdNegativeTestsIfNotFoundEntity()
+        {
+            //given
+            var entity = _classroomTestData.GetEntity();
+            var expectedModel = _classroomTestData.GetModel();
+            _classroomRepository.Setup(c => c.GetClassroomById(entity.Id));
+
+            //when
+
+            //then
+            Assert.Throws<NotFoundException>(() => _service.GetClassroomById(entity.Id));
         }
 
         [Test]
@@ -58,8 +75,7 @@ namespace BearGoodbyeKolkhozProject.Business.Tests
             _classroomRepository.Setup(c => c.GetClassroomsAll()).Returns(entityList);
 
             //when
-            ClassroomService service = new ClassroomService(_classroomRepository.Object, _mapper);
-            var actual = service.GetClassroomAll();
+            var actual = _service.GetClassroomAll();
 
             //then
             for (int i = 0; i < expectedModelList.Count; i++)
@@ -81,8 +97,7 @@ namespace BearGoodbyeKolkhozProject.Business.Tests
             _classroomRepository.Setup(c => c.AddNewClassroom(It.IsAny<Classroom>()));
 
             //when
-            ClassroomService service = new ClassroomService(_classroomRepository.Object, _mapper);
-            var actual = service.AddNewClassroom(model);
+            var actual = _service.AddNewClassroom(model);
 
             //then
             _classroomRepository.Verify(c => c.AddNewClassroom(It.IsAny<Classroom>()), Times.Once);
@@ -98,14 +113,28 @@ namespace BearGoodbyeKolkhozProject.Business.Tests
             _classroomRepository.Setup(c => c.UpdateClassroomInfo(entity, true));
 
             //when
-            ClassroomService service = new ClassroomService(_classroomRepository.Object, _mapper);
-            var actual = service.DeleteClassroom(model.Id);
+            var actual = _service.DeleteClassroom(model.Id);
 
             //then
             _classroomRepository.Verify(c => c.GetClassroomById(entity.Id), Times.Once);
             _classroomRepository.Verify(c => c.UpdateClassroomInfo(entity, true), Times.Once);
         }
         
+        [Test]
+        public void DeleteClassroomNegativeTestsIfEntityNotFound()
+        {
+            //given
+            var entity = _classroomTestData.GetEntity();
+            var model = _classroomTestData.GetModel();
+            _classroomRepository.Setup(c => c.GetClassroomById(entity.Id));
+            _classroomRepository.Setup(c => c.UpdateClassroomInfo(entity, true));
+
+            //when
+
+            //then
+            Assert.Throws<NotFoundException>(() => _service.DeleteClassroom(entity.Id));
+        }
+
         [Test]
         public void RestoreClassroomTests()
         {
@@ -116,14 +145,28 @@ namespace BearGoodbyeKolkhozProject.Business.Tests
             _classroomRepository.Setup(c => c.UpdateClassroomInfo(entity, false));
 
             //when
-            ClassroomService service = new ClassroomService(_classroomRepository.Object, _mapper);
-            var actual = service.RestoreClassroom(model.Id);
+            var actual = _service.RestoreClassroom(model.Id);
 
             //then
             _classroomRepository.Verify(c => c.GetClassroomById(entity.Id), Times.Once);
             _classroomRepository.Verify(c => c.UpdateClassroomInfo(entity, false), Times.Once);
         }
-        
+
+        [Test]
+        public void RestoreClassroomNegativeTestsIfEntityNotFound()
+        {
+            //given
+            var entity = _classroomTestData.GetEntity();
+            var model = _classroomTestData.GetModel();
+            _classroomRepository.Setup(c => c.GetClassroomById(entity.Id));
+            _classroomRepository.Setup(c => c.UpdateClassroomInfo(entity, true));
+
+            //when
+
+            //then
+            Assert.Throws<NotFoundException>(() => _service.RestoreClassroom(entity.Id));
+        }
+
         [Test]
         public void UpdateClassroomInfoTests()
         {
@@ -138,12 +181,26 @@ namespace BearGoodbyeKolkhozProject.Business.Tests
             _classroomRepository.Setup(c => c.UpdateClassroomInfo(It.IsAny<Classroom>(), It.IsAny<Classroom>()));
 
             //when
-            ClassroomService service = new ClassroomService(_classroomRepository.Object, _mapper);
-            var actual = service.UpdateClassroomInfo(model.Id, newModel);
+            var actual = _service.UpdateClassroomInfo(model.Id, newModel);
 
             //then
             _classroomRepository.Verify(c => c.GetClassroomById(entity.Id), Times.Once);
             _classroomRepository.Verify(c => c.UpdateClassroomInfo(It.IsAny<Classroom>(), It.IsAny<Classroom>()), Times.Once);
+        }
+
+        [Test]
+        public void UpdateClassroomNegativeTestsIfEntityNotFound()
+        {
+            //given
+            var entity = _classroomTestData.GetEntity();
+            var model = _classroomTestData.GetModel();
+            _classroomRepository.Setup(c => c.GetClassroomById(entity.Id));
+            _classroomRepository.Setup(c => c.UpdateClassroomInfo(entity, true));
+
+            //when
+
+            //then
+            Assert.Throws<NotFoundException>(() => _service.UpdateClassroomInfo(It.IsAny<int>(), It.IsAny<ClassroomModel>()));
         }
     }
 
