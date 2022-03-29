@@ -64,7 +64,7 @@ namespace BearGoodbyeKolkhozProject.Business.Tests
         }
 
         [TestCaseSource(typeof(GetTrainingByTopicTestCaseSource))]
-        public void GetTrainingsByTopicTests(List<Training> entity, TrainingModel expected, TopicModel topicModel, Topic topicEntity )
+        public void GetTrainingsByTopicTests(List<Training> entity, TrainingModel expected, TopicModel topicModel, Topic topicEntity)
         {
             //given
             Mock<ITrainingRepository> trainingRepository = new Mock<ITrainingRepository>();
@@ -157,7 +157,7 @@ namespace BearGoodbyeKolkhozProject.Business.Tests
             //when
             TrainingService _service = new TrainingService(trainingRepository.Object, _mapper, clientRepository.Object, trainingReviewRepository.Object, topicRepository.Object);
             var act = _service.GetTrainingModels();
-            
+
             //then
             Assert.IsNotNull(act);
             Assert.IsTrue(act.Count == 2);
@@ -184,7 +184,7 @@ namespace BearGoodbyeKolkhozProject.Business.Tests
             trainingRepository.Verify(t => t.GetTrainingById(entity.Id), Times.Once);
             trainingRepository.Verify(t => t.UpdateTraining(entity, true), Times.Once);
         }
-        
+
         [TestCaseSource(typeof(DeleteTrainingByIdTestCaseSource))]
         public void RestoreTrainingByIdTests(Training entity)
         {
@@ -252,7 +252,7 @@ namespace BearGoodbyeKolkhozProject.Business.Tests
 
             //then
             Assert.Throws<NotFoundException>(() => _service.RestoreTraining(1024));
-            
+
         }
 
     }

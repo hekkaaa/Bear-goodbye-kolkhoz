@@ -6,23 +6,17 @@ using BearGoodbyeKolkhozProject.Business.Services;
 using BearGoodbyeKolkhozProject.Business.Tests.TestCaseSource.EventServiceTestCaseSource;
 using BearGoodbyeKolkhozProject.Data.ConnectDb;
 using BearGoodbyeKolkhozProject.Data.Entities;
-using BearGoodbyeKolkhozProject.Data.Enums;
-using BearGoodbyeKolkhozProject.Data.Interfaces;
 using BearGoodbyeKolkhozProject.Data.Repositories;
 using Microsoft.EntityFrameworkCore;
-using Moq;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BearGoodbyeKolkhozProject.Business.Tests
 {
     public class EventServiceTests
     {
-        private ApplicationContext  _context;
+        private ApplicationContext _context;
 
         private EventService _service;
         private ClientService _serviceClient;
@@ -103,7 +97,7 @@ namespace BearGoodbyeKolkhozProject.Business.Tests
             };
 
             _service.AddEvent(even);
-            
+
             //when
 
             var actual = _service.GetEventById(1);
@@ -233,7 +227,7 @@ namespace BearGoodbyeKolkhozProject.Business.Tests
             //then
             Assert.IsTrue(actual.Id == expected.Id);
             Assert.IsNotNull(actual);
-           
+
 
         }
 
@@ -253,8 +247,8 @@ namespace BearGoodbyeKolkhozProject.Business.Tests
             //when
 
             //then
-            Assert.Throws<NotFoundException>(()=> _service.DeleteEvent(even.Id));
-    
+            Assert.Throws<NotFoundException>(() => _service.DeleteEvent(even.Id));
+
         }
     }
 }

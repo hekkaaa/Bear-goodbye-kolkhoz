@@ -18,7 +18,7 @@ namespace BearGoodbyeKolkhozProject.Business.Tests
                 Email = "l",
                 Gender = Data.Enums.Gender.Male
             };
-            
+
             var lecturerModel = new LecturerModel()
             {
                 Id = 111,
@@ -30,7 +30,7 @@ namespace BearGoodbyeKolkhozProject.Business.Tests
             };
 
             int id = 111;
-            
+
             yield return new object[] { lecturer, lecturerModel, id };
 
         }
