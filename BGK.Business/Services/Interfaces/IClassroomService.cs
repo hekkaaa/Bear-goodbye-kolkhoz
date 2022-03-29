@@ -9,5 +9,6 @@ namespace BearGoodbyeKolkhozProject.Business.Services
         List<ClassroomModel> GetClassroomAll();
         ClassroomModel GetClassroomById(int id);
         bool UpdateClassroomInfo(int id, ClassroomModel newItem);
+        bool RestoreClassroom(int id);
     }
 }
