@@ -29,7 +29,7 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
         
         public bool UpdateClassroomInfo(Classroom oldItem, bool isDeleted)
         {
-            oldItem.IsDeleted = true;
+            oldItem.IsDeleted = isDeleted;
             _db.SaveChanges();
             return true;
         }
