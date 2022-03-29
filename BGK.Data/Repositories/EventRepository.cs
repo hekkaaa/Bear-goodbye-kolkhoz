@@ -39,15 +39,12 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
         public void AddEvent(Event even)
         {
             _context.Event.Add(even);
-
             _context.SaveChanges();
         }
 
         public void UpdateEvent(Event even)
         {
-
             var entity = _context.Event.FirstOrDefault(e => e.Id == even.Id);
-
             entity.StartDate = even.StartDate;
             entity.Clients = even.Clients;
             entity.Company = even.Company;
@@ -55,7 +52,6 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
             entity.Lecturer = even.Lecturer;
 
             _context.Event.Update(entity);
-
             _context.SaveChanges();
         }
 

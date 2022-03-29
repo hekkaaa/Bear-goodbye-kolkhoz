@@ -75,9 +75,7 @@ namespace BearGoodbyeKolkhozProject.Business.Tests
             Assert.AreEqual(actual.StartDate, expected.StartDate);
 
             _eventRepository.Verify(x => x.GetEventById(1), Times.Once);
-
         }
-
 
         [Test]
         public void GetEventsTests()
@@ -89,7 +87,6 @@ namespace BearGoodbyeKolkhozProject.Business.Tests
             _eventRepository.Setup(er => er.GetEvents()).Returns(entity);
 
             //when
-            
             var actual = _eventService.GetEvents();
 
             //then
@@ -99,11 +96,10 @@ namespace BearGoodbyeKolkhozProject.Business.Tests
             {
                 Assert.AreEqual(expected[i].Id, actual[i].Id);
             }
-
         }
 
         [Test]
-        public void UpdateEvenTests()
+        public void UpdateEventTests()
         {
             //given
             var entity = _eventTestData.GetEntity();
@@ -125,6 +121,21 @@ namespace BearGoodbyeKolkhozProject.Business.Tests
             _eventRepository.Verify(l => l.PartialUpdateEvent(It.IsAny<Event>(), It.IsAny<Event>()), Times.Once);
         }
 
+        [Test]
+        public void AddEventTests()
+        {
+            //given
+            var entity = _eventTestData.GetEntity();
+            var model = _eventTestData.GetModel();
+            _eventRepository.Setup(er => er.AddEvent(It.IsAny<Event>()));
+
+            //when
+            _eventService.AddEvent(model);
+
+            //then
+            _eventRepository.Verify(l => l.AddEvent(It.IsAny<Event>()), Times.Once);
+
+        }
         //[Test]
         //public void DeleteEventNegativeTest()
         //{
