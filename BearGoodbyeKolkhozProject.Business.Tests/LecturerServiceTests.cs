@@ -16,19 +16,18 @@ namespace BearGoodbyeKolkhozProject.Business.Tests
     public class LecturerServiceTests
     {
 
-        private readonly IMapper _mapper;
+        private IMapper _mapper;
         private Mock<ILecturerRepository> _lecturerRepository;
         private Mock<IUserRepository> _userRepository;
         private Mock<ITrainingRepository> _trainingRepository;
 
-
-        public LecturerServiceTests()
+        [SetUp]
+        public void Setup()
         {
             _mapper = new Mapper(new MapperConfiguration(cfg => cfg.AddProfile<BusinessMapperProfile>()));
             _lecturerRepository = new Mock<ILecturerRepository>();
             _userRepository = new Mock<IUserRepository>();
             _trainingRepository = new Mock<ITrainingRepository>();
-
         }
 
         [TestCaseSource(typeof(GetLecturerModelByIdCaseSource))]

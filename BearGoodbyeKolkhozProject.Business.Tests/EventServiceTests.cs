@@ -23,7 +23,7 @@ namespace BearGoodbyeKolkhozProject.Business.Tests
 {
     public class EventServiceTests
     {
-        private readonly IMapper _mapper;
+        private IMapper _mapper;
         private Mock<IEventRepository> _eventRepository;
         private Mock<ILecturerRepository> _lecturerRepository;
         private Mock<ITrainingRepository> _trainingRepository;
@@ -31,7 +31,10 @@ namespace BearGoodbyeKolkhozProject.Business.Tests
         private Mock<ICompanyRepository> _companyRepository;
         private Mock<IClientRepository> _clientRepository;
         private EventTestData _eventTestData;
-        public EventServiceTests()
+        private EventService _eventService;
+      
+        [SetUp]
+        public void Setup()
         {
             _eventRepository = new();
             _mapper = new Mapper(new MapperConfiguration(cfg => cfg.AddProfile<BusinessMapperProfile>()));
@@ -41,13 +44,14 @@ namespace BearGoodbyeKolkhozProject.Business.Tests
             _classroomRepository = new();
             _companyRepository = new();
             _clientRepository = new();
-        }
-
-
-        [SetUp]
-        public void Setup()
-        {
-                      
+            _eventService = new EventService(
+                 _eventRepository.Object,
+                 _trainingRepository.Object,
+                 _clientRepository.Object,
+                 _lecturerRepository.Object,
+                 _classroomRepository.Object,
+                 _companyRepository.Object,
+                 _mapper);
         }
 
 
@@ -60,16 +64,8 @@ namespace BearGoodbyeKolkhozProject.Business.Tests
             _eventRepository.Setup(er => er.GetEventById(1)).Returns(entity);
 
             //when
-            var service = new 
-                EventService(
-                _eventRepository.Object,
-                _trainingRepository.Object, 
-                _clientRepository.Object,
-                _lecturerRepository.Object,
-                _classroomRepository.Object,
-                _companyRepository.Object,
-                _mapper);
-            var actual = service.GetEventById(1);
+            
+            var actual = _eventService.GetEventById(1);
 
             //then
             Assert.IsNotNull(actual.Training);
@@ -86,23 +82,15 @@ namespace BearGoodbyeKolkhozProject.Business.Tests
         [Test]
         public void GetEventsTests()
         {
-            
+
             //given
             var entity = _eventTestData.GetEntityList();
             var expected = _eventTestData.GetModelList();
             _eventRepository.Setup(er => er.GetEvents()).Returns(entity);
 
             //when
-            var service = new
-                EventService(
-                _eventRepository.Object,
-                _trainingRepository.Object,
-                _clientRepository.Object,
-                _lecturerRepository.Object,
-                _classroomRepository.Object,
-                _companyRepository.Object,
-                _mapper);
-            var actual = service.GetEvents();
+            
+            var actual = _eventService.GetEvents();
 
             //then
             Assert.AreEqual(expected.Count, actual.Count);
@@ -128,18 +116,9 @@ namespace BearGoodbyeKolkhozProject.Business.Tests
             _trainingRepository.Setup(tr => tr.GetTrainingById(1)).Returns(training);
             _classroomRepository.Setup(cr => cr.GetClassroomById(1)).Returns(classroom);
             _eventRepository.Setup(er => er.PartialUpdateEvent(It.IsAny<Event>(), It.IsAny<Event>()));
-            
+
             //when
-            var service = new
-                EventService(
-                _eventRepository.Object,
-                _trainingRepository.Object,
-                _clientRepository.Object,
-                _lecturerRepository.Object,
-                _classroomRepository.Object,
-                _companyRepository.Object,
-                _mapper);
-            var actual = service.UpdateEvent(entity.Id, model);
+            _eventService.UpdateEvent(entity.Id, model);
 
             //then
             _eventRepository.Verify(l => l.GetEventById(entity.Id), Times.Once);
