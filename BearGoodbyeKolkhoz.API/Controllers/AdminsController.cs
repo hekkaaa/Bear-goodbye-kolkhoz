@@ -19,12 +19,14 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
     public class AdminController : Controller
     {
         private readonly IAdminService _service;
+        private readonly ITrainingReviewService _trainingReviewService;
         private readonly IMapper _mapper;
 
-        public AdminController(IAdminService adminService, IMapper mapper)
+        public AdminController(IAdminService adminService, IMapper mapper, ITrainingReviewService trainingReviewService)
         {
             _service = adminService;
             _mapper = mapper;
+            _trainingReviewService = trainingReviewService;
         }
 
         [HttpGet("{id}")]
@@ -113,6 +115,19 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         {
             var res = _service.ChangeAdminPassword(id, newItem.Password);
             return Ok(res);
+        }
+
+        [HttpDelete("{id}")]
+        [ProducesResponseType(typeof(bool), StatusCodes.Status204NoContent)]
+        [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status503ServiceUnavailable)]
+        [SwaggerOperation("Delete TrainingReview")]
+        public ActionResult<bool> DeleteTrainingReviewById(int id)
+        {
+            _trainingReviewService.DeleteTrainingReview(id);
+
+            return NoContent();
         }
     }
 }
