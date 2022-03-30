@@ -12,7 +12,6 @@ namespace BearGoodbyeKolkhozProject.Data.Tests.TestCaseSources.LecturerReviewTes
         {
             var lecturer = new Lecturer()
             {
-                Id = 1,
                 Name = "Roma",
                 LastName = "Azarov",
                 Password = "qwe",
@@ -23,7 +22,6 @@ namespace BearGoodbyeKolkhozProject.Data.Tests.TestCaseSources.LecturerReviewTes
 
             var client1 = new Client()
             {
-                Id = 1,
                 Name = "qwe123",
                 LastName = "321ewq",
                 Gender = Gender.Male,
@@ -36,7 +34,6 @@ namespace BearGoodbyeKolkhozProject.Data.Tests.TestCaseSources.LecturerReviewTes
 
             var client2 = new Client()
             {
-                Id = 3,
                 Name = "kjhgfd",
                 LastName = "asdfgh",
                 Gender = Gender.Other,
