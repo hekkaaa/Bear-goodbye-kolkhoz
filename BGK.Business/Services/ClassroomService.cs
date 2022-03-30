@@ -71,7 +71,7 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             var res = _repository.GetClassroomById(id);
             if (res == null)
             {
-                throw new NotFoundException("");
+                throw new NotFoundException("Нет такого кабинета");
             }
             var entities = _mapper.Map<Classroom>(newItem);
             return _repository.UpdateClassroomInfo(res, entities);
