@@ -83,17 +83,17 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
             return Ok(res);
         }
 
-        [HttpPut("{id}/password")]
+        [HttpPut("/password")]
         [Authorize(Roles = "Client")]
         [ProducesResponseType(typeof(ActionResult), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status403Forbidden)]
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status503ServiceUnavailable)]
         [SwaggerOperation("Change password Client. Roles: Client")]
-        
-        public ActionResult ChangePassword(int id, [FromBody] ChangePasswordInputModel newItem)
+        public ActionResult ChangePassword([FromBody] ChangePasswordInputModel newItem)
         {
-            _service.ChangePasswordClient(id, newItem.Password);
+            int id = HttpContext.GetUserIdFromToken();
+            _service.ChangePasswordClient(id, newItem.OldPassword, newItem.Password);
             return Ok();
         }
     }

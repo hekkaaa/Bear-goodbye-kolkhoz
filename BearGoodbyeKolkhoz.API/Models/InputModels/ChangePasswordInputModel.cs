@@ -6,6 +6,10 @@ namespace BearGoodbyeKolkhozProject.API.Models.InputModels
     {
         [Required(ErrorMessage = "Password обязателен для ввода!")]
         [MinLength(6, ErrorMessage = "Не меньше 6 знаков!")]
+        public string OldPassword { get; set; }
+
+        [Required(ErrorMessage = "Password обязателен для ввода!")]
+        [MinLength(6, ErrorMessage = "Не меньше 6 знаков!")]
         public string Password { get; set; }
     }
 }
