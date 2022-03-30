@@ -6,23 +6,30 @@ using BearGoodbyeKolkhozProject.Business.Services;
 using BearGoodbyeKolkhozProject.Business.Tests.TestCaseSource.EventServiceTestCaseSource;
 using BearGoodbyeKolkhozProject.Business.Tests.TestCaseSource.EventTestCaseSource;
 using BearGoodbyeKolkhozProject.Data.ConnectDb;
-using BearGoodbyeKolkhozProject.Data.Entities;
-using BearGoodbyeKolkhozProject.Data.Enums;
-using BearGoodbyeKolkhozProject.Data.Interfaces;
+using BearGoodbyeKolkhozProject.Data.Entities;
 using BearGoodbyeKolkhozProject.Data.Repositories;
 using Microsoft.EntityFrameworkCore;
-using Moq;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BearGoodbyeKolkhozProject.Business.Tests
 {
     public class EventServiceTests
     {
+        private ApplicationContext _context;
+
+        private EventService _service;
+        private ClientService _serviceClient;
+        private TrainingService _trainingService;
+
+        private EventRepository _eventRepository;
+        private TrainingRepository _trainingRepo;
+        private ClientRepository _clientRepo;
+        private LecturerRepository _lecturerRepository;
+        private ClassroomRepository _classroomRepo;
+        private CompanyRepository _companyRepo;
+
         private IMapper _mapper;
         private Mock<IEventRepository> _eventRepository;
         private Mock<ILecturerRepository> _lecturerRepository;
@@ -63,9 +70,31 @@ namespace BearGoodbyeKolkhozProject.Business.Tests
             var expected = _eventTestData.GetModel();
             _eventRepository.Setup(er => er.GetEventById(1)).Returns(entity);
 
-            //when
-            
-            var actual = _eventService.GetEventById(1);
+                Classroom = new ClassroomModel
+                {
+                    Id = 5,
+                    MembersCount = 10,
+                    City = "Санк-Петербург",
+                    Address = "ул.Вавилова,д.6,оф.17",
+                    IsDeleted = false
+                },
+                Lecturer = new LecturerModel
+                {
+                    Name = "Семен",
+                    Email = "qwe@mail.ru",
+                    LastName = "Семенов",
+                    BirthDay = new DateTime(1993, 03, 03),
+                    Gender = Data.Enums.Gender.Male,
+                    Password = "12345"
+
+                },
+            };
+
+            _service.AddEvent(even);
+
+            //when
+
+            var actual = _service.GetEventById(1);
 
             //then
             Assert.IsNotNull(actual.Training);
@@ -184,22 +213,10 @@ namespace BearGoodbyeKolkhozProject.Business.Tests
             _eventService.DeleteEvent(model.Id);
 
             //then
-            _eventRepository.Verify(er => er.UpdateEvent(It.IsAny<Event>(), true), Times.Once);
-        }
-        
-        [Test]
-        public void DeleteEventNegativeIfEntityNotFoundTests()
-        {
-            //given
-            var entity = _eventTestData.GetEntity();
-            var model = _eventTestData.GetModel();
-            _eventRepository.Setup(er => er.GetEventById(entity.Id));
-            _eventRepository.Setup(er => er.UpdateEvent(It.IsAny<Event>(), true));
-
-            //when
-
-            //then
-            Assert.Throws<NotFoundException>(() => _eventService.DeleteEvent(model.Id));
+            Assert.IsTrue(actual.Id == expected.Id);
+            Assert.IsNotNull(actual);
+
+
         }
 
         [Test]
@@ -229,8 +246,9 @@ namespace BearGoodbyeKolkhozProject.Business.Tests
 
             //when
 
-            //then
-            Assert.Throws<NotFoundException>(() => _eventService.RestoreEvent(model.Id));
+            //then
+            Assert.Throws<NotFoundException>(() => _service.DeleteEvent(even.Id));
+
         }
 
 

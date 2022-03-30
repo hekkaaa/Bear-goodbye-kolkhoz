@@ -7,7 +7,6 @@ using BearGoodbyeKolkhozProject.Data.Repositories;
 using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace BearGoodbyeKolkhozProject.Business.Tests
 {

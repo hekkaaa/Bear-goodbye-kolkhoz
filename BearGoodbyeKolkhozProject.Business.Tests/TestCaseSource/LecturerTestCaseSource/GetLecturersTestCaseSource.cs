@@ -22,7 +22,7 @@ namespace BearGoodbyeKolkhozProject.Business.Tests
                     Id = 1
                 }
             };
-            
+
             List<EventModel> eventModels = new()
             {
                 new EventModel()
@@ -84,7 +84,7 @@ namespace BearGoodbyeKolkhozProject.Business.Tests
                 },
             };
 
-            
+
 
             yield return new object[] { lecturers, lecturerModels };
 

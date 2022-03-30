@@ -7,16 +7,12 @@ using BearGoodbyeKolkhozProject.Data.Entities;
 using BearGoodbyeKolkhozProject.Data.Repositories;
 using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BearGoodbyeKolkhozProject.Business.Tests
 {
     public class UserServiceTests
-    {   
+    {
         private ApplicationContext _context;
         private IMapper _mapper;
         private UserService _userService;
@@ -36,17 +32,17 @@ namespace BearGoodbyeKolkhozProject.Business.Tests
             _context.Database.EnsureDeleted();
             _context.Database.EnsureCreated();
         }
-        
+
 
         [TestCaseSource(typeof(DeleteUserByIdTestCaseSource))]
         public void GetUserByEmailTests(List<Client> user, Client expected)
         {
             //given
-            foreach(var client in user)
+            foreach (var client in user)
             {
                 _context.Client.Add(client);
             }
-            
+
             _context.SaveChanges();
 
             //when
@@ -129,7 +125,7 @@ namespace BearGoodbyeKolkhozProject.Business.Tests
             UserService userService = new UserService(_userRepository, _mapper);
 
             //then
-            Assert.Throws<NotFoundException>(()=> userService.RecoverUserByEmail("Deacoder221s@ya.ru"));
+            Assert.Throws<NotFoundException>(() => userService.RecoverUserByEmail("Deacoder221s@ya.ru"));
         }
 
         [TestCaseSource(typeof(RecoverUserByEmailTestCaseSource))]

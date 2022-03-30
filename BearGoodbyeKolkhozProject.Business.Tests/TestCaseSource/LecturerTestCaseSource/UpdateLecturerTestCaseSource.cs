@@ -1,6 +1,5 @@
 ﻿using BearGoodbyeKolkhozProject.Business.Models;
 using BearGoodbyeKolkhozProject.Data.Entities;
-using System;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -10,7 +9,7 @@ namespace BearGoodbyeKolkhozProject.Business.Tests
     {
         public IEnumerator GetEnumerator()
         {
-          
+
             Lecturer lecturer = new()
             {
                 Id = 1,

@@ -1,6 +1,5 @@
 ﻿using BearGoodbyeKolkhozProject.Business.Models;
 using BearGoodbyeKolkhozProject.Data.Entities;
-using System;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -18,12 +17,12 @@ namespace BearGoodbyeKolkhozProject.Business.Tests
                     Id = 1,
                 },
 
-                new() 
-                { 
+                new()
+                {
                     Id = 2
                 },
             };
-            
+
             List<TrainingModel> trainingModelList = new()
             {
                 new()
@@ -31,8 +30,8 @@ namespace BearGoodbyeKolkhozProject.Business.Tests
                     Id = 1,
                 },
 
-                new() 
-                { 
+                new()
+                {
                     Id = 2
                 },
             };
