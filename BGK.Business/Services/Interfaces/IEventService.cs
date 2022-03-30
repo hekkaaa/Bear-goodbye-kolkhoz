@@ -12,5 +12,6 @@ namespace BearGoodbyeKolkhozProject.Business.Interface
         bool SignUp(int trainingId, int clientId);
         List<EventModel> GetCompletedEventsByLecturerId(int id);
         List<EventModel> GetAttendedEventsByClientId(int id);
+        void RestoreEvent(int id);
     }
 }
