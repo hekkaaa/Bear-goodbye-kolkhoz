@@ -37,11 +37,13 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
             return trainingReview.Id;
         }
 
-        public void DeleteTrainingReview(int id)
+        public bool DeleteTrainingReview(TrainingReview trainingReview, bool isDeleted)
         {
-            var trainingReview = GetTrainingReviewById(id);
             _applicationContext.TrainingReview.Remove(trainingReview);
+
             _applicationContext.SaveChanges();
+
+            return true;
         }
 
         public List<TrainingReview> GetReviewByTrainingId(int trainingId)
