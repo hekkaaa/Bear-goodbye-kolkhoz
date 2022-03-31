@@ -125,9 +125,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         [SwaggerOperation("Delete TrainingReview")]
         public ActionResult<bool> DeleteTrainingReviewById(int id)
         {
-            _trainingReviewService.DeleteTrainingReview(id);
-
-            return Ok(true);
+            return Ok(_trainingReviewService.DeleteTrainingReview(id));
         }
     }
 }

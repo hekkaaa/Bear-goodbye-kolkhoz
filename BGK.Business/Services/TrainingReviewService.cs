@@ -51,7 +51,7 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             return _repository.AddTrainingReview(trainingReviewEntity);
         }
 
-        public void DeleteTrainingReview(int id)
+        public bool DeleteTrainingReview(int id)
         {
             var trainingReviewModel = _repository.GetTrainingReviewById(id);
             if (trainingReviewModel == null)
@@ -59,7 +59,7 @@ namespace BearGoodbyeKolkhozProject.Business.Services
 
             var trainingReviewEntity = _mapper.Map<TrainingReview>(trainingReviewModel);
            
-            _repository.DeleteTrainingReview(trainingReviewEntity);
+            return _repository.DeleteTrainingReview(trainingReviewEntity, true);
         }
 
         public List<TrainingReviewModel> GetReviewsByTrainingId(int trainingId)
