@@ -118,7 +118,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         }
 
         [HttpDelete("{id}")]
-        [ProducesResponseType(typeof(bool), StatusCodes.Status204NoContent)]
+        [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status403Forbidden)]
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status503ServiceUnavailable)]
@@ -127,7 +127,7 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         {
             _trainingReviewService.DeleteTrainingReview(id);
 
-            return NoContent();
+            return Ok(true);
         }
     }
 }
