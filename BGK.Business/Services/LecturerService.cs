@@ -103,12 +103,24 @@ namespace BearGoodbyeKolkhozProject.Business.Services
 
         public List<TrainingModel> GetTrainingByLecturerId(int id)
         {
-            var entity = _lecturerRepo.GetLecturerById(id);
+            //var entity = _lecturerRepo.GetLecturerById(id);
+            //if (entity is null)
+            //{
+            //    throw new NotFoundException($"Нет лектора c id = {id}");
+            //}
+
+            //var res = _lecturerRepo.GetLecturerByIdAndIncludeTraning(id);
+            //List<TrainingModel> trainings = _mapper.Map<List<TrainingModel>>(res.Trainings);
+
+            var entity = _lecturerRepo.GetLecturerByIdAndIncludeTraning(id);
             if (entity is null)
             {
                 throw new NotFoundException($"Нет лектора c id = {id}");
             }
-
+            if(entity.Trainings.Count() == 0)
+            {
+                throw new NotFoundException("The lecturer does not participate in trainings | Лектор не участвует в тренингах");
+            }
             List<TrainingModel> trainings = _mapper.Map<List<TrainingModel>>(entity.Trainings);
             return trainings;
         }

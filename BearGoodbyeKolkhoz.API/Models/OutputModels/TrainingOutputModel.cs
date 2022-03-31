@@ -9,7 +9,8 @@
         public int Duration { get; set; }
         public int Price { get; set; }
         public bool IsDeleted { get; set; }
-
-        public List<TopicOutputModel> Topic { get; set; }
+        
+        // закоментировал специально - Потоцкий.А.
+        //public List<TopicOutputModel> Topic { get; set; } 
     }
 }

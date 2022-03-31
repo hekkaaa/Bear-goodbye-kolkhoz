@@ -70,9 +70,9 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
         public ActionResult<List<TrainingOutputModel>> GetTrainingByLecturerId()
         {
             int id = HttpContext.GetUserIdFromToken();
-            var trainings = _service.GetTrainingByLecturerId(id);
-
-            return Ok(trainings);
+            var entity = _service.GetTrainingByLecturerId(id);
+            var res = _mapper.Map<List<TrainingOutputModel>>(entity);
+            return Ok(res);
         }
 
         [HttpPost()]
