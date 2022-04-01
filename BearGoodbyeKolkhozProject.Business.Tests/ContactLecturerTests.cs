@@ -32,7 +32,7 @@ namespace BearGoodbyeKolkhozProject.Business.Tests
             _contactLecturerRepositoryMock.Setup(cl => cl.AddContact(It.IsAny<ContactLecturer>()));
 
             //when
-            ContactLecturerService _service = new ContactLecturerService(_contactLecturerRepositoryMock.Object , _mapper, _lecturerRepositoryMock.Object);
+            ContactLecturerService _service = new ContactLecturerService(_contactLecturerRepositoryMock.Object, _mapper, _lecturerRepositoryMock.Object);
             _service.AddContact(id, model);
 
             //then

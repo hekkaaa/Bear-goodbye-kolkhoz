@@ -51,14 +51,15 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             return _repository.AddTrainingReview(trainingReviewEntity);
         }
 
-        public void DeleteTrainingReview(int id)
+        public bool DeleteTrainingReview(int id)
         {
-            var trainingReviewEntity = _repository.GetTrainingReviewById(id);
-
-            if (trainingReviewEntity == null)
+            var trainingReviewModel = _repository.GetTrainingReviewById(id);
+            if (trainingReviewModel == null)
                 throw new BusinessException("Такого обзора на тренинг не найдено!");
 
-            _repository.DeleteTrainingReview(id);
+            var trainingReviewEntity = _mapper.Map<TrainingReview>(trainingReviewModel);
+           
+            return _repository.DeleteTrainingReview(trainingReviewEntity, true);
         }
 
         public List<TrainingReviewModel> GetReviewsByTrainingId(int trainingId)

@@ -20,7 +20,12 @@ namespace BearGoodbyeKolkhozProject.Business.Services
 
         public ClassroomModel GetClassroomById(int id)
         {
-            return _mapper.Map<ClassroomModel>(_repository.GetClassroomById(id));
+            var entity = _mapper.Map<ClassroomModel>(_repository.GetClassroomById(id));
+            if (entity == null)
+            {
+                throw new NotFoundException("Нет такого кабинета");
+            }
+            return entity;
         }
 
         public List<ClassroomModel> GetClassroomAll()
@@ -43,7 +48,21 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             else
             {
                 res.IsDeleted = true;
-                return _repository.DeleteClassroomById(res);
+                return _repository.UpdateClassroomInfo(res, true);
+            }
+        }
+        
+        public bool RestoreClassroom(int id)
+        {
+            var res = _repository.GetClassroomById(id);
+            if (res == null)
+            {
+                throw new NotFoundException("Нет такого кабинета");
+            }
+            else
+            {
+                res.IsDeleted = true;
+                return _repository.UpdateClassroomInfo(res, false);
             }
         }
 
@@ -52,7 +71,7 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             var res = _repository.GetClassroomById(id);
             if (res == null)
             {
-                throw new ArgumentNullException();
+                throw new NotFoundException("Нет такого кабинета");
             }
             var entities = _mapper.Map<Classroom>(newItem);
             return _repository.UpdateClassroomInfo(res, entities);

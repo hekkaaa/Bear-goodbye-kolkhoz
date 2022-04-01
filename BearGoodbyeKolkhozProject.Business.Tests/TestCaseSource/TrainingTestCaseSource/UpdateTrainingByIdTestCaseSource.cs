@@ -1,7 +1,6 @@
 ﻿using BearGoodbyeKolkhozProject.Business.Models;
 using BearGoodbyeKolkhozProject.Data.Entities;
 using System.Collections;
-using System.Collections.Generic;
 
 namespace BearGoodbyeKolkhozProject.Business.Tests
 {

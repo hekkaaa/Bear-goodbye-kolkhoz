@@ -26,6 +26,13 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
             _db.SaveChanges();
             return true;
         }
+        
+        public bool UpdateClassroomInfo(Classroom oldItem, bool isDeleted)
+        {
+            oldItem.IsDeleted = isDeleted;
+            _db.SaveChanges();
+            return true;
+        }
 
         public List<Classroom> GetClassroomsAll()
         {

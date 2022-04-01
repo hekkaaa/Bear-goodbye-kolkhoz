@@ -16,19 +16,18 @@ namespace BearGoodbyeKolkhozProject.Business.Tests
     public class LecturerServiceTests
     {
 
-        private readonly IMapper _mapper;
+        private IMapper _mapper;
         private Mock<ILecturerRepository> _lecturerRepository;
         private Mock<IUserRepository> _userRepository;
         private Mock<ITrainingRepository> _trainingRepository;
 
-
-        public LecturerServiceTests()
+        [SetUp]
+        public void Setup()
         {
             _mapper = new Mapper(new MapperConfiguration(cfg => cfg.AddProfile<BusinessMapperProfile>()));
             _lecturerRepository = new Mock<ILecturerRepository>();
             _userRepository = new Mock<IUserRepository>();
             _trainingRepository = new Mock<ITrainingRepository>();
-
         }
 
         [TestCaseSource(typeof(GetLecturerModelByIdCaseSource))]
@@ -219,7 +218,7 @@ namespace BearGoodbyeKolkhozProject.Business.Tests
             Assert.Throws<NotFoundException>(() => _service.AddTraining(It.IsAny<int>(), It.IsAny<int>()));
             Assert.Throws<NotFoundException>(() => _service.AddTraining(1, It.IsAny<int>()));
         }
-        
+
         [Test]
         public void DeleteTrainingNegativeTests()
         {
@@ -231,7 +230,7 @@ namespace BearGoodbyeKolkhozProject.Business.Tests
             //then
             Assert.Throws<NotFoundException>(() => _service.DeleteTraining(It.IsAny<int>(), It.IsAny<int>()));
         }
-        
+
         [Test]
         public void UpdateLecturerNegativeTests()
         {
@@ -243,7 +242,7 @@ namespace BearGoodbyeKolkhozProject.Business.Tests
             //then
             Assert.Throws<NotFoundException>(() => _service.UpdateLecturer(It.IsAny<int>(), It.IsAny<LecturerModel>()));
         }
-        
+
         [Test]
         public void GetLecturerByIdNegativeTests()
         {
@@ -255,7 +254,7 @@ namespace BearGoodbyeKolkhozProject.Business.Tests
             //then
             Assert.Throws<NotFoundException>(() => _service.GetLecturerById(It.IsAny<int>()));
         }
-        
+
         [Test]
         public void GetTrainingByLecturerIdNegativeTests()
         {
@@ -266,8 +265,8 @@ namespace BearGoodbyeKolkhozProject.Business.Tests
 
             //then
             Assert.Throws<NotFoundException>(() => _service.GetTrainingByLecturerId(It.IsAny<int>()));
-        } 
-        
+        }
+
         [Test]
         public void DeleteLecturerNegativeTests()
         {
@@ -279,7 +278,7 @@ namespace BearGoodbyeKolkhozProject.Business.Tests
             //then
             Assert.Throws<NotFoundException>(() => _service.DeleteLecturer(It.IsAny<int>()));
         }
-        
+
         [Test]
         public void RestoreLecturerNegativeTests()
         {
@@ -291,6 +290,6 @@ namespace BearGoodbyeKolkhozProject.Business.Tests
             //then
             Assert.Throws<NotFoundException>(() => _service.RestoreLecturer(It.IsAny<int>()));
         }
-        
+
     }
 }
