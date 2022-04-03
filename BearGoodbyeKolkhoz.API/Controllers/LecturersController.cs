@@ -137,16 +137,14 @@ namespace BearGoodbyeKolkhozProject.API.Controllers
 
         [HttpDelete("{id}")]
         [Authorize(Roles = "Admin")]
-        [ProducesResponseType(typeof(ActionResult), StatusCodes.Status204NoContent)]
+        [ProducesResponseType(typeof(ActionResult), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status403Forbidden)]
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ExceptionOutputModel), StatusCodes.Status503ServiceUnavailable)]
         [SwaggerOperation("Delete Lecturer. Roles: Admin")]
-        public ActionResult DeleteLecturer(int id)
+        public ActionResult<bool> DeleteLecturer(int id)
         {
-            _service.DeleteLecturer(id);
-
-            return NoContent();
+            return Ok(_service.DeleteLecturer(id));
         }
         
         [HttpPatch("{id}")]
