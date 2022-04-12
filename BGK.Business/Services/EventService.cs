@@ -170,7 +170,7 @@ namespace BearGoodbyeKolkhozProject.Business.Services
             return eventModels;
         }
 
-        public bool SignUp(int trainingId, int clientId)
+        public int SignUp(int trainingId, int clientId)
         {
             var even = _eventRepository.GetEventsByTrainingId(trainingId);
             var client = _clientRepository.GetClientById(clientId);
@@ -182,8 +182,7 @@ namespace BearGoodbyeKolkhozProject.Business.Services
 
             if (even is null)
             {
-                InitEvent(training, client);
-                return true;
+                return InitEvent(training, client);
             }
             else if (training.MembersCount - even.Clients.Count == 1 && !IsDuplicateRegistration(even, clientId))
             {
@@ -193,15 +192,15 @@ namespace BearGoodbyeKolkhozProject.Business.Services
 
                 // EmailSender() - отправка EMAIL по всем участникам.
 
-                return true;
+                //return even.Id;
             }
             else if (even.Clients.Count < training.MembersCount && !IsDuplicateRegistration(even, clientId))
             {
                 _eventRepository.SignUp(client, even);
-                return true;
+                //return even.Id;
             }
 
-            return true;
+            return even.Id;
         }
         private void CheckExistsOrRaiseException(object test, int id)
         {
@@ -226,7 +225,7 @@ namespace BearGoodbyeKolkhozProject.Business.Services
 
         }
 
-        private void InitEvent(Training training, Client client)
+        private int InitEvent(Training training, Client client)
         {
             var newEvent = new Event()
             {
@@ -234,7 +233,7 @@ namespace BearGoodbyeKolkhozProject.Business.Services
                 Clients = new List<Client> { client }
             };
 
-            _eventRepository.AddEvent(newEvent);
+            return _eventRepository.AddEvent(newEvent);
         }
 
         private void AssignData(Training training, Client client, Event even)

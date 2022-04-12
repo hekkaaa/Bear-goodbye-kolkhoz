@@ -36,10 +36,11 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
             .Include(po => po.Lecturer)
             .Where(e => !e.IsDeleted).ToList();
 
-        public void AddEvent(Event even)
+        public int AddEvent(Event even)
         {
             _context.Event.Add(even);
             _context.SaveChanges();
+            return even.Id;
         }
 
         public void UpdateEvent(Event even)
