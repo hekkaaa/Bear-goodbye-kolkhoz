@@ -4,7 +4,7 @@ namespace BearGoodbyeKolkhozProject.Data.Repositories
 {
     public interface IEventRepository
     {
-        void AddEvent(Event even);
+        int AddEvent(Event even);
         Event GetEventById(int id);
         List<Event> GetEvents();
         void UpdateEvent(Event even);
